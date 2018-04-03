@@ -1,4 +1,5 @@
-package backend;
+package frontend;
+
 import java.io.File;
 
 import sharedobjects.SendMessage;

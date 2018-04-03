@@ -1,4 +1,5 @@
-package backend;
+package frontend;
+
 import sharedobjects.Student;
 
 public class StudentGUI

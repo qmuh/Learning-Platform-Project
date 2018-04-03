@@ -1,4 +1,5 @@
-package backend;
+package frontend;
+
 
 public interface ServerInfo
 {

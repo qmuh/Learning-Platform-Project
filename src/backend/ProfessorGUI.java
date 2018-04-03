@@ -1,3 +1,4 @@
+package backend;
 import sharedobjects.Professor;
 
 public class ProfessorGUI

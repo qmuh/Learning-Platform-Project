@@ -11,6 +11,7 @@ public abstract class Table<E>
 {
 
 	public Connection dbConnection;
+	
 	public String tableName;
 	
 	public PreparedStatement preparedStatement;

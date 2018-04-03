@@ -34,6 +34,52 @@ public class Assignment implements Serializable
 	 */
 	private String due_date;
 	
+	public Assignment(int assignID, int courseID, String assignTitle, String pathway , Boolean isActive, String due)
+	{
+		id = assignID;
+		course_id = courseID;
+		title = assignTitle;
+		path = pathway;
+		active = isActive;
+		due_date = due;
+		
+	}
+
+	
+	public int getId()
+	{
+		return id;
+	}
+
+	
+	public int getCourse_id()
+	{
+		return course_id;
+	}
+
+	
+	public String getTitle()
+	{
+		return title;
+	}
+
+	
+	public String getPath()
+	{
+		return path;
+	}
+
+	
+	public Boolean getActive()
+	{
+		return active;
+	}
+
+	
+	public String getDue_date()
+	{
+		return due_date;
+	}
 	
 	
 }

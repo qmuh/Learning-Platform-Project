@@ -12,8 +12,6 @@ import sharedobjects.User;
 public class UserTable extends Table<User>
 {
 
-	String tableName = "UserTable";
-	
 	public UserTable(Connection connectionToDB, String tableName)
 	{
 		super(connectionToDB, tableName);
@@ -29,7 +27,7 @@ public class UserTable extends Table<User>
 			preparedStatement = dbConnection.prepareStatement(sql);
 			preparedStatement.setInt(1,toAdd.getId());
 			preparedStatement.setString(2, toAdd.getPassword());
-			preparedStatement.setString(3, toAdd.geteMail());
+			preparedStatement.setString(3, toAdd.getEmail());
 			preparedStatement.setString(4, toAdd.getFirstName());
 			preparedStatement.setString(5, toAdd.getLastName());
 			preparedStatement.setString(6, toAdd.getUserType());

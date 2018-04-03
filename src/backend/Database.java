@@ -81,7 +81,6 @@ public class Database
 		}
 	}
 
-	
 	public void addAllTables()
 	{
 		assignmentTable = new AssignmentTable(dbConnection, "AssignmentTable");
@@ -125,6 +124,7 @@ public class Database
 		//myDatabase.userTable.add(new Student(30016415, "Qasim", "Muhammad", "qasim.muhammad@ucalgary.ca", "S", "qazxsw"));
 		//myDatabase.userTable.add(new Student(39817100, "Jimmy", "Truong", "jimmy.truong@ucalgary.ca", "P", "qazxsw"));
 		
+		// THIS IS USED TO TEST USER VALIDATION
 		User myUser = myDatabase.userTable.validateUser(39817100, "qazxsw");
 		
 		if(myUser == null)

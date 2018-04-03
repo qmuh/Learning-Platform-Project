@@ -4,10 +4,13 @@ import java.sql.SQLException;
 import java.util.Vector;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import sharedobjects.Assignment;
+import sharedobjects.Professor;
+import sharedobjects.Student;
 
-public class AssignmentTable extends Table
+public class AssignmentTable extends Table<Assignment>
 {
 	String tableName = "AssignmentTable";
 	
@@ -17,8 +20,10 @@ public class AssignmentTable extends Table
 	}
 	
 	@Override
-	public void add(Object toAdd)
+	public void add(Assignment toAdd)
 	{
+		
+		
 		
 	}
 
@@ -49,6 +54,25 @@ public class AssignmentTable extends Table
 	public Vector<Assignment> searchByCourseID(int courseID)
 	{
 		Vector<Assignment> myAssignments = new Vector<Assignment>();
+		
+		String sql = "SELECT * FROM " + tableName + " WHERE COURSEID= ?";
+		ResultSet assigns;
+		try {
+			preparedStatement = dbConnection.prepareStatement(sql);
+			preparedStatement.setInt(1, courseID);
+			assigns = preparedStatement.executeQuery();
+			if(assigns.next())
+			{
+				myAssignments.add(new Assignment(assigns.getInt("ID"), 
+										  assigns.getInt("COURSEID"),
+										  assigns.getString("TITLE"),
+										  assigns.getString("PATH"),
+										  assigns.getBoolean("ACTIVE"),
+										  assigns.getString("DUEDATE")));
+				
+			}
+		
+		} catch (SQLException e) { e.printStackTrace(); }
 		
 		return myAssignments;
 		

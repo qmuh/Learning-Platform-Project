@@ -74,7 +74,7 @@ public abstract class User implements Serializable
 
 
 
-	public String geteMail()
+	public String getEmail()
 	{
 		return email;
 	}

@@ -1,11 +1,20 @@
 package backend;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Vector;
 
 import sharedobjects.Assignment;
 
 public class StudentEnrollmentTable extends Table
 {
+
+	public String tableName = "StudentEnrollmentTable";
+	
+	public StudentEnrollmentTable(Connection connectionToDB, String tableName)
+	{
+		super(connectionToDB, tableName);
+	}
 
 	@Override
 	public void add(Object toAdd)
@@ -17,7 +26,21 @@ public class StudentEnrollmentTable extends Table
 	@Override
 	public void createTable()
 	{
-		// TODO Auto-generated method stub
+		String sql = "CREATE TABLE " + tableName + "(" +
+			     "ID INT(8) NOT NULL, " +
+			     "STUDENTID INT(8) NOT NULL, " +
+			     "COURSEID INT(8) NOT NULL, " +
+			     "PRIMARY KEY ( id ) )";
+		
+		try{
+			preparedStatement = dbConnection.prepareStatement(sql);
+			preparedStatement.executeUpdate();
+			System.out.println("Created Table " + tableName);
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
 		
 	}
 

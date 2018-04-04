@@ -8,6 +8,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -18,6 +23,7 @@ import javax.swing.border.MatteBorder;
 import frontend.Colours;
 import frontend.ServerInfo;
 import frontend.WondrisInfo;
+import sharedobjects.LoginInfo;
 
 
 
@@ -47,12 +53,42 @@ public class LoginGUI extends JFrame implements ServerInfo, WondrisInfo, Colours
 		add(loginPanel);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setupLogin();
 	}
 
-	private void login()
+	private void setupLogin()
 	{
+		enterCredentials.addActionListener(new ActionListener()
+		{
+			
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				try
+				{
+					Socket mySocket = new Socket("localhost", 8991);
+					LoginInfo userInfo = new LoginInfo(Integer.parseInt(userName.getText()), password.getText());
+					
 
+					
+				}catch(NumberFormatException e2) {
+					System.out.println("Username must only be numbers");
+				}
+				
+				catch (UnknownHostException e1)
+				{
+					e1.printStackTrace();
+				} catch (IOException e1)
+				{
+					e1.printStackTrace();
+				}
+				
+				
+			}
+
+		});
 	}
+
 
 	private void createFields()
 	{

@@ -19,4 +19,12 @@ public class LoginInfo implements Serializable
 	 * The password for the user
 	 */
 	private String password;
+	
+	public LoginInfo(int user, String pass)
+	{
+		username = user;
+		password = pass;
+	}
+	
+	
 }

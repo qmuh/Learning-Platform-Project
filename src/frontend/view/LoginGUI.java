@@ -1,9 +1,8 @@
-package frontend;
+package frontend.view;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,6 +14,10 @@ import javax.swing.JLabel;
 import javax.swing.BorderFactory;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
+
+import frontend.Colours;
+import frontend.ServerInfo;
+import frontend.WondrisInfo;
 
 
 

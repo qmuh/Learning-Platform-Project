@@ -11,7 +11,7 @@ public class PageNavigator extends JFrame
 {
 	private JPanel pageLayout;
 	private CardLayout cardLayout;
-	private Page currentPage;
+	private Page<?, ?> currentPage;
 	
 	public PageNavigator()
 	{

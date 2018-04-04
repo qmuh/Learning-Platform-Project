@@ -10,6 +10,11 @@ public class ProfessorGUI extends PageNavigator
 	private Professor thisProfessor;
 	//	 Page??
 	private MessageHandler comHandler;
+	
+	public ProfessorGUI() {
+		super();
+		
+	}
 
 	
 }

@@ -9,5 +9,10 @@ public class StudentGUI
 	// Page??
 	MessageHandler comHandler;
 	
+	public StudentGUI()
+	{
+		super();
+	}
+	
 	
 }

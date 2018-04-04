@@ -1,11 +1,11 @@
-package backend;
+package backend.userSession;
 
 import java.net.Socket;
 
-public class StudentSession extends ClientSession
+public class ProfessorSession extends ClientSession
 {
 
-	public StudentSession(Socket socket)
+	public ProfessorSession(Socket socket)
 	{
 		super(socket);
 	}

@@ -7,7 +7,7 @@ import sharedobjects.SendMessage;
 public class MessageHandler
 {
 
-	ClientController myClient;
+	private ClientController myClient;
 	
 	public void sendFile(File toSend) 
 	{

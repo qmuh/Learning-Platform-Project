@@ -2,7 +2,7 @@ package sharedobjects;
 
 import java.io.Serializable;
 
-public class SendMessage implements Serializable
+public class SendMessage<E> implements Serializable
 {
 
 	// Command
@@ -10,5 +10,28 @@ public class SendMessage implements Serializable
 	/**
 	 * The object which is to be sent
 	 */
-	private Object eObject;
+	private E messageObject;
+	
+	/**
+	 * Command used by server to interpret the message
+	 */
+	private String command;
+
+	public SendMessage(E toAdd, String commands)
+	{
+		messageObject = toAdd;
+		command = commands;
+	}
+	
+	public E getmessageObject()
+	{
+		return messageObject;
+	}
+
+	public String getCommand()
+	{
+		return command;
+	}
+	
+	
 }

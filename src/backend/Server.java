@@ -13,6 +13,8 @@ import backend.database.*;
 import backend.userSession.ProfessorSession;
 import backend.userSession.StudentSession;
 import sharedobjects.LoginInfo;
+import sharedobjects.Professor;
+import sharedobjects.Student;
 import sharedobjects.User;
 
 public class Server
@@ -130,6 +132,7 @@ public class Server
 				{
 					ProfessorSession handleProfessor = new ProfessorSession(mySocket);
 					handleProfessor.setDatabase(database);
+					handleProfessor.setProfessor((Professor)myUser);
 					handleProfessor.run();
 				}
 
@@ -137,6 +140,7 @@ public class Server
 				{
 					StudentSession handleStudent = new StudentSession(mySocket);
 					handleStudent.setDatabase(database);
+					handleStudent.setStudent((Student)myUser);
 					handleStudent.run();
 				}
 			} catch (ClassNotFoundException e)

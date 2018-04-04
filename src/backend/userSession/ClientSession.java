@@ -1,4 +1,4 @@
-package backend;
+package backend.userSession;
 
 import java.io.BufferedReader;
 import java.io.ObjectInputStream;
@@ -6,7 +6,10 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-import backend.table.*;
+import backend.interfaces.Commands;
+import backend.Database;
+import backend.userSession.helper.EmailHelper;
+import backend.userSession.helper.FileHelper;
 
 public abstract class ClientSession implements Runnable, Commands
 {
@@ -14,42 +17,42 @@ public abstract class ClientSession implements Runnable, Commands
 	/**
 	 * Connects Client to a server
 	 */
-	protected Socket mySocket;
+	Socket mySocket;
 	
 	/**
 	 * Reads from socket
 	 */
-	protected BufferedReader reader;
+	BufferedReader reader;
 	
 	/**
 	 * Writes to the socket
 	 */
-	protected PrintWriter writer;
+	PrintWriter writer;
 	
 	/**
 	 * Used for sending serialized objects
 	 */
-	protected ObjectOutputStream outputStream;
+	ObjectOutputStream outputStream;
 	
 	/**
 	 * Used for receiving serialized objects
 	 */
-	protected ObjectInputStream inputStream;
+	ObjectInputStream inputStream;
 	
 	/**
 	 * Database used by the server
 	 */
-	protected Database myDatabase;
+	Database myDatabase;
 	
 	/**
 	 * Used for sending emails
 	 */
-	protected EmailHelper myEmailHelper;
+	EmailHelper myEmailHelper;
 	
 	/**
 	 * Used to deal with files
 	 */
-	protected FileHelper myFileHelper;
+	FileHelper myFileHelper;
 		
 	
 	/**

@@ -1,4 +1,4 @@
-package backend.table;
+package backend.interfaces;
 
 // NEEDS IMPLEMENTATION
 public interface Commands

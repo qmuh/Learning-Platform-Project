@@ -1,10 +1,8 @@
-package frontend;
+package frontend.view;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -21,8 +19,6 @@ import javax.swing.border.MatteBorder;
 import frontend.interfaces.Colours;
 import frontend.interfaces.ServerInfo;
 import frontend.interfaces.WondrisInfo;
-
-
 
 public class LoginGUI extends JFrame implements ServerInfo, WondrisInfo, Colours
 {

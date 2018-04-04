@@ -1,4 +1,4 @@
-package backend;
+package backend.table;
 
 public class EmailHelper
 {

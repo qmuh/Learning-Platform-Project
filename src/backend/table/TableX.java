@@ -1,4 +1,4 @@
-package backend;
+package backend.table;
 
 import java.sql.Connection;
 import java.util.ArrayList;

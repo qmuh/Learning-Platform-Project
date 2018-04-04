@@ -1,4 +1,4 @@
-package frontend;
+package frontend.controller;
 
 import java.io.File;
 

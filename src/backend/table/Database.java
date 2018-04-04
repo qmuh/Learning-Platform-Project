@@ -9,6 +9,8 @@ import java.util.Properties;
 
 import backend.interfaces.DatabaseProperties;
 import backend.table.*;
+import sharedobjects.Professor;
+import sharedobjects.Student;
 
 public class Database implements DatabaseProperties
 {
@@ -32,7 +34,7 @@ public class Database implements DatabaseProperties
 	CourseTable courseTable;
 	GradeTable gradeTable;
 	StudentEnrollmentTable studentEnrollmentTable;
-	UserTable userTable;
+	public UserTable userTable;
 	SubmissionTable submissionTable;
 
 	/**
@@ -48,12 +50,13 @@ public class Database implements DatabaseProperties
 
 			// If this fails make sure your connectionInfo and login/password
 			// are correct
-
+			
 			Properties connectionProperties = createDatabaseProperties();
 
 			dbConnection = DriverManager.getConnection(CONNECTION_URL,
 					connectionProperties);
 			System.out.println("Connected to: " + CONNECTION_URL + "\n");
+			addAllTables();
 		} catch (SQLException e)
 		{
 			e.printStackTrace();
@@ -135,34 +138,16 @@ public class Database implements DatabaseProperties
 	{
 		Database myDatabase = new Database();
 		// myDatabase.createDB();
-		myDatabase.addAllTables();
+		//myDatabase.addAllTables();
 		// myDatabase.createAllTables();
 		// myDatabase.removeAllTables();
-
-		// myDatabase.userTable.add(new Student(30016415, "Qasim", "Muhammad",
-		// "qasim.muhammad@ucalgary.ca", "S", "qazxsw"));
-		// myDatabase.userTable.add(new Student(39817100, "Jimmy", "Truong",
-		// "jimmy.truong@ucalgary.ca", "P", "qazxsw"));
-
-		// THIS IS USED TO TEST USER VALIDATION
-
-		// User myUser = myDatabase.userTable.validateUser(39817100, "qazxsw");
+		
 		/*
-		 * if(myUser == null) {
-		 * System.out.println("Incorrect password or user id"); }
-		 * 
-		 * else if(myUser.getUserType().equals("S")) {
-		 * System.out.println("The user is a student with the name of " +
-		 * myUser.getFirstName()); }
-		 * 
-		 * else if (myUser.getUserType().equals("P")) {
-		 * System.out.println("The user is a professor with the name of " +
-		 * myUser.getFirstName()); }
-		 * 
-		 */
-
-		// myDatabase.assignmentTable.add(new Assignment(1000, 1234, "Darin
-		// Sucks", "a pathway", true, "January 3, 12pm"));
+		 myDatabase.userTable.add(new Student(30016415, "Qasim", "Muhammad",
+		 "qasim.muhammad@ucalgary.ca", "S", "qazxsw"));
+		 myDatabase.userTable.add(new Professor(39817100, "Jimmy", "Truong",
+		"jimmy.truong@ucalgary.ca", "P", "qazxsw"));
+		*/
 
 	}
 

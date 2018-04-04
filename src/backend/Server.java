@@ -2,6 +2,7 @@ package backend;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
@@ -10,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 import backend.table.*;
 import sharedobjects.LoginInfo;
-
+import sharedobjects.User;
 import backend.table.*;
 
 public class Server
@@ -38,6 +39,7 @@ public class Server
 			this.serverSocket = new ServerSocket(port);
 			this.threadPool = Executors.newCachedThreadPool();
 			this.database = new Database();
+			System.out.println("Server started");
 		} catch (IOException e)
 		{
 			System.err.println("Server socket creation error.");
@@ -52,10 +54,12 @@ public class Server
 		{
 			try
 			{
+
 				Socket incomingConnection = serverSocket.accept();
 				LoginHandler loginHandler = new LoginHandler(
 						incomingConnection);
 				threadPool.execute(loginHandler);
+
 			} catch (IOException e)
 			{
 				e.printStackTrace();
@@ -92,6 +96,7 @@ public class Server
 	private class LoginHandler implements Runnable
 	{
 		private ObjectInputStream objectInputStream;
+		private ObjectOutputStream objectOutputStream;
 		
 		public LoginHandler(Socket guestUser)
 		{
@@ -99,7 +104,8 @@ public class Server
 			{
 				objectInputStream = new ObjectInputStream(
 						guestUser.getInputStream());
-				objectInputStream.reset();
+				objectOutputStream = new ObjectOutputStream(
+						guestUser.getOutputStream());
 
 			} catch (IOException e)
 			{
@@ -113,6 +119,13 @@ public class Server
 			try
 			{
 				LoginInfo loginInfo = (LoginInfo) objectInputStream.readObject();
+
+
+				User myUser = database.userTable.validateUser(loginInfo.getUsername(), loginInfo.getPassword());
+				objectOutputStream.writeObject(myUser);
+				objectOutputStream.flush();
+
+				
 			} catch (ClassNotFoundException e)
 			{
 				e.printStackTrace();
@@ -127,6 +140,7 @@ public class Server
 
 	public static void main(String[] args)
 	{
-
+		Server myServer = new Server(8991);
+		myServer.runServer();
 	}
 }

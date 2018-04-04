@@ -11,6 +11,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -20,10 +22,14 @@ import javax.swing.BorderFactory;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
+import com.sun.beans.WeakCache;
+import com.sun.security.ntlm.Client;
+
 import frontend.Colours;
 import frontend.ServerInfo;
 import frontend.WondrisInfo;
 import sharedobjects.LoginInfo;
+import sharedobjects.User;
 
 
 
@@ -69,8 +75,28 @@ public class LoginGUI extends JFrame implements ServerInfo, WondrisInfo, Colours
 					Socket mySocket = new Socket("localhost", 8991);
 					LoginInfo userInfo = new LoginInfo(Integer.parseInt(userName.getText()), password.getText());
 					
-
+					ObjectOutputStream toServer = new ObjectOutputStream(mySocket.getOutputStream());
+					ObjectInputStream fromServer = new ObjectInputStream(mySocket.getInputStream());
 					
+					toServer.writeObject(userInfo);
+					toServer.flush();
+					
+					User myClient = (User) fromServer.readObject(); 
+					
+					if(myClient == null)
+					{
+						System.out.println("Incorrect username or password");
+					}
+					
+					else if(myClient.getUserType().equals("P")) 
+					{
+						System.out.println("We have a professor");
+					}	
+					
+					else if(myClient.getUserType().equals("S")) 
+					{
+						System.out.println("We have a student");
+					}	
 				}catch(NumberFormatException e2) {
 					System.out.println("Username must only be numbers");
 				}
@@ -78,6 +104,9 @@ public class LoginGUI extends JFrame implements ServerInfo, WondrisInfo, Colours
 				catch (UnknownHostException e1)
 				{
 					e1.printStackTrace();
+				} catch(ClassNotFoundException e3) {
+					System.out.println("Class not found exception");
+					
 				} catch (IOException e1)
 				{
 					e1.printStackTrace();

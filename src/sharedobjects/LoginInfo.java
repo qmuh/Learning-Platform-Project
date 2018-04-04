@@ -25,6 +25,23 @@ public class LoginInfo implements Serializable
 		username = user;
 		password = pass;
 	}
+
+	public static long getSerialversionuid()
+	{
+		return serialVersionUID;
+	}
+
+	public int getUsername()
+	{
+		return username;
+	}
+
+	public String getPassword()
+	{
+		return password;
+	}
+
+	
 	
 	
 }

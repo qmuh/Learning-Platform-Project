@@ -1,13 +1,15 @@
 package frontend.view;
 
+import sharedobjects.Professor;
+import frontend.components.PageNavigator;
 import frontend.controller.MessageHandler;
 import sharedobjects.Professor;
 
-public class ProfessorGUI
+public class ProfessorGUI extends PageNavigator
 {
-	Professor thisProfessor;
+	private Professor thisProfessor;
 	//	 Page??
-	MessageHandler comHandler;
+	private MessageHandler comHandler;
 
 	
 }

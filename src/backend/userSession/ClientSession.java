@@ -1,10 +1,15 @@
-package backend;
+package backend.userSession;
 
 import java.io.BufferedReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+
+import backend.interfaces.Commands;
+import backend.Database;
+import backend.userSession.helper.EmailHelper;
+import backend.userSession.helper.FileHelper;
 
 public abstract class ClientSession implements Runnable, Commands
 {

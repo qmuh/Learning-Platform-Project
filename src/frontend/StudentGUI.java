@@ -1,12 +1,13 @@
 package frontend;
 
 import sharedobjects.Student;
+import frontend.controller.MessageHandler;
 
 public class StudentGUI
 {
-	Student thisStudent;
+	private Student thisStudent;
 	// Page??
-	MessageHandler comHandler;
+	private MessageHandler comHandler;
 	
 	
 }

@@ -18,6 +18,10 @@ import javax.swing.BorderFactory;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
+import frontend.interfaces.Colours;
+import frontend.interfaces.ServerInfo;
+import frontend.interfaces.WondrisInfo;
+
 
 
 public class LoginGUI extends JFrame implements ServerInfo, WondrisInfo, Colours

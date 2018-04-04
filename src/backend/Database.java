@@ -7,6 +7,12 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import backend.table.AssignmentTable;
+import backend.table.CourseTable;
+import backend.table.GradeTable;
+import backend.table.StudentEnrollmentTable;
+import backend.table.SubmissionTable;
+import backend.table.UserTable;
 import sharedobjects.Assignment;
 import sharedobjects.Grade;
 import sharedobjects.Student;

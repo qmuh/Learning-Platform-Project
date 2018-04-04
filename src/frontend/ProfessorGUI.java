@@ -1,12 +1,13 @@
 package frontend;
 
 import sharedobjects.Professor;
+import frontend.controller.MessageHandler;
 
 public class ProfessorGUI
 {
-	Professor thisProfessor;
+	private Professor thisProfessor;
 	//	 Page??
-	MessageHandler comHandler;
+	private MessageHandler comHandler;
 
 	
 }

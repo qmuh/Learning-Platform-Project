@@ -1,4 +1,4 @@
-package backend;
+package backend.table;
 
 import java.sql.SQLException;
 import java.util.Vector;

@@ -1,6 +1,6 @@
-package backend;
+package backend.userSession;
 
-public class StudentSession extends ClientSession
+public class ProfessorSession extends ClientSession
 {
 
 	@Override

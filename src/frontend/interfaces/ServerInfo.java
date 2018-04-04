@@ -1,4 +1,4 @@
-package frontend;
+package frontend.interfaces;
 
 
 public interface ServerInfo

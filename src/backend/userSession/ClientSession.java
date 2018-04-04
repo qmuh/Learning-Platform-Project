@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 import backend.interfaces.Commands;
-import backend.Database;
+import backend.database.Database;
 import backend.userSession.helper.EmailHelper;
 import backend.userSession.helper.FileHelper;
 

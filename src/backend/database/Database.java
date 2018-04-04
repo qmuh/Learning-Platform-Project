@@ -1,4 +1,4 @@
-package backend.table;
+package backend.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,8 +7,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+import backend.database.*;
+import backend.database.tables.AssignmentTable;
+import backend.database.tables.CourseTable;
+import backend.database.tables.GradeTable;
+import backend.database.tables.StudentEnrollmentTable;
+import backend.database.tables.SubmissionTable;
+import backend.database.tables.UserTable;
 import backend.interfaces.DatabaseProperties;
-import backend.table.*;
 import sharedobjects.Professor;
 import sharedobjects.Student;
 

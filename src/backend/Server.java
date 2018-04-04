@@ -9,10 +9,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import backend.table.*;
+import backend.database.*;
+import backend.userSession.ProfessorSession;
+import backend.userSession.StudentSession;
 import sharedobjects.LoginInfo;
 import sharedobjects.User;
-import backend.table.*;
 
 public class Server
 {

@@ -13,6 +13,8 @@ import backend.database.*;
 import backend.userSession.ProfessorSession;
 import backend.userSession.StudentSession;
 import sharedobjects.LoginInfo;
+import sharedobjects.Professor;
+import sharedobjects.Student;
 import sharedobjects.User;
 
 public class Server
@@ -90,16 +92,16 @@ public class Server
 
 	/**
 	 * Provides a class that handles incoming connections using
-	 * 
+	 *
 	 * @author Jimmy Truong
-	 * 
+	 *
 	 */
 	private class LoginHandler implements Runnable
 	{
 		private ObjectInputStream objectInputStream;
 		private ObjectOutputStream objectOutputStream;
 		private Socket mySocket;
-		
+
 		public LoginHandler(Socket guestUser)
 		{
 			try
@@ -125,18 +127,20 @@ public class Server
 				User myUser = database.getUserTable().validateUser(loginInfo.getUsername(), loginInfo.getPassword());
 				objectOutputStream.writeObject(myUser);
 				objectOutputStream.flush();
-				
+
 				if(myUser.getUserType().equals("P"))
 				{
 					ProfessorSession handleProfessor = new ProfessorSession(mySocket);
 					handleProfessor.setDatabase(database);
+					handleProfessor.setProfessor((Professor)myUser);
 					handleProfessor.run();
 				}
-				
+
 				else if(myUser.getUserType().equals("P"))
 				{
 					StudentSession handleStudent = new StudentSession(mySocket);
 					handleStudent.setDatabase(database);
+					handleStudent.setStudent((Student)myUser);
 					handleStudent.run();
 				}
 			} catch (ClassNotFoundException e)
@@ -146,7 +150,6 @@ public class Server
 			{
 				e.printStackTrace();
 			}
-			//TODO:  create a new client session
 		}
 	}
 

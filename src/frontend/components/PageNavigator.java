@@ -2,11 +2,12 @@ package frontend.components;
 
 import java.awt.CardLayout;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import frontend.view.pages.*;
 
-public class PageNavigator
+public class PageNavigator extends JFrame
 {
 	private JPanel pageLayout;
 	private CardLayout cardLayout;
@@ -15,10 +16,10 @@ public class PageNavigator
 	public PageNavigator()
 	{
 		pageLayout = new JPanel(cardLayout);
-		BoxList<?> boxList = new BoxList<>();
-		currentPage = new HomePage(boxList);
+		currentPage = new HomePage();
 		pageLayout.add(currentPage);
-		
+		add(pageLayout);
+		setVisible(true);
 	}
 	
 	public void showPage(String page) {
@@ -35,6 +36,7 @@ public class PageNavigator
 	}
 	
 	public JPanel searchPage(String name) {
-		return new HomePage(new BoxList<>());
+		//TODO: Implement page search
+		return new HomePage();
 	}
 }

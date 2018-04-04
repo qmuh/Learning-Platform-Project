@@ -10,6 +10,10 @@ public class BoxList <T extends Box>
 
 	private JPanel scrollBox;
 	
+	public BoxList()
+	{
+		
+	}
 	public void addItem(T boxItem) 
 	{
 		

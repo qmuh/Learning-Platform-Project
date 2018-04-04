@@ -2,27 +2,27 @@ package frontend.view.pages;
 
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
+import javax.swing.Box;
 import javax.swing.JPanel;
 
-import frontend.ProfessorGUI;
-import frontend.StudentGUI;
+import frontend.view.ProfessorGUI;
+import frontend.view.StudentGUI;
 import frontend.components.BoxList;
 
 // TODO: T extends Box U ??
-public class Page extends JPanel 
+public class Page <T extends Box, U> extends JPanel 
 {
 
 	private static final long serialVersionUID = 1L;
 	private Header header;
 	private Footer footer;
 	protected char type;
-	protected ArrayList<?> itemList;
-	protected BoxList<?> itemDisplay;
+	protected ArrayList<U> itemList;
+	protected BoxList<T> itemDisplay;
 	protected StudentGUI studentGUI;
 	protected ProfessorGUI professorGUI;
 	
-	public Page(BoxList<?> boxList)
+	public Page(BoxList<T> boxList)
 	{
 		header = new Header();
 		footer = new Footer();

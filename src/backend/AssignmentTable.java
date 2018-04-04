@@ -22,7 +22,25 @@ public class AssignmentTable extends Table<Assignment>
 	@Override
 	public void add(Assignment toAdd)
 	{
-		
+		String sql = "INSERT INTO " + tableName +
+				" VALUES" + "(?,?,?,?,?,?)";;
+		try{
+			
+			preparedStatement = dbConnection.prepareStatement(sql);
+			preparedStatement.setInt(1,toAdd.getId());
+			preparedStatement.setInt(2, toAdd.getCourse_id());
+			preparedStatement.setString(3, toAdd.getTitle());
+			preparedStatement.setString(4, toAdd.getPath());
+			preparedStatement.setBoolean(5, toAdd.getActive());
+			preparedStatement.setString(6, toAdd.getDue_date());
+			preparedStatement.executeUpdate();
+			
+			System.out.println("Added Assignment " + toAdd.getTitle() + " creadted for course num " + toAdd.getCourse_id());
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
 		
 		
 	}

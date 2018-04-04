@@ -1,13 +1,16 @@
 package backend;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
 import sharedobjects.Course;
+import sharedobjects.Professor;
+import sharedobjects.Student;
 import sharedobjects.Submission;
 
-public class CourseTable extends Table
+public class CourseTable extends Table<Course>
 {
 	public String tableName = "CourseTable";
 	
@@ -17,9 +20,25 @@ public class CourseTable extends Table
 	}
 
 	@Override
-	public void add(Object toAdd)
+	public void add(Course toAdd)
 	{
-		// TODO Auto-generated method stub
+		String sql = "INSERT INTO " + tableName +
+				" VALUES" + "(?,?,?,?)";;
+		try{
+			
+			preparedStatement = dbConnection.prepareStatement(sql);
+			preparedStatement.setInt(1,toAdd.getId());
+			preparedStatement.setInt(2, toAdd.getProf_id());
+			preparedStatement.setString(3, toAdd.getName());
+			preparedStatement.setBoolean(4, toAdd.getActive());
+			preparedStatement.executeUpdate();
+			
+			System.out.println("Added Course " + toAdd.getName() + " made by professor " + toAdd.getProf_id());
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -51,9 +70,24 @@ public class CourseTable extends Table
 	 */
 	public Course searchByCourseID(int courseID)
 	{
-		Course toFind = new Course();
+		String sql = "SELECT * FROM " + tableName + " WHERE ID= ? ";
+		ResultSet course;
+		try {
+			preparedStatement = dbConnection.prepareStatement(sql);
+			preparedStatement.setInt(1, courseID);
+			course = preparedStatement.executeQuery();
+			if(course.next())
+			{
+				
+					return new Course(course.getInt("ID"),
+								course.getInt("PROFID"), 
+								course.getString("NAME"),
+								course.getBoolean("ACTIVE"));	
+			}
 		
-		return toFind;
+		} catch (SQLException e) { e.printStackTrace(); }
+		
+		return null;
 		
 	}
 
@@ -65,6 +99,26 @@ public class CourseTable extends Table
 	public Vector<Course> searchByProfId(int professorId)
 	{
 		Vector<Course> coursesFromProf = new Vector<Course>();
+		
+		String sql = "SELECT * FROM " + tableName + " WHERE PROFID= ? ";
+		ResultSet course;
+		try {
+			preparedStatement = dbConnection.prepareStatement(sql);
+			preparedStatement.setInt(1, professorId);
+			course = preparedStatement.executeQuery();
+			if(course.next())
+			{
+				
+					coursesFromProf.add(new Course(course.getInt("ID"),
+								course.getInt("PROFID"), 
+								course.getString("NAME"),
+								course.getBoolean("ACTIVE")));	
+			}
+		
+		} catch (SQLException e) { e.printStackTrace(); }
+		
+		
+		
 		
 		return coursesFromProf;
 		

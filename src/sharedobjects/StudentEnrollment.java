@@ -24,4 +24,33 @@ public class StudentEnrollment implements Serializable
 	 * No idea ?????
 	 */
 	private Boolean enrolling;
+	
+	public StudentEnrollment(int enrollID, int stuID, int courseID)
+	{
+		id = enrollID;
+		student_id = stuID;
+		course_id = courseID;
+	}
+
+	public int getId()
+	{
+		return id;
+	}
+
+	public int getStudent_id()
+	{
+		return student_id;
+	}
+
+	public int getCourse_id()
+	{
+		return course_id;
+	}
+
+	public Boolean getEnrolling()
+	{
+		return enrolling;
+	}
+	
+	
 }

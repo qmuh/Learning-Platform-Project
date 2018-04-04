@@ -1,25 +1,40 @@
 package backend;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
 import sharedobjects.Assignment;
+import sharedobjects.StudentEnrollment;
+import sharedobjects.Submission;
 
-public class StudentEnrollmentTable extends Table
-{
-
-	public String tableName = "StudentEnrollmentTable";
-	
+public class StudentEnrollmentTable extends Table<StudentEnrollment>
+{	
 	public StudentEnrollmentTable(Connection connectionToDB, String tableName)
 	{
 		super(connectionToDB, tableName);
 	}
 
 	@Override
-	public void add(Object toAdd)
+	public void add(StudentEnrollment toAdd)
 	{
-		// TODO Auto-generated method stub
+		String sql = "INSERT INTO " + tableName +
+				" VALUES" + "(?,?,?)";
+		try{
+			
+			preparedStatement = dbConnection.prepareStatement(sql);
+			preparedStatement.setInt(1,toAdd.getId());
+			preparedStatement.setInt(2, toAdd.getCourse_id());
+			preparedStatement.setInt(3, toAdd.getStudent_id());
+			preparedStatement.executeUpdate();
+			
+			System.out.println("Added Student Enrollment status ");
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -51,7 +66,21 @@ public class StudentEnrollmentTable extends Table
 	public Vector<Integer> getCourseIDs(int studentID)
 	{
 		Vector<Integer> myCourseIDs = new Vector<Integer>();
+		String sql = "SELECT * FROM " + tableName + " WHERE STUDENTID= ? ";
+		ResultSet courseInfo;
+		try {
+			preparedStatement = dbConnection.prepareStatement(sql);
+			preparedStatement.setInt(1, studentID);
+			courseInfo = preparedStatement.executeQuery();
+			if(courseInfo.next())
+			{
+				
+					myCourseIDs.add(courseInfo.getInt("COURSEID"));	
+			}
 		
+		} catch (SQLException e) { e.printStackTrace(); }
+		
+	
 		return myCourseIDs;
 	}
 
@@ -63,7 +92,21 @@ public class StudentEnrollmentTable extends Table
 	public Vector<Integer> getStudentIDs(int courseID)
 	{
 		Vector<Integer> listOfStudentIDs = new Vector<Integer>();
+		String sql = "SELECT * FROM " + tableName + " WHERE COURSEID= ? ";
+		ResultSet studentsInfo;
+		try {
+			preparedStatement = dbConnection.prepareStatement(sql);
+			preparedStatement.setInt(1, courseID);
+			studentsInfo = preparedStatement.executeQuery();
+			if(studentsInfo.next())
+			{
+				
+				listOfStudentIDs.add(studentsInfo.getInt("STUDENTID"));	
+			}
 		
+		} catch (SQLException e) { e.printStackTrace(); }
+		
+	
 		return listOfStudentIDs;
 	}
 

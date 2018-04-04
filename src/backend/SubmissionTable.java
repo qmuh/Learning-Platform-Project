@@ -1,13 +1,15 @@
 package backend;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
 import sharedobjects.Assignment;
+import sharedobjects.Course;
 import sharedobjects.Submission;
 
-public class SubmissionTable extends Table
+public class SubmissionTable extends Table<Submission>
 {
 
 	public SubmissionTable(Connection connectionToDB, String tableName)
@@ -16,9 +18,29 @@ public class SubmissionTable extends Table
 	}
 
 	@Override
-	public void add(Object toAdd)
+	public void add(Submission toAdd)
 	{
-		// TODO Auto-generated method stub
+		String sql = "INSERT INTO " + tableName +
+				" VALUES" + "(?,?,?,?,?,?,?,?)";
+		try{
+			
+			preparedStatement = dbConnection.prepareStatement(sql);
+			preparedStatement.setInt(1,toAdd.getId());
+			preparedStatement.setInt(2, toAdd.getAssign_id());
+			preparedStatement.setInt(3, toAdd.getStudent_id());
+			preparedStatement.setString(4, toAdd.getPath());
+			preparedStatement.setString(5, toAdd.getTitle());
+			preparedStatement.setInt(6, toAdd.getGrade());
+			preparedStatement.setString(7, toAdd.getComment());
+			preparedStatement.setString(8, toAdd.getTimestamp());
+			preparedStatement.executeUpdate();
+			
+			System.out.println("Added Grade ");
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -32,7 +54,7 @@ public class SubmissionTable extends Table
 			     "PATH VARCHAR(100) NOT NULL, " + 
 			     "TITLE VARCHAR(50) NOT NULL, " + 
 			     "SUBMISSION_GRADE INT(3) NOT NULL," +
-			     "COMMENTS VARCHAR(140) NOT NULL, " + 
+			     "COMMENT VARCHAR(140) NOT NULL, " + 
 			     "TIMESTAMP VARCHAR(16) NOT NULL, " + 
 			     "PRIMARY KEY ( id ) )";
 		
@@ -55,8 +77,29 @@ public class SubmissionTable extends Table
 	public Vector<Submission> searchByStudentID(int studentID)
 	{
 		Vector<Submission> studentSubmissons = new Vector<Submission>();
+		String sql = "SELECT * FROM " + tableName + " WHERE STUDENTID= ? ";
+		ResultSet submission;
+		try {
+			preparedStatement = dbConnection.prepareStatement(sql);
+			preparedStatement.setInt(1, studentID);
+			submission = preparedStatement.executeQuery();
+			if(submission.next())
+			{
+				
+					studentSubmissons.add(new Submission(submission.getInt("ID"),
+								submission.getInt("ASSIGNID"), 
+								submission.getInt("STUDENTID"),
+								submission.getString("PATH"),
+								submission.getInt("SUBMISSION_GRADE"),
+								submission.getString("COMMENT"),
+								submission.getString("TITLE"),
+								submission.getString("TIMESTAMP")));	
+			}
+		
+		} catch (SQLException e) { e.printStackTrace(); }
 		
 		return studentSubmissons;
+	
 		
 	}
 
@@ -67,9 +110,29 @@ public class SubmissionTable extends Table
 	 */
 	public Vector<Submission> searchByAssignID(int assignID)
 	{
-		Vector<Submission> studentSubmissons = new Vector<Submission>();
+		Vector<Submission> assignSubmissons = new Vector<Submission>();
+		String sql = "SELECT * FROM " + tableName + " WHERE ASSIGNID= ? ";
+		ResultSet submission;
+		try {
+			preparedStatement = dbConnection.prepareStatement(sql);
+			preparedStatement.setInt(1, assignID);
+			submission = preparedStatement.executeQuery();
+			if(submission.next())
+			{
+				
+					assignSubmissons.add(new Submission(submission.getInt("ID"),
+								submission.getInt("ASSIGNID"), 
+								submission.getInt("STUDENTID"),
+								submission.getString("PATH"),
+								submission.getInt("SUBMISSION_GRADE"),
+								submission.getString("COMMENT"),
+								submission.getString("TITLE"),
+								submission.getString("TIMESTAMP")));	
+			}
 		
-		return studentSubmissons;
+		} catch (SQLException e) { e.printStackTrace(); }
+		
+		return assignSubmissons;
 		
 	}
 

@@ -1,11 +1,15 @@
 package backend;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Vector;
 
+import sharedobjects.Assignment;
+import sharedobjects.Course;
 import sharedobjects.Grade;
 
-public class GradeTable extends Table
+public class GradeTable extends Table<Grade>
 {
 	public String tableName = "GradeTable";
 	
@@ -15,9 +19,26 @@ public class GradeTable extends Table
 	}
 
 	@Override
-	public void add(Object toAdd)
+	public void add(Grade toAdd)
 	{
-		// TODO Auto-generated method stub
+		String sql = "INSERT INTO " + tableName +
+				" VALUES" + "(?,?,?,?,?)";
+		try{
+			
+			preparedStatement = dbConnection.prepareStatement(sql);
+			preparedStatement.setInt(1,toAdd.getId());
+			preparedStatement.setInt(2, toAdd.getAssignID());
+			preparedStatement.setInt(3, toAdd.getStudent_id());
+			preparedStatement.setInt(4, toAdd.getCourseID());
+			preparedStatement.setInt(5, toAdd.getGrade());
+			preparedStatement.executeUpdate();
+			
+			System.out.println("Added Grade ");
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -29,6 +50,7 @@ public class GradeTable extends Table
 			     "ASSIGNID INT(8) NOT NULL, " + 
 			     "STUDENTID INT(8) NOT NULL, " + 
 			     "COURSEID INT(8) NOT NULL, " + 
+			     "ASSIGN_GRADE INT(3) NOT NULL, " +
 			     "PRIMARY KEY ( id ) )";
 		
 		try{
@@ -50,12 +72,30 @@ public class GradeTable extends Table
 	 * @param assign_id
 	 * @return
 	 */
-	public Grade searchByAssignmentId(int assign_id) 
+	public Vector<Grade> searchByAssignmentId(int assign_id) 
 	{
-		Grade myGrade= null;
+		Vector<Grade> gradeList = new Vector<Grade>();
 		
+		String sql = "SELECT * FROM " + tableName + " WHERE ASSIGNID= ?";
+		ResultSet grade;
+		try {
+			preparedStatement = dbConnection.prepareStatement(sql);
+			preparedStatement.setInt(1, assign_id);
+			grade = preparedStatement.executeQuery();
+			if(grade.next())
+			{
+				
+					gradeList.add( new Grade(grade.getInt("ID"),
+								grade.getInt("STUDENTID"), 
+								grade.getInt("ASSIGN_GRADE"),
+								grade.getInt("ASSIGNID"),
+								grade.getInt("COURSEID")) );	
+			}
 		
-		return myGrade;
+		} catch (SQLException e) { e.printStackTrace(); }
+		
+		return gradeList;
+		
 		
 	}
 }

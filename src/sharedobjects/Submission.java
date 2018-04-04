@@ -43,4 +43,60 @@ public class Submission implements Serializable
 	 * The time stamo for the file submission
 	 */
 	private String timestamp;
+
+	public Submission(int subID, int assignID, int stuID, String filePath, 
+		int subGrade, String subComment, String subTitle, String time)
+	{
+		id = subID;
+		assign_id = assignID;
+		student_id = stuID;
+		path = filePath;
+		grade = subGrade;
+		comment = subComment;
+		title = subTitle;
+		timestamp = time;
+	}
+
+	public int getId()
+	{
+		return id;
+	}
+
+	public int getAssign_id()
+	{
+		return assign_id;
+	}
+
+	public int getStudent_id()
+	{
+		return student_id;
+	}
+
+	public String getPath()
+	{
+		return path;
+	}
+
+	public int getGrade()
+	{
+		return grade;
+	}
+
+	public String getComment()
+	{
+		return comment;
+	}
+
+	public String getTitle()
+	{
+		return title;
+	}
+
+	public String getTimestamp()
+	{
+		return timestamp;
+	}
+	
+	
+
 }

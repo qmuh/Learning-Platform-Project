@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import sharedobjects.Assignment;
 import sharedobjects.Grade;
 import sharedobjects.Student;
 import sharedobjects.User;
@@ -121,12 +122,14 @@ public class Database
 		myDatabase.addAllTables();
 		//myDatabase.createAllTables();
 		//myDatabase.removeAllTables();
+		
 		//myDatabase.userTable.add(new Student(30016415, "Qasim", "Muhammad", "qasim.muhammad@ucalgary.ca", "S", "qazxsw"));
 		//myDatabase.userTable.add(new Student(39817100, "Jimmy", "Truong", "jimmy.truong@ucalgary.ca", "P", "qazxsw"));
 		
 		// THIS IS USED TO TEST USER VALIDATION
-		User myUser = myDatabase.userTable.validateUser(39817100, "qazxsw");
 		
+		//User myUser = myDatabase.userTable.validateUser(39817100, "qazxsw");
+		/*
 		if(myUser == null)
 		{
 			System.out.println("Incorrect password or user id");
@@ -142,7 +145,9 @@ public class Database
 			System.out.println("The user is a professor with the name of " + myUser.getFirstName());
 		}
 		
+		*/
 		
+		//myDatabase.assignmentTable.add(new Assignment(1000, 1234, "Darin Sucks", "a pathway", true, "January 3, 12pm"));
 	
 	}	
 	

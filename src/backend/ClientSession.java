@@ -1,6 +1,8 @@
 package backend;
 
 import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
@@ -15,16 +17,6 @@ public abstract class ClientSession implements Runnable, Commands
 	 * Connects Client to a server
 	 */
 	protected Socket mySocket;
-	
-	/**
-	 * Reads from socket
-	 */
-	protected BufferedReader reader;
-	
-	/**
-	 * Writes to the socket
-	 */
-	protected PrintWriter writer;
 	
 	/**
 	 * Used for sending serialized objects
@@ -52,12 +44,28 @@ public abstract class ClientSession implements Runnable, Commands
 	protected FileHelper myFileHelper;
 		
 	
+	public ClientSession(Socket socket)
+	{
+		mySocket = socket;
+		try
+		{
+			outputStream = new ObjectOutputStream(socket.getOutputStream());
+			inputStream = new ObjectInputStream(socket.getInputStream());
+			
+		} catch (IOException e)
+		{
+			
+			e.printStackTrace();
+		}
+	}
+	
+	
 	/**
 	 * Sets the database for the client session
 	 */
-	public void setDatabase() 
+	public void setDatabase(Database toAdd) 
 	{
-		
+		myDatabase = toAdd;
 	}
 
 	abstract void interpretMessage(String command);

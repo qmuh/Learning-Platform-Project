@@ -34,7 +34,7 @@ public class Database implements DatabaseProperties
 	CourseTable courseTable;
 	GradeTable gradeTable;
 	StudentEnrollmentTable studentEnrollmentTable;
-	public UserTable userTable;
+	UserTable userTable;
 	SubmissionTable submissionTable;
 
 	/**
@@ -72,6 +72,9 @@ public class Database implements DatabaseProperties
 	 * 
 	 * @return the login properties
 	 */
+
+
+	
 	private Properties createDatabaseProperties()
 	{
 		Properties databaseProperties = new Properties();
@@ -79,6 +82,36 @@ public class Database implements DatabaseProperties
 		databaseProperties.put("password", PASSWORD);
 
 		return databaseProperties;
+	}
+
+	public AssignmentTable getAssignmentTable()
+	{
+		return assignmentTable;
+	}
+
+	public CourseTable getCourseTable()
+	{
+		return courseTable;
+	}
+
+	public GradeTable getGradeTable()
+	{
+		return gradeTable;
+	}
+
+	public StudentEnrollmentTable getStudentEnrollmentTable()
+	{
+		return studentEnrollmentTable;
+	}
+
+	public UserTable getUserTable()
+	{
+		return userTable;
+	}
+
+	public SubmissionTable getSubmissionTable()
+	{
+		return submissionTable;
 	}
 
 	/**

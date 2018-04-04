@@ -97,11 +97,13 @@ public class Server
 	{
 		private ObjectInputStream objectInputStream;
 		private ObjectOutputStream objectOutputStream;
+		private Socket mySocket;
 		
 		public LoginHandler(Socket guestUser)
 		{
 			try
 			{
+				mySocket = guestUser;
 				objectInputStream = new ObjectInputStream(
 						guestUser.getInputStream());
 				objectOutputStream = new ObjectOutputStream(
@@ -119,13 +121,23 @@ public class Server
 			try
 			{
 				LoginInfo loginInfo = (LoginInfo) objectInputStream.readObject();
-
-
-				User myUser = database.userTable.validateUser(loginInfo.getUsername(), loginInfo.getPassword());
+				User myUser = database.getUserTable().validateUser(loginInfo.getUsername(), loginInfo.getPassword());
 				objectOutputStream.writeObject(myUser);
 				objectOutputStream.flush();
-
 				
+				if(myUser.getUserType().equals("P"))
+				{
+					ProfessorSession handleProfessor = new ProfessorSession(mySocket);
+					handleProfessor.setDatabase(database);
+					handleProfessor.run();
+				}
+				
+				else if(myUser.getUserType().equals("P"))
+				{
+					StudentSession handleStudent = new StudentSession(mySocket);
+					handleStudent.setDatabase(database);
+					handleStudent.run();
+				}
 			} catch (ClassNotFoundException e)
 			{
 				e.printStackTrace();
@@ -133,8 +145,7 @@ public class Server
 			{
 				e.printStackTrace();
 			}
-			// TODO: Process user login by connecting to the database.
-			// create a new client session
+			//TODO:  create a new client session
 		}
 	}
 

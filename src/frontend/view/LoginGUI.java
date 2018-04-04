@@ -3,9 +3,6 @@ package frontend.view;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-
-<<<<<<< HEAD:src/frontend/LoginGUI.java
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -23,14 +20,7 @@ import frontend.interfaces.Colours;
 import frontend.interfaces.ServerInfo;
 import frontend.interfaces.WondrisInfo;
 
-
-
 public class LoginGUI extends JFrame implements ServerInfo, WondrisInfo, Colours
-=======
-import frontend.ServerInfo;
-
-public class LoginGUI extends JFrame implements ServerInfo
->>>>>>> File Repackage:src/frontend/view/LoginGUI.java
 {
 
 	private static final long serialVersionUID = 1L;

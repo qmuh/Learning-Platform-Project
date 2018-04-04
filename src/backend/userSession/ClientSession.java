@@ -11,7 +11,6 @@ import backend.Database;
 import backend.userSession.helper.EmailHelper;
 import backend.userSession.helper.FileHelper;
 
-
 public abstract class ClientSession implements Runnable, Commands
 {
 

@@ -3,6 +3,7 @@ package frontend;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -11,6 +12,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JLabel;
 import javax.swing.BorderFactory;
 import javax.swing.border.EmptyBorder;
@@ -23,7 +25,7 @@ public class LoginGUI extends JFrame implements ServerInfo, WondrisInfo, Colours
 
 	private static final long serialVersionUID = 1L;
 	private JTextField userName;
-	private JTextField password;
+	private JPasswordField password;
 	private JButton enterCredentials;
 
 	public LoginGUI(String s)
@@ -54,15 +56,19 @@ public class LoginGUI extends JFrame implements ServerInfo, WondrisInfo, Colours
 	private void createFields()
 	{
 		userName = new JTextField(20);
-		password = new JTextField(20);
+		password = new JPasswordField(20);
+		password.setEchoChar('\u2022');
 		enterCredentials = new JButton("Sign In");
 		enterCredentials.setFont(TEXTFONT);
 	}
 
 	private JPanel createLoginPanel(String s)
 	{
+		GridLayout panelLayout = new GridLayout(1, 2);
+		panelLayout.setVgap(0);
+		panelLayout.setHgap(0);
 		JPanel thePanel = new JPanel();
-		thePanel.setLayout(new GridLayout(1, 2));
+		thePanel.setLayout(panelLayout);
 		thePanel.setBackground(ACCENT_COLOR);
 		// thePanel.setPreferredSize(new Dimension(757, 500));
 		thePanel.add(createTitle(s));
@@ -74,6 +80,7 @@ public class LoginGUI extends JFrame implements ServerInfo, WondrisInfo, Colours
 	{
 		GridLayout panelLayout = new GridLayout(3, 1);
 		panelLayout.setVgap(0);
+		panelLayout.setHgap(0);
 		JPanel thePanel = new JPanel(panelLayout);
 		JPanel textPanel = new JPanel();
 		textPanel.setLayout(new GridLayout(3, 1));
@@ -93,6 +100,7 @@ public class LoginGUI extends JFrame implements ServerInfo, WondrisInfo, Colours
 		JLabel title = new JLabel(s);
 		title.setFont(TITLE_FONT);
 		title.setForeground(Color.WHITE);
+		title.setHorizontalAlignment(JLabel.CENTER);
 		titlePanel.add(title);
 		return titlePanel;
 	}
@@ -122,6 +130,7 @@ public class LoginGUI extends JFrame implements ServerInfo, WondrisInfo, Colours
 	{
 		FlowLayout panelLayout = new FlowLayout();
 		panelLayout.setVgap(0);
+		panelLayout.setHgap(0);
 		JPanel panel = new JPanel(panelLayout);
 		panel.setBackground(c);
 		return panel;

@@ -13,5 +13,5 @@ public interface Colours
 
 	public static final Color CONTRAST_COLOR = new Color(217, 180, 0);
 
-	public static final Color ACCENT_COLOR = new Color(29, 26, 127);
+	public static final Color ACCENT_COLOR = new Color(50, 50, 127);
 }

@@ -8,7 +8,7 @@ public interface WondrisInfo
 	
 	public static final String NAME = "Wondris";
 	
-	public static final int TITLE_FONT_SIZE = 36;
+	public static final int TITLE_FONT_SIZE = 50;
 	
 	public static final int TEXT_FONT_SIZE = 20;
 	

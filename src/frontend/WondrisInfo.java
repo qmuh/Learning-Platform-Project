@@ -10,7 +10,7 @@ public interface WondrisInfo
 	
 	public static final int TITLE_FONT_SIZE = 36;
 	
-	public static final int TEXT_FONT_SIZE = 16;
+	public static final int TEXT_FONT_SIZE = 20;
 	
 	public static final Font TITLE_FONT = new Font("Century Gothic", Font.PLAIN, TITLE_FONT_SIZE);
 	

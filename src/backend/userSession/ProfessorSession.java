@@ -1,6 +1,10 @@
 package backend.userSession;
 
+import java.io.IOException;
 import java.net.Socket;
+
+import sharedobjects.SendMessage;
+
 
 public class ProfessorSession extends ClientSession
 {
@@ -13,7 +17,23 @@ public class ProfessorSession extends ClientSession
 	@Override
 	public void run()
 	{
-		// TODO Auto-generated method stub
+		boolean isRunning = true;
+
+		while (isRunning)
+		{
+			try
+			{
+				SendMessage newMessage = (SendMessage)inputStream.readObject();
+				interpretMessage(newMessage);
+				
+
+			} catch (IOException | ClassNotFoundException e)
+			{
+				e.printStackTrace();
+			}
+		}
+
+
 		
 	}
 
@@ -25,7 +45,7 @@ public class ProfessorSession extends ClientSession
 	}
 
 	@Override
-	void interpretMessage(String command)
+	void interpretMessage(SendMessage command)
 	{
 		// TODO Auto-generated method stub
 		

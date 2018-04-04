@@ -12,6 +12,7 @@ import backend.interfaces.Commands;
 import backend.database.Database;
 import backend.userSession.helper.EmailHelper;
 import backend.userSession.helper.FileHelper;
+import sharedobjects.SendMessage;
 
 public abstract class ClientSession implements Runnable, Commands
 {
@@ -71,8 +72,9 @@ public abstract class ClientSession implements Runnable, Commands
 		myDatabase = toAdd;
 	}
 
-	abstract void interpretMessage(String command);
+	abstract void interpretMessage(SendMessage command);
 
 	abstract public void write();
+
 
 }

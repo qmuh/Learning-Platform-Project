@@ -18,42 +18,42 @@ public abstract class ClientSession implements Runnable, Commands
 	/**
 	 * Connects Client to a server
 	 */
-	Socket mySocket;
+	protected Socket mySocket;
 	
 	/**
 	 * Reads from socket
 	 */
-	BufferedReader reader;
+	protected BufferedReader reader;
 	
 	/**
 	 * Writes to the socket
 	 */
-	PrintWriter writer;
+	protected PrintWriter writer;
 	
 	/**
 	 * Used for sending serialized objects
 	 */
-	ObjectOutputStream outputStream;
+	protected ObjectOutputStream outputStream;
 	
 	/**
 	 * Used for receiving serialized objects
 	 */
-	ObjectInputStream inputStream;
+	protected ObjectInputStream inputStream;
 	
 	/**
 	 * Database used by the server
 	 */
-	Database myDatabase;
+	protected Database myDatabase;
 	
 	/**
 	 * Used for sending emails
 	 */
-	EmailHelper myEmailHelper;
+	protected EmailHelper myEmailHelper;
 	
 	/**
 	 * Used to deal with files
 	 */
-	FileHelper myFileHelper;
+	protected FileHelper myFileHelper;
 		
 	
 	/**

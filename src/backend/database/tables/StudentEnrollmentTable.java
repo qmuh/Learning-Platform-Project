@@ -89,14 +89,15 @@ public class StudentEnrollmentTable extends Table<StudentEnrollment>
 	 * @param courseID
 	 * @return
 	 */
-	public Vector<Integer> getStudentIDs(int courseID)
+	public Vector<Integer> getStudentsbyID(int courseID, int studentID)
 	{
 		Vector<Integer> listOfStudentIDs = new Vector<Integer>();
-		String sql = "SELECT * FROM " + tableName + " WHERE COURSEID= ? ";
+		String sql = "SELECT * FROM " + tableName + " WHERE COURSEID= ? AND STUDENTID= ?";
 		ResultSet studentsInfo;
 		try {
 			preparedStatement = dbConnection.prepareStatement(sql);
 			preparedStatement.setInt(1, courseID);
+			preparedStatement.setInt(2, studentID);
 			studentsInfo = preparedStatement.executeQuery();
 			if(studentsInfo.next())
 			{
@@ -110,4 +111,12 @@ public class StudentEnrollmentTable extends Table<StudentEnrollment>
 		return listOfStudentIDs;
 	}
 
+	public void remove(StudentEnrollment getmessageObject)
+	{
+		
+		
+	}
+
+	
+	
 }

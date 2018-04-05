@@ -70,13 +70,14 @@ public class ProfessorSession extends ClientSession
 		
 		else if(interpreter[0].equals("RECIEVE"))
 		{
-			handleRecieve(interpreter);
+			handleRecieve(interpreter, command.getmessageObject());
 		}
 		
 		else if(interpreter[0].equals("MODIFY"))
 		{
 			handleModify(interpreter, command.getmessageObject());
 		}
+		
 		
 	}
 
@@ -95,7 +96,7 @@ public class ProfessorSession extends ClientSession
 		}
 	}
 
-	private void handleRecieve(String[] interpreter)
+	private void handleRecieve(String[] interpreter, Object getMessage)
 	{
 		try 
 		{
@@ -109,10 +110,28 @@ public class ProfessorSession extends ClientSession
 			
 			if(interpreter[1].equals("COURSEBYID"))
 			{
-				//Vector<Student> myStudents = myDatabase.getStudentEnrollmentTable().
-				//outputStream.writeObject(myCourses);
-				//outputStream.flush();
+				// Here the sent prof id is actually the student
+				Vector<Integer> myStudents = myDatabase.getStudentEnrollmentTable().getStudentsbyID(((CourseMessage)getMessage).getCourseId() ,((CourseMessage)getMessage).getUserId());
+				Vector<Student> myEnrolledStudents = myDatabase.getUserTable().getStudents(myStudents);
+				outputStream.writeObject(myEnrolledStudents);
+				outputStream.flush();
 				
+			}
+			
+			if(interpreter[1].equals("COURSEBYLAST")) 
+			{
+				// Here the name is the last name
+				Vector<Integer> lastNameList = myDatabase.getUserTable().searchLastName(((CourseMessage)getMessage).getName());
+				Vector<Integer> myStudents = new Vector<Integer>();
+				for (int i = 0; i < lastNameList.size(); i++)
+				{
+					Vector<Integer> tempStudents = myDatabase.getStudentEnrollmentTable().getStudentsbyID(((CourseMessage)getMessage).getCourseId(),lastNameList.get(i));
+					
+					myStudents.addAll(tempStudents);
+				}
+				Vector<Student> myEnrolledStudents = myDatabase.getUserTable().getStudents(myStudents);
+				outputStream.writeObject(myEnrolledStudents);
+				outputStream.flush();
 			}
 			
 		}catch (IOException e) {
@@ -128,7 +147,16 @@ public class ProfessorSession extends ClientSession
 			myDatabase.getCourseTable().add( (Course) getmessageObject);
 		}
 		
+		if(interpreter[1].equals("ENROLL"))
+		{
+			
+			myDatabase.getStudentEnrollmentTable().add((StudentEnrollment)getmessageObject);
+		}
 		
+		if(interpreter[1].equals("UNENROLL"))
+		{
+			myDatabase.getStudentEnrollmentTable().remove((StudentEnrollment)getmessageObject);
+		}
 		
 	}
 

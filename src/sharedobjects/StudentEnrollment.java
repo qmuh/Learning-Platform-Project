@@ -8,7 +8,7 @@ public class StudentEnrollment implements Serializable
 	/**
 	 * The identification for enrolling a student to a class
 	 */
-	private int id;
+	private int id = 1000;
 
 	/**
 	 * The id for the student who is enrolling
@@ -25,9 +25,9 @@ public class StudentEnrollment implements Serializable
 	 */
 	private Boolean enrolling;
 	
-	public StudentEnrollment(int enrollID, int stuID, int courseID)
+	public StudentEnrollment( int stuID, int courseID)
 	{
-		id = enrollID;
+		id = id++;
 		student_id = stuID;
 		course_id = courseID;
 	}

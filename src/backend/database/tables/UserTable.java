@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Vector;
+
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import sharedobjects.Professor;
 import sharedobjects.Student;
@@ -109,7 +112,56 @@ public class UserTable extends Table<User>
 		return null;
 		
 	}
+
+	public Vector<Student> getStudents(Vector<Integer> myStudents)
+	{
+		String sql = "SELECT * FROM " + tableName + " WHERE ID= ? ";
+		Vector<Student> studentList = new Vector<Student>();
+		ResultSet user;
+		for(int i = 0; i < myStudents.size(); i++)
+		{
+			try {
+		
+			preparedStatement = dbConnection.prepareStatement(sql);
+			preparedStatement.setInt(1, myStudents.get(i));
+			user = preparedStatement.executeQuery();
+			if(user.next())
+			{
+				
+				studentList.add( new Student(user.getInt("ID"),
+								user.getString("FIRSTNAME"), 
+								user.getString("LASTNAME"), 
+								user.getString("EMAIL"),
+								user.getString("TYPE"),
+								user.getString("PASSWORD")));	
+			}
+		
+		} catch (SQLException e) { e.printStackTrace(); }
+		
+		}
+		return studentList;
+	}
 	
 
+	public Vector<Integer> searchLastName(String string)
+	{	
+		String sql = "SELECT * FROM " + tableName + " WHERE LASTNAME= ? ";
+		Vector<Integer> studentList = new Vector<Integer>();
+		ResultSet user;
+		
+			try {
+	
+				preparedStatement = dbConnection.prepareStatement(sql);
+				preparedStatement.setString(1, string);
+			user = preparedStatement.executeQuery();
+			if(user.next())
+			{
+			
+				studentList.add( user.getInt("ID"));	
+			}
+			
+			} catch (SQLException e) { e.printStackTrace(); }
+		return studentList;
+	}
 
 }

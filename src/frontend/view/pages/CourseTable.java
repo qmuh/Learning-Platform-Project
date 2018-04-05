@@ -16,6 +16,7 @@ import frontend.interfaces.Colours;
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.items.CourseItem;
 import javafx.scene.layout.Border;
+import sharedobjects.Course;
 
 public class CourseTable extends JPanel implements WondrisInfo, Colours
 {
@@ -49,7 +50,7 @@ public class CourseTable extends JPanel implements WondrisInfo, Colours
 		tableHeader.add(createLabel("Course Name", TEXTFONT));
 		tableHeader.add(createLabel("Course Home", TEXTFONT));
 		
-		
+		tablePanel.add(tableHeader);
 		return tablePanel;
 	}
 
@@ -74,14 +75,17 @@ public class CourseTable extends JPanel implements WondrisInfo, Colours
 		return label;
 	}
 	
-	public void addCourseItem(CourseItem item)
-	{
-		tablePanel.add(item);
-	}
+//	public void addCourseItem(CourseItem item)
+//	{
+//		tablePanel.add(item);
+//	}
 
 	public void setBoxList(BoxList<CourseItem> itemDisplay)
 	{
+		tablePanel.add(new CourseItem(new Course(0, 0, "Memeology", true)));
 		tablePanel.add(itemDisplay, TABLE_CONTENTS);
+		for(int i = 0; i < 3; i++) {
+		}
 	}
 	
 	public void setNewCourseListener(ActionListener listener)

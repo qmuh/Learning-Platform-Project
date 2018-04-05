@@ -15,6 +15,13 @@ public class SubmissionPage extends Page<SubmitItem, Submission>
 	
 	public SubmissionPage(BoxList<SubmitItem> boxList)
 	{
-		super(boxList);
+		super();
+	}
+
+	@Override
+	public void displayPage()
+	{
+		// TODO Auto-generated method stub
+		
 	}
 }

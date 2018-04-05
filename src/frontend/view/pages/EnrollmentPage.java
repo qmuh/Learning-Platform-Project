@@ -14,6 +14,13 @@ public class EnrollmentPage extends Page<StudentItem, Student>
 	
 	public EnrollmentPage(BoxList<StudentItem> boxList) 
 	{
-		super(boxList);
+		super();
+	}
+
+	@Override
+	public void displayPage()
+	{
+		// TODO Auto-generated method stub
+		
 	}
 }

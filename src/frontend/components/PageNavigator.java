@@ -20,14 +20,13 @@ public class PageNavigator extends JPanel implements PageNames
 		this.setLayout(cardLayout);
 		addPage(new HomePage(), HOME_PAGE);
 		addPage(new CoursePage(), COURSE_PAGE);
-		
 		this.showPage(HOME_PAGE);
 	}
 
 	public void showPage(String pageName)
 	{
 		cardLayout.show(this, pageName);
-		currentPage = searchPage(pageName);
+		currentPage = (Page<?, ?>) searchPage(pageName);
 		
 	}
 	
@@ -35,7 +34,7 @@ public class PageNavigator extends JPanel implements PageNames
 	{
 		for (Component component : this.getComponents())
 		{
-			if (component.isVisible())
+			if (component.getName().equals(name))
 			{
 				return (Page<?, ?>) component;
 			}

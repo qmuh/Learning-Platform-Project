@@ -1,5 +1,6 @@
 package frontend.view.pages;
 
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -33,6 +34,17 @@ public class Page <T extends Box, U> extends JPanel
 		this.add(footer);
 		itemDisplay = boxList;
 	}
+	
+	public void setHomeButtonListener(ActionListener listener)
+	{
+		header.setHomeButtonListener(listener);
+	}
+	
+	public void setCoursesButtonListener(ActionListener listener)
+	{
+		header.setCoursesButtonListener(listener);
+	}
+	
 	
 //	public static void main(String[] args)
 //	{

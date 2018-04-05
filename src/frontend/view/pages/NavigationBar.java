@@ -31,16 +31,6 @@ public class NavigationBar extends JPanel implements NavigationBarButtons
 		this.add(courses);
 	}
 	
-	public JButton getHomeButton()
-	{
-		return home;
-	}
-	
-	public JButton getCourseButton()
-	{
-		return courses;
-	}
-	
 	public void setHomeButtonListener(ActionListener listener)
 	{
 		home.addActionListener(listener);

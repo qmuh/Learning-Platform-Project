@@ -16,28 +16,26 @@ public class PageNavigator extends JPanel implements PageNames
 	private JPanel pageLayout;
 	private CardLayout cardLayout;
 	private Page<?, ?> currentPage;
-	protected Hashtable<Integer, Page> pages;
-	
+
 	public PageNavigator()
 	{
-		pages = new Hashtable<Integer, Page>();
+		pageLayout = new JPanel();
+		cardLayout = new CardLayout();
 	}
-	
-	public void showPage(String page) {
-		JPanel thePage = searchPage(page);
-		addPage(thePage, page);
+
+	public void showPage(String pageName)
+	{
+		cardLayout.show(pageLayout, pageName);
 	}
-	
-	public void addPage(JPanel page, String name) {
-		pageLayout.add(page);
+
+	public void addPage(JPanel page, String pageName)
+	{
+		pageLayout.add(page, pageName);
 	}
-	
-	public void removePage(String name) {
-		pageLayout.remove(currentPage);
+
+	public void previousPage()
+	{
+		cardLayout.previous(pageLayout);
 	}
-	
-	public JPanel searchPage(String name) {
-		//TODO: Implement page search
-		return new HomePage();
-	}
+
 }

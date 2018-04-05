@@ -24,6 +24,17 @@ public class Course implements Serializable
 	 */
 	private Boolean active;
 
+	/**
+	 * Used to add new courses to the system by the professor
+	 */
+	private int courseID = 300;
+	
+	/** Constructor used to initialize courses from a pre-made text file
+	 * @param courseID
+	 * @param profID
+	 * @param courseName
+	 * @param isActive
+	 */
 	public Course(int courseID, int profID, String courseName, Boolean isActive)
 	{
 		id = courseID;
@@ -31,7 +42,20 @@ public class Course implements Serializable
 		name = courseName;
 		active = isActive;
 	}
-
+	
+	/** Used to create a course that is used by the professor
+	 * @param profID
+	 * @param courseName
+	 * @param isActive
+	 */
+	public Course( int profID, String courseName, Boolean isActive)
+	{
+		id = courseID++;
+		prof_id = profID;
+		name = courseName;
+		active = isActive;
+	}
+	
 	public int getId()
 	{
 		return id;

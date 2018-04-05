@@ -45,6 +45,16 @@ public class ClientController
 			return null;
 	}
 
+	public void onlySendMessage(SendMessage toSend) throws IOException
+	{
+
+		objectOut.writeObject(toSend);
+		objectOut.flush();
+		System.out.println("Only sent the message");
+
+	}
+	
+	
 	public Socket getMySocket()
 	{
 		return mySocket;

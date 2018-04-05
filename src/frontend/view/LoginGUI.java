@@ -32,6 +32,7 @@ import frontend.interfaces.ServerInfo;
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.GUIConstants;
 import sharedobjects.LoginInfo;
+import sharedobjects.Professor;
 import sharedobjects.User;
 
 public class LoginGUI extends JFrame implements WondrisInfo, Colours, GUIConstants
@@ -127,10 +128,8 @@ public class LoginGUI extends JFrame implements WondrisInfo, Colours, GUIConstan
 			{
 				
 				currentPanel.setVisible(false);
-				currentPanel = new ProfessorGUI(socket);
-				add(currentPanel);
-				//add(new ProfessorGUI(mySocket));
-				
+				currentPanel = new ProfessorGUI(socket, (Professor)user);
+				add(currentPanel);				
 				System.out.println("We have a professor");
 //				cardPanel.add(new ProfessorGUI(mySocket), "PROF");
 

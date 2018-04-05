@@ -34,6 +34,13 @@ public class Assignment implements Serializable
 	 */
 	private String due_date;
 	
+	/** Constructor for assignmnets, used by the professor, they dont set ID
+	 * @param courseID
+	 * @param assignTitle
+	 * @param pathway
+	 * @param isActive
+	 * @param due
+	 */
 	public Assignment(int assignID, int courseID, String assignTitle, String pathway , Boolean isActive, String due)
 	{
 		id = assignID;

@@ -145,6 +145,7 @@ public class ProfessorSession extends ClientSession
 		if(interpreter[1].equals("COURSE"))
 		{
 			myDatabase.getCourseTable().add( (Course) getmessageObject);
+			System.out.println("Adding course " + ((Course)getmessageObject).getName() + " for Prof: " + user.getFirstName());
 		}
 		
 		if(interpreter[1].equals("ENROLL"))

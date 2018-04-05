@@ -18,7 +18,6 @@ public class CourseItem extends Box
 		super(BoxLayout.X_AXIS);
 		this.course = course;
 		
-		this.setLayout(new GridLayout(1, 3));
 		this.add(new JLabel(course.getName()));
 		this.add(new JButton("View"));
 		

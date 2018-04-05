@@ -78,6 +78,9 @@ public class Server
 		shutdown();
 	}
 
+	/**
+	 * Shuts the server down
+	 */
 	private void shutdown()
 	{
 		try
@@ -159,6 +162,10 @@ public class Server
 		}
 	}
 
+	
+	/** Starts the server
+	 * @param args not used
+	 */
 	public static void main(String[] args)
 	{
 		Server myServer = new Server(8991);

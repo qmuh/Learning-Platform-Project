@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Vector;
 
+import backend.database.helpers.FileHelper;
 import sharedobjects.*;
 
 
@@ -14,6 +15,7 @@ public class ProfessorSession extends ClientSession
 	public ProfessorSession(Socket socket)
 	{
 		super(socket);
+		
 	}
 
 	public void setProfessor(Professor thisUser)
@@ -107,10 +109,10 @@ public class ProfessorSession extends ClientSession
 				outputStream.flush();
 			}
 			
-			if(interpreter[1].equals("COURSEBYID"))
+			if(interpreter[1].equals("STUDENTBYID"))
 			{
-				Vector<Integer> myStudents = myDatabase.getStudentEnrollmentTable().getStudentsbyID(((CourseMessage)getMessage).getCourseId() ,((CourseMessage)getMessage).getUserId());
-				Vector<Student> myEnrolledStudents = myDatabase.getUserTable().getStudents(myStudents);
+				
+				Student myEnrolledStudents = (Student) myDatabase.getUserTable().getUserByID(((CourseMessage)getMessage).getUserId());
 				outputStream.writeObject(myEnrolledStudents);
 				outputStream.flush();
 				
@@ -118,16 +120,15 @@ public class ProfessorSession extends ClientSession
 			
 			if(interpreter[1].equals("COURSEBYLAST")) 
 			{
-				Vector<Integer> lastNameList = myDatabase.getUserTable().searchLastName(((CourseMessage)getMessage).getName());
-				Vector<Integer> myStudents = new Vector<Integer>();
-				for (int i = 0; i < lastNameList.size(); i++)
-				{
-					Vector<Integer> tempStudents = myDatabase.getStudentEnrollmentTable().getStudentsbyID(((CourseMessage)getMessage).getCourseId(),lastNameList.get(i));
-					
-					myStudents.addAll(tempStudents);
-				}
-				Vector<Student> myEnrolledStudents = myDatabase.getUserTable().getStudents(myStudents);
+				Vector<Student> myEnrolledStudents = myDatabase.getUserTable().searchLastName(((CourseMessage)getMessage).getName());
 				outputStream.writeObject(myEnrolledStudents);
+				outputStream.flush();
+			}
+			
+			if(interpreter[1].equals("ALLSTUDENTS"))
+			{
+				Vector<Student> allStudents = myDatabase.getUserTable().allStudents();
+				outputStream.writeObject(allStudents);
 				outputStream.flush();
 			}
 			
@@ -155,6 +156,19 @@ public class ProfessorSession extends ClientSession
 			myDatabase.getStudentEnrollmentTable().remove((StudentEnrollment)getmessageObject);
 		}
 		
+		if(interpreter[1].equals("ASSIGNMENT"))
+		{
+			myDatabase.getAssignmentTable().add(((Assignment)getmessageObject));
+			byte[] file;
+			try
+			{
+				file = (byte[]) inputStream.readObject();
+				myFileHelper.storeFile(file, ((Assignment)getmessageObject));
+			} catch (ClassNotFoundException | IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 
 	

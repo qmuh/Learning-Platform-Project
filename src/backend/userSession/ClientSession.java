@@ -47,7 +47,6 @@ public abstract class ClientSession implements Runnable, Commands
 	 */
 	FileHelper myFileHelper;
 
-
 	public ClientSession(Socket socket)
 	{
 		mySocket = socket;
@@ -55,6 +54,9 @@ public abstract class ClientSession implements Runnable, Commands
 		{
 			outputStream = new ObjectOutputStream(socket.getOutputStream());
 			inputStream = new ObjectInputStream(socket.getInputStream());
+			
+			myFileHelper = new FileHelper();
+			myEmailHelper = new EmailHelper();
 
 		} catch (IOException e)
 		{

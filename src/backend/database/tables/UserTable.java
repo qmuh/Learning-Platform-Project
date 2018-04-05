@@ -113,40 +113,39 @@ public class UserTable extends Table<User>
 		
 	}
 
-	public Vector<Student> getStudents(Vector<Integer> myStudents)
+	public User getUserByID(int userID)
 	{
 		String sql = "SELECT * FROM " + tableName + " WHERE ID= ? ";
-		Vector<Student> studentList = new Vector<Student>();
+		
 		ResultSet user;
-		for(int i = 0; i < myStudents.size(); i++)
-		{
+		
 			try {
 		
 			preparedStatement = dbConnection.prepareStatement(sql);
-			preparedStatement.setInt(1, myStudents.get(i));
+			preparedStatement.setInt(1, userID);
 			user = preparedStatement.executeQuery();
 			if(user.next())
 			{
 				
-				studentList.add( new Student(user.getInt("ID"),
+				return  new Student(user.getInt("ID"),
 								user.getString("FIRSTNAME"), 
 								user.getString("LASTNAME"), 
 								user.getString("EMAIL"),
 								user.getString("TYPE"),
-								user.getString("PASSWORD")));	
+								user.getString("PASSWORD"));	
 			}
 		
 		} catch (SQLException e) { e.printStackTrace(); }
 		
-		}
-		return studentList;
+		
+		return null;
 	}
 	
 
-	public Vector<Integer> searchLastName(String string)
+	public Vector<Student> searchLastName(String string)
 	{	
 		String sql = "SELECT * FROM " + tableName + " WHERE LASTNAME= ? ";
-		Vector<Integer> studentList = new Vector<Integer>();
+		Vector<Student> userList = new Vector<Student>();
 		ResultSet user;
 		
 			try {
@@ -156,12 +155,43 @@ public class UserTable extends Table<User>
 			user = preparedStatement.executeQuery();
 			if(user.next())
 			{
-			
-				studentList.add( user.getInt("ID"));	
+				 userList.add( new Student(user.getInt("ID"),
+						user.getString("FIRSTNAME"), 
+						user.getString("LASTNAME"), 
+						user.getString("EMAIL"),
+						user.getString("TYPE"),
+						user.getString("PASSWORD")) );	
+				
 			}
 			
 			} catch (SQLException e) { e.printStackTrace(); }
-		return studentList;
+		return userList;
+	}
+	
+	public Vector<Student> allStudents()
+	{	
+		String sql = "SELECT * FROM " + tableName + " WHERE TYPE= ? ";
+		Vector<Student> userList = new Vector<Student>();
+		ResultSet user;
+		
+			try {
+	
+				preparedStatement = dbConnection.prepareStatement(sql);
+				preparedStatement.setString(1, "S");
+			user = preparedStatement.executeQuery();
+			if(user.next())
+			{
+				 userList.add( new Student(user.getInt("ID"),
+						user.getString("FIRSTNAME"), 
+						user.getString("LASTNAME"), 
+						user.getString("EMAIL"),
+						user.getString("TYPE"),
+						user.getString("PASSWORD")) );	
+				
+			}
+			
+			} catch (SQLException e) { e.printStackTrace(); }
+		return userList;
 	}
 
 }

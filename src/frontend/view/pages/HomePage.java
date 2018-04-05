@@ -13,6 +13,13 @@ public class HomePage extends Page
 		super();
 		this.setName(HOME_PAGE);
 	}
+
+	@Override
+	public void displayPage()
+	{
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	

@@ -1,7 +1,11 @@
 package frontend.view.pages.items;
 
+import java.awt.GridLayout;
+
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 
 import sharedobjects.Course;
 
@@ -13,5 +17,10 @@ public class CourseItem extends Box
 	{
 		super(BoxLayout.X_AXIS);
 		this.course = course;
+		
+		this.setLayout(new GridLayout(1, 3));
+		this.add(new JLabel(course.getName()));
+		this.add(new JButton("View"));
+		
 	}
 }

@@ -23,22 +23,23 @@ public class ProfessorGUI extends PageNavigator
 {
 	private Professor thisProfessor;
 	private ClientController clientController;
-	
-	public ProfessorGUI(Socket socket) {
+
+	public ProfessorGUI(Socket socket)
+	{
 		super();
 		this.clientController = new ClientController();
 		this.clientController.connectToServer(socket);
-		
+
 		createHomePage();
 		createCoursePage();
-		
+
 	}
-	
+
 	private void createHomePage()
 	{
 		HomePage homePage = (HomePage) this.searchPage(HOME_PAGE);
 	}
-	
+
 	private void createCoursePage()
 	{
 		@SuppressWarnings("unchecked")
@@ -47,22 +48,39 @@ public class ProfessorGUI extends PageNavigator
 		SendMessage message = new SendMessage(null, "RECEIVE COURSES");
 		BoxList<CourseItem> boxList = new BoxList<CourseItem>();
 		Vector<Course> courses = new Vector<Course>();
-		
+
 		try
 		{
 			courses = (Vector<Course>) this.clientController.sendMessage(message);
-			
-			for (int i = 0; i < courses.size(); i++)
+
+			if (courses != null)
 			{
-				boxList.addItem(new CourseItem(courses.elementAt(i)));
-				System.out.println("This course is " + courses.get(i).getName());
+				for (int i = 0; i < courses.size(); i++)
+				{
+					boxList.addItem(new CourseItem(courses.elementAt(i)));
+				}
 			}
+			
 		} catch (IOException e)
 		{
 			e.printStackTrace();
 		}
-		
+
 		coursePage.setBoxList(boxList);
+		coursePage.setCoursesButtonListener(new NewCourseButtonListener());
+		coursePage.displayPage();
+	}
+	
+	private class NewCourseButtonListener implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 	
 	private AssignmentPage createAssignmentPage()
@@ -72,6 +90,4 @@ public class ProfessorGUI extends PageNavigator
 	
 	
 
-
-	
 }

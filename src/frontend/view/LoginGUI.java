@@ -20,6 +20,8 @@ import java.net.UnknownHostException;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.security.auth.login.LoginException;
 import javax.swing.BorderFactory;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
@@ -32,7 +34,7 @@ import frontend.view.pages.GUIConstants;
 import sharedobjects.LoginInfo;
 import sharedobjects.User;
 
-public class LoginGUI extends JFrame implements ServerInfo, WondrisInfo, Colours, GUIConstants
+public class LoginGUI extends JFrame implements WondrisInfo, Colours, GUIConstants
 {
 
 	private static final long serialVersionUID = 1L;
@@ -67,68 +69,105 @@ public class LoginGUI extends JFrame implements ServerInfo, WondrisInfo, Colours
 	
 	private void setupLogin()
 	{
-		enterCredentials.addActionListener(new ActionListener()
+		enterCredentials.addActionListener(new LoginListener());
+	}
+	
+	public class LoginListener implements ActionListener, ServerInfo{
+
+		@Override
+		public void actionPerformed(ActionEvent e)
 		{
-
-			@Override
-			public void actionPerformed(ActionEvent e)
+			try
 			{
-				try
-				{
-					Socket mySocket = new Socket("localhost", 8991);
-					LoginInfo userInfo = new LoginInfo(Integer.parseInt(userName.getText()),
-							new String(password.getPassword()));
+				checkLogin();
 
-					ObjectOutputStream toServer = new ObjectOutputStream(mySocket.getOutputStream());
-					ObjectInputStream fromServer = new ObjectInputStream(mySocket.getInputStream());
-
-					toServer.writeObject(userInfo);
-					toServer.flush();
-
-					User myClient = (User) fromServer.readObject();
-
-					if (myClient == null)
-					{
-						System.out.println("Incorrect username or password");
-					}
-
-					else if (myClient.getUserType().equals("P"))
-					{
-						
-						currentPanel.setVisible(false);
-						currentPanel = new ProfessorGUI(mySocket);
-						add(currentPanel);
-						//add(new ProfessorGUI(mySocket));
-						
-						System.out.println("We have a professor");
-//						cardPanel.add(new ProfessorGUI(mySocket), "PROF");
-
-					}
-
-					else if (myClient.getUserType().equals("S"))
-					{
-						System.out.println("We have a student");
-					}
-				} catch (NumberFormatException e2)
-				{
-					System.out.println("Username must only be numbers");
-				}
-
-				catch (UnknownHostException e1)
-				{
-					e1.printStackTrace();
-				} catch (ClassNotFoundException e3)
-				{
-					System.out.println("Class not found exception");
-
-				} catch (IOException e1)
-				{
-					e1.printStackTrace();
-				}
+				authenticateLogin();
+			} catch (LoginException e1)
+			{
+				e1.printStackTrace();
+			}
+		}
+		
+		private void checkLogin() throws LoginException
+		{
+			if (getLoginInfo() == null)
+			{
+				throw new LoginException();
+			}
+		}
+		
+		private void authenticateLogin()
+		{
+			Socket socket = null;
+			User user = null;
+			try
+			{
+				socket = new Socket(HOST_NAME, PORT_NUMBER);
+				ObjectOutputStream toServer = new ObjectOutputStream(socket.getOutputStream());
+				ObjectInputStream fromServer = new ObjectInputStream(socket.getInputStream());
+				toServer.writeObject(getLoginInfo());
+				toServer.flush();
+				
+				user = (User) fromServer.readObject();
+				
+			} catch (IOException e)
+			{
+				e.printStackTrace();
+			} catch (ClassNotFoundException e)
+			{
+				e.printStackTrace();
+			}
+			
+			checkUser(user, socket);
+		}
+		
+		private void checkUser(User user, Socket socket)
+		{
+			if (user.getUserType().equals("P"))
+			{
+				
+				currentPanel.setVisible(false);
+				currentPanel = new ProfessorGUI(socket);
+				add(currentPanel);
+				//add(new ProfessorGUI(mySocket));
+				
+				System.out.println("We have a professor");
+//				cardPanel.add(new ProfessorGUI(mySocket), "PROF");
 
 			}
 
-		});
+			else if (user.getUserType().equals("S"))
+			{
+				System.out.println("We have a student");
+			}
+		}
+	}
+	
+
+	
+	public class IncorrectLoginException extends Exception{
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		
+		public IncorrectLoginException() {
+			super("Incorrect Login Provided");
+		}
+	}
+	
+	private LoginInfo getLoginInfo() {
+		LoginInfo loginInfo = null;
+		try {
+			loginInfo = new LoginInfo(Integer.parseInt(userName.getText()),
+				new String(password.getPassword()));
+			
+		} catch (NumberFormatException e)
+		{
+			JOptionPane.showMessageDialog(this, "Username must only be numbers", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		return loginInfo;
 	}
 
 	private void createFields()
@@ -137,7 +176,6 @@ public class LoginGUI extends JFrame implements ServerInfo, WondrisInfo, Colours
 		password = new JPasswordField(20);
 		password.setEchoChar('\u2022');
 		enterCredentials = new JButton("Sign In");
-		enterCredentials.setFont(TEXTFONT);
 	}
 
 	private JPanel createLoginPanel(String s)
@@ -199,6 +237,7 @@ public class LoginGUI extends JFrame implements ServerInfo, WondrisInfo, Colours
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setBackground(ACCENT_COLOR);
 		buttonPanel.setPreferredSize(new Dimension(50, 50));
+		enterCredentials.setFont(TEXTFONT);
 		enterCredentials.setFocusPainted(false);
 		enterCredentials.setBackground(SECONDARY_COLOR);
 		buttonPanel.add(enterCredentials);

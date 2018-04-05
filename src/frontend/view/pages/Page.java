@@ -14,17 +14,17 @@ import frontend.view.StudentGUI;
 import frontend.components.BoxList;
 
 // TODO: T extends Box U ??
-public class Page <T extends Box, U> extends JPanel implements PageNames
+public abstract class Page <T extends Box, U> extends JPanel implements PageNames
 {
 
 	private static final long serialVersionUID = 1L;
 	private Header header;
 	private Footer footer;
-	protected char type;
+	protected JPanel body;
 	protected ArrayList<U> itemList;
 	protected BoxList<T> itemDisplay;
-	protected StudentGUI studentGUI;
-	protected ProfessorGUI professorGUI;
+//	protected StudentGUI studentGUI;
+//	protected ProfessorGUI professorGUI;
 	
 	public Page()
 	{
@@ -33,6 +33,8 @@ public class Page <T extends Box, U> extends JPanel implements PageNames
 		this.add(header);
 		this.add(footer);
 	}
+	
+	public abstract void displayPage();
 	
 	public void setBoxList(BoxList<T> boxList)
 	{
@@ -48,6 +50,7 @@ public class Page <T extends Box, U> extends JPanel implements PageNames
 	{
 		header.setCoursesButtonListener(listener);
 	}
+	
 	
 	
 //	public static void main(String[] args)

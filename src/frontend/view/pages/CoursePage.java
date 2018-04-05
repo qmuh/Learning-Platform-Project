@@ -1,8 +1,10 @@
 package frontend.view.pages;
 
-import javax.swing.JLabel;
+import java.awt.Color;
+import java.awt.event.ActionListener;
 
-import frontend.components.BoxList;
+import javax.swing.JButton;
+
 import frontend.view.pages.items.CourseItem;
 import sharedobjects.Course;
 
@@ -17,7 +19,19 @@ public class CoursePage extends Page<CourseItem, Course>
 	public CoursePage()
 	{
 		super();
+		this.body = new CourseTable();
+		this.add(body);
 		setName(COURSE_PAGE);
-		this.add(new JLabel("Jimmy finally started to code"));
+	}
+
+	@Override
+	public void displayPage()
+	{
+		((CourseTable) this.body).setBoxList(itemDisplay);
+	}
+	
+	public void setNewCourseListener(ActionListener listener)
+	{
+		((CourseTable)body).setNewCourseListener(listener);
 	}
 }

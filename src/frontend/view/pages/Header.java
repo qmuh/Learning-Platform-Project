@@ -1,8 +1,14 @@
 package frontend.view.pages;
 
+import java.awt.Dimension;
+import java.util.Hashtable;
+
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
-class Header extends JPanel
+import frontend.interfaces.Colours;
+
+public class Header extends JPanel implements GUIConstants, Colours
 {
 	/**
 	 * 
@@ -11,9 +17,11 @@ class Header extends JPanel
 	
 	private NavigationBar navigationBar;
 	
-	public Header()
+	public Header(Hashtable<Integer, JButton> buttons)
 	{
-		navigationBar = new NavigationBar();
+		this.setPreferredSize(new Dimension(WINDOW_WIDTH, 100));
+		this.setBackground(ACCENT_COLOR);
+		navigationBar = new NavigationBar(buttons);
 		this.add(navigationBar);
 	}
 }

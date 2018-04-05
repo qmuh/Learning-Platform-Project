@@ -187,7 +187,8 @@ public class Database implements DatabaseProperties
 		 myDatabase.userTable.add(new Professor(39817100, "Jimmy", "Truong",
 		"jimmy.truong@ucalgary.ca", "P", "qazxsw"));
 		*/
-
+		// myDatabase.userTable.add(new Professor(1, "First", "Last",
+		//			"first.last@ucalgary.ca", "P", "1"));
 	}
 
 }

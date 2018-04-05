@@ -1,5 +1,6 @@
 package frontend.view.pages;
 
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -13,7 +14,7 @@ import frontend.view.StudentGUI;
 import frontend.components.BoxList;
 
 // TODO: T extends Box U ??
-public class Page <T extends Box, U> extends JPanel 
+public class Page <T extends Box, U> extends JPanel implements PageNames
 {
 
 	private static final long serialVersionUID = 1L;
@@ -24,20 +25,31 @@ public class Page <T extends Box, U> extends JPanel
 	protected BoxList<T> itemDisplay;
 	protected StudentGUI studentGUI;
 	protected ProfessorGUI professorGUI;
-	protected Hashtable<Integer, JButton> buttons;
 	
-	
-	public Page(BoxList<T> boxList)
+	public Page()
 	{
-		buttons = new Hashtable<Integer, JButton>();
-		header = new Header(buttons);
+		header = new Header();
 		footer = new Footer();
 		this.add(header);
 		this.add(footer);
-		itemDisplay = boxList;
 	}
 	
-	public void setList
+	public void setBoxList(BoxList<T> boxList)
+	{
+		this.itemDisplay = boxList;
+	}
+	
+	public void setHomeButtonListener(ActionListener listener)
+	{
+		header.setHomeButtonListener(listener);
+	}
+	
+	public void setCoursesButtonListener(ActionListener listener)
+	{
+		header.setCoursesButtonListener(listener);
+	}
+	
+	
 //	public static void main(String[] args)
 //	{
 //		JFrame frame = new JFrame();

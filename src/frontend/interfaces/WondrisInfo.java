@@ -4,7 +4,7 @@ import java.awt.Font;
 
 public interface WondrisInfo
 {
-	public static final String TITLE = "Wondris Learning Platform Login";
+	public static final String TITLE = "Wondris Learning Platform";
 	
 	public static final String NAME = "Wondris";
 	

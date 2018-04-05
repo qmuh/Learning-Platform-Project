@@ -8,12 +8,16 @@ import sharedobjects.Course;
 
 public class CoursePage extends Page<CourseItem, Course>
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Course course;
 	
-	public CoursePage(BoxList<CourseItem> boxList)
+	public CoursePage()
 	{
-		super(boxList);
+		super();
+		setName(COURSE_PAGE);
 		this.add(new JLabel("Jimmy finally started to code"));
 	}
-
 }

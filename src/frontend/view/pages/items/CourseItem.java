@@ -20,6 +20,5 @@ public class CourseItem extends Box
 		
 		this.add(new JLabel(course.getName()));
 		this.add(new JButton("View"));
-		
 	}
 }

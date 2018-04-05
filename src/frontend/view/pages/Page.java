@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import frontend.view.ProfessorGUI;
 import frontend.view.StudentGUI;
+import frontend.view.pages.items.CourseItem;
 import frontend.components.BoxList;
 
 // TODO: T extends Box U ??
@@ -50,8 +51,7 @@ public abstract class Page <T extends Box, U> extends JPanel implements PageName
 	{
 		header.setCoursesButtonListener(listener);
 	}
-	
-	
+
 	
 //	public static void main(String[] args)
 //	{

@@ -13,6 +13,9 @@ import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+
 
 import frontend.components.BoxList;
 import frontend.components.PageNavigator;
@@ -48,7 +51,8 @@ public class ProfessorGUI extends PageNavigator
 	private void createCoursePage()
 	{
 		@SuppressWarnings("unchecked")
-		Page<CourseItem, Course> coursePage = (Page<CourseItem, Course>) this.searchPage(COURSE_PAGE);
+		CoursePage coursePage = (CoursePage) this.searchPage(COURSE_PAGE);
+		
 		@SuppressWarnings("unchecked")
 		SendMessage message = new SendMessage(null, "RECEIVE COURSES");
 		BoxList<CourseItem> boxList = new BoxList<CourseItem>();
@@ -70,7 +74,6 @@ public class ProfessorGUI extends PageNavigator
 		{
 			e.printStackTrace();
 		}
-
 		coursePage.setBoxList(boxList);
 		coursePage.setCoursesButtonListener(new NewCourseButtonListener());
 		coursePage.displayPage();

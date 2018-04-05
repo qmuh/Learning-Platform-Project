@@ -11,7 +11,14 @@ public class GradePage extends Page<GradeItem, Grade>
 	
 	public GradePage(BoxList<GradeItem> boxList)
 	{
-		super(boxList);
+		super();
+	}
+
+	@Override
+	public void displayPage()
+	{
+		// TODO Auto-generated method stub
+		
 	}
 
 	

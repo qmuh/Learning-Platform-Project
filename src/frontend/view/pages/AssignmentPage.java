@@ -12,7 +12,14 @@ public class AssignmentPage extends Page<AssignItem, Assignment>
 	
 	public AssignmentPage(BoxList<AssignItem> boxList)
 	{
-		super(boxList);
+		super();
+	}
+
+	@Override
+	public void displayPage()
+	{
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

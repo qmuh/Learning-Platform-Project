@@ -1,25 +1,26 @@
 package frontend.components;
 
 import java.awt.CardLayout;
+import java.util.ArrayList;
+import java.util.Hashtable;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import frontend.view.pages.*;
 
-public class PageNavigator extends JFrame
+public class PageNavigator extends JPanel implements PageNames
 {
 	private JPanel pageLayout;
 	private CardLayout cardLayout;
 	private Page<?, ?> currentPage;
+	protected Hashtable<Integer, Page> pages;
 	
 	public PageNavigator()
 	{
-		pageLayout = new JPanel(cardLayout);
-		currentPage = new HomePage();
-		pageLayout.add(currentPage);
-		add(pageLayout);
-		setVisible(true);
+		pages = new Hashtable<Integer, Page>();
 	}
 	
 	public void showPage(String page) {

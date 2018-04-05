@@ -1,45 +1,46 @@
 package frontend.view.pages;
 
+import java.awt.event.ActionListener;
 import java.util.Hashtable;
 import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-class NavigationBar extends JPanel implements NavigationBarButtons
+public class NavigationBar extends JPanel implements NavigationBarButtons
 {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private Hashtable<Integer, JButton> navigationButtons;
+	private JButton home;
+	private JButton courses;
 	
-	public NavigationBar()
+	public NavigationBar(Hashtable<Integer, JButton> buttons)
 	{
-		navigationButtons = new Hashtable<Integer, JButton>();
+		home = new JButton("Home");
+		courses = new JButton("Course");
 		
-		navigationButtons.put(NAVBAR_LOGO, new JButton("Home"));
-		navigationButtons.put(NAVBAR_COURSE, new JButton("Course"));
-		navigationButtons.put(NAVBAR_GRADE, new JButton("Grades"));
-		navigationButtons.put(NAVBAR_SUBMISSION, new JButton("Submission"));
-		navigationButtons.put(NAVBAR_ASSIGNMENT, new JButton("Assignment"));
+		buttons.put(NAVBAR_LOGO, home);
+		buttons.put(NAVBAR_COURSE, courses);
 		
 		this.addButtons();
 	}
 	
 	private void addButtons()
 	{
-		Set<Integer> keys = navigationButtons.keySet();
-		
-		for(Integer key: keys)
-		{
-			this.add(navigationButtons.get(key));
-		}
+		this.add(home);
+		this.add(courses);
 	}
 	
-	public JButton getButton(String buttonName)
+	public JButton getButton(Integer buttonName)
 	{
 		return navigationButtons.get(buttonName);
+	}
+	
+	public void setListener(Integer buttonKey, ActionListener listener)
+	{
+		((JButton)navigationButtons.get(buttonKey)).addActionListener(listener);
 	}
 }

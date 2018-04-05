@@ -4,6 +4,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -26,23 +27,25 @@ import javax.swing.border.MatteBorder;
 import frontend.interfaces.Colours;
 import frontend.interfaces.ServerInfo;
 import frontend.interfaces.WondrisInfo;
+import frontend.view.pages.GUIConstants;
 import sharedobjects.LoginInfo;
 import sharedobjects.User;
 
-public class LoginGUI extends JFrame implements ServerInfo, WondrisInfo, Colours
+public class LoginGUI extends JFrame implements ServerInfo, WondrisInfo, Colours, GUIConstants
 {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField userName;
 	private JPasswordField password;
 	private JButton enterCredentials;
+	private JPanel cardPanel;
 
 	public LoginGUI(String s)
 	{
 		super(s);
-		setSize(1600, 1000);
+		setSize(WINDOW_SIZE);
 		createFields();
-
+		cardPanel = new JPanel(new CardLayout());
 		JPanel loginPanel = new JPanel();
 		GridLayout loginPanelLayout = new GridLayout(1, 1);
 		loginPanelLayout.setVgap(0);
@@ -52,7 +55,8 @@ public class LoginGUI extends JFrame implements ServerInfo, WondrisInfo, Colours
 				new MatteBorder(10, 10, 10, 10, Color.DARK_GRAY)));
 		loginPanel.add(createLoginPanel(NAME));
 		loginPanel.setBackground(TERTIARY_COLOR);
-		add(loginPanel);
+		cardPanel.add(loginPanel);
+		add(cardPanel);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setupLogin();
@@ -87,6 +91,9 @@ public class LoginGUI extends JFrame implements ServerInfo, WondrisInfo, Colours
 					else if(myClient.getUserType().equals("P")) 
 					{
 						System.out.println("We have a professor");
+						cardPanel.add(new ProfessorGUI(mySocket));
+						CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
+						cardLayout.next(cardPanel);
 					}	
 					
 					else if(myClient.getUserType().equals("S")) 

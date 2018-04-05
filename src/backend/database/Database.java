@@ -188,6 +188,7 @@ public class Database implements DatabaseProperties
 		 myDatabase.addAllTables();
 		 myDatabase.readUser("users.txt");
 		 myDatabase.readCourses("courses.txt");
+
 	}
 
 	public void readUser(String fileName) {

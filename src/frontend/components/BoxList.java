@@ -12,8 +12,9 @@ public class BoxList <T extends Box>
 	
 	public BoxList()
 	{
-		
+		scrollBox = new JPanel();
 	}
+	
 	public void addItem(T boxItem) 
 	{
 		
@@ -21,6 +22,9 @@ public class BoxList <T extends Box>
 	
 	public void setItems(ArrayList<T> boxItems) 
 	{
+		scrollBox.removeAll();
+		scrollBox.revalidate();
+		scrollBox.repaint();
 		
 	}
 }

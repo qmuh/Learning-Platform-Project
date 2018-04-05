@@ -1,5 +1,6 @@
 package frontend.view.pages;
 
+import java.awt.BorderLayout;
 
 public class HomePage extends Page
 {
@@ -9,8 +10,8 @@ public class HomePage extends Page
 	public HomePage()
 	{
 		super(null);
-		
-		
-		
 	}
+	
+	
+	
 }

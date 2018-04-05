@@ -17,11 +17,11 @@ public class Header extends JPanel implements GUIConstants, Colours
 	
 	private NavigationBar navigationBar;
 	
-	public Header(Hashtable<Integer, JButton> buttons)
+	public Header()
 	{
 		this.setPreferredSize(new Dimension(WINDOW_WIDTH, 100));
 		this.setBackground(ACCENT_COLOR);
-		navigationBar = new NavigationBar(buttons);
+		navigationBar = new NavigationBar();
 		this.add(navigationBar);
 	}
 }

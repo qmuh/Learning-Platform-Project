@@ -24,20 +24,16 @@ public class Page <T extends Box, U> extends JPanel
 	protected BoxList<T> itemDisplay;
 	protected StudentGUI studentGUI;
 	protected ProfessorGUI professorGUI;
-	protected Hashtable<Integer, JButton> buttons;
-	
 	
 	public Page(BoxList<T> boxList)
 	{
-		buttons = new Hashtable<Integer, JButton>();
-		header = new Header(buttons);
+		header = new Header();
 		footer = new Footer();
 		this.add(header);
 		this.add(footer);
 		itemDisplay = boxList;
 	}
 	
-	public void setList
 //	public static void main(String[] args)
 //	{
 //		JFrame frame = new JFrame();

@@ -2,10 +2,10 @@ package frontend.view.pages;
 
 import java.awt.event.ActionListener;
 import java.util.Hashtable;
-import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
 
 public class NavigationBar extends JPanel implements NavigationBarButtons
 {
@@ -17,13 +17,10 @@ public class NavigationBar extends JPanel implements NavigationBarButtons
 	private JButton home;
 	private JButton courses;
 	
-	public NavigationBar(Hashtable<Integer, JButton> buttons)
+	public NavigationBar()
 	{
 		home = new JButton("Home");
 		courses = new JButton("Course");
-		
-		buttons.put(NAVBAR_LOGO, home);
-		buttons.put(NAVBAR_COURSE, courses);
 		
 		this.addButtons();
 	}
@@ -34,13 +31,24 @@ public class NavigationBar extends JPanel implements NavigationBarButtons
 		this.add(courses);
 	}
 	
-	public JButton getButton(Integer buttonName)
+	public JButton getHomeButton()
 	{
-		return navigationButtons.get(buttonName);
+		return home;
 	}
 	
-	public void setListener(Integer buttonKey, ActionListener listener)
+	public JButton getCourseButton()
 	{
-		((JButton)navigationButtons.get(buttonKey)).addActionListener(listener);
+		return courses;
 	}
+	
+	public void setHomeButtonListener(ActionListener listener)
+	{
+		home.addActionListener(listener);
+	}
+	
+	public void setCoursesButtonListener(ActionListener listener)
+	{
+		courses.addActionListener(listener);
+	}
+	
 }

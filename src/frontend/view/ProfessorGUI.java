@@ -44,7 +44,6 @@ public class ProfessorGUI extends PageNavigator
 	private HomePage createHomePage()
 	{
 		HomePage homePage = new HomePage();
-		homePage.setListener()
 		return homePage;
 	}
 	
@@ -77,13 +76,11 @@ public class ProfessorGUI extends PageNavigator
 	}
 	public class HomeButtonListener implements ActionListener
 	{
-
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
 			showPage("HOME");
 		}
-		
 	}
 
 	

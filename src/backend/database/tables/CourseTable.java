@@ -91,7 +91,6 @@ public class CourseTable extends Table<Course>
 		
 	}
 
-	
 	/** Searches for a list of courses from a specific professor
 	 * @param professorId
 	 * @return
@@ -124,7 +123,6 @@ public class CourseTable extends Table<Course>
 		
 	}
 
-	
 	public void setActive(int courseID)
 	{
 		String sql = "UPDATE " + tableName + " SET ACTIVE=TRUE WHERE ID=?";

@@ -81,7 +81,6 @@ public class ProfessorSession extends ClientSession
 		
 	}
 
-	
 	private void handleModify(String[] interpreter, Object getmessageObject)
 	{
 		if(interpreter[1].equals("COURSEACTIVE"))
@@ -110,7 +109,6 @@ public class ProfessorSession extends ClientSession
 			
 			if(interpreter[1].equals("COURSEBYID"))
 			{
-				// Here the sent prof id is actually the student
 				Vector<Integer> myStudents = myDatabase.getStudentEnrollmentTable().getStudentsbyID(((CourseMessage)getMessage).getCourseId() ,((CourseMessage)getMessage).getUserId());
 				Vector<Student> myEnrolledStudents = myDatabase.getUserTable().getStudents(myStudents);
 				outputStream.writeObject(myEnrolledStudents);
@@ -120,7 +118,6 @@ public class ProfessorSession extends ClientSession
 			
 			if(interpreter[1].equals("COURSEBYLAST")) 
 			{
-				// Here the name is the last name
 				Vector<Integer> lastNameList = myDatabase.getUserTable().searchLastName(((CourseMessage)getMessage).getName());
 				Vector<Integer> myStudents = new Vector<Integer>();
 				for (int i = 0; i < lastNameList.size(); i++)

@@ -113,7 +113,16 @@ public class StudentEnrollmentTable extends Table<StudentEnrollment>
 
 	public void remove(StudentEnrollment getmessageObject)
 	{
-		
+		String sql = "DELETE FROM " + tableName + " WHERE ID = ?";
+		ResultSet client;
+		try {
+			preparedStatement = dbConnection.prepareStatement(sql);
+			preparedStatement.setInt(1, getmessageObject.getId());
+			preparedStatement.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 	}
 

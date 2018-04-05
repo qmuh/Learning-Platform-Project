@@ -1,5 +1,9 @@
 package backend.database;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,8 +19,10 @@ import backend.database.tables.StudentEnrollmentTable;
 import backend.database.tables.SubmissionTable;
 import backend.database.tables.UserTable;
 import backend.interfaces.DatabaseProperties;
+import sharedobjects.Course;
 import sharedobjects.Professor;
 import sharedobjects.Student;
+import sharedobjects.User;
 
 public class Database implements DatabaseProperties
 {
@@ -176,18 +182,72 @@ public class Database implements DatabaseProperties
 	public static void main(String[] args)
 	{
 		Database myDatabase = new Database();
-		// myDatabase.createDB();
-		//myDatabase.addAllTables();
-		// myDatabase.createAllTables();
-		// myDatabase.removeAllTables();
-		
-		/*
-		 myDatabase.userTable.add(new Student(30016415, "Qasim", "Muhammad",
-		 "qasim.muhammad@ucalgary.ca", "S", "qazxsw"));
-		 myDatabase.userTable.add(new Professor(39817100, "Jimmy", "Truong",
-		"jimmy.truong@ucalgary.ca", "P", "qazxsw"));
-		*/
-
+		  //myDatabase.createDB();
+		 myDatabase.createAllTables();
+		 //myDatabase.removeAllTables();
+		 myDatabase.addAllTables();
+		 myDatabase.readUser("users.txt");
+		 myDatabase.readCourses("courses.txt");
 	}
 
+	public void readUser(String fileName) {
+		 try
+		{
+			BufferedReader fileReader = new BufferedReader(new FileReader(fileName));
+			String line = fileReader.readLine();
+			
+			while (line!=null)
+			{
+				String toAdd[] = line.split(" ");
+				
+				if(toAdd[4].equals("P"))
+				{
+					this.getUserTable().add(new Professor(Integer.parseInt(toAdd[0]), toAdd[1], toAdd[2], toAdd[3], toAdd[4], toAdd[5]));
+				}
+				
+				if(toAdd[4].equals("S"))
+				{
+					this.getUserTable().add(new Student(Integer.parseInt(toAdd[0]), toAdd[1], toAdd[2], toAdd[3], toAdd[4], toAdd[5]));
+				}
+				line = fileReader.readLine();
+
+			}
+			
+			
+		} catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+		
+		}catch (IOException e) {
+			
+		}
+		
+	}
+	
+	public void readCourses(String fileName){
+		 try
+			{
+				BufferedReader fileReader = new BufferedReader(new FileReader(fileName));
+				String line = fileReader.readLine();
+				
+				while (line != null)
+				{
+					String toAdd[] = line.split(" ");
+					
+					this.getCourseTable().add(new Course(Integer.parseInt(toAdd[0]), Integer.parseInt(toAdd[1]),
+													toAdd[2], Boolean.parseBoolean(toAdd[3])));
+					line = fileReader.readLine();
+				}
+				
+				
+			} catch (FileNotFoundException e)
+			{
+				e.printStackTrace();
+			
+			}catch (IOException e) {
+				
+			}
+		
+	}
+	
 }

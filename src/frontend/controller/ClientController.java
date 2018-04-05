@@ -33,8 +33,7 @@ public class ClientController
 		objectOut.writeObject(toSend);
 		objectOut.flush();
 
-		if (!(toSend.getmessageObject() == null))
-		{
+		
 			try
 			{
 				return objectIn.readObject();
@@ -42,8 +41,8 @@ public class ClientController
 			{
 				e.printStackTrace();
 			}
-		}
-		return null;
+	
+			return null;
 	}
 
 	public Socket getMySocket()

@@ -48,18 +48,19 @@ public class ProfessorGUI extends PageNavigator
 		BoxList<CourseItem> boxList = new BoxList<CourseItem>();
 		Vector<Course> courses = new Vector<Course>();
 		
-//		try
-//		{
-//			courses = (Vector<Course>) this.clientController.sendMessage(message);
-//			
-//			for (int i = 0; i < courses.size(); i++)
-//			{
-//				boxList.addItem(new CourseItem(courses.elementAt(i)));
-//			}
-//		} catch (IOException e)
-//		{
-//			e.printStackTrace();
-//		}
+		try
+		{
+			courses = (Vector<Course>) this.clientController.sendMessage(message);
+			
+			for (int i = 0; i < courses.size(); i++)
+			{
+				boxList.addItem(new CourseItem(courses.elementAt(i)));
+				System.out.println("This course is " + courses.get(i).getName());
+			}
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 		
 		coursePage.setBoxList(boxList);
 	}

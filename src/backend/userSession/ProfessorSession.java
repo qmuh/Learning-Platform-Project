@@ -70,7 +70,7 @@ public class ProfessorSession extends ClientSession
 			
 		}
 		
-		else if(interpreter[0].equals("RECIEVE"))
+		else if(interpreter[0].equals("RECEIVE"))
 		{
 			handleRecieve(interpreter, command.getmessageObject());
 		}
@@ -104,7 +104,9 @@ public class ProfessorSession extends ClientSession
 		
 			if(interpreter[1].equals("COURSES"))
 			{
+				System.out.println("I recieve the correct message my id is " + user.getId());
 				Vector<Course> myCourses = myDatabase.getCourseTable().searchByProfId(user.getId());
+				
 				outputStream.writeObject(myCourses);
 				outputStream.flush();
 			}

@@ -105,7 +105,7 @@ public class CourseTable extends Table<Course>
 			preparedStatement = dbConnection.prepareStatement(sql);
 			preparedStatement.setInt(1, professorId);
 			course = preparedStatement.executeQuery();
-			if(course.next())
+			while(course.next())
 			{
 				
 					coursesFromProf.add(new Course(course.getInt("ID"),

@@ -24,6 +24,7 @@ import javax.swing.BorderFactory;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
+import frontend.components.PageNavigator;
 import frontend.interfaces.Colours;
 import frontend.interfaces.ServerInfo;
 import frontend.interfaces.WondrisInfo;
@@ -38,84 +39,93 @@ public class LoginGUI extends JFrame implements ServerInfo, WondrisInfo, Colours
 	private JTextField userName;
 	private JPasswordField password;
 	private JButton enterCredentials;
-	private JPanel cardPanel;
-
+	
+	private JPanel currentPanel;
+	
 	public LoginGUI(String s)
 	{
 		super(s);
 		setSize(WINDOW_SIZE);
 		createFields();
-		cardPanel = new JPanel(new CardLayout());
 		JPanel loginPanel = new JPanel();
+		
 		GridLayout loginPanelLayout = new GridLayout(1, 1);
 		loginPanelLayout.setVgap(0);
 		loginPanelLayout.setHgap(0);
 		loginPanel.setLayout(loginPanelLayout);
+		
 		loginPanel.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(200, 300, 200, 300),
 				new MatteBorder(10, 10, 10, 10, Color.DARK_GRAY)));
 		loginPanel.add(createLoginPanel(NAME));
 		loginPanel.setBackground(TERTIARY_COLOR);
-		cardPanel.add(loginPanel);
-		add(cardPanel);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		currentPanel = loginPanel;
+		this.add(currentPanel);
 		setupLogin();
 	}
-
+	
 	private void setupLogin()
 	{
 		enterCredentials.addActionListener(new ActionListener()
 		{
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
 				try
 				{
 					Socket mySocket = new Socket("localhost", 8991);
-					LoginInfo userInfo = new LoginInfo(Integer.parseInt(userName.getText()), new String(password.getPassword()));
-					
+					LoginInfo userInfo = new LoginInfo(Integer.parseInt(userName.getText()),
+							new String(password.getPassword()));
+
 					ObjectOutputStream toServer = new ObjectOutputStream(mySocket.getOutputStream());
 					ObjectInputStream fromServer = new ObjectInputStream(mySocket.getInputStream());
-					
+
 					toServer.writeObject(userInfo);
 					toServer.flush();
-					
-					User myClient = (User) fromServer.readObject(); 
-					
-					if(myClient == null)
+
+					User myClient = (User) fromServer.readObject();
+
+					if (myClient == null)
 					{
 						System.out.println("Incorrect username or password");
 					}
-					
-					else if(myClient.getUserType().equals("P")) 
+
+					else if (myClient.getUserType().equals("P"))
 					{
+						
+						currentPanel.setVisible(false);
+						currentPanel = new ProfessorGUI(mySocket);
+						add(currentPanel);
+						//add(new ProfessorGUI(mySocket));
+						
 						System.out.println("We have a professor");
-						cardPanel.add(new ProfessorGUI(mySocket));
-						CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
-						cardLayout.next(cardPanel);
-					}	
-					
-					else if(myClient.getUserType().equals("S")) 
+//						cardPanel.add(new ProfessorGUI(mySocket), "PROF");
+
+					}
+
+					else if (myClient.getUserType().equals("S"))
 					{
 						System.out.println("We have a student");
-					}	
-				}catch(NumberFormatException e2) {
+					}
+				} catch (NumberFormatException e2)
+				{
 					System.out.println("Username must only be numbers");
 				}
-				
+
 				catch (UnknownHostException e1)
 				{
 					e1.printStackTrace();
-				} catch(ClassNotFoundException e3) {
+				} catch (ClassNotFoundException e3)
+				{
 					System.out.println("Class not found exception");
-					
+
 				} catch (IOException e1)
 				{
 					e1.printStackTrace();
 				}
-				
-				
+
 			}
 
 		});
@@ -189,6 +199,8 @@ public class LoginGUI extends JFrame implements ServerInfo, WondrisInfo, Colours
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setBackground(ACCENT_COLOR);
 		buttonPanel.setPreferredSize(new Dimension(50, 50));
+		enterCredentials.setFocusPainted(false);
+		enterCredentials.setBackground(SECONDARY_COLOR);
 		buttonPanel.add(enterCredentials);
 		return buttonPanel;
 	}

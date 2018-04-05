@@ -27,7 +27,7 @@ public class Course implements Serializable
 	/**
 	 * Used to add new courses to the system by the professor
 	 */
-	private int courseID = 300;
+	private static int courseID = 300;
 	
 	/** Constructor used to initialize courses from a pre-made text file
 	 * @param courseID
@@ -50,7 +50,7 @@ public class Course implements Serializable
 	 */
 	public Course( int profID, String courseName, Boolean isActive)
 	{
-		id = courseID++;
+		id = ++courseID;
 		prof_id = profID;
 		name = courseName;
 		active = isActive;

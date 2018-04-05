@@ -13,6 +13,9 @@ import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import com.sun.xml.internal.bind.v2.runtime.Name;
+
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
@@ -67,6 +70,7 @@ public class ProfessorGUI extends PageNavigator
 				for (int i = 0; i < courses.size(); i++)
 				{
 					boxList.addItem(new CourseItem(courses.elementAt(i)));
+					System.out.println("Course name is: " + courses.get(i).getName());
 				}
 			}
 			
@@ -75,13 +79,20 @@ public class ProfessorGUI extends PageNavigator
 			e.printStackTrace();
 		}
 		coursePage.setBoxList(boxList);
-		coursePage.setCoursesButtonListener(new NewCourseButtonListener());
+		coursePage.setNewCourseListener(new NewCourseButtonListener(coursePage));
 		coursePage.displayPage();
 	}
 	
 	private class NewCourseButtonListener implements ActionListener
 	{
-
+		private CoursePage thisPage;
+		
+		public NewCourseButtonListener(CoursePage page)
+		{
+			thisPage = page;
+		}
+		
+		
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
@@ -100,10 +111,10 @@ public class ProfessorGUI extends PageNavigator
 				} else
 					try
 					{
-						System.out.println(thisProfessor.getId());
-						System.out.println("IM HERE");
-						clientController.onlySendMessage(new SendMessage<Course>(new Course(thisProfessor.getId(), courseName.getText(), false) 
-								, "INSERT COURSE"));
+						Course course = new Course(thisProfessor.getId(), courseName.getText(), false);
+						clientController.onlySendMessage(new SendMessage<Course>(course, "INSERT COURSE"));
+						thisPage.addToBoxList(new CourseItem(course));
+						
 					} catch (IOException e1)
 					{
 						e1.printStackTrace();

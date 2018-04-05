@@ -52,6 +52,10 @@ public abstract class Page <T extends Box, U> extends JPanel implements PageName
 		header.setCoursesButtonListener(listener);
 	}
 
+	public void addToBoxList(T item ) 
+	{
+		itemDisplay.add(item);
+	}
 	
 //	public static void main(String[] args)
 //	{

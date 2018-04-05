@@ -1,5 +1,6 @@
 package backend.userSession;
 
+import java.io.IOException;
 import java.net.Socket;
 
 import sharedobjects.SendMessage;
@@ -22,7 +23,21 @@ public class StudentSession extends ClientSession
 	@Override
 	public void run()
 	{
-		// TODO Auto-generated method stub
+		boolean isRunning = true;
+
+		while (isRunning)
+		{
+			try
+			{
+				SendMessage newMessage = (SendMessage)inputStream.readObject();
+				interpretMessage(newMessage);
+				
+
+			} catch (IOException | ClassNotFoundException e)
+			{
+				e.printStackTrace();
+			}
+		}
 		
 	}
 
@@ -36,10 +51,53 @@ public class StudentSession extends ClientSession
 	@Override
 	void interpretMessage(SendMessage command)
 	{
+		String interpreter[] = command.getCommand().split(" ");
+		
+		if(interpreter[0].equals("INSERT"))
+		{
+			handleInsert(interpreter,command.getmessageObject());
+		}
+		
+		else if(interpreter[0].equals("REMOVE"))
+		{
+			
+		}
+		
+		else if(interpreter[0].equals("RECEIVE"))
+		{
+			handleRecieve(interpreter, command.getmessageObject());
+		}
+		
+		else if(interpreter[0].equals("MODIFY"))
+		{
+			handleModify(interpreter, command.getmessageObject());
+		}
+		
+		
+	}
+
+	private void handleModify(String[] interpreter, Object getmessageObject)
+	{
 		// TODO Auto-generated method stub
 		
 	}
 
+	private void handleRecieve(String[] interpreter, Object getmessageObject)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void handleInsert(String[] interpreter, Object getmessageObject)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	
+	
+	
 	
 
 }

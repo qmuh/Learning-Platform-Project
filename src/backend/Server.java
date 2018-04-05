@@ -35,6 +35,9 @@ public class Server
 	 */
 	private Database database;
 
+	/** Creates the server with a port number
+	 * @param port The port number
+	 */
 	public Server(int port)
 	{
 		try
@@ -49,6 +52,9 @@ public class Server
 		}
 	}
 
+	/**
+	 * Runs the server
+	 */
 	public void runServer()
 	{
 		boolean isRunning = true;

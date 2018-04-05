@@ -183,8 +183,8 @@ public class Database implements DatabaseProperties
 	{
 		Database myDatabase = new Database();
 		  //myDatabase.createDB();
+		 myDatabase.removeAllTables();
 		 myDatabase.createAllTables();
-		 //myDatabase.removeAllTables();
 		 myDatabase.addAllTables();
 		 myDatabase.readUser("users.txt");
 		 myDatabase.readCourses("courses.txt");

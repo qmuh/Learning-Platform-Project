@@ -14,7 +14,7 @@ import frontend.view.StudentGUI;
 import frontend.components.BoxList;
 
 // TODO: T extends Box U ??
-public class Page <T extends Box, U> extends JPanel 
+public class Page <T extends Box, U> extends JPanel implements PageNames
 {
 
 	private static final long serialVersionUID = 1L;
@@ -26,13 +26,17 @@ public class Page <T extends Box, U> extends JPanel
 	protected StudentGUI studentGUI;
 	protected ProfessorGUI professorGUI;
 	
-	public Page(BoxList<T> boxList)
+	public Page()
 	{
 		header = new Header();
 		footer = new Footer();
 		this.add(header);
 		this.add(footer);
-		itemDisplay = boxList;
+	}
+	
+	public void setBoxList(BoxList<T> boxList)
+	{
+		this.itemDisplay = boxList;
 	}
 	
 	public void setHomeButtonListener(ActionListener listener)

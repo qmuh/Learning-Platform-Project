@@ -24,6 +24,11 @@ public class Header extends JPanel implements GUIConstants, Colours
 		this.add(navigationBar);
 	}
 	
+	public void setBackButtonListener(ActionListener listener)
+	{
+		navigationBar.setBackButtonListener(listener);
+	}
+	
 	public void setHomeButtonListener(ActionListener listener)
 	{
 		navigationBar.setHomeButtonListener(listener);

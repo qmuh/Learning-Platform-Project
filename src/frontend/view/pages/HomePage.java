@@ -2,6 +2,7 @@ package frontend.view.pages;
 
 import java.awt.BorderLayout;
 
+@SuppressWarnings("rawtypes")
 public class HomePage extends Page
 {
 
@@ -9,7 +10,8 @@ public class HomePage extends Page
 
 	public HomePage()
 	{
-		super(null);
+		super();
+		this.setName(HOME_PAGE);
 	}
 	
 	

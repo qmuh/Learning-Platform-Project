@@ -133,7 +133,6 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColorPalette, GUICo
 				add(currentPanel);
 				System.out.println("We have a professor");
 				// cardPanel.add(new ProfessorGUI(mySocket), "PROF");
-
 			}
 
 			else if (user.getUserType().equals("S"))

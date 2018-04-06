@@ -39,6 +39,7 @@ import frontend.view.pages.EnrollmentPage;
 import frontend.view.pages.Page;
 import frontend.view.pages.components.BoxList;
 import frontend.view.pages.components.PageNavigator;
+import frontend.view.pages.items.AssignItem;
 import frontend.view.pages.items.CourseItem;
 
 /**
@@ -150,8 +151,10 @@ public class ProfessorGUI extends PageNavigator
 		assignmentPage
 				.setGradesButtonListener(new GradesButtonListener(course));
 		this.addPage(assignmentPage, assignmentPage.getName());
-		assignmentPage.setUploadButtonListener(new UploadButtonListener(course, assignmentPage));
-		assignmentPage.setBrowseButtonListener(new BrowseButtonListener(assignmentPage));
+		assignmentPage.setUploadButtonListener(
+				new UploadButtonListener(course, assignmentPage));
+		assignmentPage.setBrowseButtonListener(
+				new BrowseButtonListener(assignmentPage));
 		showAllAssignments(course, assignmentPage);
 	}
 
@@ -162,13 +165,26 @@ public class ProfessorGUI extends PageNavigator
 		try
 		{
 			Vector<Assignment> myList = (Vector<Assignment>) clientController
-					.sendMessage(
-							new SendMessage<Course>(course, "RECEIVE ALLASSIGNMENTS"));
+					.sendMessage(new SendMessage<Course>(course,
+							"RECEIVE ALLASSIGNMENTS"));
+
+			for (Assignment assignment : myList)
+			{
+				createAssignItem(course, assignmentPage, assignment);
+			}
+
 			assignmentPage.setAssignmentVector(myList);
 		} catch (IOException e)
 		{
 			e.printStackTrace();
 		}
+	}
+
+	private void createAssignItem(Course course, AssignmentPage assignmentPage, Assignment assignment)
+	{
+		AssignItem assignItem = new AssignItem(assignment);
+		assignItem.setActiveCheckboxListener(new AssignmentActiveCheckBoxListener(course));
+		assignmentPage.addToBoxList(assignItem);
 	}
 
 	private void createEnrollmentPage(Course course)
@@ -522,31 +538,35 @@ public class ProfessorGUI extends PageNavigator
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-			if(assignmentPage.getFile() != null)
-			{	
-				Assignment myUpload = new Assignment( course.getId(),"This is my file" , 
-						assignmentPage.getUploadField().getText(), 
-													false, 
-													assignmentPage.getDate().toString());
+			if (assignmentPage.getFile() != null)
+			{
+				Assignment myUpload = new Assignment(course.getId(),
+						"This is my file",
+						assignmentPage.getUploadField().getText(), false,
+						assignmentPage.getDate().toString());
 				try
 				{
-					clientController.onlySendMessage(new SendMessage<Assignment>(myUpload, "INSERT ASSIGNMENT"));
-					
+					clientController.onlySendMessage(
+							new SendMessage<Assignment>(myUpload,
+									"INSERT ASSIGNMENT"));
+
 					long length = assignmentPage.getFile().length();
-					byte[] content = new byte[(int) length]; // Converting Long to Int
-					FileInputStream fis = new FileInputStream(assignmentPage.getFile());
+					byte[] content = new byte[(int) length]; // Converting Long
+																// to Int
+					FileInputStream fis = new FileInputStream(
+							assignmentPage.getFile());
 					BufferedInputStream bos = new BufferedInputStream(fis);
-					bos.read(content, 0, (int)length);
-					
+					bos.read(content, 0, (int) length);
+
 					clientController.getObjectOut().writeObject(content);
 					clientController.getObjectOut().flush();
-					
+
 					showAllAssignments(course, assignmentPage);
 				} catch (IOException e1)
 				{
 					e1.printStackTrace();
 				}
-				
+
 			}
 		}
 
@@ -567,17 +587,17 @@ public class ProfessorGUI extends PageNavigator
 		{
 			File selectedFile;
 			JFileChooser fileBrowser = new JFileChooser();
-			if(fileBrowser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+			if (fileBrowser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
 			{
 				selectedFile = fileBrowser.getSelectedFile();
 				assignPage.setFile(selectedFile);
 				assignPage.getUploadField().setText(selectedFile.getPath());
 			}
 
-			else {
+			else
+			{
 				assignPage.setFile(null);
 			}
-
 
 		}
 

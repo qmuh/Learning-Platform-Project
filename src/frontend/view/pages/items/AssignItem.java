@@ -1,5 +1,7 @@
 package frontend.view.pages.items;
 
+import java.awt.event.ActionListener;
+
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -30,6 +32,11 @@ public class AssignItem extends GeneralItem
 		this.add(dueDate);
 		
 		this.assignment = assignment;
+	}
+	
+	public void setActiveCheckboxListener(ActionListener listener)
+	{
+		active.addActionListener(listener);
 	}
 	
 	

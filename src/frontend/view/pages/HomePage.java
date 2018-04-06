@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 
 import frontend.view.pages.components.BoxList;
 import frontend.view.pages.items.CourseItem;
-import sharedobjects.Course;
+import shared.objects.Course;
 
 /**
  * 

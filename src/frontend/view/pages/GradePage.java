@@ -2,8 +2,8 @@ package frontend.view.pages;
 
 import frontend.view.pages.components.BoxList;
 import frontend.view.pages.items.GradeItem;
-import sharedobjects.Course;
-import sharedobjects.Grade;
+import shared.objects.Course;
+import shared.objects.Grade;
 
 /**
  * 

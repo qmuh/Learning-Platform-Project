@@ -1,4 +1,4 @@
-package sharedobjects;
+package shared.objects;
 
 public class Student extends User
 {

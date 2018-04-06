@@ -1,4 +1,5 @@
-package backend.interfaces;
+package shared;
+
 
 /**
  * 
@@ -7,7 +8,10 @@ package backend.interfaces;
  * @version 1.0
  * @since April 6, 2018
  */
-public interface DatabaseCommands
+public interface ServerInfo
 {
 
+	public static final String HOST_NAME = "localhost";
+	
+	public static final int PORT_NUMBER = 8991;
 }

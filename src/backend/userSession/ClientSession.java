@@ -5,11 +5,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import backend.interfaces.DatabaseCommands;
 import backend.userSession.helpers.EmailHelper;
 import backend.userSession.helpers.FileHelper;
+import shared.objects.SendMessage;
 import backend.database.Database;
-import sharedobjects.SendMessage;
+import backend.database.DatabaseCommands;
 
 /**
  * 
@@ -42,7 +42,7 @@ public abstract class ClientSession implements Runnable, DatabaseCommands
 	protected Database database;
 
 	/**
-	 * Used for sending emails
+	 * Used for sending email
 	 */
 	protected EmailHelper emailHelper;
 
@@ -61,17 +61,24 @@ public abstract class ClientSession implements Runnable, DatabaseCommands
 			objectInputStream = new ObjectInputStream(socket.getInputStream());
 			fileHelper = new FileHelper();
 			emailHelper = new EmailHelper();
-
 		} catch (IOException e)
 		{
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Sets the database for the client session
+	 */
+	public void setDatabase(Database database)
+	{
+		this.database = database;
+	}
+
 	public void run()
 	{
 		boolean isRunning = true;
-
+	
 		while (isRunning)
 		{
 			try
@@ -86,16 +93,7 @@ public abstract class ClientSession implements Runnable, DatabaseCommands
 		}
 	}
 
-	/**
-	 * Sets the database for the client session
-	 */
-	public void setDatabase(Database database)
-	{
-		this.database = database;
-	}
-
 	abstract void interpretMessage(SendMessage<?> command);
 
 	abstract public void write();
-
 }

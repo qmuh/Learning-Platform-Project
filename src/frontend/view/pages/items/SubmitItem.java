@@ -3,7 +3,7 @@ package frontend.view.pages.items;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 
-import sharedobjects.Submission;
+import shared.objects.Submission;
 
 /**
  * 

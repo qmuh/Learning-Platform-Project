@@ -2,13 +2,14 @@ package backend.database.tables;
 
 import java.sql.SQLException;
 import java.util.Vector;
+
+import shared.objects.Assignment;
+import shared.objects.Professor;
+import shared.objects.Student;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
-import sharedobjects.Assignment;
-import sharedobjects.Professor;
-import sharedobjects.Student;
 
 /**
  * 

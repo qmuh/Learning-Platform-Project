@@ -5,10 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import sharedobjects.Course;
-import sharedobjects.Professor;
-import sharedobjects.Student;
-import sharedobjects.Submission;
+import shared.objects.Course;
+import shared.objects.Professor;
+import shared.objects.Student;
+import shared.objects.Submission;
 
 /**
  * 

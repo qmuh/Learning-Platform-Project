@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.Box;
 import javax.swing.JPanel;
 
-import sharedobjects.Course;
+import shared.objects.Course;
 
 public class CoursePage<T extends Box, U> extends Page<T, U>
 {

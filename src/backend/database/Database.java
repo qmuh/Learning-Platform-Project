@@ -18,11 +18,10 @@ import backend.database.tables.GradeTable;
 import backend.database.tables.StudentEnrollmentTable;
 import backend.database.tables.SubmissionTable;
 import backend.database.tables.UserTable;
-import backend.interfaces.DatabaseProperties;
-import sharedobjects.Course;
-import sharedobjects.Professor;
-import sharedobjects.Student;
-import sharedobjects.User;
+import shared.objects.Course;
+import shared.objects.Professor;
+import shared.objects.Student;
+import shared.objects.User;
 
 /**
  * 

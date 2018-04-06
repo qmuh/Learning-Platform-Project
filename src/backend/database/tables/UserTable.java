@@ -8,9 +8,9 @@ import java.util.Vector;
 
 import com.sun.org.apache.bcel.internal.generic.NEW;
 
-import sharedobjects.Professor;
-import sharedobjects.Student;
-import sharedobjects.User;
+import shared.objects.Professor;
+import shared.objects.Student;
+import shared.objects.User;
 
 /**
  * 

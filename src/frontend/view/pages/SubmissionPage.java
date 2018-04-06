@@ -2,9 +2,9 @@ package frontend.view.pages;
 
 import frontend.view.pages.components.BoxList;
 import frontend.view.pages.items.SubmitItem;
-import sharedobjects.Assignment;
-import sharedobjects.Course;
-import sharedobjects.Submission;
+import shared.objects.Assignment;
+import shared.objects.Course;
+import shared.objects.Submission;
 
 /**
  * 

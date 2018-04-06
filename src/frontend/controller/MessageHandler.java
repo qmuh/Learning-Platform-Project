@@ -2,7 +2,7 @@ package frontend.controller;
 
 import java.io.File;
 
-import sharedobjects.SendMessage;
+import shared.objects.SendMessage;
 
 /**
  * 

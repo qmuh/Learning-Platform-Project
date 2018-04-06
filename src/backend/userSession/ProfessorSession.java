@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Vector;
 
-import sharedobjects.*;
+import shared.objects.*;
 
 /**
  *
@@ -93,18 +93,18 @@ public class ProfessorSession extends ClientSession
 
 			if (interpreter[1].equals("STUDENTBYID"))
 			{
-
-				Student myEnrolledStudents = (Student) myDatabase.getUserTable().getUserByID(((int)getMessage));
-				outputStream.writeObject(myEnrolledStudents);
-				outputStream.flush();
-
+				Student myEnrolledStudents = (Student) database.getUserTable()
+						.getUserByID(((int) getMessage));
+				objectOutputStream.writeObject(myEnrolledStudents);
+				objectOutputStream.flush();
 			}
 
-			if(interpreter[1].equals("STUDENTBYLAST"))
+			if (interpreter[1].equals("STUDENTBYLAST"))
 			{
-				Vector<Student> myEnrolledStudents = myDatabase.getUserTable().searchLastName(((String)getMessage));
-				outputStream.writeObject(myEnrolledStudents);
-				outputStream.flush();
+				Vector<Student> myEnrolledStudents = database.getUserTable()
+						.searchLastName(((String) getMessage));
+				objectOutputStream.writeObject(myEnrolledStudents);
+				objectOutputStream.flush();
 			}
 
 			if (interpreter[1].equals("ALLSTUDENTS"))
@@ -115,19 +115,22 @@ public class ProfessorSession extends ClientSession
 				objectOutputStream.flush();
 			}
 
-			if(interpreter[1].equals("ALLENROLLED"))
+			if (interpreter[1].equals("ALLENROLLED"))
 			{
-				Vector<Integer> enrolled = myDatabase.getStudentEnrollmentTable().getAllEnrolledStudent(((Course)getMessage).getId());
+				Vector<Integer> enrolled = database.getStudentEnrollmentTable()
+						.getAllEnrolledStudent(((Course) getMessage).getId());
 				Vector<Student> enrolledStudent = new Vector<Student>();
 				for (int i = 0; i < enrolled.size(); i++)
 				{
-					enrolledStudent.add((Student) myDatabase.getUserTable().getUserByID(enrolled.get(i)));
+					enrolledStudent.add((Student) database.getUserTable()
+							.getUserByID(enrolled.get(i)));
 				}
-				outputStream.writeObject(enrolledStudent);
-				outputStream.flush();
+				objectOutputStream.writeObject(enrolledStudent);
+				objectOutputStream.flush();
 			}
 
-		}catch (IOException e) {
+		} catch (IOException e)
+		{
 			System.out.println("Error");
 			e.printStackTrace();
 		}
@@ -145,7 +148,6 @@ public class ProfessorSession extends ClientSession
 
 		if (interpreter[1].equals("ENROLL"))
 		{
-
 			database.getStudentEnrollmentTable()
 					.add((StudentEnrollment) getmessageObject);
 		}
@@ -158,8 +160,7 @@ public class ProfessorSession extends ClientSession
 
 		if (interpreter[1].equals("ASSIGNMENT"))
 		{
-			database.getAssignmentTable()
-					.add(((Assignment) getmessageObject));
+			database.getAssignmentTable().add(((Assignment) getmessageObject));
 			byte[] file;
 			try
 			{

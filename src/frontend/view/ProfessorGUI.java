@@ -1,28 +1,12 @@
 package frontend.view;
 
-import sharedobjects.Assignment;
-import sharedobjects.Course;
-import sharedobjects.Professor;
-import sharedobjects.SendMessage;
-import sharedobjects.Student;
-import sharedobjects.StudentEnrollment;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.Vector;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-
-import com.sun.xml.internal.fastinfoset.util.FixedEntryStringIntMap;
-
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 
@@ -31,10 +15,14 @@ import frontend.view.pages.AssignmentPage;
 import frontend.view.pages.HomePage;
 import frontend.view.pages.CoursePage;
 import frontend.view.pages.EnrollmentPage;
-import frontend.view.pages.Page;
-import frontend.view.pages.components.BoxList;
 import frontend.view.pages.components.PageNavigator;
 import frontend.view.pages.items.CourseItem;
+import shared.objects.Assignment;
+import shared.objects.Course;
+import shared.objects.Professor;
+import shared.objects.SendMessage;
+import shared.objects.Student;
+import shared.objects.StudentEnrollment;
 
 /**
  * Class which handles the functionality of the Prrofessor GUI
@@ -46,8 +34,10 @@ import frontend.view.pages.items.CourseItem;
  */
 public class ProfessorGUI extends PageNavigator
 {
+	private static final long serialVersionUID = 1L;
+
 	/**
-	 * The professor object which contains informaion needed for client server
+	 * The professor object which contains information needed for client server
 	 * relations
 	 */
 	private Professor thisProfessor;

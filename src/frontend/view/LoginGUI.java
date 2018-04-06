@@ -3,8 +3,6 @@ package frontend.view;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -15,7 +13,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -27,13 +24,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
 import frontend.interfaces.ColorPalette;
-import frontend.interfaces.ServerInfo;
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.GUIConstants;
-import frontend.view.pages.components.PageNavigator;
-import sharedobjects.LoginInfo;
-import sharedobjects.Professor;
-import sharedobjects.User;
+import shared.ServerInfo;
+import shared.objects.LoginInfo;
+import shared.objects.Professor;
+import shared.objects.User;
 
 /**
  * 
@@ -42,7 +38,8 @@ import sharedobjects.User;
  * @version 1.0
  * @since April 6, 2018
  */
-public class LoginGUI extends JFrame implements WondrisInfo, ColorPalette, GUIConstants
+public class LoginGUI extends JFrame
+		implements WondrisInfo, ColorPalette, GUIConstants, ServerInfo
 {
 
 	private static final long serialVersionUID = 1L;
@@ -64,7 +61,8 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColorPalette, GUICo
 		loginPanelLayout.setHgap(0);
 		loginPanel.setLayout(loginPanelLayout);
 
-		loginPanel.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(200, 300, 200, 300),
+		loginPanel.setBorder(BorderFactory.createCompoundBorder(
+				new EmptyBorder(200, 300, 200, 300),
 				new MatteBorder(10, 10, 10, 10, Color.DARK_GRAY)));
 		loginPanel.add(createLoginPanel(NAME));
 		loginPanel.setBackground(TERTIARY_COLOR);
@@ -112,8 +110,10 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColorPalette, GUICo
 			try
 			{
 				socket = new Socket(HOST_NAME, PORT_NUMBER);
-				ObjectOutputStream toServer = new ObjectOutputStream(socket.getOutputStream());
-				ObjectInputStream fromServer = new ObjectInputStream(socket.getInputStream());
+				ObjectOutputStream toServer = new ObjectOutputStream(
+						socket.getOutputStream());
+				ObjectInputStream fromServer = new ObjectInputStream(
+						socket.getInputStream());
 				toServer.writeObject(getLoginInfo());
 				toServer.flush();
 
@@ -165,11 +165,13 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColorPalette, GUICo
 		LoginInfo loginInfo = null;
 		try
 		{
-			loginInfo = new LoginInfo(Integer.parseInt(userName.getText()), new String(password.getPassword()));
+			loginInfo = new LoginInfo(Integer.parseInt(userName.getText()),
+					new String(password.getPassword()));
 
 		} catch (NumberFormatException e)
 		{
-			JOptionPane.showMessageDialog(this, "Username must only be numbers", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Username must only be numbers",
+					"Error", JOptionPane.ERROR_MESSAGE);
 		}
 		return loginInfo;
 	}

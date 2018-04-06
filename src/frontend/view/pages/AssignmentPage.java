@@ -18,8 +18,8 @@ import javax.swing.JTextField;
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.components.BoxList;
 import frontend.view.pages.items.AssignItem;
-import sharedobjects.Assignment;
-import sharedobjects.Course;
+import shared.objects.Assignment;
+import shared.objects.Course;
 
 public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 		implements WondrisInfo

@@ -8,7 +8,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 
 import frontend.interfaces.WondrisInfo;
-import sharedobjects.Course;
+import shared.objects.Course;
 
 /**
  * 

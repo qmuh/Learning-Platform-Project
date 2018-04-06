@@ -25,8 +25,8 @@ import javax.swing.event.ListSelectionListener;
 import frontend.interfaces.ColorPalette;
 import frontend.interfaces.WondrisInfo;
 import javafx.scene.layout.Border;
-import sharedobjects.Course;
-import sharedobjects.Student;
+import shared.objects.Course;
+import shared.objects.Student;
 
 public class EnrollmentPage extends CoursePage implements WondrisInfo
 {

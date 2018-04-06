@@ -12,10 +12,10 @@ import java.util.concurrent.TimeUnit;
 import backend.database.*;
 import backend.userSession.ProfessorSession;
 import backend.userSession.StudentSession;
-import sharedobjects.LoginInfo;
-import sharedobjects.Professor;
-import sharedobjects.Student;
-import sharedobjects.User;
+import shared.objects.LoginInfo;
+import shared.objects.Professor;
+import shared.objects.Student;
+import shared.objects.User;
 
 /**
  * 
@@ -32,7 +32,7 @@ public class Server
 	private ServerSocket serverSocket;
 
 	/**
-	 * Used to allow multi-threading
+	 * Handles multiple clients on different threads
 	 */
 	private ExecutorService threadPool;
 
@@ -62,7 +62,7 @@ public class Server
 	}
 
 	/**
-	 * Runs the server
+	 * While the server is running, accept new connections and handle logins.
 	 */
 	public void runServer()
 	{
@@ -72,23 +72,18 @@ public class Server
 		{
 			try
 			{
-
 				Socket incomingConnection = serverSocket.accept();
-				LoginHandler loginHandler = new LoginHandler(
-						incomingConnection);
-				threadPool.execute(loginHandler);
-
+				threadPool.execute(new LoginHandler(incomingConnection));
 			} catch (IOException e)
 			{
 				e.printStackTrace();
 			}
 		}
-
 		shutdown();
 	}
 
 	/**
-	 * Shuts the server down
+	 * Shut the server down.
 	 */
 	private void shutdown()
 	{
@@ -102,17 +97,16 @@ public class Server
 		} catch (IOException e)
 		{
 			System.err.println("Unable to shutdown server socket.");
+			e.printStackTrace();
 		} catch (InterruptedException e)
 		{
 			System.err.println("Unable to shutdown server thread pool.");
+			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * Provides a class that handles incoming connections using
-	 *
-	 * @author Jimmy Truong
-	 *
+	 * Provides a class that authenticates a user.
 	 */
 	private class LoginHandler implements Runnable
 	{

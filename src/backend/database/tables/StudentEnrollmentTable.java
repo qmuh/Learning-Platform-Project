@@ -5,9 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import sharedobjects.Assignment;
-import sharedobjects.StudentEnrollment;
-import sharedobjects.Submission;
+import shared.objects.Assignment;
+import shared.objects.StudentEnrollment;
+import shared.objects.Submission;
 
 /**
  * 

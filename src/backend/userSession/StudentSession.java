@@ -3,8 +3,8 @@ package backend.userSession;
 import java.io.IOException;
 import java.net.Socket;
 
-import sharedobjects.SendMessage;
-import sharedobjects.Student;
+import shared.objects.SendMessage;
+import shared.objects.Student;
 
 /**
  * 

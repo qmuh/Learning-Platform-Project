@@ -29,16 +29,15 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private BoxList<AssignItem> assignmentList;
 	private JTextField uploadField, month, day, year;
 	private JButton uploadButton, browseButton;
 	private File selectedFile;
-	
+
 	public JTextField getUploadField()
 	{
 		return uploadField;
 	}
-	
+
 	public void setUploadButtonListener(ActionListener listener)
 	{
 		uploadButton.addActionListener(listener);
@@ -48,31 +47,31 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 	{
 		browseButton.addActionListener(listener);
 	}
-	
+
 	public File getFile()
 	{
 		return selectedFile;
-		
+
 	}
-	
-	public void setFile(File toSet) 
+
+	public void setFile(File toSet)
 	{
 		selectedFile = toSet;
 	}
-	
+
 	public Date getDate()
 	{
 		Calendar calendar = Calendar.getInstance();
-		calendar.set(Integer.parseInt(year.getText()), 
-				Integer.parseInt(month.getText()), 
+		calendar.set(Integer.parseInt(year.getText()),
+				Integer.parseInt(month.getText()),
 				Integer.parseInt(day.getText()));
 		return calendar.getTime();
 	}
-	
+
 	public AssignmentPage(Course course)
 	{
 		super(course);
-		this.setName(ASSIGNMENT_PAGE+course.getId());
+		this.setName(ASSIGNMENT_PAGE + course.getId());
 		body.add(createAssignmentPanel(), BorderLayout.CENTER);
 	}
 
@@ -97,8 +96,10 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 	private JScrollPane createAssignmentList()
 	{
 		// TODO: Add default list model to JList
-		assignmentList = new BoxList<AssignItem>();
-		JScrollPane scrollPane = new JScrollPane(assignmentList);
+		itemDisplay = new BoxList<AssignItem>();
+		itemDisplay.addItem(new AssignItem(
+				new Assignment(1000, 1000, "TOTLE", "PATH", true, "DUE DATE")));
+		JScrollPane scrollPane = new JScrollPane(itemDisplay);
 		scrollPane.setVerticalScrollBarPolicy(
 				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		return scrollPane;

@@ -98,7 +98,7 @@ public class AssignmentTable extends Table<Assignment>
 
 	public Vector<Assignment> getAllAssignments(int id)
 	{
-		String sql = "SELECT * FROM " + tableName + " WHERE ID= ? ";
+		String sql = "SELECT * FROM " + tableName + " WHERE COURSEID= ? ";
 		Vector<Assignment> userList = new Vector<Assignment>();
 		ResultSet assign;
 		

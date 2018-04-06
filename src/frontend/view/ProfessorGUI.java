@@ -89,6 +89,7 @@ public class ProfessorGUI extends PageNavigator
 					createCourseItem(course, homePage);
 
 					createEnrollmentPage(course);
+					createAssignmentPage(course);
 
 					System.out.println(
 							"Course name is: " + coursesList.get(i).getName());
@@ -121,6 +122,9 @@ public class ProfessorGUI extends PageNavigator
 	private CoursePage createCoursePage(Course course)
 	{
 		CoursePage coursePage = new CoursePage(course);
+		coursePage.setEnrollmentButtonListener(new EnrollmentButtonListener(course));
+		coursePage.setAssignmentButtonListener(new AssignmentButtonListener(course));
+		coursePage.setGradesButtonListener(new GradesButtonListener(course));
 		this.addPage(coursePage, coursePage.getName());
 		return coursePage;
 	}
@@ -128,14 +132,18 @@ public class ProfessorGUI extends PageNavigator
 	private void createAssignmentPage(Course course)
 	{
 		AssignmentPage assignmentPage = new AssignmentPage(course);
+		assignmentPage.setEnrollmentButtonListener(new EnrollmentButtonListener(course));
+		assignmentPage.setAssignmentButtonListener(new AssignmentButtonListener(course));
+		assignmentPage.setGradesButtonListener(new GradesButtonListener(course));
 		this.addPage(assignmentPage, assignmentPage.getName());
 	}
-
-
-
+	
 	private void createEnrollmentPage(Course course)
 	{
 		EnrollmentPage enrollmentPage = new EnrollmentPage(course);
+		enrollmentPage.setEnrollmentButtonListener(new EnrollmentButtonListener(course));
+		enrollmentPage.setAssignmentButtonListener(new AssignmentButtonListener(course));
+		enrollmentPage.setGradesButtonListener(new GradesButtonListener(course));
 		this.addPage(enrollmentPage, enrollmentPage.getName());
 		enrollmentPage.setSearchButtonListener(
 				new SearchButtonListener(enrollmentPage));
@@ -243,6 +251,7 @@ public class ProfessorGUI extends PageNavigator
 			this.enrollmentPage = enrollmentPage;
 			myCourse = course;
 		}
+		
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
@@ -359,6 +368,52 @@ public class ProfessorGUI extends PageNavigator
 			showPage(COURSE_PAGE + courseId);
 		}
 
+	}
+	
+	private class EnrollmentButtonListener implements ActionListener
+	{
+		private Course course;
+		public EnrollmentButtonListener(Course course)
+		{
+			this.course = course;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			showPage(ENROLLMENT_PAGE+course.getId());
+		}
+		
+	}
+	private class AssignmentButtonListener implements ActionListener
+	{
+		private Course course;
+		public AssignmentButtonListener(Course course)
+		{
+			this.course = course;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			showPage(ASSIGNMENT_PAGE+course.getId());
+		}
+		
+	}
+	private class GradesButtonListener implements ActionListener
+	{
+		private Course course;
+		public GradesButtonListener(Course course)
+		{
+			this.course = course;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			showPage(GRADES_PAGE+course.getId());
+		}
+		
 	}
 
 }

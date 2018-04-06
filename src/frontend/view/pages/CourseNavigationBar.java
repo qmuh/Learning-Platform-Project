@@ -1,6 +1,7 @@
 package frontend.view.pages;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -32,18 +33,19 @@ public class CourseNavigationBar extends JPanel implements WondrisInfo
 		return b;
 	}
 	
-	public JButton getEnrollmentButton()
+	public void setEnrollmentButtonListener(ActionListener listener) 
 	{
-		return enrollmentButton;
+		enrollmentButton.addActionListener(listener);
 	}
-
-	public JButton getAssignmentButton()
+	
+	public void setAssignmentButtonListener(ActionListener listener) 
 	{
-		return assignmentButton;
+		assignmentButton.addActionListener(listener);
 	}
-
-	public JButton getGradesButton()
+	
+	public void setGradesButtonListener(ActionListener listener) 
 	{
-		return gradesButton;
+		gradesButton.addActionListener(listener);
 	}
+	
 }

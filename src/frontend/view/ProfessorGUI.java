@@ -175,6 +175,7 @@ public class ProfessorGUI extends PageNavigator
 		{
 			this.enrollmentPage = enrollmentPage;
 		}
+		
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{

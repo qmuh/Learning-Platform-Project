@@ -152,6 +152,7 @@ public class ProfessorGUI extends PageNavigator
 		this.addPage(assignmentPage, assignmentPage.getName());
 		assignmentPage.setUploadButtonListener(new UploadButtonListener(course, assignmentPage));
 		assignmentPage.setBrowseButtonListener(new BrowseButtonListener(assignmentPage));
+		showAllAssignments(course, assignmentPage);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -508,36 +509,37 @@ public class ProfessorGUI extends PageNavigator
 	private class UploadButtonListener implements ActionListener
 	{
 		private Course course;
-		private AssignmentPage assignPage;
+		private AssignmentPage assignmentPage;
 
 		public UploadButtonListener(Course course, AssignmentPage assignPage)
 		{
 			this.course = course;
-			this.assignPage = assignPage;
+			this.assignmentPage = assignPage;
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-			if(assignPage.getFile() != null)
+			if(assignmentPage.getFile() != null)
 			{	
 				Assignment myUpload = new Assignment( course.getId(),"This is my file" , 
-													assignPage.getUploadField().getText(), 
+						assignmentPage.getUploadField().getText(), 
 													false, 
-													assignPage.getDate().toString().substring(0, 4));
+													assignmentPage.getDate().toString());
 				try
 				{
 					clientController.onlySendMessage(new SendMessage<Assignment>(myUpload, "INSERT ASSIGNMENT"));
 					
-					long length = assignPage.getFile().length();
+					long length = assignmentPage.getFile().length();
 					byte[] content = new byte[(int) length]; // Converting Long to Int
-					FileInputStream fis = new FileInputStream(assignPage.getFile());
+					FileInputStream fis = new FileInputStream(assignmentPage.getFile());
 					BufferedInputStream bos = new BufferedInputStream(fis);
 					bos.read(content, 0, (int)length);
 					
 					clientController.getObjectOut().writeObject(content);
 					clientController.getObjectOut().flush();
 					
+					showAllAssignments(course, assignmentPage);
 				} catch (IOException e1)
 				{
 					e1.printStackTrace();

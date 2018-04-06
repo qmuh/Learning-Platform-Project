@@ -15,7 +15,6 @@ import frontend.components.BoxList;
 import frontend.interfaces.Colours;
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.items.CourseItem;
-import javafx.scene.layout.Border;
 import sharedobjects.Course;
 
 public class CourseTable extends JPanel implements WondrisInfo, Colours
@@ -32,7 +31,7 @@ public class CourseTable extends JPanel implements WondrisInfo, Colours
 	
 	private JPanel tablePanel;
 	private JPanel titlePanel;
-	private int elements;
+	
 	public CourseTable()
 	{
 		setLayout(new BorderLayout());
@@ -46,9 +45,9 @@ public class CourseTable extends JPanel implements WondrisInfo, Colours
 		tablePanel.setLayout(new BoxLayout(tablePanel, BoxLayout.Y_AXIS));
 		
 		JPanel tableHeader = new JPanel();
-		tableHeader.add(createLabel("Active", TEXTFONT));
-		tableHeader.add(createLabel("Course Name", TEXTFONT));
-		tableHeader.add(createLabel("Course Home", TEXTFONT));
+		tableHeader.add(createLabel("Active", TEXT_FONT));
+		tableHeader.add(createLabel("Course Name", TEXT_FONT));
+		tableHeader.add(createLabel("Course Home", TEXT_FONT));
 		
 		tablePanel.add(tableHeader);
 		return tablePanel;
@@ -57,7 +56,7 @@ public class CourseTable extends JPanel implements WondrisInfo, Colours
 	private JPanel createTitle() {
 		titlePanel = new JPanel(new GridLayout(1, 3));
 		titlePanel.add(createLabel(TABLE_TITLE, TITLE_FONT), 0);
-		titlePanel.add(createButton("New Course", TEXTFONT), NEW_COURSE);
+		titlePanel.add(createButton("New Course", TEXT_FONT), NEW_COURSE);
 		
 		return titlePanel;
 	}
@@ -82,10 +81,8 @@ public class CourseTable extends JPanel implements WondrisInfo, Colours
 
 	public void setBoxList(BoxList<CourseItem> itemDisplay)
 	{
-		tablePanel.add(new CourseItem(new Course(0, 0, "Memeology", true)));
 		tablePanel.add(itemDisplay, TABLE_CONTENTS);
-		for(int i = 0; i < 3; i++) {
-		}
+//		}
 	}
 	
 	public void setNewCourseListener(ActionListener listener)
@@ -93,4 +90,5 @@ public class CourseTable extends JPanel implements WondrisInfo, Colours
 		((JButton)titlePanel.getComponent(NEW_COURSE)).addActionListener(listener);
 	}
 
+	
 }

@@ -14,6 +14,6 @@ public interface WondrisInfo
 	
 	public static final Font TITLE_FONT = new Font("Century Gothic", Font.PLAIN, TITLE_FONT_SIZE);
 	
-	public static final Font TEXTFONT = new Font("Century Gothic", Font.PLAIN, TEXT_FONT_SIZE);
+	public static final Font TEXT_FONT = new Font("Century Gothic", Font.PLAIN, TEXT_FONT_SIZE);
 
 }

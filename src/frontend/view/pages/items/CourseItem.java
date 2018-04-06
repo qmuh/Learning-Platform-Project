@@ -31,12 +31,16 @@ public class CourseItem extends Box implements WondrisInfo
 	}
 	private JLabel createLabel(String name) {
 		JLabel label = new JLabel(name);
-		label.setFont(TEXTFONT);
+		label.setFont(TEXT_FONT);
 		return label;
 	}
 	private JButton createButton(String name) {
 		view = new JButton(name);
-		view.setFont(TEXTFONT);
+		view.setFont(TEXT_FONT);
+		return view;
+	}
+	
+	public JButton getViewButton() {
 		return view;
 	}
 }

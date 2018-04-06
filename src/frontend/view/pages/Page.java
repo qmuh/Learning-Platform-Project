@@ -1,5 +1,6 @@
 package frontend.view.pages;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -8,6 +9,8 @@ import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import com.sun.corba.se.spi.orbutil.fsm.Action;
 
 import frontend.view.ProfessorGUI;
 import frontend.view.StudentGUI;
@@ -19,7 +22,7 @@ public abstract class Page <T extends Box, U> extends JPanel implements PageName
 {
 
 	private static final long serialVersionUID = 1L;
-	private Header header;
+	protected Header header;
 	private Footer footer;
 	protected JPanel body;
 	protected ArrayList<U> itemList;
@@ -29,10 +32,13 @@ public abstract class Page <T extends Box, U> extends JPanel implements PageName
 	
 	public Page()
 	{
+		this.setLayout(new BorderLayout());
+		body = new JPanel();
 		header = new Header();
 		footer = new Footer();
-		this.add(header);
-		this.add(footer);
+		this.add(header, BorderLayout.NORTH);
+		this.add(footer, BorderLayout.SOUTH);
+		this.add(body, BorderLayout.CENTER);
 	}
 	
 	public abstract void displayPage();
@@ -47,9 +53,9 @@ public abstract class Page <T extends Box, U> extends JPanel implements PageName
 		header.setHomeButtonListener(listener);
 	}
 	
-	public void setCoursesButtonListener(ActionListener listener)
+	public void setBackButtonListener(ActionListener listener)
 	{
-		header.setCoursesButtonListener(listener);
+		header.setBackButtonListener(listener);
 	}
 
 	public void addToBoxList(T item ) 

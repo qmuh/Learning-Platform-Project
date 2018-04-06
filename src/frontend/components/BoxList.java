@@ -1,5 +1,6 @@
 package frontend.components;
 
+import java.awt.Component;
 import java.util.ArrayList;
 
 import javax.swing.Box;
@@ -12,6 +13,24 @@ public class BoxList <T extends Box> extends JPanel
 	public BoxList()
 	{
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+	}
+	
+	@SuppressWarnings("unchecked")
+	public T findElement(String name)
+	{
+		for (Component component : this.getComponents())
+		{
+			if (component.getName() == name)
+			{
+				return (T) component;
+			}
+		}
+		return null;
+	}
+	
+	public T elementAt(int i) 
+	{
+		return this.elementAt(i);
 	}
 	
 	public void addItem(T boxItem) 

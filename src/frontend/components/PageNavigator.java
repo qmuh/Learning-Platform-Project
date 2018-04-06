@@ -45,7 +45,7 @@ public class PageNavigator extends JPanel implements PageNames
 	private void addPage(Page<?, ?> page, String pageName)
 	{
 		page.setHomeButtonListener(new HomeButtonListener());
-		page.setCoursesButtonListener(new CourseButtonListener());
+		page.setBackButtonListener(new BackButtonListener());
 		this.add(page, pageName);
 	}
 
@@ -74,14 +74,17 @@ public class PageNavigator extends JPanel implements PageNames
 		}
 	}
 	
-	public class CourseButtonListener implements ActionListener
+	public class ViewCourseListener implements ActionListener
 	{
+
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
 			showPage(COURSE_PAGE);
 		}
+		
 	}
+	
 
 	
 }

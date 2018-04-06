@@ -7,7 +7,7 @@ import frontend.view.pages.items.StudentItem;
 import sharedobjects.Course;
 import sharedobjects.Student;
 
-public class EnrollmentPage extends Page<StudentItem, Student>
+public class EnrollmentPage extends CoursePage
 {
 	private Course course;
 	private ArrayList<Student> enrolledStudentList;

@@ -146,9 +146,6 @@ public class LoginGUI extends JFrame implements WondrisInfo, Colours, GUIConstan
 	
 	public class IncorrectLoginException extends Exception{
 
-		/**
-		 * 
-		 */
 		private static final long serialVersionUID = 1L;
 		
 		public IncorrectLoginException() {
@@ -224,7 +221,7 @@ public class LoginGUI extends JFrame implements WondrisInfo, Colours, GUIConstan
 		JPanel textFieldPanel = new JPanel();
 		textFieldPanel.setBackground(ACCENT_COLOR);
 		JLabel text = new JLabel(s);
-		text.setFont(TEXTFONT);
+		text.setFont(TEXT_FONT);
 		text.setForeground(Color.WHITE);
 		textFieldPanel.add(text);
 		textFieldPanel.add(field);
@@ -236,7 +233,7 @@ public class LoginGUI extends JFrame implements WondrisInfo, Colours, GUIConstan
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setBackground(ACCENT_COLOR);
 		buttonPanel.setPreferredSize(new Dimension(50, 50));
-		enterCredentials.setFont(TEXTFONT);
+		enterCredentials.setFont(TEXT_FONT);
 		enterCredentials.setFocusPainted(false);
 		enterCredentials.setBackground(SECONDARY_COLOR);
 		buttonPanel.add(enterCredentials);

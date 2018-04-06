@@ -1,43 +1,45 @@
 package frontend.view.pages;
 
-import java.awt.Color;
-import java.awt.event.ActionListener;
+import java.awt.BorderLayout;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import frontend.view.pages.items.CourseItem;
 import sharedobjects.Course;
 
-public class CoursePage extends Page<CourseItem, Course>
+@SuppressWarnings("rawtypes")
+public class CoursePage extends Page 
 {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
-	private Course course;
-	private CourseTable courseTable;
-	
-	public CoursePage()
+
+	public CoursePage(String courseName)
 	{
 		super();
-		courseTable = new CourseTable();
-		body = courseTable;
-		setName(COURSE_PAGE);
-		this.add(body);
+		this.setName(COURSE_PAGE);
+		this.header.setTitle(courseName);
+		CourseNavigationBar bar = new CourseNavigationBar();
+		body = new JPanel();
+		body.setLayout(new BorderLayout());
+		body.add(bar, BorderLayout.EAST);
+		add(body);
 	}
 
 	@Override
 	public void displayPage()
 	{
-		((CourseTable) this.body).setBoxList(itemDisplay);
-		//courseTable.setBoxList(itemDisplay);
+		// TODO Auto-generated method stub
 		
-		System.out.println("hello friends");
 	}
 	
-	public void setNewCourseListener(ActionListener listener)
-	{
-		((CourseTable)body).setNewCourseListener(listener);
+	public static void main(String[] args) {
+		JFrame frame = new JFrame("Testing");
+		frame.add(new CoursePage("The Course"));
+		frame.setSize(1600, 1000);
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+	
+	
 }

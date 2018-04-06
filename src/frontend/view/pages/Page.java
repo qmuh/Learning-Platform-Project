@@ -10,10 +10,13 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import frontend.interfaces.WondrisInfo;
+import frontend.view.ProfessorGUI;
+import frontend.view.StudentGUI;
 import frontend.view.pages.components.BoxList;
 import frontend.view.pages.components.Footer;
 
-public abstract class Page <T extends Box, U> extends JPanel implements PageNames
+public abstract class Page <T extends Box, U> extends JPanel implements PageNames, WondrisInfo
 {
 
 	private static final long serialVersionUID = 1L;

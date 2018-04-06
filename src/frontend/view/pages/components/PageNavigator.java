@@ -7,9 +7,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
+import frontend.interfaces.ColorPalette;
 import frontend.view.pages.*;
 
-public class PageNavigator extends JPanel implements PageNames
+public class PageNavigator extends JPanel implements PageNames, ColorPalette
 {
 	private CardLayout cardLayout;
 	private Page<?, ?> currentPage;

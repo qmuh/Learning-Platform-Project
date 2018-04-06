@@ -1,18 +1,21 @@
 package frontend.view.pages;
 
-import frontend.view.pages.components.BoxList;
 import frontend.view.pages.items.GradeItem;
 import sharedobjects.Course;
 import sharedobjects.Grade;
 
-public class GradePage extends Page<GradeItem, Grade>
+public class GradePage extends CoursePage<GradeItem, Grade>
 {
+	private static final long serialVersionUID = 1L;
 	private Course course;
 	
-	public GradePage(BoxList<GradeItem> boxList)
+	public GradePage(Course course)
 	{
-		super();
+		super(course);
+		
 	}
+	
+	
 
 	@Override
 	public void displayPage()

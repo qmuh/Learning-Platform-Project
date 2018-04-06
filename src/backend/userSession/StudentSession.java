@@ -29,10 +29,8 @@ public class StudentSession extends ClientSession
 		{
 			try
 			{
-				SendMessage newMessage = (SendMessage)inputStream.readObject();
+				SendMessage newMessage = (SendMessage)objectInputStream.readObject();
 				interpretMessage(newMessage);
-				
-
 			} catch (IOException | ClassNotFoundException e)
 			{
 				e.printStackTrace();
@@ -93,11 +91,4 @@ public class StudentSession extends ClientSession
 		// TODO Auto-generated method stub
 		
 	}
-
-	
-	
-	
-	
-	
-
 }

@@ -6,24 +6,21 @@ import java.util.Vector;
 
 import sharedobjects.*;
 
-
 public class ProfessorSession extends ClientSession
 {
 
-	Professor user;
+	private Professor professor;
+
 	public ProfessorSession(Socket socket)
 	{
 		super(socket);
-		
 	}
 
-	public void setProfessor(Professor thisUser)
+	public void setProfessor(Professor professor)
 	{
-		user = thisUser;
+		this.professor = professor;
 	}
-	
-	
-	
+
 	@Override
 	public void run()
 	{
@@ -33,9 +30,8 @@ public class ProfessorSession extends ClientSession
 		{
 			try
 			{
-				SendMessage newMessage = (SendMessage)inputStream.readObject();
+				SendMessage newMessage = (SendMessage) objectInputStream.readObject();
 				interpretMessage(newMessage);
-				
 
 			} catch (IOException | ClassNotFoundException e)
 			{
@@ -43,129 +39,136 @@ public class ProfessorSession extends ClientSession
 			}
 		}
 
-
-		
 	}
 
 	@Override
 	public void write()
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	void interpretMessage(SendMessage command)
 	{
 		String interpreter[] = command.getCommand().split(" ");
-		
-		if(interpreter[0].equals("INSERT"))
+
+		if (interpreter[0].equals("INSERT"))
 		{
-			handleInsert(interpreter,command.getmessageObject());
+			handleInsert(interpreter, command.getmessageObject());
 		}
-		
-		else if(interpreter[0].equals("REMOVE"))
+
+		else if (interpreter[0].equals("REMOVE"))
 		{
-			
+
 		}
-		
-		else if(interpreter[0].equals("RECEIVE"))
+
+		else if (interpreter[0].equals("RECEIVE"))
 		{
 			handleRecieve(interpreter, command.getmessageObject());
 		}
-		
-		else if(interpreter[0].equals("MODIFY"))
+
+		else if (interpreter[0].equals("MODIFY"))
 		{
 			handleModify(interpreter, command.getmessageObject());
 		}
-		
-		
+
 	}
 
 	private void handleModify(String[] interpreter, Object getmessageObject)
 	{
-		if(interpreter[1].equals("COURSEACTIVE"))
+		if (interpreter[1].equals("COURSEACTIVE"))
 		{
-			myDatabase.getCourseTable().setActive( ((Course)getmessageObject).getId());
+			database.getCourseTable()
+					.setActive(((Course) getmessageObject).getId());
 		}
-		
-		if(interpreter[1].equals("COURSEINACTIVE"))
-		{
-			myDatabase.getCourseTable().setInactive(((Course)getmessageObject).getId() );
 
+		if (interpreter[1].equals("COURSEINACTIVE"))
+		{
+			database.getCourseTable()
+					.setInactive(((Course) getmessageObject).getId());
 		}
 	}
 
 	private void handleRecieve(String[] interpreter, Object getMessage)
 	{
-		try 
+		try
 		{
-		
-			if(interpreter[1].equals("COURSES"))
+			if (interpreter[1].equals("COURSES"))
 			{
-				System.out.println("I recieve the correct message my id is " + user.getId());
-				Vector<Course> myCourses = myDatabase.getCourseTable().searchByProfId(user.getId());
-				
-				outputStream.writeObject(myCourses);
-				outputStream.flush();
+				System.out.println("I recieve the correct message my id is "
+						+ professor.getId());
+				Vector<Course> myCourses = database.getCourseTable()
+						.searchByProfId(professor.getId());
+
+				objectOutputStream.writeObject(myCourses);
+				objectOutputStream.flush();
 			}
-			
-			if(interpreter[1].equals("STUDENTBYID"))
+
+			if (interpreter[1].equals("STUDENTBYID"))
 			{
-				
-				Student myEnrolledStudents = (Student) myDatabase.getUserTable().getUserByID(((CourseMessage)getMessage).getUserId());
-				outputStream.writeObject(myEnrolledStudents);
-				outputStream.flush();
-				
+
+				Student myEnrolledStudents = (Student) database.getUserTable()
+						.getUserByID(((CourseMessage) getMessage).getUserId());
+				objectOutputStream.writeObject(myEnrolledStudents);
+				objectOutputStream.flush();
+
 			}
-			
-			if(interpreter[1].equals("COURSEBYLAST")) 
+
+			if (interpreter[1].equals("COURSEBYLAST"))
 			{
-				Vector<Student> myEnrolledStudents = myDatabase.getUserTable().searchLastName(((CourseMessage)getMessage).getName());
-				outputStream.writeObject(myEnrolledStudents);
-				outputStream.flush();
+				Vector<Student> myEnrolledStudents = database.getUserTable()
+						.searchLastName(((CourseMessage) getMessage).getName());
+				objectOutputStream.writeObject(myEnrolledStudents);
+				objectOutputStream.flush();
 			}
-			
-			if(interpreter[1].equals("ALLSTUDENTS"))
+
+			if (interpreter[1].equals("ALLSTUDENTS"))
 			{
-				Vector<Student> allStudents = myDatabase.getUserTable().allStudents();
-				outputStream.writeObject(allStudents);
-				outputStream.flush();
+				Vector<Student> allStudents = database.getUserTable()
+						.allStudents();
+				objectOutputStream.writeObject(allStudents);
+				objectOutputStream.flush();
 			}
-			
-		}catch (IOException e) {
+		} catch (IOException e)
+		{
 			System.out.println("Error");
+			e.printStackTrace();
 		}
-		
 	}
 
 	private void handleInsert(String[] interpreter, Object getmessageObject)
 	{
-		if(interpreter[1].equals("COURSE"))
+		if (interpreter[1].equals("COURSE"))
 		{
-			myDatabase.getCourseTable().add( (Course) getmessageObject);
-			System.out.println("Adding course " + ((Course)getmessageObject).getName() + " for Prof: " + user.getFirstName());
+			database.getCourseTable().add((Course) getmessageObject);
+			System.out.println(
+					"Adding course " + ((Course) getmessageObject).getName()
+							+ " for Prof: " + professor.getFirstName());
 		}
-		
-		if(interpreter[1].equals("ENROLL"))
+
+		if (interpreter[1].equals("ENROLL"))
 		{
-			
-			myDatabase.getStudentEnrollmentTable().add((StudentEnrollment)getmessageObject);
+
+			database.getStudentEnrollmentTable()
+					.add((StudentEnrollment) getmessageObject);
 		}
-		
-		if(interpreter[1].equals("UNENROLL"))
+
+		if (interpreter[1].equals("UNENROLL"))
 		{
-			myDatabase.getStudentEnrollmentTable().remove((StudentEnrollment)getmessageObject);
+			database.getStudentEnrollmentTable()
+					.remove((StudentEnrollment) getmessageObject);
 		}
-		
-		if(interpreter[1].equals("ASSIGNMENT"))
+
+		if (interpreter[1].equals("ASSIGNMENT"))
 		{
-			myDatabase.getAssignmentTable().add(((Assignment)getmessageObject));
+			database.getAssignmentTable()
+					.add(((Assignment) getmessageObject));
 			byte[] file;
 			try
 			{
-				file = (byte[]) inputStream.readObject();
-				myFileHelper.storeFile(file, ((Assignment)getmessageObject));
+				file = (byte[]) objectInputStream.readObject();
+				fileHelper.storeFile(file, ((Assignment) getmessageObject));
 			} catch (ClassNotFoundException | IOException e)
 			{
 				e.printStackTrace();
@@ -173,7 +176,4 @@ public class ProfessorSession extends ClientSession
 		}
 	}
 
-	
-	
-	
 }

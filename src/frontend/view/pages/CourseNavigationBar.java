@@ -1,6 +1,5 @@
 package frontend.view.pages;
 
-import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
@@ -11,17 +10,20 @@ import frontend.interfaces.WondrisInfo;
 public class CourseNavigationBar extends JPanel implements WondrisInfo
 {
 	private static final long serialVersionUID = 1L;
-	private JButton enrollment;
-	private JButton assignment;
-	private JButton grades;
+
+
+	private JButton enrollmentButton;
+	private JButton assignmentButton;
+	private JButton gradesButton;
+	
 	public CourseNavigationBar() {
 		this.setLayout(new GridLayout(3, 1));
-		enrollment = new JButton("Enrollments");
-		assignment = new JButton("Assignments");
-		grades = new JButton("Grades");
-		this.add(createButton(enrollment));
-		this.add(createButton(assignment));
-		this.add(createButton(grades));
+		enrollmentButton = new JButton("Enrollments");
+		assignmentButton = new JButton("Assignments");
+		gradesButton = new JButton("Grades");
+		this.add(createButton(enrollmentButton));
+		this.add(createButton(assignmentButton));
+		this.add(createButton(gradesButton));
 	}
 	
 	private JButton createButton(JButton b) {
@@ -30,4 +32,18 @@ public class CourseNavigationBar extends JPanel implements WondrisInfo
 		return b;
 	}
 	
+	public JButton getEnrollmentButton()
+	{
+		return enrollmentButton;
+	}
+
+	public JButton getAssignmentButton()
+	{
+		return assignmentButton;
+	}
+
+	public JButton getGradesButton()
+	{
+		return gradesButton;
+	}
 }

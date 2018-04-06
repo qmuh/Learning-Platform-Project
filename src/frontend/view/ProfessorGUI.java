@@ -49,6 +49,7 @@ public class ProfessorGUI extends PageNavigator
 		createHomePage();
 	}
 
+	@SuppressWarnings("unchecked")
 	private void createHomePage()
 	{
 		@SuppressWarnings("unchecked")
@@ -104,6 +105,14 @@ public class ProfessorGUI extends PageNavigator
 		this.addPage(coursePage, coursePage.getName());
 		return coursePage;
 	}
+	
+	private void createAssignmentPage(Course course)
+	{
+		AssignmentPage assignmentPage = new AssignmentPage(course);
+		this.addPage(assignmentPage, assignmentPage.getName());
+	}
+	
+	
 
 	private void createEnrollmentPage(Course course)
 	{

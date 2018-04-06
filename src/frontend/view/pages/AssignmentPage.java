@@ -1,37 +1,65 @@
 package frontend.view.pages;
 
-
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.GridLayout;
-import java.awt.TextField;
+import java.awt.event.ActionListener;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import frontend.interfaces.WondrisInfo;
+import frontend.view.pages.components.BoxList;
 import frontend.view.pages.items.AssignItem;
 import sharedobjects.Assignment;
 import sharedobjects.Course;
 
-public class AssignmentPage extends CoursePage implements WondrisInfo
+public class AssignmentPage extends CoursePage<AssignItem, Assignment>
+		implements WondrisInfo
 {
-	private Assignment assignment;
-	private JList<AssignItem> assignmentList;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private BoxList<AssignItem> assignmentList;
 	private JTextField uploadField, month, day, year;
 	private JButton uploadButton, browseButton;
+	
+	public JTextField getUploadField()
+	{
+		return uploadField;
+	}
+	
+	public void setUploadButtonListener(ActionListener listener)
+	{
+		uploadButton.addActionListener(listener);
+	}
+
+	public void setBrowseButtonListener(ActionListener listener)
+	{
+		browseButton.addActionListener(listener);
+	}
+	
+	public Date getDate()
+	{
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Integer.parseInt(year.getText()), 
+				Integer.parseInt(month.getText()), 
+				Integer.parseInt(day.getText()));
+		return calendar.getTime();
+	}
 	
 	public AssignmentPage(Course course)
 	{
 		super(course);
+		this.setName(ASSIGNMENT_PAGE+course.getId());
 		body.add(createAssignmentPanel(), BorderLayout.CENTER);
-		
 	}
 
 	private JPanel createAssignmentPanel()
@@ -39,14 +67,15 @@ public class AssignmentPage extends CoursePage implements WondrisInfo
 		JPanel assignmentPanel = new JPanel(new GridLayout(1, 2));
 		assignmentPanel.add(createUploadPanel(), 0);
 		assignmentPanel.add(createTheAssignments(), 1);
-		
+
 		return assignmentPanel;
 	}
 
 	private JPanel createTheAssignments()
 	{
 		JPanel assignment = new JPanel(new BorderLayout());
-		assignment.add(createLabel("Assignments", TEXT_FONT), BorderLayout.NORTH);
+		assignment.add(createLabel("Assignments", TEXT_FONT),
+				BorderLayout.NORTH);
 		assignment.add(createAssignmentList(), BorderLayout.CENTER);
 		return assignment;
 	}
@@ -54,8 +83,10 @@ public class AssignmentPage extends CoursePage implements WondrisInfo
 	private JScrollPane createAssignmentList()
 	{
 		// TODO: Add default list model to JList
-		assignmentList = new JList<AssignItem>();
+		assignmentList = new BoxList<AssignItem>();
 		JScrollPane scrollPane = new JScrollPane(assignmentList);
+		scrollPane.setVerticalScrollBarPolicy(
+				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		return scrollPane;
 	}
 
@@ -112,9 +143,9 @@ public class AssignmentPage extends CoursePage implements WondrisInfo
 	public void displayPage()
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	public static void main(String[] args)
 	{
 		JFrame frame = new JFrame("Testing");
@@ -124,5 +155,5 @@ public class AssignmentPage extends CoursePage implements WondrisInfo
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	
+
 }

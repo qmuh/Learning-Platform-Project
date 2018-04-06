@@ -29,6 +29,11 @@ import sharedobjects.Student;
 
 public class EnrollmentPage extends CoursePage implements WondrisInfo
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private Course course;
 	private JList<Student> enrolledStudentList;
 	private JList<Student> studentSearchResults;
@@ -84,6 +89,7 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 	public EnrollmentPage(Course course)
 	{
 		super(course);
+		this.setName(ENROLLMENT_PAGE+course.getId());
 		body.add(createEnrollmentPanel(), BorderLayout.CENTER);
 
 	}

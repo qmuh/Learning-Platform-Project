@@ -1,9 +1,12 @@
 package frontend.view.pages;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,13 +14,14 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JSplitPane;
 import javax.swing.JTextField;
-import javax.swing.event.ListSelectionEvent;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
 import javax.swing.event.ListSelectionListener;
 
-import com.sun.corba.se.spi.orbutil.fsm.Action;
-
+import frontend.interfaces.Colours;
+import frontend.interfaces.WondrisInfo;
+import javafx.scene.layout.Border;
 import sharedobjects.Course;
 import sharedobjects.Student;
 
@@ -43,6 +47,7 @@ public class EnrollmentPage extends CoursePage
 	{
 		return lastName.isSelected();
 	}
+
 	public Student getSelectedStudent()
 	{
 		return studentSearchResults.getSelectedValue();
@@ -81,18 +86,20 @@ public class EnrollmentPage extends CoursePage
 
 	}
 
-	private JSplitPane createEnrollmentPanel()
+	private JPanel createEnrollmentPanel()
 	{
-		JSplitPane enrollmentPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-				createEnrollmentList(), createSearchPanel());
+		JPanel enrollmentPanel = new JPanel(new GridLayout(1, 2));
+		enrollmentPanel.add(createEnrollmentList(), 0);
+		enrollmentPanel.add(createSearchPanel(), 1);
 		return enrollmentPanel;
 	}
 
 	private JPanel createSearchPanel()
 	{
-		JPanel searchPanel = new JPanel(new GridLayout(2, 1));
-		searchPanel.add(createSearchArea(), 0);
-		searchPanel.add(createSearchResults(), 1);
+		JPanel searchPanel = new JPanel();
+		searchPanel.setLayout(new BoxLayout(searchPanel, BoxLayout.Y_AXIS));
+		searchPanel.add(createSearchArea());
+		searchPanel.add(createSearchResults());
 		return searchPanel;
 	}
 
@@ -107,11 +114,11 @@ public class EnrollmentPage extends CoursePage
 
 	private JPanel createSearchArea()
 	{
-		JPanel searchArea = new JPanel(new GridLayout(4, 1));
-		searchArea.add(new JLabel("Search"), 0);
-		searchArea.add(createButtonGroup(), 1);
-		searchArea.add(createTextField(), 2);
-		searchArea.add(createSearchButtonPanel(), 3);
+		JPanel searchArea = new JPanel();
+		searchArea.setLayout(new BoxLayout(searchArea, BoxLayout.Y_AXIS));
+		searchArea.add(createButtonGroup());
+		searchArea.add(createTextField());
+		searchArea.add(createSearchButtonPanel());
 		return searchArea;
 	}
 
@@ -131,8 +138,12 @@ public class EnrollmentPage extends CoursePage
 
 	private JPanel createButtonGroup()
 	{
-		JPanel buttons = new JPanel(new GridLayout(1, 2));
-		buttons.setAlignmentX(LEFT_ALIGNMENT);
+		JPanel buttonPanel = new JPanel(new GridLayout(2, 1));
+		buttonPanel.setAlignmentX(LEFT_ALIGNMENT);
+		// BORDER
+		buttonPanel.setBorder(BorderFactory.createTitledBorder(
+				new MatteBorder(1, 1, 1, 1, Colours.CONTRAST_COLOR), "Search"));
+
 		id = new JRadioButton("ID");
 		lastName = new JRadioButton("Last Name");
 		ButtonGroup buttonGroup = new ButtonGroup();
@@ -140,15 +151,18 @@ public class EnrollmentPage extends CoursePage
 		buttonGroup.add(lastName);
 		id.setSelected(true);
 
-		buttons.add(id);
-		buttons.add(lastName);
-		return buttons;
+		buttonPanel.add(id);
+		buttonPanel.add(lastName);
+		return buttonPanel;
 	}
 
-	private JTextField createTextField()
+	private JPanel createTextField()
 	{
-		searchField = new JTextField(20);
-		return searchField;
+		JPanel textFieldPanel = new JPanel(new GridLayout(1, 1));
+		textFieldPanel.setBorder(new EmptyBorder(10, 40, 10, 40));
+		searchField = new JTextField();
+		textFieldPanel.add(searchField);
+		return textFieldPanel;
 	}
 
 	private JPanel createEnrollmentList()

@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import com.sun.corba.se.spi.orbutil.fsm.Action;
 import com.sun.xml.internal.bind.v2.runtime.Name;
 
 import javax.swing.JButton;
@@ -42,9 +43,7 @@ public class ProfessorGUI extends PageNavigator
 		thisProfessor = toSet;
 		createHomePage();
 		createCoursePage();
-
 	}
-
 
 	private void createCoursePage()
 	{
@@ -59,18 +58,25 @@ public class ProfessorGUI extends PageNavigator
 		@SuppressWarnings("unchecked")
 		SendMessage message = new SendMessage(null, "RECEIVE COURSES");
 		BoxList<CourseItem> boxList = new BoxList<CourseItem>();
-		Vector<Course> courses = new Vector<Course>();
+		Vector<Course> coursesList = new Vector<Course>();
 
 		try
 		{
-			courses = (Vector<Course>) this.clientController.sendMessage(message);
+			coursesList = (Vector<Course>) this.clientController.sendMessage(message);
 
-			if (courses != null)
+			if (coursesList != null)
 			{
-				for (int i = 0; i < courses.size(); i++)
+				for (int i = 0; i < coursesList.size(); i++)
 				{
-					boxList.addItem(new CourseItem(courses.elementAt(i)));
-					System.out.println("Course name is: " + courses.get(i).getName());
+					Course course = coursesList.elementAt(i);
+					CoursePage coursePage = new CoursePage(course);
+					this.addPage(coursePage, coursePage.getName());
+					
+					CourseItem courseItem = new CourseItem(course);
+					courseItem.setViewButtonListener(new ViewCoursePageListener(courseItem));
+					boxList.addItem(courseItem);
+					
+					System.out.println("Course name is: " + coursesList.get(i).getName());
 				}
 			}
 
@@ -125,7 +131,27 @@ public class ProfessorGUI extends PageNavigator
 		}
 
 	}
-
+	
+	private class ViewCoursePageListener implements ActionListener
+	{
+		/**
+		 * The course identification number to use to communicate with the server.
+		 */
+		private int courseId;
+		
+		public ViewCoursePageListener(CourseItem courseItem)
+		{
+			this.courseId = courseItem.getId();
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			showPage(COURSE_PAGE + courseId);
+		}
+		
+	}
+	
 	private AssignmentPage createAssignmentPage()
 	{
 		return null;

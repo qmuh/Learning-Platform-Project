@@ -17,7 +17,7 @@ import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.items.CourseItem;
 import sharedobjects.Course;
 
-public class CourseTable extends JPanel implements WondrisInfo, Colours
+public class CoursePageTable extends JPanel implements WondrisInfo, Colours
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -30,9 +30,10 @@ public class CourseTable extends JPanel implements WondrisInfo, Colours
 	//TODO: Add Edit Course
 	
 	private JPanel tablePanel;
+	
 	private JPanel titlePanel;
 	
-	public CourseTable()
+	public CoursePageTable()
 	{
 		setLayout(new BorderLayout());
 		add(createTitle(), BorderLayout.NORTH);
@@ -74,11 +75,6 @@ public class CourseTable extends JPanel implements WondrisInfo, Colours
 		return label;
 	}
 	
-//	public void addCourseItem(CourseItem item)
-//	{
-//		tablePanel.add(item);
-//	}
-
 	public void setBoxList(BoxList<CourseItem> itemDisplay)
 	{
 		tablePanel.add(itemDisplay, TABLE_CONTENTS);

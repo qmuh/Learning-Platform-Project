@@ -19,7 +19,6 @@ public class PageNavigator extends JPanel implements PageNames
 		cardLayout = new CardLayout();
 		this.setLayout(cardLayout);
 		addPage(new HomePage(), HOME_PAGE);
-		addPage(new CoursePage(), COURSE_PAGE);
 		this.showPage(HOME_PAGE);
 	}
 
@@ -42,7 +41,7 @@ public class PageNavigator extends JPanel implements PageNames
 		return null;
 	}
 
-	private void addPage(Page<?, ?> page, String pageName)
+	protected void addPage(Page<?, ?> page, String pageName)
 	{
 		page.setHomeButtonListener(new HomeButtonListener());
 		page.setBackButtonListener(new BackButtonListener());

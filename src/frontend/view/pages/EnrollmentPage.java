@@ -12,9 +12,9 @@ public class EnrollmentPage extends CoursePage
 	private Course course;
 	private ArrayList<Student> enrolledStudentList;
 	
-	public EnrollmentPage(BoxList<StudentItem> boxList) 
+	public EnrollmentPage(BoxList<StudentItem> boxList, Course course) 
 	{
-		super();
+		super(course);
 	}
 
 	@Override

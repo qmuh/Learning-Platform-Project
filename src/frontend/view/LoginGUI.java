@@ -142,8 +142,6 @@ public class LoginGUI extends JFrame implements WondrisInfo, Colours, GUIConstan
 		}
 	}
 	
-
-	
 	public class IncorrectLoginException extends Exception{
 
 		private static final long serialVersionUID = 1L;

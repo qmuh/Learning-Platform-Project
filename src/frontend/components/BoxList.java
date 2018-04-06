@@ -28,10 +28,10 @@ public class BoxList <T extends Box> extends JPanel
 		return null;
 	}
 	
-	public T elementAt(int i) 
-	{
-		return this.elementAt(i);
-	}
+//	public T elementAt(int i) 
+//	{
+//		return this.elementAt(i);
+//	}
 	
 	public void addItem(T boxItem) 
 	{

@@ -17,6 +17,13 @@ import sharedobjects.Professor;
 import sharedobjects.Student;
 import sharedobjects.User;
 
+/**
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 6, 2018
+ */
 public class Server
 {
 
@@ -68,7 +75,8 @@ public class Server
 			{
 
 				Socket incomingConnection = serverSocket.accept();
-				LoginHandler loginHandler = new LoginHandler(incomingConnection);
+				LoginHandler loginHandler = new LoginHandler(
+						incomingConnection);
 				threadPool.execute(loginHandler);
 
 			} catch (IOException e)
@@ -118,8 +126,10 @@ public class Server
 			try
 			{
 				mySocket = guestUser;
-				objectInputStream = new ObjectInputStream(guestUser.getInputStream());
-				objectOutputStream = new ObjectOutputStream(guestUser.getOutputStream());
+				objectInputStream = new ObjectInputStream(
+						guestUser.getInputStream());
+				objectOutputStream = new ObjectOutputStream(
+						guestUser.getOutputStream());
 
 			} catch (IOException e)
 			{
@@ -132,14 +142,17 @@ public class Server
 		{
 			try
 			{
-				LoginInfo loginInfo = (LoginInfo) objectInputStream.readObject();
-				User myUser = database.getUserTable().validateUser(loginInfo.getUsername(), loginInfo.getPassword());
+				LoginInfo loginInfo = (LoginInfo) objectInputStream
+						.readObject();
+				User myUser = database.getUserTable().validateUser(
+						loginInfo.getUsername(), loginInfo.getPassword());
 				objectOutputStream.writeObject(myUser);
 				objectOutputStream.flush();
 
 				if (myUser.getUserType().equals("P"))
 				{
-					ProfessorSession handleProfessor = new ProfessorSession(mySocket);
+					ProfessorSession handleProfessor = new ProfessorSession(
+							mySocket);
 					handleProfessor.setDatabase(database);
 					handleProfessor.setProfessor((Professor) myUser);
 					handleProfessor.run();

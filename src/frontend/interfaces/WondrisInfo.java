@@ -2,6 +2,13 @@ package frontend.interfaces;
 
 import java.awt.Font;
 
+/**
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 6, 2018
+ */
 public interface WondrisInfo
 {
 	public static final String TITLE = "Wondris Learning Platform";

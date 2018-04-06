@@ -13,6 +13,13 @@ import javax.swing.JPanel;
 import frontend.view.pages.components.BoxList;
 import frontend.view.pages.components.Footer;
 
+/**
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 6, 2018
+ */
 public abstract class Page <T extends Box, U> extends JPanel implements PageNames
 {
 

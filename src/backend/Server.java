@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 import backend.database.*;
 import backend.userSession.ProfessorSession;
 import backend.userSession.StudentSession;
+import shared.ServerInfo;
 import shared.objects.LoginInfo;
 import shared.objects.Professor;
 import shared.objects.Student;
@@ -24,7 +25,7 @@ import shared.objects.User;
  * @version 1.0
  * @since April 6, 2018
  */
-public class Server
+public class Server implements ServerInfo
 {
 	/**
 	 * Allows the server to start up and connect to the client
@@ -123,7 +124,6 @@ public class Server
 						guestUser.getInputStream());
 				objectOutputStream = new ObjectOutputStream(
 						guestUser.getOutputStream());
-
 			} catch (IOException e)
 			{
 				e.printStackTrace();
@@ -169,14 +169,14 @@ public class Server
 	}
 
 	/**
-	 * Starts the server
+	 * Starts the server.
 	 * 
 	 * @param args
 	 *            not used
 	 */
 	public static void main(String[] args)
 	{
-		Server myServer = new Server(8991);
+		Server myServer = new Server(PORT_NUMBER);
 		myServer.runServer();
 	}
 }

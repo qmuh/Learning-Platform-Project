@@ -489,11 +489,11 @@ public class ProfessorGUI extends PageNavigator
 				if (!checkBox.isSelected() && course.getActive())
 				{
 					clientController.onlySendMessage(
-							new SendMessage(course, "MODIFY COURSEINACTIVE"));
+							new SendMessage(course, "MODIFY ASSIGNINACTIVE"));
 				} else
 				{
 					clientController.onlySendMessage(
-							new SendMessage(course, "MODIFY COURSEACTIVE"));
+							new SendMessage(course, "MODIFY ASSIGNACTIVE"));
 				}
 			} catch (IOException e1)
 			{
@@ -524,7 +524,7 @@ public class ProfessorGUI extends PageNavigator
 				Assignment myUpload = new Assignment( course.getId(),"This is my file" , 
 													assignPage.getUploadField().getText(), 
 													false, 
-													assignPage.getDate().toString());
+													assignPage.getDate().toString().substring(0, 4));
 				try
 				{
 					clientController.onlySendMessage(new SendMessage<Assignment>(myUpload, "INSERT ASSIGNMENT"));

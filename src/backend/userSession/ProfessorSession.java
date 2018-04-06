@@ -92,8 +92,18 @@ public class ProfessorSession extends ClientSession
 		if(interpreter[1].equals("COURSEINACTIVE"))
 		{
 			myDatabase.getCourseTable().setInactive(((Course)getmessageObject).getId() );
-
 		}
+		
+		if(interpreter[1].equals("ASIIGNACTIVE"))
+		{
+			myDatabase.getAssignmentTable().setActive( ((Course)getmessageObject).getId());
+		}
+		
+		if(interpreter[1].equals("ASSIGNINACTIVE"))
+		{
+			myDatabase.getAssignmentTable().setInactive(((Course)getmessageObject).getId() );
+		}
+	
 	}
 
 	private void handleRecieve(String[] interpreter, Object getMessage)

@@ -10,6 +10,11 @@ import javax.swing.JPanel;
 public class BoxList<T extends Box> extends JPanel
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public BoxList()
 	{
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

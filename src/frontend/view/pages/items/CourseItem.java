@@ -2,7 +2,6 @@ package frontend.view.pages.items;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -14,6 +13,10 @@ import sharedobjects.Course;
 public class CourseItem extends GeneralItem implements WondrisInfo
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Course course;
 	private JCheckBox active;
 	private JButton view;
@@ -52,7 +55,12 @@ public class CourseItem extends GeneralItem implements WondrisInfo
 	{
 		view.addActionListener(listener);
 	}
-
+	
+	public void setActiveCheckBoxListener(ActionListener listener)
+	{
+		active.addActionListener(listener);
+	}
+	
 	@Override
 	public int getId()
 	{

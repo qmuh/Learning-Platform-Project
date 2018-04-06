@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+import frontend.components.BoxList;
 import frontend.view.pages.items.CourseItem;
 import sharedobjects.Course;
 
@@ -17,9 +18,7 @@ public class HomePage extends Page<CourseItem, Course>
 	{
 		super();
 		setName(HOME_PAGE);
-
 		body = new CoursePageTable();
-
 		this.add(body);
 	}
 

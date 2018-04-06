@@ -92,7 +92,7 @@ public class ProfessorSession extends ClientSession
 		
 		if(interpreter[1].equals("COURSEINACTIVE"))
 		{
-			myDatabase.getCourseTable().setActive(((Course)getmessageObject).getId() );
+			myDatabase.getCourseTable().setInactive(((Course)getmessageObject).getId() );
 
 		}
 	}

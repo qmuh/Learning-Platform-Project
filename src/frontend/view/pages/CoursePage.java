@@ -9,7 +9,7 @@ import frontend.view.pages.items.CourseItem;
 import sharedobjects.Course;
 
 @SuppressWarnings("rawtypes")
-public class CoursePage extends Page
+public class CoursePage extends Page<CourseItem, Course>
 {
 
 	private static final long serialVersionUID = 1L;

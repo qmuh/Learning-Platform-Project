@@ -6,6 +6,8 @@ import sharedobjects.SendMessage;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -19,6 +21,7 @@ import com.sun.corba.se.spi.orbutil.fsm.Action;
 import com.sun.xml.internal.bind.v2.runtime.Name;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 
 import frontend.components.BoxList;
@@ -42,12 +45,6 @@ public class ProfessorGUI extends PageNavigator
 		this.clientController.connectToServer(socket);
 		thisProfessor = toSet;
 		createHomePage();
-		createCoursePage();
-	}
-
-	private void createCoursePage()
-	{
-		CoursePage coursePage = (CoursePage) this.searchPage(COURSE_PAGE);
 	}
 
 	private void createHomePage()
@@ -57,7 +54,6 @@ public class ProfessorGUI extends PageNavigator
 
 		@SuppressWarnings("unchecked")
 		SendMessage message = new SendMessage(null, "RECEIVE COURSES");
-		BoxList<CourseItem> boxList = new BoxList<CourseItem>();
 		Vector<Course> coursesList = new Vector<Course>();
 
 		try
@@ -69,13 +65,10 @@ public class ProfessorGUI extends PageNavigator
 				for (int i = 0; i < coursesList.size(); i++)
 				{
 					Course course = coursesList.elementAt(i);
-					CoursePage coursePage = new CoursePage(course);
-					this.addPage(coursePage, coursePage.getName());
-
-					CourseItem courseItem = new CourseItem(course);
-					courseItem.setViewButtonListener(new ViewCoursePageListener(courseItem));
-					boxList.addItem(courseItem);
-
+					
+					CoursePage coursePage = createCoursePage(course);
+					createCourseItem(course, homePage);
+					
 					System.out.println("Course name is: " + coursesList.get(i).getName());
 				}
 			}
@@ -84,19 +77,33 @@ public class ProfessorGUI extends PageNavigator
 		{
 			e.printStackTrace();
 		}
-		homePage.setBoxList(boxList);
 		homePage.setNewCourseListener(new NewCourseButtonListener(homePage));
 		homePage.displayPage();
 		// TODO: Set listeners for all view buttons
 	}
+	
+	private void createCourseItem(Course course, HomePage homePage)
+	{
+		CourseItem courseItem = new CourseItem(course);
+		courseItem.setViewButtonListener(new ViewCoursePageListener(courseItem));
+		courseItem.setActiveCheckBoxListener(new ActiveCheckBoxListener(course));
+		homePage.addToBoxList(courseItem);
+	}
+
+	private CoursePage createCoursePage(Course course)
+	{
+		CoursePage coursePage = new CoursePage(course);
+		this.addPage(coursePage, coursePage.getName());
+		return coursePage;
+	}
 
 	private class NewCourseButtonListener implements ActionListener
 	{
-		private HomePage thisPage;
+		private HomePage homePage;
 
 		public NewCourseButtonListener(HomePage page)
 		{
-			thisPage = page;
+			homePage = page;
 		}
 
 		@Override
@@ -120,12 +127,44 @@ public class ProfessorGUI extends PageNavigator
 					{
 						Course course = new Course(thisProfessor.getId(), courseName.getText(), false);
 						clientController.onlySendMessage(new SendMessage<Course>(course, "INSERT COURSE"));
-						thisPage.addToBoxList(new CourseItem(course));
+						
+						CoursePage coursePage = createCoursePage(course);
+						createCourseItem(course, homePage);
 
 					} catch (IOException e1)
 					{
 						e1.printStackTrace();
 					}
+			}
+		}
+	}
+
+	private class ActiveCheckBoxListener implements ActionListener
+	{
+		private Course course;
+
+		public ActiveCheckBoxListener(Course course)
+		{
+			this.course = course;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			try
+			{
+				JCheckBox checkBox = (JCheckBox) e.getSource();
+				if (!checkBox.isSelected() && course.getActive())
+				{
+					clientController.onlySendMessage(new SendMessage(course, "MODIFY COURSEINACTIVE"));
+				} else
+				{
+					clientController.onlySendMessage(new SendMessage(course, "MODIFY COURSEACTIVE"));
+				}
+			} catch (IOException e1)
+			{
+				System.out.println("Unable to change the course active state");
+				e1.printStackTrace();
 			}
 
 		}

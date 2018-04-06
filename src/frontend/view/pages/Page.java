@@ -33,6 +33,7 @@ public abstract class Page <T extends Box, U> extends JPanel implements PageName
 	public Page()
 	{
 		this.setLayout(new BorderLayout());
+		itemDisplay = new BoxList<T>();
 		body = new JPanel();
 		header = new Header();
 		footer = new Footer();

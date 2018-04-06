@@ -22,8 +22,8 @@ public class AssignItem extends GeneralItem
 	{
 		super(BoxLayout.X_AXIS, Integer.toString(assignment.getId()));
 
-		active = new JCheckBox();
-		active.setSelected(assignment.getActive());
+		assignmentActive = new JCheckBox();
+		assignmentActive.setSelected(assignment.getActive());
 		assignmentName = new JLabel(assignment.getTitle() + "  ");
 		dueDate = new JLabel(assignment.getDue_date());
 

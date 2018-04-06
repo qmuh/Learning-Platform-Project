@@ -152,6 +152,7 @@ public class ProfessorGUI extends PageNavigator
 		showAllAssignments(course, assignmentPage);
 	}
 
+	@SuppressWarnings("unchecked")
 	private void showAllAssignments(Course course,
 			AssignmentPage assignmentPage)
 	{
@@ -187,6 +188,7 @@ public class ProfessorGUI extends PageNavigator
 		showAllStudents(course, enrollmentPage);
 	}
 
+	@SuppressWarnings("unchecked")
 	public void showAllStudents(Course course, EnrollmentPage enrollmentPage)
 	{
 		try

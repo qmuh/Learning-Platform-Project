@@ -1,6 +1,7 @@
 package frontend.view.pages;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.JPanel;
@@ -30,6 +31,20 @@ public class CoursePage<T extends Box, U> extends Page<T, U>
 		add(body);
 	}
 	
+	public void setEnrollmentButtonListener(ActionListener listener) 
+	{
+		courseNavigationBar.setEnrollmentButtonListener(listener);
+	}
+	
+	public void setAssignmentButtonListener(ActionListener listener) 
+	{
+		courseNavigationBar.setAssignmentButtonListener(listener);
+	}
+	
+	public void setGradesButtonListener(ActionListener listener) 
+	{
+		courseNavigationBar.setGradesButtonListener(listener);
+	}
 
 	@Override
 	public void displayPage()

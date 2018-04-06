@@ -540,6 +540,7 @@ public class ProfessorGUI extends PageNavigator
 					clientController.getObjectOut().flush();
 					
 					showAllAssignments(course, assignmentPage);
+					
 				} catch (IOException e1)
 				{
 					e1.printStackTrace();

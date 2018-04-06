@@ -1,4 +1,4 @@
-package frontend.components;
+package frontend.view.pages.components;
 
 import java.awt.CardLayout;
 import java.awt.Component;

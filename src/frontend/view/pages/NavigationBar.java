@@ -6,11 +6,11 @@ import java.util.Hashtable;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import frontend.interfaces.Colours;
+import frontend.interfaces.ColorPalette;
 import frontend.interfaces.WondrisInfo;
 
 
-public class NavigationBar extends JPanel implements NavigationBarButtons, WondrisInfo, Colours
+public class NavigationBar extends JPanel implements NavigationBarButtons, WondrisInfo, ColorPalette
 {
 	/**
 	 * 

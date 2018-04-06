@@ -3,21 +3,13 @@ package frontend.view.pages;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Hashtable;
 
 import javax.swing.Box;
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.sun.corba.se.spi.orbutil.fsm.Action;
+import frontend.view.pages.components.BoxList;
+import frontend.view.pages.components.Footer;
 
-import frontend.view.ProfessorGUI;
-import frontend.view.StudentGUI;
-import frontend.view.pages.items.CourseItem;
-import frontend.components.BoxList;
-
-// TODO: T extends Box U ??
 public abstract class Page <T extends Box, U> extends JPanel implements PageNames
 {
 
@@ -63,12 +55,4 @@ public abstract class Page <T extends Box, U> extends JPanel implements PageName
 	{
 		itemDisplay.add(item);
 	}
-	
-//	public static void main(String[] args)
-//	{
-//		JFrame frame = new JFrame();
-//		frame.setSize(GUIConstants.WINDOW_SIZE);
-//		frame.add(new Page(new BoxList()));
-//		frame.setVisible(true);
-//	}
 }

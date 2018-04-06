@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import frontend.interfaces.Colours;
+import frontend.interfaces.ColorPalette;
 
 public class PlaygroundTesting extends JFrame
 {
@@ -43,8 +43,8 @@ public class PlaygroundTesting extends JFrame
 			}
 		});
 		card2.add(second);
-		card1.setBackground(Colours.ACCENT_COLOR);
-		card2.setBackground(Colours.SECONDARY_COLOR);
+		card1.setBackground(ColorPalette.ACCENT_COLOR);
+		card2.setBackground(ColorPalette.SECONDARY_COLOR);
 		cardPanel.setLayout(cardLayout);
 		cardPanel.add(card1, "Card 1");
 		cardPanel.add(card2, "Card 2");

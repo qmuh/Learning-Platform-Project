@@ -1,4 +1,4 @@
-package backend.userSession.helper;
+package backend.userSession.helpers;
 
 import java.io.BufferedOutputStream;
 import java.io.File;

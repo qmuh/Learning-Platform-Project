@@ -1,8 +1,8 @@
-package frontend.view.pages;
+package frontend.view.pages.components;
 
 import javax.swing.JPanel;
 
-class Footer extends JPanel
+public class Footer extends JPanel
 {
 
 	/**

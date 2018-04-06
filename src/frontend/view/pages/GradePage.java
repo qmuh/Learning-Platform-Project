@@ -1,6 +1,6 @@
 package frontend.view.pages;
 
-import frontend.components.BoxList;
+import frontend.view.pages.components.BoxList;
 import frontend.view.pages.items.GradeItem;
 import sharedobjects.Course;
 import sharedobjects.Grade;

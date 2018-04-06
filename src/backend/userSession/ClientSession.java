@@ -8,13 +8,13 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-import backend.interfaces.Commands;
+import backend.interfaces.DatabaseCommands;
+import backend.userSession.helpers.EmailHelper;
+import backend.userSession.helpers.FileHelper;
 import backend.database.Database;
-import backend.userSession.helper.EmailHelper;
-import backend.userSession.helper.FileHelper;
 import sharedobjects.SendMessage;
 
-public abstract class ClientSession implements Runnable, Commands
+public abstract class ClientSession implements Runnable, DatabaseCommands
 {
 
 	/**

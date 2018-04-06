@@ -183,7 +183,7 @@ public class ProfessorGUI extends PageNavigator
 	private void createAssignItem(Course course, AssignmentPage assignmentPage, Assignment assignment)
 	{
 		AssignItem assignItem = new AssignItem(assignment);
-		assignItem.setActiveCheckboxListener(new AssignmentActiveCheckBoxListener(course));
+		assignItem.setActiveCheckboxListener(new AssignmentActiveCheckBoxListener(assignment));
 		assignmentPage.addToBoxList(assignItem);
 	}
 
@@ -491,11 +491,11 @@ public class ProfessorGUI extends PageNavigator
 
 	private class AssignmentActiveCheckBoxListener implements ActionListener
 	{
-		private Course course;
+		private Assignment assignment;
 
-		public AssignmentActiveCheckBoxListener(Course course)
+		public AssignmentActiveCheckBoxListener(Assignment course)
 		{
-			this.course = course;
+			this.assignment = course;
 		}
 
 		// FIX THIS TODO: QASIM
@@ -504,15 +504,19 @@ public class ProfessorGUI extends PageNavigator
 		{
 			try
 			{
+				System.err.println("Checkbox detected");
 				JCheckBox checkBox = (JCheckBox) e.getSource();
-				if (!checkBox.isSelected() && course.getActive())
+				if (!checkBox.isSelected() && assignment.getActive())
 				{
+					System.out.println("INACTIVE");
 					clientController.onlySendMessage(
-							new SendMessage(course, "MODIFY ASSIGNINACTIVE"));
+							new SendMessage(assignment, "MODIFY ASSIGNINACTIVE"));
 				} else
 				{
+					System.out.println("ACTIVE");
+
 					clientController.onlySendMessage(
-							new SendMessage(course, "MODIFY ASSIGNACTIVE"));
+							new SendMessage(assignment, "MODIFY ASSIGNACTIVE"));
 				}
 			} catch (IOException e1)
 			{

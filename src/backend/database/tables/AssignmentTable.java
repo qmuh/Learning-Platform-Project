@@ -122,13 +122,13 @@ public class AssignmentTable extends Table<Assignment>
 		return userList;
 	}
 	
-	public void setActive(int courseID)
+	public void setActive(int assignID)
 	{
 		String sql = "UPDATE " + tableName + " SET ACTIVE=TRUE WHERE ID=?";
 		try
 		{
 			preparedStatement = dbConnection.prepareStatement(sql);
-			preparedStatement.setInt(1, courseID);
+			preparedStatement.setInt(1, assignID);
 			preparedStatement.executeUpdate();
 			
 		} catch (SQLException e)
@@ -138,13 +138,13 @@ public class AssignmentTable extends Table<Assignment>
 		
 	}
 
-	public void setInactive(int courseID)
+	public void setInactive(int assignID)
 	{
 		String sql = "UPDATE " + tableName + " SET ACTIVE=FALSE WHERE ID=?";
 		try
 		{
 			preparedStatement = dbConnection.prepareStatement(sql);
-			preparedStatement.setInt(1, courseID);
+			preparedStatement.setInt(1, assignID);
 			preparedStatement.executeUpdate();
 			
 		} catch (SQLException e)

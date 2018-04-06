@@ -96,12 +96,12 @@ public class ProfessorSession extends ClientSession
 		
 		if(interpreter[1].equals("ASSIGNACTIVE"))
 		{
-			myDatabase.getAssignmentTable().setActive( ((Course)getmessageObject).getId());
+			myDatabase.getAssignmentTable().setActive( ((Assignment)getmessageObject).getId());
 		}
 		
 		if(interpreter[1].equals("ASSIGNINACTIVE"))
 		{
-			myDatabase.getAssignmentTable().setInactive(((Course)getmessageObject).getId() );
+			myDatabase.getAssignmentTable().setInactive(((Assignment)getmessageObject).getId() );
 		}
 	
 	}

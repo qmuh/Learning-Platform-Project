@@ -20,27 +20,7 @@ public class ProfessorSession extends ClientSession
 	{
 		this.professor = professor;
 	}
-
-	@Override
-	public void run()
-	{
-		boolean isRunning = true;
-
-		while (isRunning)
-		{
-			try
-			{
-				SendMessage newMessage = (SendMessage) objectInputStream.readObject();
-				interpretMessage(newMessage);
-
-			} catch (IOException | ClassNotFoundException e)
-			{
-				e.printStackTrace();
-			}
-		}
-
-	}
-
+	
 	@Override
 	public void write()
 	{
@@ -49,7 +29,7 @@ public class ProfessorSession extends ClientSession
 	}
 
 	@Override
-	void interpretMessage(SendMessage command)
+	void interpretMessage(SendMessage<?> command)
 	{
 		String interpreter[] = command.getCommand().split(" ");
 
@@ -72,7 +52,6 @@ public class ProfessorSession extends ClientSession
 		{
 			handleModify(interpreter, command.getmessageObject());
 		}
-
 	}
 
 	private void handleModify(String[] interpreter, Object getmessageObject)

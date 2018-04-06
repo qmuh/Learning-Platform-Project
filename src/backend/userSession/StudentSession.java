@@ -21,25 +21,6 @@ public class StudentSession extends ClientSession
 	}
 	
 	@Override
-	public void run()
-	{
-		boolean isRunning = true;
-
-		while (isRunning)
-		{
-			try
-			{
-				SendMessage newMessage = (SendMessage)objectInputStream.readObject();
-				interpretMessage(newMessage);
-			} catch (IOException | ClassNotFoundException e)
-			{
-				e.printStackTrace();
-			}
-		}
-		
-	}
-
-	@Override
 	public void write()
 	{
 		// TODO Auto-generated method stub

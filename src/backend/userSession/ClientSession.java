@@ -32,7 +32,7 @@ public abstract class ClientSession implements Runnable, DatabaseCommands
 	 * Database used by the server
 	 */
 	protected Database database;
-	
+
 	/**
 	 * Used for sending emails
 	 */
@@ -51,14 +51,30 @@ public abstract class ClientSession implements Runnable, DatabaseCommands
 			objectOutputStream = new ObjectOutputStream(
 					socket.getOutputStream());
 			objectInputStream = new ObjectInputStream(socket.getInputStream());
-
 			fileHelper = new FileHelper();
 			emailHelper = new EmailHelper();
 
 		} catch (IOException e)
 		{
-
 			e.printStackTrace();
+		}
+	}
+
+	public void run()
+	{
+		boolean isRunning = true;
+
+		while (isRunning)
+		{
+			try
+			{
+				SendMessage<?> newMessage = (SendMessage<?>) objectInputStream
+						.readObject();
+				interpretMessage(newMessage);
+			} catch (IOException | ClassNotFoundException e)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -70,7 +86,7 @@ public abstract class ClientSession implements Runnable, DatabaseCommands
 		this.database = database;
 	}
 
-	abstract void interpretMessage(SendMessage command);
+	abstract void interpretMessage(SendMessage<?> command);
 
 	abstract public void write();
 

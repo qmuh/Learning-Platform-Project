@@ -34,11 +34,27 @@ import frontend.view.pages.components.BoxList;
 import frontend.view.pages.components.PageNavigator;
 import frontend.view.pages.items.CourseItem;
 
+/**
+ * Class which handles the functionality of the Prrofessor GUI
+ *
+ */
 public class ProfessorGUI extends PageNavigator
 {
+	/**
+	 * The professor object which contains informaion needed for client
+	 * server relations
+	 */
 	private Professor thisProfessor;
+	
+	/**
+	 * Object needed to communicate effectively with the server
+	 */
 	private ClientController clientController;
 
+	/** Constructor for this class, it pre-loads the pages
+	 * @param socket
+	 * @param toSet
+	 */
 	public ProfessorGUI(Socket socket, Professor toSet)
 	{
 		super();
@@ -48,6 +64,9 @@ public class ProfessorGUI extends PageNavigator
 		createHomePage();
 	}
 
+	/**
+	 * Creates home page and sets up its listeners
+	 */
 	private void createHomePage()
 	{
 		@SuppressWarnings("unchecked")
@@ -87,6 +106,10 @@ public class ProfessorGUI extends PageNavigator
 		// TODO: Set listeners for all view buttons
 	}
 
+	/**
+	 * @param course
+	 * @param homePage
+	 */
 	private void createCourseItem(Course course, HomePage homePage)
 	{
 		CourseItem courseItem = new CourseItem(course);
@@ -117,6 +140,11 @@ public class ProfessorGUI extends PageNavigator
 		
 		showAllStudents(course, enrollmentPage);
 		
+	}
+
+	private AssignmentPage createAssignmentPage()
+	{
+		return null;
 	}
 
 	public void showAllStudents(Course course, EnrollmentPage enrollmentPage)
@@ -325,11 +353,6 @@ public class ProfessorGUI extends PageNavigator
 			showPage(COURSE_PAGE + courseId);
 		}
 
-	}
-
-	private AssignmentPage createAssignmentPage()
-	{
-		return null;
 	}
 
 }

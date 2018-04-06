@@ -14,7 +14,7 @@ public class AssignItem extends GeneralItem
 	private static final long serialVersionUID = 1L;
 	private Assignment assignment;
 	
-	private JCheckBox active;
+	private JCheckBox assignmentActive;
 	private JLabel assignmentName;
 	private JLabel dueDate;
 	
@@ -22,12 +22,13 @@ public class AssignItem extends GeneralItem
 	{
 		super(BoxLayout.X_AXIS, Integer.toString(assignment.getId()));
 		
-		active = new JCheckBox();
-		active.setSelected(assignment.getActive());
+		assignmentActive = new JCheckBox();
+		assignmentActive.setSelected(assignment.getActive());
+		System.out.println("Assignment is " + assignment.getActive());
 		assignmentName = new JLabel(assignment.getTitle());
 		dueDate = new JLabel(assignment.getDue_date());
 		
-		this.add(active);
+		this.add(assignmentActive);
 		this.add(assignmentName);
 		this.add(dueDate);
 		
@@ -36,7 +37,7 @@ public class AssignItem extends GeneralItem
 	
 	public void setActiveCheckboxListener(ActionListener listener)
 	{
-		active.addActionListener(listener);
+		assignmentActive.addActionListener(listener);
 	}
 	
 	

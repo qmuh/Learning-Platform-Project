@@ -173,18 +173,32 @@ public class ProfessorGUI extends PageNavigator
 				createAssignItem(course, assignmentPage, assignment);
 			}
 
-			assignmentPage.setAssignmentVector(myList);
+			//assignmentPage.setAssignmentVector(myList);
 		} catch (IOException e)
 		{
 			e.printStackTrace();
 		}
 	}
 
-	private void createAssignItem(Course course, AssignmentPage assignmentPage, Assignment assignment)
+	private void createAssignItem(Course course, AssignmentPage assignmentPage,
+			Assignment assignment)
 	{
 		AssignItem assignItem = new AssignItem(assignment);
-		assignItem.setActiveCheckboxListener(new AssignmentActiveCheckBoxListener(assignment));
+//		assignItem.setActiveCheckboxListener(new JUNKLISTENER());
+		assignItem.setActiveCheckboxListener(
+				new AssignmentActiveCheckBoxListener(assignment));
 		assignmentPage.addToBoxList(assignItem);
+	}
+	
+	private class JUNKLISTENER implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0)
+		{
+			
+			System.out.println("YOU GOT JUNKED KID");
+		}
 	}
 
 	private void createEnrollmentPage(Course course)
@@ -397,6 +411,7 @@ public class ProfessorGUI extends PageNavigator
 		{
 			try
 			{
+				System.out.println("ACTIVE COURSE LISTENER");
 				JCheckBox checkBox = (JCheckBox) e.getSource();
 				if (!checkBox.isSelected() && course.getActive())
 				{
@@ -486,7 +501,6 @@ public class ProfessorGUI extends PageNavigator
 		{
 			showPage(GRADES_PAGE + course.getId());
 		}
-
 	}
 
 	private class AssignmentActiveCheckBoxListener implements ActionListener
@@ -497,20 +511,19 @@ public class ProfessorGUI extends PageNavigator
 		{
 			this.assignment = course;
 		}
-
 		// FIX THIS TODO: QASIM
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
+			System.err.println("Assignment Activity");
 			try
 			{
-				System.err.println("Checkbox detected");
 				JCheckBox checkBox = (JCheckBox) e.getSource();
 				if (!checkBox.isSelected() && assignment.getActive())
 				{
 					System.out.println("INACTIVE");
-					clientController.onlySendMessage(
-							new SendMessage(assignment, "MODIFY ASSIGNINACTIVE"));
+					clientController.onlySendMessage(new SendMessage(assignment,
+							"MODIFY ASSIGNINACTIVE"));
 				} else
 				{
 					System.out.println("ACTIVE");
@@ -523,7 +536,6 @@ public class ProfessorGUI extends PageNavigator
 				System.out.println("Unable to change the course active state");
 				e1.printStackTrace();
 			}
-
 		}
 	}
 
@@ -564,9 +576,10 @@ public class ProfessorGUI extends PageNavigator
 
 					clientController.getObjectOut().writeObject(content);
 					clientController.getObjectOut().flush();
-
-					showAllAssignments(course, assignmentPage);
 					
+					createAssignItem(course, assignmentPage, myUpload);
+//					showAllAssignments(course, assignmentPage);
+
 				} catch (IOException e1)
 				{
 					e1.printStackTrace();

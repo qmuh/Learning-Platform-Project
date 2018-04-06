@@ -96,8 +96,6 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 	{
 		// TODO: Add default list model to JList
 		itemDisplay = new BoxList<AssignItem>();
-		itemDisplay.addItem(new AssignItem(
-				new Assignment(1000, 1000, "TOTLE", "PATH", true, "DUE DATE")));
 		JScrollPane scrollPane = new JScrollPane(itemDisplay);
 		scrollPane.setVerticalScrollBarPolicy(
 				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -172,10 +170,14 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 
 	public void setAssignmentVector(Vector<Assignment> myList)
 	{
+		itemDisplay.removeAll();
 		for (Assignment assignment : myList)
 		{
-			itemDisplay.add(new AssignItem(assignment));
+			this.addToBoxList(new AssignItem(assignment));
 		}
+		System.out.println("#: " + itemDisplay.getComponentCount());
+		itemDisplay.revalidate();
+		itemDisplay.repaint();
 	}
 
 }

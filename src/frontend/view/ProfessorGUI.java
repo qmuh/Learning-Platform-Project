@@ -355,6 +355,8 @@ public class ProfessorGUI extends PageNavigator
 										"INSERT COURSE"));
 
 						createCoursePage(course);
+						createEnrollmentPage(course);
+						createAssignmentPage(course);
 						createCourseItem(course, homePage);
 
 					} catch (IOException e1)

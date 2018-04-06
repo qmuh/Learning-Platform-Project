@@ -3,6 +3,7 @@ package frontend.view.pages;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -30,6 +31,7 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 	private BoxList<AssignItem> assignmentList;
 	private JTextField uploadField, month, day, year;
 	private JButton uploadButton, browseButton;
+	private File selectedFile;
 	
 	public JTextField getUploadField()
 	{
@@ -44,6 +46,17 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 	public void setBrowseButtonListener(ActionListener listener)
 	{
 		browseButton.addActionListener(listener);
+	}
+	
+	public File getFile()
+	{
+		return selectedFile;
+		
+	}
+	
+	public void setFile(File toSet) 
+	{
+		selectedFile = toSet;
 	}
 	
 	public Date getDate()

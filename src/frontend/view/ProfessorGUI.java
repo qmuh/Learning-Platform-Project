@@ -23,7 +23,9 @@ import com.sun.xml.internal.fastinfoset.util.FixedEntryStringIntMap;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import java.io.File;
 
 import frontend.controller.ClientController;
 import frontend.view.pages.AssignmentPage;
@@ -135,8 +137,8 @@ public class ProfessorGUI extends PageNavigator
 		assignmentPage.setAssignmentButtonListener(new AssignmentButtonListener(course));
 		assignmentPage.setGradesButtonListener(new GradesButtonListener(course));
 		this.addPage(assignmentPage, assignmentPage.getName());
-		assignmentPage.setUploadButtonListener(new UploadButtonListener(course));
-		assignmentPage.setBrowseButtonListener(new BrowseButtonListener());
+		assignmentPage.setUploadButtonListener(new UploadButtonListener(course, assignmentPage));
+		assignmentPage.setBrowseButtonListener(new BrowseButtonListener(assignmentPage));
 	}
 	
 	private void createEnrollmentPage(Course course)
@@ -455,15 +457,17 @@ public class ProfessorGUI extends PageNavigator
 	private class UploadButtonListener implements ActionListener
 	{
 		private Course course;
+		private AssignmentPage assignPage;
 		
-		public UploadButtonListener(Course course)
+		public UploadButtonListener(Course course, AssignmentPage assignPage)
 		{
 			this.course = course;
+			this.assignPage = assignPage;
 		}
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-			// TODO Auto-generated method stub
+			
 			
 		}
 		
@@ -472,10 +476,28 @@ public class ProfessorGUI extends PageNavigator
 	// FIX THIS TODO: QASIM 
 	private class BrowseButtonListener implements ActionListener
 	{
+		private AssignmentPage assignPage;
+		
+		public BrowseButtonListener(AssignmentPage assignPage)
+		{
+			this.assignPage = assignPage;
+		}
+		
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-			// TODO Auto-generated method stub
+			File selectedFile;
+			JFileChooser fileBrowser = new JFileChooser();
+			if(fileBrowser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+			{
+				selectedFile = fileBrowser.getSelectedFile();
+				assignPage.setFile(selectedFile);
+			}
+			
+			else {
+				assignPage.setFile(null);
+			}
+			
 			
 		}
 		

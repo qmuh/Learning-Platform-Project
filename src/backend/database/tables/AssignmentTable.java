@@ -95,5 +95,31 @@ public class AssignmentTable extends Table<Assignment>
 		return myAssignments;
 		
 	}
+
+	public Vector<Assignment> getAllAssignments(int id)
+	{
+		String sql = "SELECT * FROM " + tableName + " WHERE ID= ? ";
+		Vector<Assignment> userList = new Vector<Assignment>();
+		ResultSet assign;
+		
+			try {
+	
+				preparedStatement = dbConnection.prepareStatement(sql);
+				preparedStatement.setInt(1, id);
+			assign = preparedStatement.executeQuery();
+			while(assign.next())
+			{
+				 userList.add( new Assignment(assign.getInt("ID"), 
+						 					assign.getInt("COURSEID"), 
+						 					assign.getString("TITLE"), 
+						 					assign.getString("PATH"), 
+						 					assign.getBoolean("ACTIVE"),
+						 					assign.getString("DUEDATE")));
+				
+			}
+			
+			} catch (SQLException e) { e.printStackTrace(); }
+		return userList;
+	}
 	
 }

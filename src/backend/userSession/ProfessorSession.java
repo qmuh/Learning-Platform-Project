@@ -144,6 +144,14 @@ public class ProfessorSession extends ClientSession
 				outputStream.flush();
 			}
 			
+			if(interpreter[1].equals("ALLASSIGNMENTS"))
+			{
+				Vector<Assignment> allStudents = myDatabase.getAssignmentTable().getAllAssignments(((Course)getMessage).getId());
+				outputStream.writeObject(allStudents);
+				outputStream.flush();
+			}
+			
+			
 		}catch (IOException e) {
 			System.out.println("Error");
 		}

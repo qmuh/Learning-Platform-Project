@@ -3,6 +3,7 @@ package frontend.view.pages;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -81,6 +82,12 @@ public class EnrollmentPage extends CoursePage
 
 	}
 
+	public void setStudentList(Vector<Student> toSet)
+	{
+		studentSearchResults.clearSelection();
+		studentSearchResults.setListData(toSet);
+	}
+	
 	private JSplitPane createEnrollmentPanel()
 	{
 		JSplitPane enrollmentPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,

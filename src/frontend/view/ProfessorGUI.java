@@ -115,6 +115,18 @@ public class ProfessorGUI extends PageNavigator
 				new EnrollButtonListener(enrollmentPage));
 		enrollmentPage.setUnenrollButtonListener(
 				new UnenrollButtonListener(enrollmentPage));
+		
+		try
+		{
+			Vector<Student> myList = (Vector<Student>) clientController.sendMessage(new SendMessage<>(null, "RECEIVE ALLSTUDENTS"));
+			enrollmentPage.setStudentList(myList);
+			
+			
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		
 	}
 
 	private class SearchButtonListener implements ActionListener

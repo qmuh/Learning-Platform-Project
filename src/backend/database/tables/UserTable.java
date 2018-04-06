@@ -179,7 +179,7 @@ public class UserTable extends Table<User>
 				preparedStatement = dbConnection.prepareStatement(sql);
 				preparedStatement.setString(1, "S");
 			user = preparedStatement.executeQuery();
-			if(user.next())
+			while(user.next())
 			{
 				 userList.add( new Student(user.getInt("ID"),
 						user.getString("FIRSTNAME"), 

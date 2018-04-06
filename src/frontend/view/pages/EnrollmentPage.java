@@ -97,15 +97,16 @@ public class EnrollmentPage extends CoursePage
 	private JPanel createSearchPanel()
 	{
 		JPanel searchPanel = new JPanel();
-		searchPanel.setLayout(new BoxLayout(searchPanel, BoxLayout.Y_AXIS));
-		searchPanel.add(createSearchArea());
-		searchPanel.add(createSearchResults());
+		searchPanel.setLayout(new BorderLayout());
+		searchPanel.add(createSearchArea(), BorderLayout.NORTH);
+		searchPanel.add(createSearchResults(), BorderLayout.CENTER);
 		return searchPanel;
 	}
 
 	private JPanel createSearchResults()
 	{
 		JPanel searchResults = new JPanel(new BorderLayout());
+		searchResults.setBorder(new EmptyBorder(20, 20, 20, 20));
 		searchResults.add(new JLabel("Search Results"), BorderLayout.NORTH);
 		studentSearchResults = new JList<Student>();
 		searchResults.add(studentSearchResults, BorderLayout.CENTER);
@@ -139,7 +140,7 @@ public class EnrollmentPage extends CoursePage
 	private JPanel createButtonGroup()
 	{
 		JPanel buttonPanel = new JPanel(new GridLayout(2, 1));
-		buttonPanel.setAlignmentX(LEFT_ALIGNMENT);
+//		buttonPanel.setAlignmentX(LEFT_ALIGNMENT);
 		// BORDER
 		buttonPanel.setBorder(BorderFactory.createTitledBorder(
 				new MatteBorder(1, 1, 1, 1, Colours.CONTRAST_COLOR), "Search"));
@@ -175,9 +176,13 @@ public class EnrollmentPage extends CoursePage
 		return enrollList;
 	}
 
-	private JList<Student> createEnrolledStudentList()
+	private JPanel createEnrolledStudentList()
 	{
-		return enrolledStudentList = new JList<Student>();
+		JPanel enrolledPanel = new JPanel(new GridLayout(1, 1));
+		enrolledPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
+		enrolledStudentList = new JList<Student>();
+		enrolledPanel.add(enrolledStudentList);
+		return enrolledPanel;
 	}
 
 	@Override

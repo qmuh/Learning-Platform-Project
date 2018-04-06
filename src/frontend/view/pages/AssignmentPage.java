@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -154,6 +155,14 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 		frame.setSize(1600, 1000);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+
+	public void setAssignmentVector(Vector<Assignment> myList)
+	{
+		for (Assignment assignment : myList)
+		{
+			itemDisplay.add(new AssignItem(assignment));
+		}
 	}
 
 }

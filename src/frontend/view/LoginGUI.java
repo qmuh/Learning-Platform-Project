@@ -26,16 +26,16 @@ import javax.swing.BorderFactory;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
-import frontend.components.PageNavigator;
-import frontend.interfaces.Colours;
+import frontend.interfaces.ColorPalette;
 import frontend.interfaces.ServerInfo;
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.GUIConstants;
+import frontend.view.pages.components.PageNavigator;
 import sharedobjects.LoginInfo;
 import sharedobjects.Professor;
 import sharedobjects.User;
 
-public class LoginGUI extends JFrame implements WondrisInfo, Colours, GUIConstants
+public class LoginGUI extends JFrame implements WondrisInfo, ColorPalette, GUIConstants
 {
 
 	private static final long serialVersionUID = 1L;

@@ -11,13 +11,13 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import frontend.components.BoxList;
-import frontend.interfaces.Colours;
+import frontend.interfaces.ColorPalette;
 import frontend.interfaces.WondrisInfo;
+import frontend.view.pages.components.BoxList;
 import frontend.view.pages.items.CourseItem;
 import sharedobjects.Course;
 
-public class CoursePageTable extends JPanel implements WondrisInfo, Colours
+public class CoursePageTable extends JPanel implements WondrisInfo, ColorPalette
 {
 	private static final long serialVersionUID = 1L;
 	

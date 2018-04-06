@@ -2,9 +2,8 @@ package frontend.interfaces;
 
 import java.awt.Color;
 
-public interface Colours
+public interface ColorPalette
 {
-
 	public static final Color BACKGROUND_COLOUR = new Color(137, 207, 240);
 
 	public static final Color SECONDARY_COLOR = new Color(129, 149, 248);

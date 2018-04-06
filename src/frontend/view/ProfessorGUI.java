@@ -25,14 +25,14 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 
-import frontend.components.BoxList;
-import frontend.components.PageNavigator;
 import frontend.controller.ClientController;
 import frontend.view.pages.AssignmentPage;
 import frontend.view.pages.HomePage;
 import frontend.view.pages.CoursePage;
 import frontend.view.pages.EnrollmentPage;
 import frontend.view.pages.Page;
+import frontend.view.pages.components.BoxList;
+import frontend.view.pages.components.PageNavigator;
 import frontend.view.pages.items.CourseItem;
 
 public class ProfessorGUI extends PageNavigator

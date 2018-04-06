@@ -1,6 +1,6 @@
 package frontend.view.pages;
 
-import frontend.components.BoxList;
+import frontend.view.pages.components.BoxList;
 import frontend.view.pages.items.SubmitItem;
 import sharedobjects.Assignment;
 import sharedobjects.Course;

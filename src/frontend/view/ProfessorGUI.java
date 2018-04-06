@@ -30,6 +30,7 @@ import frontend.controller.ClientController;
 import frontend.view.pages.AssignmentPage;
 import frontend.view.pages.HomePage;
 import frontend.view.pages.CoursePage;
+import frontend.view.pages.EnrollmentPage;
 import frontend.view.pages.Page;
 import frontend.view.pages.items.CourseItem;
 
@@ -69,6 +70,8 @@ public class ProfessorGUI extends PageNavigator
 					CoursePage coursePage = createCoursePage(course);
 					createCourseItem(course, homePage);
 					
+					createEnrollmentPage(course);
+					
 					System.out.println("Course name is: " + coursesList.get(i).getName());
 				}
 			}
@@ -96,7 +99,28 @@ public class ProfessorGUI extends PageNavigator
 		this.addPage(coursePage, coursePage.getName());
 		return coursePage;
 	}
+	 
+	private void createEnrollmentPage(Course course)
+	{
+		EnrollmentPage enrollmentPage = new EnrollmentPage(course);
+		this.addPage(enrollmentPage, enrollmentPage.getName());
+		enrollmentPage.setSearchButtonListener(new SearchButtonListener());
+		enrollmentPage.setEnrollButtonListener(new EnrollButtonListener());
+		enrollmentPage.setUnenrollButtonListener(new UnenrollButtonListener());
+	}
+	
+	private class SearchButtonListener implements ActionListener
+	{
 
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+	
 	private class NewCourseButtonListener implements ActionListener
 	{
 		private HomePage homePage;
@@ -128,7 +152,7 @@ public class ProfessorGUI extends PageNavigator
 						Course course = new Course(thisProfessor.getId(), courseName.getText(), false);
 						clientController.onlySendMessage(new SendMessage<Course>(course, "INSERT COURSE"));
 						
-						CoursePage coursePage = createCoursePage(course);
+						createCoursePage(course);
 						createCourseItem(course, homePage);
 
 					} catch (IOException e1)

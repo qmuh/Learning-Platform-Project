@@ -9,7 +9,11 @@ public class Student extends User
 		super(userId, fName, lName, mail, type, pass);
 	}
 
-	
+	@Override
+	public String toString()
+	{
+		return super.toString();
+	}
 	
 	
 	

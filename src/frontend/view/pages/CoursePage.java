@@ -8,7 +8,6 @@ import javax.swing.JPanel;
 import frontend.view.pages.items.CourseItem;
 import sharedobjects.Course;
 
-@SuppressWarnings("rawtypes")
 public class CoursePage extends Page<CourseItem, Course>
 {
 

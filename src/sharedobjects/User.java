@@ -91,6 +91,12 @@ public abstract class User implements Serializable
 	{
 		return password;
 	}
+	
+	@Override
+	public String toString()
+	{
+		return "ID: " + id + " " + firstName + " " + lastName;
+	}
 
 
 

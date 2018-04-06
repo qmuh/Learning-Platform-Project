@@ -115,7 +115,7 @@ public class ProfessorGUI extends PageNavigator
 		// TODO: Set listeners for all view buttons
 	}
 
-	/**
+	/** 
 	 * @param course
 	 * @param homePage
 	 */
@@ -173,7 +173,7 @@ public class ProfessorGUI extends PageNavigator
 				createAssignItem(course, assignmentPage, assignment);
 			}
 
-			assignmentPage.setAssignmentVector(myList);
+			//assignmentPage.setAssignmentVector(myList);
 		} catch (IOException e)
 		{
 			e.printStackTrace();
@@ -185,6 +185,7 @@ public class ProfessorGUI extends PageNavigator
 		AssignItem assignItem = new AssignItem(assignment);
 		assignItem.setActiveCheckboxListener(new AssignmentActiveCheckBoxListener(assignment));
 		assignmentPage.addToBoxList(assignItem);
+		assignmentPage.displayPage();
 	}
 
 	private void createEnrollmentPage(Course course)
@@ -527,7 +528,11 @@ public class ProfessorGUI extends PageNavigator
 		}
 	}
 
-	// FIX THIS TODO: QASIM
+	
+	/**
+	 * Listener for the upload button on the assignment page
+	 *
+	 */
 	private class UploadButtonListener implements ActionListener
 	{
 		private Course course;
@@ -542,10 +547,11 @@ public class ProfessorGUI extends PageNavigator
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
+			String append[] = assignmentPage.getFile().getPath().split("/");
 			if (assignmentPage.getFile() != null)
 			{
 				Assignment myUpload = new Assignment(course.getId(),
-						"This is my file",
+						append[append.length -1],
 						assignmentPage.getUploadField().getText(), false,
 						assignmentPage.getDate().toString());
 				try
@@ -565,7 +571,8 @@ public class ProfessorGUI extends PageNavigator
 					clientController.getObjectOut().writeObject(content);
 					clientController.getObjectOut().flush();
 
-					showAllAssignments(course, assignmentPage);
+					createAssignItem(course, assignmentPage, myUpload);
+					//showAllAssignments(course, assignmentPage);
 					
 				} catch (IOException e1)
 				{
@@ -577,7 +584,11 @@ public class ProfessorGUI extends PageNavigator
 
 	}
 
-	// FIX THIS TODO: QASIM
+
+	/**
+	 * Listener for the browse button on the assignment page
+	 *
+	 */
 	private class BrowseButtonListener implements ActionListener
 	{
 		private AssignmentPage assignPage;

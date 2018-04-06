@@ -154,8 +154,9 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 	@Override
 	public void displayPage()
 	{
-		// TODO Auto-generated method stub
-
+		// TODO Auto-generat
+		itemDisplay.revalidate();
+		itemDisplay.repaint();
 	}
 
 	public static void main(String[] args)

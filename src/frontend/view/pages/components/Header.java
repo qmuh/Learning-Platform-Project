@@ -1,4 +1,4 @@
-package frontend.view.pages;
+package frontend.view.pages.components;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 
 import frontend.interfaces.ColorPalette;
 import frontend.interfaces.WondrisInfo;
+import frontend.view.pages.GUIConstants;
+import frontend.view.pages.NavigationBar;
 
 public class Header extends JPanel implements GUIConstants, ColorPalette, WondrisInfo
 {

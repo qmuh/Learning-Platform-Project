@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import frontend.view.pages.components.BoxList;
 import frontend.view.pages.components.Footer;
+import frontend.view.pages.components.Header;
 
 public abstract class Page <T extends Box, U> extends JPanel implements PageNames
 {

@@ -162,7 +162,6 @@ public class UserTable extends Table<User> implements UserInfo
 						user.getString("FIRSTNAME"), user.getString("LASTNAME"),
 						user.getString("EMAIL"),
 						user.getString("PASSWORD")));
-
 			}
 
 		} catch (SQLException e)

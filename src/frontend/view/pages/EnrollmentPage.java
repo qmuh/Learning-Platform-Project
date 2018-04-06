@@ -22,7 +22,7 @@ import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionListener;
 
-import frontend.interfaces.ColorPalette;
+import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
 import javafx.scene.layout.Border;
 import shared.objects.Course;
@@ -167,7 +167,7 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 		JPanel buttonPanel = new JPanel(new GridLayout(2, 1));
 //		buttonPanel.setAlignmentX(LEFT_ALIGNMENT);
 		// BORDER
-		MatteBorder matteBorder = new MatteBorder(1, 1, 1, 1, ColorPalette.CONTRAST_COLOR);
+		MatteBorder matteBorder = new MatteBorder(1, 1, 1, 1, ColourPalette.CONTRAST_COLOR);
 		TitledBorder titledBorder = BorderFactory.createTitledBorder(matteBorder);
 		titledBorder.setTitle("Search");
 		titledBorder.setTitleFont(TEXT_FONT);

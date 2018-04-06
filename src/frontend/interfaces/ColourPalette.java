@@ -9,7 +9,7 @@ import java.awt.Color;
  * @version 1.0
  * @since April 6, 2018
  */
-public interface ColorPalette
+public interface ColourPalette
 {
 	public static final Color BACKGROUND_COLOUR = new Color(137, 207, 240);
 

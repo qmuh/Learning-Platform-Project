@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import frontend.interfaces.ColorPalette;
+import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.GUIConstants;
 import frontend.view.pages.NavigationBar;
@@ -20,7 +20,7 @@ import frontend.view.pages.NavigationBar;
  * @version 1.0
  * @since April 6, 2018
  */
-public class Header extends JPanel implements GUIConstants, ColorPalette, WondrisInfo
+public class Header extends JPanel implements GUIConstants, ColourPalette, WondrisInfo
 {
 	/**
 	 * 

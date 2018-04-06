@@ -6,7 +6,7 @@ import java.util.Hashtable;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import frontend.interfaces.ColorPalette;
+import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
 
 
@@ -17,7 +17,7 @@ import frontend.interfaces.WondrisInfo;
  * @version 1.0
  * @since April 6, 2018
  */
-public class NavigationBar extends JPanel implements NavigationBarButtons, WondrisInfo, ColorPalette
+public class NavigationBar extends JPanel implements NavigationBarButtons, WondrisInfo, ColourPalette
 {
 	/**
 	 * 

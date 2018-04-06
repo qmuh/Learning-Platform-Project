@@ -111,7 +111,8 @@ public class ProfessorGUI extends PageNavigator
 	
 	private class SearchButtonListener implements ActionListener
 	{
-
+		
+		
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{

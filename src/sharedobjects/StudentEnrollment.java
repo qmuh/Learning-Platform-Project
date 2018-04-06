@@ -1,6 +1,7 @@
 package sharedobjects;
 
 import java.io.Serializable;
+import java.util.Random;
 
 public class StudentEnrollment implements Serializable
 {
@@ -8,7 +9,7 @@ public class StudentEnrollment implements Serializable
 	/**
 	 * The identification for enrolling a student to a class
 	 */
-	private int id = 1000;
+	private int id;
 
 	/**
 	 * The id for the student who is enrolling
@@ -27,9 +28,11 @@ public class StudentEnrollment implements Serializable
 	
 	public StudentEnrollment( int stuID, int courseID)
 	{
-		id = id++;
+		Random random = new Random();
+		id = random.nextInt(4000) + 3000;
 		student_id = stuID;
 		course_id = courseID;
+	
 	}
 
 	public int getId()

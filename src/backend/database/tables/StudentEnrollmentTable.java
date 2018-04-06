@@ -25,11 +25,11 @@ public class StudentEnrollmentTable extends Table<StudentEnrollment>
 			
 			preparedStatement = dbConnection.prepareStatement(sql);
 			preparedStatement.setInt(1,toAdd.getId());
-			preparedStatement.setInt(2, toAdd.getCourse_id());
-			preparedStatement.setInt(3, toAdd.getStudent_id());
+			preparedStatement.setInt(2, toAdd.getStudent_id());
+			preparedStatement.setInt(3, toAdd.getCourse_id());
 			preparedStatement.executeUpdate();
 			
-			System.out.println("Added Student Enrollment status ");
+			System.out.println("Added Student Enrollment status where course is " + toAdd.getCourse_id() + " student is " + toAdd.getStudent_id());
 		}
 		catch(SQLException e)
 		{
@@ -113,11 +113,12 @@ public class StudentEnrollmentTable extends Table<StudentEnrollment>
 
 	public void remove(StudentEnrollment getmessageObject)
 	{
-		String sql = "DELETE FROM " + tableName + " WHERE ID = ?";
+		String sql = "DELETE FROM " + tableName + " WHERE COURSEID= ? AND STUDENTID= ?";
 		ResultSet client;
 		try {
 			preparedStatement = dbConnection.prepareStatement(sql);
-			preparedStatement.setInt(1, getmessageObject.getId());
+			preparedStatement.setInt(1, getmessageObject.getCourse_id());
+			preparedStatement.setInt(2, getmessageObject.getStudent_id());
 			preparedStatement.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -126,6 +127,30 @@ public class StudentEnrollmentTable extends Table<StudentEnrollment>
 		
 	}
 
+	/** Searches for the list of student IDs who are enrolled in a specific class
+	 * Used by the professor
+	 * @param courseID
+	 * @return
+	 */
+	public Vector<Integer> getAllEnrolledStudent(int courseID)
+	{
+		Vector<Integer> listOfStudentIDs = new Vector<Integer>();
+		String sql = "SELECT * FROM " + tableName + " WHERE COURSEID= ?";
+		ResultSet studentsInfo;
+		try {
+			preparedStatement = dbConnection.prepareStatement(sql);
+			preparedStatement.setInt(1, courseID);
+			studentsInfo = preparedStatement.executeQuery();
+			while(studentsInfo.next())
+			{					
+				System.out.println("In getAllEnrolled");
+				listOfStudentIDs.add(studentsInfo.getInt("STUDENTID"));	
+			}
+		
+		} catch (SQLException e) { e.printStackTrace(); }
+		
 	
+		return listOfStudentIDs;
+	}
 	
 }

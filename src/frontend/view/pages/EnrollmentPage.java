@@ -59,6 +59,8 @@ public class EnrollmentPage extends CoursePage
 		return searchField.getText();
 	}
 
+	
+	
 	public void setStudentSearchResultListListener(
 			ListSelectionListener listener)
 	{
@@ -92,6 +94,13 @@ public class EnrollmentPage extends CoursePage
 	{
 		studentSearchResults.clearSelection();
 		studentSearchResults.setListData(toSet);
+	}
+	
+	public void setEnrolledList(Vector<Student> enrollList)
+	{
+		enrolledStudentList.clearSelection();
+		enrolledStudentList.setListData(enrollList);
+		
 	}
 	
 	private JPanel createEnrollmentPanel()
@@ -209,4 +218,6 @@ public class EnrollmentPage extends CoursePage
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+
+
 }

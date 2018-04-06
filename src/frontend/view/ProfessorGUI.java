@@ -4,6 +4,7 @@ import sharedobjects.Course;
 import sharedobjects.Professor;
 import sharedobjects.SendMessage;
 import sharedobjects.Student;
+import sharedobjects.StudentEnrollment;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,8 +19,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import com.sun.corba.se.spi.orbutil.fsm.Action;
-import com.sun.xml.internal.bind.v2.runtime.Name;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -112,16 +111,23 @@ public class ProfessorGUI extends PageNavigator
 		enrollmentPage.setSearchButtonListener(
 				new SearchButtonListener(enrollmentPage));
 		enrollmentPage.setEnrollButtonListener(
-				new EnrollButtonListener(enrollmentPage));
+				new EnrollButtonListener(enrollmentPage, course));
 		enrollmentPage.setUnenrollButtonListener(
-				new UnenrollButtonListener(enrollmentPage));
+				new UnenrollButtonListener(enrollmentPage, course));
 		
+		showAllStudents(course, enrollmentPage);
+		
+	}
+
+	public void showAllStudents(Course course, EnrollmentPage enrollmentPage)
+	{
 		try
 		{
 			Vector<Student> myList = (Vector<Student>) clientController.sendMessage(new SendMessage<>(null, "RECEIVE ALLSTUDENTS"));
 			enrollmentPage.setStudentList(myList);
 			
-			
+			Vector<Student> enrollList = (Vector<Student>) clientController.sendMessage(new SendMessage<Course>(course, "RECEIVE ALLENROLLED"));
+			enrollmentPage.setEnrolledList(enrollList);
 		} catch (IOException e)
 		{
 			e.printStackTrace();
@@ -142,47 +148,82 @@ public class ProfessorGUI extends PageNavigator
 		public void actionPerformed(ActionEvent e)
 		{
 			String search = enrollmentPage.getSearchFieldText();
+			try {
+				
+			Vector<Student> searchResult = new Vector<Student>();
 			if (enrollmentPage.isSearchById())
 			{
-				// search by id
+				Student myResult = (Student) clientController.sendMessage(new SendMessage<>((int)Integer.parseInt(search), "RECEIVE STUDENTBYID"));
+				searchResult.add(myResult);
 			} else if (enrollmentPage.isSearchByLastName())
 			{
-				// search by last name
+				searchResult = (Vector<Student>)clientController.sendMessage(new SendMessage<>(search, "RECEIVE STUDENTBYLAST"));
 			}
-			// TODO: SEARCH
+		
+			enrollmentPage.setStudentList(searchResult);
+		}catch (NumberFormatException e2) {
+			System.out.println("Incorrect Login Value EnteredExitedHandler for search id");
+		} catch (IOException e1)
+		{
+			e1.printStackTrace();
+		}
+		
 		}
 	}
 
 	private class EnrollButtonListener implements ActionListener
 	{
 		private EnrollmentPage enrollmentPage;
+		private Course myCourse;
 
-		public EnrollButtonListener(EnrollmentPage enrollmentPage)
+		public EnrollButtonListener(EnrollmentPage enrollmentPage, Course course)
 		{
 			this.enrollmentPage = enrollmentPage;
+			myCourse = course;
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
 			Student selectedStudent = enrollmentPage.getSelectedStudent();
-			// enroll this student. TODO:
+			StudentEnrollment toSend = new StudentEnrollment(selectedStudent.getId(), myCourse.getId());
+			try
+			{
+				clientController.onlySendMessage(new SendMessage<StudentEnrollment>(toSend, "INSERT ENROLL"));
+			} catch (IOException e1)
+			{
+				e1.printStackTrace();
+			}
+			
+			showAllStudents(myCourse, enrollmentPage);
 		}
 	}
 
 	private class UnenrollButtonListener implements ActionListener
 	{
 		private EnrollmentPage enrollmentPage;
+		private Course myCourse;
 
-		public UnenrollButtonListener(EnrollmentPage enrollmentPage)
+		public UnenrollButtonListener(EnrollmentPage enrollmentPage, Course course)
 		{
 			this.enrollmentPage = enrollmentPage;
+			myCourse = course;
 		}
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
 			Student selectedStudent = enrollmentPage.getSelectedStudent();
-			// unenroll this student. TODO:
+			StudentEnrollment toSend = new StudentEnrollment(selectedStudent.getId(), myCourse.getId());
+			try
+			{
+				clientController.onlySendMessage(new SendMessage<StudentEnrollment>(toSend, "INSERT UNENROLL"));
+			} catch (IOException e1)
+			{
+				e1.printStackTrace();
+			}
+			
+			showAllStudents(myCourse, enrollmentPage);
+			
 		}
 	}
 

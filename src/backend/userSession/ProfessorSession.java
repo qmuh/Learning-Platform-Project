@@ -104,7 +104,6 @@ public class ProfessorSession extends ClientSession
 		
 			if(interpreter[1].equals("COURSES"))
 			{
-				System.out.println("I recieve the correct message my id is " + user.getId());
 				Vector<Course> myCourses = myDatabase.getCourseTable().searchByProfId(user.getId());
 				
 				outputStream.writeObject(myCourses);
@@ -114,15 +113,15 @@ public class ProfessorSession extends ClientSession
 			if(interpreter[1].equals("STUDENTBYID"))
 			{
 				
-				Student myEnrolledStudents = (Student) myDatabase.getUserTable().getUserByID(((CourseMessage)getMessage).getUserId());
+				Student myEnrolledStudents = (Student) myDatabase.getUserTable().getUserByID(((int)getMessage));
 				outputStream.writeObject(myEnrolledStudents);
 				outputStream.flush();
 				
 			}
 			
-			if(interpreter[1].equals("COURSEBYLAST")) 
+			if(interpreter[1].equals("STUDENTBYLAST")) 
 			{
-				Vector<Student> myEnrolledStudents = myDatabase.getUserTable().searchLastName(((CourseMessage)getMessage).getName());
+				Vector<Student> myEnrolledStudents = myDatabase.getUserTable().searchLastName(((String)getMessage));
 				outputStream.writeObject(myEnrolledStudents);
 				outputStream.flush();
 			}
@@ -131,6 +130,18 @@ public class ProfessorSession extends ClientSession
 			{
 				Vector<Student> allStudents = myDatabase.getUserTable().allStudents();
 				outputStream.writeObject(allStudents);
+				outputStream.flush();
+			}
+			
+			if(interpreter[1].equals("ALLENROLLED"))
+			{
+				Vector<Integer> enrolled = myDatabase.getStudentEnrollmentTable().getAllEnrolledStudent(((Course)getMessage).getId());
+				Vector<Student> enrolledStudent = new Vector<Student>();
+				for (int i = 0; i < enrolled.size(); i++)
+				{
+					enrolledStudent.add((Student) myDatabase.getUserTable().getUserByID(enrolled.get(i)));
+				}		
+				outputStream.writeObject(enrolledStudent);
 				outputStream.flush();
 			}
 			

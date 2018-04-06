@@ -12,7 +12,9 @@ public class FileHelper
 
 	public void storeFile(byte[] file, Assignment data)
 	{
-		File newFile = new File(data.getTitle());
+		//data.getPath()
+		
+		File newFile = new File(data.getPath() + "FROMSERVER");
 		try{
 		if(! newFile.exists())
 		newFile.createNewFile();

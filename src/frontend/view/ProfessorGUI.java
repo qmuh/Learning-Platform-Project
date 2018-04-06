@@ -26,7 +26,10 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 
 import frontend.controller.ClientController;
 import frontend.view.pages.AssignmentPage;
@@ -516,8 +519,31 @@ public class ProfessorGUI extends PageNavigator
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-
-
+			if(assignPage.getFile() != null)
+			{	
+				Assignment myUpload = new Assignment( course.getId(),"This is my file" , 
+													assignPage.getUploadField().getText(), 
+													false, 
+													assignPage.getDate().toString());
+				try
+				{
+					clientController.onlySendMessage(new SendMessage<Assignment>(myUpload, "INSERT ASSIGNMENT"));
+					
+					long length = assignPage.getFile().length();
+					byte[] content = new byte[(int) length]; // Converting Long to Int
+					FileInputStream fis = new FileInputStream(assignPage.getFile());
+					BufferedInputStream bos = new BufferedInputStream(fis);
+					bos.read(content, 0, (int)length);
+					
+					clientController.getObjectOut().writeObject(content);
+					clientController.getObjectOut().flush();
+					
+				} catch (IOException e1)
+				{
+					e1.printStackTrace();
+				}
+				
+			}
 		}
 
 	}
@@ -541,6 +567,7 @@ public class ProfessorGUI extends PageNavigator
 			{
 				selectedFile = fileBrowser.getSelectedFile();
 				assignPage.setFile(selectedFile);
+				assignPage.getUploadField().setText(selectedFile.getPath());
 			}
 
 			else {

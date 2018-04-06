@@ -8,10 +8,10 @@ import java.awt.event.ActionListener;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import frontend.interfaces.Colours;
+import frontend.interfaces.ColorPalette;
 import frontend.interfaces.WondrisInfo;
 
-public class Header extends JPanel implements GUIConstants, Colours, WondrisInfo
+public class Header extends JPanel implements GUIConstants, ColorPalette, WondrisInfo
 {
 	/**
 	 * 

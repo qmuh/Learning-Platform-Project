@@ -1,7 +1,7 @@
 package backend.interfaces;
 
 // NEEDS IMPLEMENTATION
-public interface Commands
+public interface DatabaseCommands
 {
 
 }

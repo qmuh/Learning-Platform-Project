@@ -20,7 +20,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.event.ListSelectionListener;
 
-import frontend.interfaces.Colours;
+import frontend.interfaces.ColorPalette;
 import frontend.interfaces.WondrisInfo;
 import javafx.scene.layout.Border;
 import sharedobjects.Course;
@@ -151,7 +151,7 @@ public class EnrollmentPage extends CoursePage
 //		buttonPanel.setAlignmentX(LEFT_ALIGNMENT);
 		// BORDER
 		buttonPanel.setBorder(BorderFactory.createTitledBorder(
-				new MatteBorder(1, 1, 1, 1, Colours.CONTRAST_COLOR), "Search"));
+				new MatteBorder(1, 1, 1, 1, ColorPalette.CONTRAST_COLOR), "Search"));
 
 		id = new JRadioButton("ID");
 		lastName = new JRadioButton("Last Name");

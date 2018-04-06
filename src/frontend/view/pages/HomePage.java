@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-import frontend.components.BoxList;
+import frontend.view.pages.components.BoxList;
 import frontend.view.pages.items.CourseItem;
 import sharedobjects.Course;
 

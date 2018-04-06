@@ -1,9 +1,11 @@
 package frontend.view;
 
+import sharedobjects.Assignment;
 import sharedobjects.Course;
 import sharedobjects.Professor;
 import sharedobjects.SendMessage;
 import sharedobjects.Student;
+import sharedobjects.StudentEnrollment;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,8 +20,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import com.sun.corba.se.spi.orbutil.fsm.Action;
-import com.sun.xml.internal.bind.v2.runtime.Name;
+import com.sun.xml.internal.fastinfoset.util.FixedEntryStringIntMap;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -35,11 +36,33 @@ import frontend.view.pages.components.BoxList;
 import frontend.view.pages.components.PageNavigator;
 import frontend.view.pages.items.CourseItem;
 
+/**
+ * Class which handles the functionality of the Prrofessor GUI
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 6, 2018
+ */
 public class ProfessorGUI extends PageNavigator
 {
+	/**
+	 * The professor object which contains informaion needed for client server
+	 * relations
+	 */
 	private Professor thisProfessor;
+
+	/**
+	 * Object needed to communicate effectively with the server
+	 */
 	private ClientController clientController;
 
+	/**
+	 * Constructor for this class, it pre-loads the pages
+	 * 
+	 * @param socket
+	 * @param toSet
+	 */
 	public ProfessorGUI(Socket socket, Professor toSet)
 	{
 		super();
@@ -49,6 +72,7 @@ public class ProfessorGUI extends PageNavigator
 		createHomePage();
 	}
 
+	@SuppressWarnings("unchecked")
 	private void createHomePage()
 	{
 		@SuppressWarnings("unchecked")
@@ -73,6 +97,7 @@ public class ProfessorGUI extends PageNavigator
 					createCourseItem(course, homePage);
 
 					createEnrollmentPage(course);
+					createAssignmentPage(course);
 
 					System.out.println(
 							"Course name is: " + coursesList.get(i).getName());
@@ -88,33 +113,104 @@ public class ProfessorGUI extends PageNavigator
 		// TODO: Set listeners for all view buttons
 	}
 
+	/**
+	 * @param course
+	 * @param homePage
+	 */
 	private void createCourseItem(Course course, HomePage homePage)
 	{
 		CourseItem courseItem = new CourseItem(course);
 		courseItem
 				.setViewButtonListener(new ViewCoursePageListener(courseItem));
-		courseItem
-				.setActiveCheckBoxListener(new ActiveCheckBoxListener(course));
+		courseItem.setActiveCheckBoxListener(
+				new CourseActiveCheckBoxListener(course));
 		homePage.addToBoxList(courseItem);
 	}
 
 	private CoursePage createCoursePage(Course course)
 	{
 		CoursePage coursePage = new CoursePage(course);
+		coursePage.setEnrollmentButtonListener(
+				new EnrollmentButtonListener(course));
+		coursePage.setAssignmentButtonListener(
+				new AssignmentButtonListener(course));
+		coursePage.setGradesButtonListener(new GradesButtonListener(course));
 		this.addPage(coursePage, coursePage.getName());
 		return coursePage;
+	}
+
+	private void createAssignmentPage(Course course)
+	{
+		AssignmentPage assignmentPage = new AssignmentPage(course);
+		assignmentPage.setEnrollmentButtonListener(
+				new EnrollmentButtonListener(course));
+		assignmentPage.setAssignmentButtonListener(
+				new AssignmentButtonListener(course));
+		assignmentPage
+				.setGradesButtonListener(new GradesButtonListener(course));
+		this.addPage(assignmentPage, assignmentPage.getName());
+		assignmentPage
+				.setUploadButtonListener(new UploadButtonListener(course));
+		assignmentPage.setBrowseButtonListener(new BrowseButtonListener());
+
+		showAllAssignments(course, assignmentPage);
+	}
+
+	@SuppressWarnings("unchecked")
+	private void showAllAssignments(Course course,
+			AssignmentPage assignmentPage)
+	{
+		try
+		{
+			Vector<Assignment> myList = (Vector<Assignment>) clientController
+					.sendMessage(
+							new SendMessage<Course>(course, "RECEIVE ALLASSIGNMENTS"));
+			assignmentPage.setAssignmentVector(myList);
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	private void createEnrollmentPage(Course course)
 	{
 		EnrollmentPage enrollmentPage = new EnrollmentPage(course);
+		enrollmentPage.setEnrollmentButtonListener(
+				new EnrollmentButtonListener(course));
+		enrollmentPage.setAssignmentButtonListener(
+				new AssignmentButtonListener(course));
+		enrollmentPage
+				.setGradesButtonListener(new GradesButtonListener(course));
 		this.addPage(enrollmentPage, enrollmentPage.getName());
 		enrollmentPage.setSearchButtonListener(
 				new SearchButtonListener(enrollmentPage));
 		enrollmentPage.setEnrollButtonListener(
-				new EnrollButtonListener(enrollmentPage));
+				new EnrollButtonListener(enrollmentPage, course));
 		enrollmentPage.setUnenrollButtonListener(
-				new UnenrollButtonListener(enrollmentPage));
+				new UnenrollButtonListener(enrollmentPage, course));
+
+		showAllStudents(course, enrollmentPage);
+	}
+
+	@SuppressWarnings("unchecked")
+	public void showAllStudents(Course course, EnrollmentPage enrollmentPage)
+	{
+		try
+		{
+			Vector<Student> myList = (Vector<Student>) clientController
+					.sendMessage(
+							new SendMessage<>(null, "RECEIVE ALLSTUDENTS"));
+			enrollmentPage.setStudentList(myList);
+
+			Vector<Student> enrollList = (Vector<Student>) clientController
+					.sendMessage(new SendMessage<Course>(course,
+							"RECEIVE ALLENROLLED"));
+			enrollmentPage.setEnrolledList(enrollList);
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+
 	}
 
 	private class SearchButtonListener implements ActionListener
@@ -130,47 +226,98 @@ public class ProfessorGUI extends PageNavigator
 		public void actionPerformed(ActionEvent e)
 		{
 			String search = enrollmentPage.getSearchFieldText();
-			if (enrollmentPage.isSearchById())
+			try
 			{
-				// search by id
-			} else if (enrollmentPage.isSearchByLastName())
+
+				Vector<Student> searchResult = new Vector<Student>();
+				if (enrollmentPage.isSearchById())
+				{
+					Student myResult = (Student) clientController.sendMessage(
+							new SendMessage<>((int) Integer.parseInt(search),
+									"RECEIVE STUDENTBYID"));
+					searchResult.add(myResult);
+				} else if (enrollmentPage.isSearchByLastName())
+				{
+					searchResult = (Vector<Student>) clientController
+							.sendMessage(new SendMessage<>(search,
+									"RECEIVE STUDENTBYLAST"));
+				}
+
+				enrollmentPage.setStudentList(searchResult);
+			} catch (NumberFormatException e2)
 			{
-				// search by last name
+				System.out.println(
+						"Incorrect Login Value EnteredExitedHandler for search id");
+			} catch (IOException e1)
+			{
+				e1.printStackTrace();
 			}
-			// TODO: SEARCH
+
 		}
 	}
 
 	private class EnrollButtonListener implements ActionListener
 	{
 		private EnrollmentPage enrollmentPage;
+		private Course myCourse;
 
-		public EnrollButtonListener(EnrollmentPage enrollmentPage)
+		public EnrollButtonListener(EnrollmentPage enrollmentPage,
+				Course course)
 		{
 			this.enrollmentPage = enrollmentPage;
+			myCourse = course;
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
 			Student selectedStudent = enrollmentPage.getSelectedStudent();
-			// enroll this student. TODO:
+			StudentEnrollment toSend = new StudentEnrollment(
+					selectedStudent.getId(), myCourse.getId());
+			try
+			{
+				clientController.onlySendMessage(
+						new SendMessage<StudentEnrollment>(toSend,
+								"INSERT ENROLL"));
+			} catch (IOException e1)
+			{
+				e1.printStackTrace();
+			}
+
+			showAllStudents(myCourse, enrollmentPage);
 		}
 	}
 
 	private class UnenrollButtonListener implements ActionListener
 	{
 		private EnrollmentPage enrollmentPage;
+		private Course myCourse;
 
-		public UnenrollButtonListener(EnrollmentPage enrollmentPage)
+		public UnenrollButtonListener(EnrollmentPage enrollmentPage,
+				Course course)
 		{
 			this.enrollmentPage = enrollmentPage;
+			myCourse = course;
 		}
+
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
 			Student selectedStudent = enrollmentPage.getSelectedStudent();
-			// unenroll this student. TODO:
+			StudentEnrollment toSend = new StudentEnrollment(
+					selectedStudent.getId(), myCourse.getId());
+			try
+			{
+				clientController.onlySendMessage(
+						new SendMessage<StudentEnrollment>(toSend,
+								"INSERT UNENROLL"));
+			} catch (IOException e1)
+			{
+				e1.printStackTrace();
+			}
+
+			showAllStudents(myCourse, enrollmentPage);
+
 		}
 	}
 
@@ -219,11 +366,11 @@ public class ProfessorGUI extends PageNavigator
 		}
 	}
 
-	private class ActiveCheckBoxListener implements ActionListener
+	private class CourseActiveCheckBoxListener implements ActionListener
 	{
 		private Course course;
 
-		public ActiveCheckBoxListener(Course course)
+		public CourseActiveCheckBoxListener(Course course)
 		{
 			this.course = course;
 		}
@@ -274,9 +421,120 @@ public class ProfessorGUI extends PageNavigator
 
 	}
 
-	private AssignmentPage createAssignmentPage()
+	private class EnrollmentButtonListener implements ActionListener
 	{
-		return null;
+		private Course course;
+
+		public EnrollmentButtonListener(Course course)
+		{
+			this.course = course;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			showPage(ENROLLMENT_PAGE + course.getId());
+		}
+
+	}
+
+	private class AssignmentButtonListener implements ActionListener
+	{
+		private Course course;
+
+		public AssignmentButtonListener(Course course)
+		{
+			this.course = course;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			showPage(ASSIGNMENT_PAGE + course.getId());
+		}
+
+	}
+
+	private class GradesButtonListener implements ActionListener
+	{
+		private Course course;
+
+		public GradesButtonListener(Course course)
+		{
+			this.course = course;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			showPage(GRADES_PAGE + course.getId());
+		}
+
+	}
+
+	private class AssignmentActiveCheckBoxListener implements ActionListener
+	{
+		private Course course;
+
+		public AssignmentActiveCheckBoxListener(Course course)
+		{
+			this.course = course;
+		}
+
+		// FIX THIS TODO: QASIM
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			try
+			{
+				JCheckBox checkBox = (JCheckBox) e.getSource();
+				if (!checkBox.isSelected() && course.getActive())
+				{
+					clientController.onlySendMessage(
+							new SendMessage(course, "MODIFY COURSEINACTIVE"));
+				} else
+				{
+					clientController.onlySendMessage(
+							new SendMessage(course, "MODIFY COURSEACTIVE"));
+				}
+			} catch (IOException e1)
+			{
+				System.out.println("Unable to change the course active state");
+				e1.printStackTrace();
+			}
+
+		}
+	}
+
+	// FIX THIS TODO: QASIM
+	private class UploadButtonListener implements ActionListener
+	{
+		private Course course;
+
+		public UploadButtonListener(Course course)
+		{
+			this.course = course;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			// TODO Auto-generated method stub
+
+		}
+
+	}
+
+	// FIX THIS TODO: QASIM
+	private class BrowseButtonListener implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			// TODO Auto-generated method stub
+
+		}
+
 	}
 
 }

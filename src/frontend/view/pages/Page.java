@@ -1,16 +1,26 @@
 package frontend.view.pages;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.Box;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import frontend.view.pages.components.BoxList;
 import frontend.view.pages.components.Footer;
 import frontend.view.pages.components.Header;
 
+/**
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 6, 2018
+ */
 public abstract class Page <T extends Box, U> extends JPanel implements PageNames
 {
 
@@ -36,6 +46,22 @@ public abstract class Page <T extends Box, U> extends JPanel implements PageName
 	}
 	
 	public abstract void displayPage();
+	
+	protected JPanel createLabel(String label, Font f)
+	{
+		JPanel labelPanel = new JPanel();
+		JLabel theLabel = new JLabel(label);
+		theLabel.setFont(f);
+		labelPanel.add(theLabel);
+		return labelPanel;
+	}
+	
+	protected JButton createButton(JButton button, String name, Font f)
+	{
+		button.setText(name);
+		button.setFont(f);
+		return button;
+	}
 	
 	public void setBoxList(BoxList<T> boxList)
 	{

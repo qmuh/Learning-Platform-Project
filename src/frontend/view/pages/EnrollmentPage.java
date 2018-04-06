@@ -3,7 +3,9 @@ package frontend.view.pages;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.TextField;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -17,6 +19,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionListener;
 
 import frontend.interfaces.ColorPalette;
@@ -25,8 +28,13 @@ import javafx.scene.layout.Border;
 import sharedobjects.Course;
 import sharedobjects.Student;
 
-public class EnrollmentPage extends CoursePage
+public class EnrollmentPage extends CoursePage implements WondrisInfo
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private Course course;
 	private JList<Student> enrolledStudentList;
 	private JList<Student> studentSearchResults;
@@ -58,6 +66,8 @@ public class EnrollmentPage extends CoursePage
 		return searchField.getText();
 	}
 
+	
+	
 	public void setStudentSearchResultListListener(
 			ListSelectionListener listener)
 	{
@@ -82,10 +92,25 @@ public class EnrollmentPage extends CoursePage
 	public EnrollmentPage(Course course)
 	{
 		super(course);
+		this.setName(ENROLLMENT_PAGE+course.getId());
 		body.add(createEnrollmentPanel(), BorderLayout.CENTER);
 
 	}
 
+
+	public void setStudentList(Vector<Student> toSet)
+	{
+		studentSearchResults.clearSelection();
+		studentSearchResults.setListData(toSet);
+	}
+	
+	public void setEnrolledList(Vector<Student> enrollList)
+	{
+		enrolledStudentList.clearSelection();
+		enrolledStudentList.setListData(enrollList);
+		
+	}
+	
 	private JPanel createEnrollmentPanel()
 	{
 		JPanel enrollmentPanel = new JPanel(new GridLayout(1, 2));
@@ -107,7 +132,7 @@ public class EnrollmentPage extends CoursePage
 	{
 		JPanel searchResults = new JPanel(new BorderLayout());
 		searchResults.setBorder(new EmptyBorder(20, 20, 20, 20));
-		searchResults.add(new JLabel("Search Results"), BorderLayout.NORTH);
+		searchResults.add(createLabel("Search Results", TEXT_FONT), BorderLayout.NORTH);
 		studentSearchResults = new JList<Student>();
 		searchResults.add(studentSearchResults, BorderLayout.CENTER);
 		return searchResults;
@@ -126,13 +151,13 @@ public class EnrollmentPage extends CoursePage
 	private JPanel createSearchButtonPanel()
 	{
 		JPanel buttonPanel = new JPanel();
-		search = new JButton("Search");
-		enroll = new JButton("Enroll");
-		unenroll = new JButton("Unenroll");
+		search = new JButton();
+		enroll = new JButton();
+		unenroll = new JButton();
 
-		buttonPanel.add(search);
-		buttonPanel.add(enroll);
-		buttonPanel.add(unenroll);
+		buttonPanel.add(createButton(search, "Search", TEXT_FONT));
+		buttonPanel.add(createButton(enroll, "Enroll", TEXT_FONT));
+		buttonPanel.add(createButton(unenroll, "Unenroll", TEXT_FONT));
 
 		return buttonPanel;
 	}
@@ -142,11 +167,17 @@ public class EnrollmentPage extends CoursePage
 		JPanel buttonPanel = new JPanel(new GridLayout(2, 1));
 //		buttonPanel.setAlignmentX(LEFT_ALIGNMENT);
 		// BORDER
-		buttonPanel.setBorder(BorderFactory.createTitledBorder(
-				new MatteBorder(1, 1, 1, 1, ColorPalette.CONTRAST_COLOR), "Search"));
+		MatteBorder matteBorder = new MatteBorder(1, 1, 1, 1, ColorPalette.CONTRAST_COLOR);
+		TitledBorder titledBorder = BorderFactory.createTitledBorder(matteBorder);
+		titledBorder.setTitle("Search");
+		titledBorder.setTitleFont(TEXT_FONT);
+		buttonPanel.setBorder(titledBorder);
+		
 
 		id = new JRadioButton("ID");
 		lastName = new JRadioButton("Last Name");
+		id.setFont(TEXT_FONT);
+		lastName.setFont(TEXT_FONT);
 		ButtonGroup buttonGroup = new ButtonGroup();
 		buttonGroup.add(id);
 		buttonGroup.add(lastName);
@@ -170,7 +201,7 @@ public class EnrollmentPage extends CoursePage
 	{
 		JPanel enrollList = new JPanel(new BorderLayout());
 		// TODO: Fix label font addstatic enrolled student string
-		enrollList.add(new JLabel("Enrolled Students"), BorderLayout.NORTH);
+		enrollList.add(createLabel("Enrolled Students", TEXT_FONT), BorderLayout.NORTH);
 		enrollList.add(createEnrolledStudentList(), BorderLayout.CENTER);
 
 		return enrollList;
@@ -201,4 +232,6 @@ public class EnrollmentPage extends CoursePage
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+
+
 }

@@ -8,7 +8,7 @@ public class Grade implements Serializable
 	/**
 	 * The name of the student who holds this grade
 	 */
-	private int id = 50;
+	private int id;
 	
 	/**
 	 * The id for the student who holds this grade

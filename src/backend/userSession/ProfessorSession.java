@@ -6,6 +6,13 @@ import java.util.Vector;
 
 import sharedobjects.*;
 
+/**
+ *
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 6, 2018
+ */
 public class ProfessorSession extends ClientSession
 {
 
@@ -20,7 +27,7 @@ public class ProfessorSession extends ClientSession
 	{
 		this.professor = professor;
 	}
-	
+
 	@Override
 	public void write()
 	{
@@ -87,19 +94,17 @@ public class ProfessorSession extends ClientSession
 			if (interpreter[1].equals("STUDENTBYID"))
 			{
 
-				Student myEnrolledStudents = (Student) database.getUserTable()
-						.getUserByID(((CourseMessage) getMessage).getUserId());
-				objectOutputStream.writeObject(myEnrolledStudents);
-				objectOutputStream.flush();
+				Student myEnrolledStudents = (Student) myDatabase.getUserTable().getUserByID(((int)getMessage));
+				outputStream.writeObject(myEnrolledStudents);
+				outputStream.flush();
 
 			}
 
-			if (interpreter[1].equals("COURSEBYLAST"))
+			if(interpreter[1].equals("STUDENTBYLAST"))
 			{
-				Vector<Student> myEnrolledStudents = database.getUserTable()
-						.searchLastName(((CourseMessage) getMessage).getName());
-				objectOutputStream.writeObject(myEnrolledStudents);
-				objectOutputStream.flush();
+				Vector<Student> myEnrolledStudents = myDatabase.getUserTable().searchLastName(((String)getMessage));
+				outputStream.writeObject(myEnrolledStudents);
+				outputStream.flush();
 			}
 
 			if (interpreter[1].equals("ALLSTUDENTS"))
@@ -109,8 +114,20 @@ public class ProfessorSession extends ClientSession
 				objectOutputStream.writeObject(allStudents);
 				objectOutputStream.flush();
 			}
-		} catch (IOException e)
-		{
+
+			if(interpreter[1].equals("ALLENROLLED"))
+			{
+				Vector<Integer> enrolled = myDatabase.getStudentEnrollmentTable().getAllEnrolledStudent(((Course)getMessage).getId());
+				Vector<Student> enrolledStudent = new Vector<Student>();
+				for (int i = 0; i < enrolled.size(); i++)
+				{
+					enrolledStudent.add((Student) myDatabase.getUserTable().getUserByID(enrolled.get(i)));
+				}
+				outputStream.writeObject(enrolledStudent);
+				outputStream.flush();
+			}
+
+		}catch (IOException e) {
 			System.out.println("Error");
 			e.printStackTrace();
 		}

@@ -2,6 +2,13 @@ package frontend.interfaces;
 
 import java.awt.Color;
 
+/**
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 6, 2018
+ */
 public interface ColorPalette
 {
 	public static final Color BACKGROUND_COLOUR = new Color(137, 207, 240);

@@ -1,6 +1,7 @@
 package sharedobjects;
 
 import java.io.Serializable;
+import java.util.Random;
 
 public class Course implements Serializable
 {
@@ -27,7 +28,6 @@ public class Course implements Serializable
 	/**
 	 * Used to add new courses to the system by the professor
 	 */
-	private static int courseID = 300;
 	
 	/** Constructor used to initialize courses from a pre-made text file
 	 * @param courseID
@@ -50,7 +50,8 @@ public class Course implements Serializable
 	 */
 	public Course( int profID, String courseName, Boolean isActive)
 	{
-		id = ++courseID;
+		Random random = new Random();
+		id = random.nextInt(500) + 300;
 		prof_id = profID;
 		name = courseName;
 		active = isActive;

@@ -35,6 +35,13 @@ import sharedobjects.LoginInfo;
 import sharedobjects.Professor;
 import sharedobjects.User;
 
+/**
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 6, 2018
+ */
 public class LoginGUI extends JFrame implements WondrisInfo, ColorPalette, GUIConstants
 {
 
@@ -133,7 +140,6 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColorPalette, GUICo
 				add(currentPanel);
 				System.out.println("We have a professor");
 				// cardPanel.add(new ProfessorGUI(mySocket), "PROF");
-
 			}
 
 			else if (user.getUserType().equals("S"))

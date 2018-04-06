@@ -32,6 +32,7 @@ import java.io.File;
 import java.io.FileInputStream;
 
 import frontend.controller.ClientController;
+import frontend.interfaces.ColorPalette;
 import frontend.view.pages.AssignmentPage;
 import frontend.view.pages.HomePage;
 import frontend.view.pages.CoursePage;
@@ -124,8 +125,8 @@ public class ProfessorGUI extends PageNavigator
 		CourseItem courseItem = new CourseItem(course);
 		courseItem
 				.setViewButtonListener(new ViewCoursePageListener(courseItem));
-		courseItem.setActiveCheckBoxListener(
-				new CourseActiveCheckBoxListener(course));
+		courseItem.setActiveButtonListener(
+				new CourseActiveButtonListener(course));
 		homePage.addToBoxList(courseItem);
 	}
 
@@ -398,11 +399,11 @@ public class ProfessorGUI extends PageNavigator
 		}
 	}
 
-	private class CourseActiveCheckBoxListener implements ActionListener
+	private class CourseActiveButtonListener implements ActionListener
 	{
 		private Course course;
 
-		public CourseActiveCheckBoxListener(Course course)
+		public CourseActiveButtonListener(Course course)
 		{
 			this.course = course;
 		}
@@ -412,23 +413,28 @@ public class ProfessorGUI extends PageNavigator
 		{
 			try
 			{
-				System.out.println("ACTIVE COURSE LISTENER");
-				JCheckBox checkBox = (JCheckBox) e.getSource();
-				if (!checkBox.isSelected() && course.getActive())
+				JButton activeButton = (JButton)e.getSource();
+				if (course.getActive())
 				{
 					clientController.onlySendMessage(
 							new SendMessage(course, "MODIFY COURSEINACTIVE"));
+					activeButton.setText("ACTIVATE");
+					activeButton.setBackground(BACKGROUND_COLOUR);
 				} else
 				{
 					clientController.onlySendMessage(
 							new SendMessage(course, "MODIFY COURSEACTIVE"));
+					activeButton.setText("DEACTIVATE");
+					activeButton.setBackground(CONTRAST_COLOR);
 				}
+			
+				course.setActive();
 			} catch (IOException e1)
 			{
 				System.out.println("Unable to change the course active state");
 				e1.printStackTrace();
 			}
-
+			
 		}
 
 	}

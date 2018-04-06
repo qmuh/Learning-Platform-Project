@@ -1,16 +1,26 @@
 package frontend.view.pages.items;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
+import com.sun.xml.internal.ws.api.Component;
+
+import frontend.interfaces.ColorPalette;
 import frontend.interfaces.WondrisInfo;
 import sharedobjects.Course;
 
-public class CourseItem extends GeneralItem implements WondrisInfo
+public class CourseItem extends GeneralItem implements WondrisInfo, ColorPalette
 {
 
 	/**
@@ -18,37 +28,53 @@ public class CourseItem extends GeneralItem implements WondrisInfo
 	 */
 	private static final long serialVersionUID = 1L;
 	private Course course;
-	private JCheckBox active;
-	private JButton view;
+	private JButton view, active;
 
 	public CourseItem(Course course)
 	{
 		super(BoxLayout.X_AXIS, Integer.toString(course.getId()));
 		this.course = course;
-		this.add(createCheckBox());
+		this.setBorder(BorderFactory.createEtchedBorder());
 		this.add(createLabel(course.getName()));
-		this.add(createButton("View"));
+		this.add(createActiveButton());
+		this.add(createViewButton("View"));
 	}
 
-	private JCheckBox createCheckBox()
+	private JPanel createActiveButton()
 	{
-		active = new JCheckBox();
-		active.setSelected(course.getActive());
-		return active;
+		JPanel activePanel = new JPanel();
+		active = new JButton();
+		active.setHorizontalAlignment(SwingConstants.RIGHT);
+		active.setFont(TEXT_FONT);
+		if(course.getActive())
+		{
+			active.setText("DEACTIVATE");
+			active.setBackground(CONTRAST_COLOR);
+		} else
+		{
+			active.setText("ACTIVATE");
+			active.setBackground(BACKGROUND_COLOUR);
+		}
+		activePanel.add(active, BorderLayout.EAST);
+		return activePanel;
 	}
 
-	private JLabel createLabel(String name)
+	private JPanel createLabel(String name)
 	{
+		JPanel theLabel = new JPanel();
 		JLabel label = new JLabel(name);
 		label.setFont(TEXT_FONT);
-		return label;
+		theLabel.add(label);
+		return theLabel;
 	}
 
-	private JButton createButton(String name)
+	private JPanel createViewButton(String name)
 	{
+		JPanel theButton = new JPanel();
 		view = new JButton(name);
 		view.setFont(TEXT_FONT);
-		return view;
+		theButton.add(view);
+		return theButton;
 	}
 
 	public void setViewButtonListener(ActionListener listener)
@@ -56,7 +82,7 @@ public class CourseItem extends GeneralItem implements WondrisInfo
 		view.addActionListener(listener);
 	}
 	
-	public void setActiveCheckBoxListener(ActionListener listener)
+	public void setActiveButtonListener(ActionListener listener)
 	{
 		active.addActionListener(listener);
 	}

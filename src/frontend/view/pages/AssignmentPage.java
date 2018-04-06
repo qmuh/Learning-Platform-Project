@@ -60,13 +60,10 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 		selectedFile = toSet;
 	}
 	
-	public Date getDate()
+	public String getDate()
 	{
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(Integer.parseInt(year.getText()), 
-				Integer.parseInt(month.getText()), 
-				Integer.parseInt(day.getText()));
-		return calendar.getTime();
+		
+		return year.getText() + " " + month.getText() + " " +day.getText();
 	}
 	
 	public AssignmentPage(Course course)

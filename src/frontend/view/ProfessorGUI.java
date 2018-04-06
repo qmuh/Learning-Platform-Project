@@ -45,7 +45,7 @@ public class ProfessorGUI extends PageNavigator
 	 * server relations
 	 */
 	private Professor thisProfessor;
-	
+
 	/**
 	 * Object needed to communicate effectively with the server
 	 */
@@ -64,9 +64,7 @@ public class ProfessorGUI extends PageNavigator
 		createHomePage();
 	}
 
-	/**
-	 * Creates home page and sets up its listeners
-	 */
+	@SuppressWarnings("unchecked")
 	private void createHomePage()
 	{
 		@SuppressWarnings("unchecked")
@@ -127,6 +125,14 @@ public class ProfessorGUI extends PageNavigator
 		return coursePage;
 	}
 
+	private void createAssignmentPage(Course course)
+	{
+		AssignmentPage assignmentPage = new AssignmentPage(course);
+		this.addPage(assignmentPage, assignmentPage.getName());
+	}
+
+
+
 	private void createEnrollmentPage(Course course)
 	{
 		EnrollmentPage enrollmentPage = new EnrollmentPage(course);
@@ -137,9 +143,9 @@ public class ProfessorGUI extends PageNavigator
 				new EnrollButtonListener(enrollmentPage, course));
 		enrollmentPage.setUnenrollButtonListener(
 				new UnenrollButtonListener(enrollmentPage, course));
-		
+
 		showAllStudents(course, enrollmentPage);
-		
+
 	}
 
 	private AssignmentPage createAssignmentPage()
@@ -153,14 +159,14 @@ public class ProfessorGUI extends PageNavigator
 		{
 			Vector<Student> myList = (Vector<Student>) clientController.sendMessage(new SendMessage<>(null, "RECEIVE ALLSTUDENTS"));
 			enrollmentPage.setStudentList(myList);
-			
+
 			Vector<Student> enrollList = (Vector<Student>) clientController.sendMessage(new SendMessage<Course>(course, "RECEIVE ALLENROLLED"));
 			enrollmentPage.setEnrolledList(enrollList);
 		} catch (IOException e)
 		{
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	private class SearchButtonListener implements ActionListener
@@ -177,7 +183,7 @@ public class ProfessorGUI extends PageNavigator
 		{
 			String search = enrollmentPage.getSearchFieldText();
 			try {
-				
+
 			Vector<Student> searchResult = new Vector<Student>();
 			if (enrollmentPage.isSearchById())
 			{
@@ -187,7 +193,7 @@ public class ProfessorGUI extends PageNavigator
 			{
 				searchResult = (Vector<Student>)clientController.sendMessage(new SendMessage<>(search, "RECEIVE STUDENTBYLAST"));
 			}
-		
+
 			enrollmentPage.setStudentList(searchResult);
 		}catch (NumberFormatException e2) {
 			System.out.println("Incorrect Login Value EnteredExitedHandler for search id");
@@ -195,7 +201,7 @@ public class ProfessorGUI extends PageNavigator
 		{
 			e1.printStackTrace();
 		}
-		
+
 		}
 	}
 
@@ -222,7 +228,7 @@ public class ProfessorGUI extends PageNavigator
 			{
 				e1.printStackTrace();
 			}
-			
+
 			showAllStudents(myCourse, enrollmentPage);
 		}
 	}
@@ -249,9 +255,9 @@ public class ProfessorGUI extends PageNavigator
 			{
 				e1.printStackTrace();
 			}
-			
+
 			showAllStudents(myCourse, enrollmentPage);
-			
+
 		}
 	}
 

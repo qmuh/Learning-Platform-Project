@@ -7,14 +7,14 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-public class BoxList <T extends Box> extends JPanel
+public class BoxList<T extends Box> extends JPanel
 {
 
 	public BoxList()
 	{
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public T findElement(String name)
 	{
@@ -27,18 +27,18 @@ public class BoxList <T extends Box> extends JPanel
 		}
 		return null;
 	}
-	
-//	public T elementAt(int i) 
-//	{
-//		return this.elementAt(i);
-//	}
-	
-	public void addItem(T boxItem) 
+
+	// public T elementAt(int i)
+	// {
+	// return this.elementAt(i);
+	// }
+
+	public void addItem(T boxItem)
 	{
 		this.add(boxItem);
 	}
-	
-	public void setItems(ArrayList<T> boxItems) 
+
+	public void setItems(ArrayList<T> boxItems)
 	{
 		for (T item : boxItems)
 		{

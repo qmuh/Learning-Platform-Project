@@ -11,8 +11,8 @@ public class EnrollmentPage extends CoursePage
 {
 	private Course course;
 	private ArrayList<Student> enrolledStudentList;
-	
-	public EnrollmentPage(BoxList<StudentItem> boxList, Course course) 
+
+	public EnrollmentPage(BoxList<StudentItem> boxList, Course course)
 	{
 		super(course);
 	}
@@ -21,6 +21,6 @@ public class EnrollmentPage extends CoursePage
 	public void displayPage()
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 }

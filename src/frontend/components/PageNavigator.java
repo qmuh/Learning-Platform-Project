@@ -26,9 +26,9 @@ public class PageNavigator extends JPanel implements PageNames
 	{
 		cardLayout.show(this, pageName);
 		currentPage = (Page<?, ?>) searchPage(pageName);
-		
+
 	}
-	
+
 	public Page<?, ?> searchPage(String name)
 	{
 		for (Component component : this.getComponents())
@@ -52,7 +52,7 @@ public class PageNavigator extends JPanel implements PageNames
 	{
 		cardLayout.previous(this);
 	}
-	
+
 	public class BackButtonListener implements ActionListener
 	{
 		// TODO: Fix or Remove
@@ -61,9 +61,9 @@ public class PageNavigator extends JPanel implements PageNames
 		{
 			previousPage();
 		}
-		
+
 	}
-	
+
 	public class HomeButtonListener implements ActionListener
 	{
 		@Override
@@ -72,7 +72,7 @@ public class PageNavigator extends JPanel implements PageNames
 			showPage(HOME_PAGE);
 		}
 	}
-	
+
 	public class ViewCourseListener implements ActionListener
 	{
 
@@ -81,9 +81,7 @@ public class PageNavigator extends JPanel implements PageNames
 		{
 			showPage(COURSE_PAGE);
 		}
-		
-	}
-	
 
-	
+	}
+
 }

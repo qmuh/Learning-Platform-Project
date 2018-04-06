@@ -42,21 +42,21 @@ public class LoginGUI extends JFrame implements WondrisInfo, Colours, GUIConstan
 	private JTextField userName;
 	private JPasswordField password;
 	private JButton enterCredentials;
-	
+
 	private JPanel currentPanel;
-	
+
 	public LoginGUI(String s)
 	{
 		super(s);
 		setSize(WINDOW_SIZE);
 		createFields();
 		JPanel loginPanel = new JPanel();
-		
+
 		GridLayout loginPanelLayout = new GridLayout(1, 1);
 		loginPanelLayout.setVgap(0);
 		loginPanelLayout.setHgap(0);
 		loginPanel.setLayout(loginPanelLayout);
-		
+
 		loginPanel.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(200, 300, 200, 300),
 				new MatteBorder(10, 10, 10, 10, Color.DARK_GRAY)));
 		loginPanel.add(createLoginPanel(NAME));
@@ -67,13 +67,14 @@ public class LoginGUI extends JFrame implements WondrisInfo, Colours, GUIConstan
 		this.add(currentPanel);
 		setupLogin();
 	}
-	
+
 	private void setupLogin()
 	{
 		enterCredentials.addActionListener(new LoginListener());
 	}
-	
-	public class LoginListener implements ActionListener, ServerInfo{
+
+	public class LoginListener implements ActionListener, ServerInfo
+	{
 
 		@Override
 		public void actionPerformed(ActionEvent e)
@@ -88,7 +89,7 @@ public class LoginGUI extends JFrame implements WondrisInfo, Colours, GUIConstan
 				e1.printStackTrace();
 			}
 		}
-		
+
 		private void checkLogin() throws LoginException
 		{
 			if (getLoginInfo() == null)
@@ -96,7 +97,7 @@ public class LoginGUI extends JFrame implements WondrisInfo, Colours, GUIConstan
 				throw new LoginException();
 			}
 		}
-		
+
 		private void authenticateLogin()
 		{
 			Socket socket = null;
@@ -108,9 +109,9 @@ public class LoginGUI extends JFrame implements WondrisInfo, Colours, GUIConstan
 				ObjectInputStream fromServer = new ObjectInputStream(socket.getInputStream());
 				toServer.writeObject(getLoginInfo());
 				toServer.flush();
-				
+
 				user = (User) fromServer.readObject();
-				
+
 			} catch (IOException e)
 			{
 				e.printStackTrace();
@@ -118,20 +119,20 @@ public class LoginGUI extends JFrame implements WondrisInfo, Colours, GUIConstan
 			{
 				e.printStackTrace();
 			}
-			
+
 			checkUser(user, socket);
 		}
-		
+
 		private void checkUser(User user, Socket socket)
 		{
 			if (user.getUserType().equals("P"))
 			{
-				
+
 				currentPanel.setVisible(false);
-				currentPanel = new ProfessorGUI(socket, (Professor)user);
-				add(currentPanel);				
+				currentPanel = new ProfessorGUI(socket, (Professor) user);
+				add(currentPanel);
 				System.out.println("We have a professor");
-//				cardPanel.add(new ProfessorGUI(mySocket), "PROF");
+				// cardPanel.add(new ProfessorGUI(mySocket), "PROF");
 
 			}
 
@@ -141,22 +142,25 @@ public class LoginGUI extends JFrame implements WondrisInfo, Colours, GUIConstan
 			}
 		}
 	}
-	
-	public class IncorrectLoginException extends Exception{
+
+	public class IncorrectLoginException extends Exception
+	{
 
 		private static final long serialVersionUID = 1L;
-		
-		public IncorrectLoginException() {
+
+		public IncorrectLoginException()
+		{
 			super("Incorrect Login Provided");
 		}
 	}
-	
-	private LoginInfo getLoginInfo() {
+
+	private LoginInfo getLoginInfo()
+	{
 		LoginInfo loginInfo = null;
-		try {
-			loginInfo = new LoginInfo(Integer.parseInt(userName.getText()),
-				new String(password.getPassword()));
-			
+		try
+		{
+			loginInfo = new LoginInfo(Integer.parseInt(userName.getText()), new String(password.getPassword()));
+
 		} catch (NumberFormatException e)
 		{
 			JOptionPane.showMessageDialog(this, "Username must only be numbers", "Error", JOptionPane.ERROR_MESSAGE);

@@ -12,14 +12,14 @@ import sharedobjects.Course;
 public class HomePage extends Page<CourseItem, Course>
 {
 	private static final long serialVersionUID = 1L;
-	
+
 	public HomePage()
 	{
 		super();
 		setName(HOME_PAGE);
-		
+
 		body = new CoursePageTable();
-		
+
 		this.add(body);
 	}
 
@@ -28,10 +28,10 @@ public class HomePage extends Page<CourseItem, Course>
 	{
 		((CoursePageTable) this.body).setBoxList(itemDisplay);
 	}
-	
+
 	public void setNewCourseListener(ActionListener listener)
 	{
-		((CoursePageTable)body).setNewCourseListener(listener);
+		((CoursePageTable) body).setNewCourseListener(listener);
 	}
-	
+
 }

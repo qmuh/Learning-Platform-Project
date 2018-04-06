@@ -71,11 +71,11 @@ public class ProfessorGUI extends PageNavigator
 					Course course = coursesList.elementAt(i);
 					CoursePage coursePage = new CoursePage(course);
 					this.addPage(coursePage, coursePage.getName());
-					
+
 					CourseItem courseItem = new CourseItem(course);
 					courseItem.setViewButtonListener(new ViewCoursePageListener(courseItem));
 					boxList.addItem(courseItem);
-					
+
 					System.out.println("Course name is: " + coursesList.get(i).getName());
 				}
 			}
@@ -131,27 +131,27 @@ public class ProfessorGUI extends PageNavigator
 		}
 
 	}
-	
+
 	private class ViewCoursePageListener implements ActionListener
 	{
 		/**
 		 * The course identification number to use to communicate with the server.
 		 */
 		private int courseId;
-		
+
 		public ViewCoursePageListener(CourseItem courseItem)
 		{
 			this.courseId = courseItem.getId();
 		}
-		
+
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
 			showPage(COURSE_PAGE + courseId);
 		}
-		
+
 	}
-	
+
 	private AssignmentPage createAssignmentPage()
 	{
 		return null;

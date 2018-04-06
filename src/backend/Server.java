@@ -35,8 +35,11 @@ public class Server
 	 */
 	private Database database;
 
-	/** Creates the server with a port number
-	 * @param port The port number
+	/**
+	 * Creates the server with a port number
+	 * 
+	 * @param port
+	 *            The port number
 	 */
 	public Server(int port)
 	{
@@ -65,8 +68,7 @@ public class Server
 			{
 
 				Socket incomingConnection = serverSocket.accept();
-				LoginHandler loginHandler = new LoginHandler(
-						incomingConnection);
+				LoginHandler loginHandler = new LoginHandler(incomingConnection);
 				threadPool.execute(loginHandler);
 
 			} catch (IOException e)
@@ -116,10 +118,8 @@ public class Server
 			try
 			{
 				mySocket = guestUser;
-				objectInputStream = new ObjectInputStream(
-						guestUser.getInputStream());
-				objectOutputStream = new ObjectOutputStream(
-						guestUser.getOutputStream());
+				objectInputStream = new ObjectInputStream(guestUser.getInputStream());
+				objectOutputStream = new ObjectOutputStream(guestUser.getOutputStream());
 
 			} catch (IOException e)
 			{
@@ -137,19 +137,19 @@ public class Server
 				objectOutputStream.writeObject(myUser);
 				objectOutputStream.flush();
 
-				if(myUser.getUserType().equals("P"))
+				if (myUser.getUserType().equals("P"))
 				{
 					ProfessorSession handleProfessor = new ProfessorSession(mySocket);
 					handleProfessor.setDatabase(database);
-					handleProfessor.setProfessor((Professor)myUser);
+					handleProfessor.setProfessor((Professor) myUser);
 					handleProfessor.run();
 				}
 
-				else if(myUser.getUserType().equals("P"))
+				else if (myUser.getUserType().equals("P"))
 				{
 					StudentSession handleStudent = new StudentSession(mySocket);
 					handleStudent.setDatabase(database);
-					handleStudent.setStudent((Student)myUser);
+					handleStudent.setStudent((Student) myUser);
 					handleStudent.run();
 				}
 			} catch (ClassNotFoundException e)
@@ -162,9 +162,11 @@ public class Server
 		}
 	}
 
-	
-	/** Starts the server
-	 * @param args not used
+	/**
+	 * Starts the server
+	 * 
+	 * @param args
+	 *            not used
 	 */
 	public static void main(String[] args)
 	{

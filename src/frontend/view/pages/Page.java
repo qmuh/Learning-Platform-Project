@@ -11,8 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import frontend.interfaces.WondrisInfo;
-import frontend.view.ProfessorGUI;
-import frontend.view.StudentGUI;
 import frontend.view.pages.components.BoxList;
 import frontend.view.pages.components.Footer;
 import frontend.view.pages.components.Header;

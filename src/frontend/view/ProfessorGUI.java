@@ -2,25 +2,24 @@ package frontend.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Vector;
 
-import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
+import javax.swing.JTextField;
 
 import frontend.controller.Client;
 import frontend.view.pages.AssignmentPage;
-import frontend.view.pages.HomePage;
 import frontend.view.pages.CoursePage;
 import frontend.view.pages.EnrollmentPage;
+import frontend.view.pages.HomePage;
 import frontend.view.pages.components.PageNavigator;
 import frontend.view.pages.items.AssignItem;
 import frontend.view.pages.items.CourseItem;

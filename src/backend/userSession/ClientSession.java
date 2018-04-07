@@ -5,11 +5,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import backend.database.Database;
+import backend.database.DatabaseCommands;
 import backend.userSession.helpers.EmailHelper;
 import backend.userSession.helpers.FileHelper;
 import shared.objects.SendMessage;
-import backend.database.Database;
-import backend.database.DatabaseCommands;
 
 /**
  *
@@ -93,6 +93,13 @@ public abstract class ClientSession implements Runnable, DatabaseCommands
 		this.database = database;
 	}
 
+	/**
+	 * Interprets the message sent by the client. Returns a boolean to denote
+	 * whether the session is still active.
+	 * 
+	 * @param command the command to execute
+	 * @return true until the client logs off
+	 */
 	abstract boolean interpretMessage(SendMessage<?> command);
 
 	abstract public void write();

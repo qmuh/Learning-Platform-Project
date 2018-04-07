@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
-import backend.database.*;
 import backend.database.tables.AssignmentTable;
 import backend.database.tables.CourseTable;
 import backend.database.tables.GradeTable;
@@ -22,7 +21,6 @@ import shared.UserInfo;
 import shared.objects.Course;
 import shared.objects.Professor;
 import shared.objects.Student;
-import shared.objects.User;
 
 /**
  * 

@@ -1,11 +1,8 @@
 package frontend.view.pages;
 
-import java.awt.Color;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 import frontend.view.pages.items.CourseItem;
 import shared.objects.Course;

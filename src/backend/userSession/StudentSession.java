@@ -1,6 +1,5 @@
 package backend.userSession;
 
-import java.io.IOException;
 import java.net.Socket;
 
 import shared.objects.SendMessage;

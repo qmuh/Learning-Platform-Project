@@ -4,7 +4,12 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Vector;
 
-import shared.objects.*;
+import shared.objects.Assignment;
+import shared.objects.Course;
+import shared.objects.Professor;
+import shared.objects.SendMessage;
+import shared.objects.Student;
+import shared.objects.StudentEnrollment;
 
 /**
  *

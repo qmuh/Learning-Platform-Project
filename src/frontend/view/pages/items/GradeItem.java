@@ -1,6 +1,5 @@
 package frontend.view.pages.items;
 
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 
 import shared.objects.Grade;

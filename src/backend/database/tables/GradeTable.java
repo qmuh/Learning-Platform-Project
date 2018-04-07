@@ -5,8 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import shared.objects.Assignment;
-import shared.objects.Course;
 import shared.objects.Grade;
 
 /**

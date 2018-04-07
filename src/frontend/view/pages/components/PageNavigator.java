@@ -8,7 +8,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 import frontend.interfaces.ColourPalette;
-import frontend.view.pages.*;
+import frontend.view.pages.HomePage;
+import frontend.view.pages.Page;
+import frontend.view.pages.PageNames;
 
 /**
  *

@@ -1,7 +1,6 @@
 package frontend.view.pages;
 
 import java.awt.event.ActionListener;
-import java.util.Hashtable;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;

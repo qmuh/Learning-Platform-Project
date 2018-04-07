@@ -9,7 +9,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import backend.database.*;
+import backend.database.Database;
 import backend.userSession.ProfessorSession;
 import backend.userSession.StudentSession;
 import shared.ServerInfo;

@@ -2,6 +2,8 @@ package frontend.view.pages.components;
 
 import javax.swing.JButton;
 
+import frontend.view.pages.HasButtons;
+
 /**
  * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong

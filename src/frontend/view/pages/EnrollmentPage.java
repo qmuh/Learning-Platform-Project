@@ -1,9 +1,7 @@
 package frontend.view.pages;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.TextField;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
@@ -12,7 +10,6 @@ import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -24,7 +21,6 @@ import javax.swing.event.ListSelectionListener;
 
 import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
-import javafx.scene.layout.Border;
 import shared.objects.Course;
 import shared.objects.Student;
 

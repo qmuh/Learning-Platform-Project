@@ -141,10 +141,9 @@ public class UserTable extends Table<User>
 		return null;
 	}
 	
-
 	public Vector<Student> searchLastName(String string)
 	{	
-		String sql = "SELECT * FROM " + tableName + " WHERE LASTNAME= ? ";
+		String sql = "SELECT * FROM " + tableName + " WHERE LASTNAME= ? AND TYPE= ?";
 		Vector<Student> userList = new Vector<Student>();
 		ResultSet user;
 		
@@ -152,8 +151,9 @@ public class UserTable extends Table<User>
 	
 				preparedStatement = dbConnection.prepareStatement(sql);
 				preparedStatement.setString(1, string);
+				preparedStatement.setString(2, "S");
 			user = preparedStatement.executeQuery();
-			if(user.next())
+			while(user.next())
 			{
 				 userList.add( new Student(user.getInt("ID"),
 						user.getString("FIRSTNAME"), 
@@ -179,7 +179,7 @@ public class UserTable extends Table<User>
 				preparedStatement = dbConnection.prepareStatement(sql);
 				preparedStatement.setString(1, "S");
 			user = preparedStatement.executeQuery();
-			if(user.next())
+			while(user.next())
 			{
 				 userList.add( new Student(user.getInt("ID"),
 						user.getString("FIRSTNAME"), 

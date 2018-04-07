@@ -95,5 +95,63 @@ public class AssignmentTable extends Table<Assignment>
 		return myAssignments;
 		
 	}
+
+	public Vector<Assignment> getAllAssignments(int id)
+	{
+		String sql = "SELECT * FROM " + tableName + " WHERE COURSEID= ? ";
+		Vector<Assignment> userList = new Vector<Assignment>();
+		ResultSet assign;
+		
+			try {
+	
+				preparedStatement = dbConnection.prepareStatement(sql);
+				preparedStatement.setInt(1, id);
+			assign = preparedStatement.executeQuery();
+			while(assign.next())
+			{
+				 userList.add( new Assignment(assign.getInt("ID"), 
+						 					assign.getInt("COURSEID"), 
+						 					assign.getString("TITLE"), 
+						 					assign.getString("PATH"), 
+						 					assign.getBoolean("ACTIVE"),
+						 					assign.getString("DUEDATE")));
+				
+			}
+			
+			} catch (SQLException e) { e.printStackTrace(); }
+		return userList;
+	}
+	
+	public void setActive(int assignID)
+	{
+		String sql = "UPDATE " + tableName + " SET ACTIVE=TRUE WHERE ID=?";
+		try
+		{
+			preparedStatement = dbConnection.prepareStatement(sql);
+			preparedStatement.setInt(1, assignID);
+			preparedStatement.executeUpdate();
+			
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		
+	}
+
+	public void setInactive(int assignID)
+	{
+		String sql = "UPDATE " + tableName + " SET ACTIVE=FALSE WHERE ID=?";
+		try
+		{
+			preparedStatement = dbConnection.prepareStatement(sql);
+			preparedStatement.setInt(1, assignID);
+			preparedStatement.executeUpdate();
+			
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+
+	}
 	
 }

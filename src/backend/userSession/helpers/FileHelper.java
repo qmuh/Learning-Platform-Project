@@ -12,7 +12,10 @@ public class FileHelper
 
 	public void storeFile(byte[] file, Assignment data)
 	{
-		File newFile = new File(data.getTitle());
+
+		String toSplit[] = data.getPath().split("/");
+		
+		File newFile = new File("/Users/qasimmuhammad/Desktop/Database" + "/"+ (toSplit[toSplit.length -1]));
 		try{
 		if(! newFile.exists())
 		newFile.createNewFile();

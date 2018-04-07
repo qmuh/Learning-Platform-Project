@@ -55,7 +55,7 @@ public class ProfessorSession extends ClientSession
 		{
 			return false;
 		}
-		
+
 		return true;
 	}
 
@@ -72,6 +72,17 @@ public class ProfessorSession extends ClientSession
 			database.getCourseTable()
 					.setInactive(((Course) getmessageObject).getId());
 		}
+
+		if(interpreter[1].equals("ASSIGNACTIVE"))
+		{
+			myDatabase.getAssignmentTable().setActive( ((Assignment)getmessageObject).getId());
+		}
+
+		if(interpreter[1].equals("ASSIGNINACTIVE"))
+		{
+			myDatabase.getAssignmentTable().setInactive(((Assignment)getmessageObject).getId() );
+		}
+
 	}
 
 	private void handleRecieve(String[] interpreter, Object getMessage)
@@ -114,8 +125,28 @@ public class ProfessorSession extends ClientSession
 				objectOutputStream.writeObject(allStudents);
 				objectOutputStream.flush();
 			}
-		} catch (IOException e)
-		{
+
+			if(interpreter[1].equals("ALLENROLLED"))
+			{
+				Vector<Integer> enrolled = myDatabase.getStudentEnrollmentTable().getAllEnrolledStudent(((Course)getMessage).getId());
+				Vector<Student> enrolledStudent = new Vector<Student>();
+				for (int i = 0; i < enrolled.size(); i++)
+				{
+					enrolledStudent.add((Student) myDatabase.getUserTable().getUserByID(enrolled.get(i)));
+				}
+				outputStream.writeObject(enrolledStudent);
+				outputStream.flush();
+			}
+
+			if(interpreter[1].equals("ALLASSIGNMENTS"))
+			{
+				Vector<Assignment> allStudents = myDatabase.getAssignmentTable().getAllAssignments(((Course)getMessage).getId());
+				outputStream.writeObject(allStudents);
+				outputStream.flush();
+			}
+
+
+		}catch (IOException e) {
 			System.out.println("Error");
 			e.printStackTrace();
 		}

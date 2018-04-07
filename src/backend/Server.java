@@ -170,7 +170,7 @@ public class Server
 	 */
 	public static void main(String[] args)
 	{
-		Server myServer = new Server(8991);
+		Server myServer = new Server(8995);
 		myServer.runServer();
 	}
 }

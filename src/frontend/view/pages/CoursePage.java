@@ -1,32 +1,49 @@
 package frontend.view.pages;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
+import javax.swing.Box;
 import javax.swing.JPanel;
 
-import frontend.view.pages.items.CourseItem;
 import sharedobjects.Course;
 
-public class CoursePage extends Page<CourseItem, Course>
+public class CoursePage<T extends Box, U> extends Page<T, U>
 {
 
 	private static final long serialVersionUID = 1L;
 
-	private Course course;
+	protected Course course;
+	private CourseNavigationBar courseNavigationBar;
 
 	public CoursePage(Course course)
 	{
 		super();
+		
 		this.course = course;
 		this.setName(COURSE_PAGE + course.getId());
-		this.header.setTitle(course.getName());
+		this.header.setTitle(course.getName());		
 
-		CourseNavigationBar bar = new CourseNavigationBar();
+		courseNavigationBar = new CourseNavigationBar();
 		body = new JPanel();
 		body.setLayout(new BorderLayout());
-		body.add(bar, BorderLayout.EAST);
+		body.add(courseNavigationBar, BorderLayout.EAST);
 		add(body);
+	}
+	
+	public void setEnrollmentButtonListener(ActionListener listener) 
+	{
+		courseNavigationBar.setEnrollmentButtonListener(listener);
+	} 
+	
+	public void setAssignmentButtonListener(ActionListener listener) 
+	{
+		courseNavigationBar.setAssignmentButtonListener(listener);
+	}
+	
+	public void setGradesButtonListener(ActionListener listener) 
+	{
+		courseNavigationBar.setGradesButtonListener(listener);
 	}
 
 	@Override
@@ -35,14 +52,4 @@ public class CoursePage extends Page<CourseItem, Course>
 		// TODO Auto-generated method stub
 
 	}
-
-	public static void main(String[] args)
-	{
-		JFrame frame = new JFrame("Testing");
-		frame.add(new CoursePage(new Course(3, "ENGG 233", true)));
-		frame.setSize(1600, 1000);
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
-
 }

@@ -15,7 +15,7 @@ import shared.objects.StudentEnrollment;
  *
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
- * @version 1.0
+ * @version 1.01
  * @since April 6, 2018
  */
 public class ProfessorSession extends ClientSession
@@ -76,25 +76,25 @@ public class ProfessorSession extends ClientSession
 		if (interpreter[1].equals("COURSEACTIVE"))
 		{
 			database.getCourseTable()
-					.setActive(((Course) getmessageObject).getId());
+					.setActive(((Course) getmessageObject).getId(), true);
 		}
 
 		if (interpreter[1].equals("COURSEINACTIVE"))
 		{
 			database.getCourseTable()
-					.setInactive(((Course) getmessageObject).getId());
+					.setActive(((Course) getmessageObject).getId(), false);
 		}
 
 		if (interpreter[1].equals("ASSIGNACTIVE"))
 		{
 			database.getAssignmentTable()
-					.setActive(((Assignment) getmessageObject).getId());
+					.setActive(((Assignment) getmessageObject).getId(), true);
 		}
 
 		if (interpreter[1].equals("ASSIGNINACTIVE"))
 		{
 			database.getAssignmentTable()
-					.setInactive(((Assignment) getmessageObject).getId());
+					.setActive(((Assignment) getmessageObject).getId(), false);
 		}
 
 	}

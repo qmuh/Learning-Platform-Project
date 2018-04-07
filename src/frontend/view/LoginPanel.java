@@ -10,6 +10,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -19,14 +20,15 @@ import javax.swing.border.MatteBorder;
 import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.GUIConstants;
+import shared.objects.LoginInfo;
 
 /**
-*
-* @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
-*         (30017293)
-* @version 1.1
-* @since April 6, 2018
-*/
+ *
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.1
+ * @since April 6, 2018
+ */
 class LoginPanel extends JPanel
 		implements ColourPalette, GUIConstants, WondrisInfo
 {
@@ -40,9 +42,9 @@ class LoginPanel extends JPanel
 	private static final String BUTTON_SIGN_IN_TEXT = "Sign In";
 
 	private static final Character PASSWORD_ECHO_CHAR = '\u2022';
-	
+
 	private static final int FIELD_SIZE = 20;
-	
+
 	private JTextField usernameField;
 
 	private JPasswordField passwordField;
@@ -61,7 +63,24 @@ class LoginPanel extends JPanel
 
 		this.add(createLoginArea());
 	}
-	
+
+	public LoginInfo getLoginInfo()
+	{
+
+		LoginInfo loginInfo = null;
+
+		try
+		{
+			loginInfo = new LoginInfo(Integer.parseInt(usernameField.getText()),
+					new String(passwordField.getPassword()));
+		} catch (NumberFormatException e)
+		{
+			JOptionPane.showMessageDialog(this, "Username must be a number.",
+					"Username Error", JOptionPane.ERROR_MESSAGE);
+		}
+		return loginInfo;
+	}
+
 	public void setLoginListener(ActionListener listener)
 	{
 		loginButton.addActionListener(listener);
@@ -122,14 +141,13 @@ class LoginPanel extends JPanel
 		buttonPanel.setOpaque(false);
 		return buttonPanel;
 	}
-	
+
 	private JPanel createEmptyPanel()
 	{
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		panel.setOpaque(false);
 		return panel;
 	}
-
 
 	private JPanel createTextField(String s, JTextField field)
 	{

@@ -13,6 +13,7 @@ import backend.database.*;
 import backend.userSession.ProfessorSession;
 import backend.userSession.StudentSession;
 import shared.ServerInfo;
+import shared.UserInfo;
 import shared.objects.LoginInfo;
 import shared.objects.Professor;
 import shared.objects.Student;
@@ -25,7 +26,7 @@ import shared.objects.User;
  * @version 1.0
  * @since April 6, 2018
  */
-public class Server implements ServerInfo
+public class Server implements ServerInfo, UserInfo
 {
 	/**
 	 * Allows the server to start up and connect to the client
@@ -59,6 +60,7 @@ public class Server implements ServerInfo
 		} catch (IOException e)
 		{
 			System.err.println("Server socket creation error.");
+			e.printStackTrace();
 		}
 	}
 
@@ -111,19 +113,17 @@ public class Server implements ServerInfo
 	 */
 	private class LoginHandler implements Runnable
 	{
-		private ObjectInputStream objectInputStream;
-		private ObjectOutputStream objectOutputStream;
-		private Socket mySocket;
+		private ObjectInputStream objectIn;
+		private ObjectOutputStream objectOut;
+		private Socket socket;
 
 		public LoginHandler(Socket guestUser)
 		{
 			try
 			{
-				mySocket = guestUser;
-				objectInputStream = new ObjectInputStream(
-						guestUser.getInputStream());
-				objectOutputStream = new ObjectOutputStream(
-						guestUser.getOutputStream());
+				socket = guestUser;
+				objectIn = new ObjectInputStream(guestUser.getInputStream());
+				objectOut = new ObjectOutputStream(guestUser.getOutputStream());
 			} catch (IOException e)
 			{
 				e.printStackTrace();
@@ -135,25 +135,25 @@ public class Server implements ServerInfo
 		{
 			try
 			{
-				LoginInfo loginInfo = (LoginInfo) objectInputStream
-						.readObject();
+				LoginInfo loginInfo = (LoginInfo) objectIn.readObject();
 				User myUser = database.getUserTable().validateUser(
 						loginInfo.getUsername(), loginInfo.getPassword());
-				objectOutputStream.writeObject(myUser);
-				objectOutputStream.flush();
+				System.out.println("USER: " + myUser);
+				objectOut.writeObject(myUser);
+				objectOut.flush();
 
-				if (myUser.getUserType().equals("P"))
+				if (myUser.getUserType().equals(USER_PROFESSOR))
 				{
 					ProfessorSession handleProfessor = new ProfessorSession(
-							mySocket);
+							socket);
 					handleProfessor.setDatabase(database);
 					handleProfessor.setProfessor((Professor) myUser);
 					handleProfessor.run();
 				}
 
-				else if (myUser.getUserType().equals("P"))
+				else if (myUser.getUserType().equals(USER_STUDENT))
 				{
-					StudentSession handleStudent = new StudentSession(mySocket);
+					StudentSession handleStudent = new StudentSession(socket);
 					handleStudent.setDatabase(database);
 					handleStudent.setStudent((Student) myUser);
 					handleStudent.run();

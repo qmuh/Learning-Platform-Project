@@ -16,7 +16,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 
-import frontend.controller.ClientController;
+import frontend.controller.Client;
 import frontend.view.pages.AssignmentPage;
 import frontend.view.pages.HomePage;
 import frontend.view.pages.CoursePage;
@@ -52,7 +52,7 @@ public class ProfessorGUI extends PageNavigator
 	/**
 	 * Object needed to communicate effectively with the server
 	 */
-	private ClientController clientController;
+	private Client clientController;
 
 	/**
 	 * Constructor for this class, it pre-loads the pages
@@ -63,7 +63,7 @@ public class ProfessorGUI extends PageNavigator
 	public ProfessorGUI(Socket socket, Professor user)
 	{
 		super();
-		this.clientController = new ClientController();
+		this.clientController = new Client();
 		this.clientController.connectToServer(socket);
 		thisProfessor = user;
 		createHomePage();

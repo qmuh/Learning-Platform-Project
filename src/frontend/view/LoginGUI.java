@@ -1,12 +1,5 @@
 package frontend.view;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JTextField;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -16,24 +9,19 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JLabel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.security.auth.login.LoginException;
-import javax.swing.BorderFactory;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.MatteBorder;
+import javax.swing.JPanel;
 
 import frontend.interfaces.ColourPalette;
-import frontend.interfaces.ServerInfo;
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.GUIConstants;
+import shared.ServerInfo;
 import shared.UserInfo;
 import shared.objects.LoginInfo;
+import shared.objects.Professor;
 import shared.objects.SendMessage;
 import shared.objects.User;
-import shared.objects.Professor;
 
 /**
  *
@@ -42,17 +30,11 @@ import shared.objects.Professor;
  * @version 1.0
  * @since April 6, 2018
  */
-public class LoginGUI extends JFrame
-		implements WondrisInfo, ColourPalette, GUIConstants, ServerInfo, UserInfo
+public class LoginGUI extends JFrame implements WondrisInfo, ColourPalette,
+		GUIConstants, ServerInfo, UserInfo
 {
 
 	private static final long serialVersionUID = 1L;
-
-	private JTextField userName;
-
-	private JPasswordField password;
-
-	private JButton enterCredentials;
 
 	private JPanel currentPanel;
 
@@ -61,38 +43,35 @@ public class LoginGUI extends JFrame
 		super(windowName);
 		this.setSize(WINDOW_SIZE);
 
-		currentPanel = new LoginPanel();
+		LoginPanel loginPanel = new LoginPanel();
+		loginPanel.setLoginListener(new LoginListener(loginPanel));
 
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-
+		this.currentPanel = loginPanel;
 		this.add(currentPanel);
-		setVisible(true);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setVisible(true);
 	}
 
-	public class LoginListener implements ActionListener, ServerInfo
+	private class LoginListener implements ActionListener
 	{
+		private LoginPanel loginPanel;
+
+		public LoginListener(LoginPanel loginPanel)
+		{
+			this.loginPanel = loginPanel;
+		}
+
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-			try
+			LoginInfo loginInfo = loginPanel.getLoginInfo();
+			if (loginInfo != null)
 			{
-				checkLogin();
-				authenticateLogin();
-			} catch (LoginException e1)
-			{
-				e1.printStackTrace();
+				authenticateLogin(loginInfo);
 			}
 		}
 
-		private void checkLogin() throws LoginException
-		{
-			if (getLoginInfo() == null)
-			{
-				throw new LoginException();
-			}
-		}
-
-		private void authenticateLogin()
+		private void authenticateLogin(LoginInfo loginInfo)
 		{
 			Socket socket = null;
 			User user = null;
@@ -101,10 +80,10 @@ public class LoginGUI extends JFrame
 				socket = new Socket(HOST_NAME, PORT_NUMBER);
 				ObjectOutputStream toServer = new ObjectOutputStream(
 						socket.getOutputStream());
+				toServer.writeObject(loginInfo);
+				toServer.flush();
 				ObjectInputStream fromServer = new ObjectInputStream(
 						socket.getInputStream());
-				toServer.writeObject(getLoginInfo());
-				toServer.flush();
 
 				user = (User) fromServer.readObject();
 				checkUser(user, socket, toServer);
@@ -115,41 +94,73 @@ public class LoginGUI extends JFrame
 			{
 				e.printStackTrace();
 			}
-
-
 		}
 
 		private void checkUser(User user, Socket socket,
 				ObjectOutputStream objectOutputStream)
 		{
-			if (user.getUserType().equals(USER_PROFESSOR))
+			if (user == null)
+			{
+				JOptionPane.showMessageDialog(loginPanel,
+						"Error, incorrect username or password.",
+						"Authentication Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			else if (user.getUserType().equals(USER_PROFESSOR))
 			{
 				currentPanel.setVisible(false);
 				currentPanel = new ProfessorGUI(socket, (Professor) user);
 				add(currentPanel);
-				System.out.println("We have a professor");
 				// cardPanel.add(new ProfessorGUI(mySocket), "PROF");
+
+			} else if (user.getUserType().equals(USER_STUDENT))
+			{
+
 			}
 
-			else if (user.getUserType().equals(USER_STUDENT))
-			{
-				System.out.println("We have a student");
-			} else
-			{
-				return;
-			}
+			// Logout functionality;
 			addWindowListener(new WindowListener()
 			{
-
 				@Override
-				public void windowOpened(WindowEvent arg0)
+				public void windowActivated(WindowEvent arg0)
 				{
 					// TODO Auto-generated method stub
 
 				}
 
 				@Override
-				public void windowIconified(WindowEvent arg0)
+				public void windowClosed(WindowEvent arg0)
+				{
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void windowClosing(WindowEvent arg0)
+				{
+					int selection = JOptionPane.showConfirmDialog(null,
+							"Are you sure you want to log out and "
+									+ "close the program?",
+							"Exit Application", JOptionPane.YES_NO_OPTION,
+							JOptionPane.QUESTION_MESSAGE);
+
+					if (selection == JOptionPane.YES_OPTION)
+					{
+						try
+						{
+							objectOutputStream.writeObject(
+									new SendMessage(null, "LOGOUT"));
+						} catch (IOException e)
+						{
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						System.exit(0);
+					}
+				}
+
+				@Override
+				public void windowDeactivated(WindowEvent arg0)
 				{
 					// TODO Auto-generated method stub
 
@@ -163,77 +174,20 @@ public class LoginGUI extends JFrame
 				}
 
 				@Override
-				public void windowDeactivated(WindowEvent arg0)
+				public void windowIconified(WindowEvent arg0)
 				{
 					// TODO Auto-generated method stub
 
 				}
 
 				@Override
-				public void windowClosing(WindowEvent arg0)
-				{
-					int selection = JOptionPane.showConfirmDialog(null,
-							"Are you sure you want to close the program?",
-							"Exit Application", JOptionPane.YES_NO_OPTION,
-							JOptionPane.QUESTION_MESSAGE);
-
-					if (selection == JOptionPane.YES_OPTION)
-					{
-						try
-						{
-							objectOutputStream.writeObject(new SendMessage(null, "LOGOUT"));
-						} catch (IOException e)
-						{
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						System.exit(0);
-					}
-
-				}
-
-				@Override
-				public void windowClosed(WindowEvent arg0)
-				{
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void windowActivated(WindowEvent arg0)
+				public void windowOpened(WindowEvent arg0)
 				{
 					// TODO Auto-generated method stub
 
 				}
 			});
 		}
-	}
-
-	public class IncorrectLoginException extends Exception
-	{
-
-		private static final long serialVersionUID = 1L;
-
-		public IncorrectLoginException()
-		{
-			super("Incorrect Login Provided");
-		}
-	}
-
-	private LoginInfo getLoginInfo()
-	{
-		LoginInfo loginInfo = null;
-		try
-		{
-			loginInfo = new LoginInfo(Integer.parseInt(userName.getText()),
-					new String(password.getPassword()));
-
-		} catch (NumberFormatException e)
-		{
-			JOptionPane.showMessageDialog(this, "Username must only be numbers",
-					"Error", JOptionPane.ERROR_MESSAGE);
-		}
-		return loginInfo;
 	}
 
 	public static void main(String[] args)

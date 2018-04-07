@@ -75,12 +75,12 @@ public class ProfessorSession extends ClientSession
 
 		if(interpreter[1].equals("ASSIGNACTIVE"))
 		{
-			myDatabase.getAssignmentTable().setActive( ((Assignment)getmessageObject).getId());
+			database.getAssignmentTable().setActive( ((Assignment)getmessageObject).getId());
 		}
 
 		if(interpreter[1].equals("ASSIGNINACTIVE"))
 		{
-			myDatabase.getAssignmentTable().setInactive(((Assignment)getmessageObject).getId() );
+			database.getAssignmentTable().setInactive(((Assignment)getmessageObject).getId() );
 		}
 
 	}
@@ -128,21 +128,21 @@ public class ProfessorSession extends ClientSession
 
 			if(interpreter[1].equals("ALLENROLLED"))
 			{
-				Vector<Integer> enrolled = myDatabase.getStudentEnrollmentTable().getAllEnrolledStudent(((Course)getMessage).getId());
+				Vector<Integer> enrolled = database.getStudentEnrollmentTable().getAllEnrolledStudent(((Course)getMessage).getId());
 				Vector<Student> enrolledStudent = new Vector<Student>();
 				for (int i = 0; i < enrolled.size(); i++)
 				{
-					enrolledStudent.add((Student) myDatabase.getUserTable().getUserByID(enrolled.get(i)));
+					enrolledStudent.add((Student) database.getUserTable().getUserByID(enrolled.get(i)));
 				}
-				outputStream.writeObject(enrolledStudent);
-				outputStream.flush();
+				objectOutputStream.writeObject(enrolledStudent);
+				objectOutputStream.flush();
 			}
 
 			if(interpreter[1].equals("ALLASSIGNMENTS"))
 			{
-				Vector<Assignment> allStudents = myDatabase.getAssignmentTable().getAllAssignments(((Course)getMessage).getId());
-				outputStream.writeObject(allStudents);
-				outputStream.flush();
+				Vector<Assignment> allStudents = database.getAssignmentTable().getAllAssignments(((Course)getMessage).getId());
+				objectOutputStream.writeObject(allStudents);
+				objectOutputStream.flush();
 			}
 
 

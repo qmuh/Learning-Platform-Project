@@ -13,6 +13,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 
 import frontend.interfaces.ColorPalette;
 import frontend.interfaces.WondrisInfo;
@@ -47,14 +49,15 @@ public class CoursePageTable extends JPanel implements WondrisInfo, ColorPalette
 	private JPanel createTable()
 	{
 		tablePanel = new JPanel();
-		tablePanel.setLayout(new BoxLayout(tablePanel, BoxLayout.Y_AXIS));
+		tablePanel.setLayout(new BorderLayout());
 		JPanel tableHeader = new JPanel();
 		tableHeader.setLayout(new GridLayout(1, 3));
 		tableHeader.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
-		tableHeader.add(createLabel("Course Name", SUB_TITLE_FONT), 0);
-		tableHeader.add(createLabel("Active", SUB_TITLE_FONT), 1);
-		tableHeader.add(createLabel("Course Home", SUB_TITLE_FONT), 2);
-		tablePanel.add(tableHeader);
+		tableHeader.setPreferredSize(new Dimension(WINDOW_WIDTH, 50));
+		tableHeader.add(createLabel("Course Name", SUB_TITLE_FONT, JLabel.CENTER), 0);
+		tableHeader.add(createLabel("Active", SUB_TITLE_FONT, JLabel.RIGHT), 1);
+		tableHeader.add(createLabel("Course Home", SUB_TITLE_FONT, JLabel.CENTER), 2);
+		tablePanel.add(tableHeader, BorderLayout.NORTH);
 		return tablePanel;
 	}
 
@@ -80,10 +83,11 @@ public class CoursePageTable extends JPanel implements WondrisInfo, ColorPalette
 		return theButton;
 		
 	}
-	private JPanel createLabel(String title, Font font) {
+	private JPanel createLabel(String title, Font font, int alignment) {
 		JPanel theLabel = new JPanel(new BorderLayout());
 		JLabel label = new JLabel(title);
-		label.setHorizontalAlignment(JLabel.CENTER);
+		label.setPreferredSize(new Dimension(200, 30));
+		label.setHorizontalAlignment(alignment);			
 		label.setFont(font);
 		theLabel.add(label, BorderLayout.NORTH);
 		return theLabel;
@@ -91,7 +95,10 @@ public class CoursePageTable extends JPanel implements WondrisInfo, ColorPalette
 	
 	public void setBoxList(BoxList<CourseItem> itemDisplay)
 	{
-		tablePanel.add(itemDisplay, TABLE_CONTENTS);
+		JScrollPane scrollPane = new JScrollPane(itemDisplay);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
+		tablePanel.add(scrollPane, BorderLayout.CENTER);
 	}
 	
 	public void setNewCourseListener(ActionListener listener)

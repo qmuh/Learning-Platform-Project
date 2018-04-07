@@ -2,25 +2,23 @@ package frontend.view.pages.items;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import com.sun.xml.internal.ws.api.Component;
-
 import frontend.interfaces.ColorPalette;
 import frontend.interfaces.WondrisInfo;
+import frontend.view.pages.GUIConstants;
 import sharedobjects.Course;
 
-public class CourseItem extends GeneralItem implements WondrisInfo, ColorPalette
+public class CourseItem extends GeneralItem implements WondrisInfo, ColorPalette, GUIConstants
 {
 
 	/**
@@ -33,18 +31,27 @@ public class CourseItem extends GeneralItem implements WondrisInfo, ColorPalette
 	public CourseItem(Course course)
 	{
 		super(BoxLayout.X_AXIS, Integer.toString(course.getId()));
+		this.setMaximumSize(new Dimension(Integer.MAX_VALUE, 70));
+		
+		
+		this.revalidate();
+		this.repaint();
+		
+		JPanel wrapper = new JPanel(new GridLayout(1, 3));
 		this.course = course;
 		this.setBorder(BorderFactory.createEtchedBorder());
-		this.add(createLabel(course.getName()));
-		this.add(createActiveButton());
-		this.add(createViewButton("View"));
+		wrapper.add(createLabel(course.getName()));
+		wrapper.add(createActiveButton());
+		wrapper.add(createViewButton("View"));
+		
+		this.add(wrapper);
 	}
 
 	private JPanel createActiveButton()
 	{
-		JPanel activePanel = new JPanel();
+		JPanel activePanel = new JPanel(new BorderLayout());
 		active = new JButton();
-		active.setHorizontalAlignment(SwingConstants.RIGHT);
+		active.setPreferredSize(new Dimension(200, 30));
 		active.setFont(TEXT_FONT);
 		if(course.getActive())
 		{

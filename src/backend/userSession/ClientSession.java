@@ -6,7 +6,6 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import backend.database.Database;
-import backend.database.DatabaseCommands;
 import backend.userSession.helpers.EmailHelper;
 import backend.userSession.helpers.FileHelper;
 import shared.objects.SendMessage;
@@ -19,7 +18,7 @@ import shared.objects.SendMessage;
  * @since April 6, 2018
  */
 
-public abstract class ClientSession implements Runnable, DatabaseCommands
+public abstract class ClientSession implements Runnable
 {
 	/**
 	 * Connects Client to a server
@@ -90,6 +89,18 @@ public abstract class ClientSession implements Runnable, DatabaseCommands
 	public void setDatabase(Database database)
 	{
 		this.database = database;
+	}
+	
+	protected void sendObject(Object message)
+	{
+		try
+		{
+			objectOut.writeObject(message);
+			objectOut.flush();
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	/**

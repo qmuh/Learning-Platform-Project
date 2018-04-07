@@ -18,7 +18,7 @@ import shared.objects.StudentEnrollment;
  * @version 1.01
  * @since April 6, 2018
  */
-public class ProfessorSession extends ClientSession
+public class ProfessorSession extends ClientSession implements ProfessorCommands
 {
 
 	private Professor professor;
@@ -44,28 +44,45 @@ public class ProfessorSession extends ClientSession
 	boolean interpretMessage(SendMessage<?> command)
 	{
 		String interpreter[] = command.getCommand().split(" ");
+		String commandType = interpreter[0];
 
-		if (interpreter[0].equals("INSERT"))
+		if (commandType.equals(CMD_INSERT))
 		{
-			handleInsert(interpreter, command.getmessageObject());
-		}
+			handleInsert(interpreter[1], command.getmessageObject());
 
-		else if (interpreter[0].equals("REMOVE"))
+		} else if (commandType.equals(CMD_REMOVE))
 		{
+			System.err.println("!---------------------------------------!");
+			System.err.println(
+					"The command: " + command + " has not been implemented");
+			System.err.println("\t\t - " + commandType);
+			System.err.println("!---------------------------------------!");
 
-		}
-
-		else if (interpreter[0].equals("RECEIVE"))
+		} else if (commandType.equals(CMD_RECEIVE))
 		{
 			handleRecieve(interpreter, command.getmessageObject());
-		}
 
-		else if (interpreter[0].equals("MODIFY"))
+		} else if (commandType.equals(CMD_MODIFY))
 		{
 			handleModify(interpreter, command.getmessageObject());
-		} else if (interpreter[0].equals("LOGOUT"))
+
+		} else if (commandType.equals(CMD_LOGOUT))
 		{
 			return false;
+
+		} else
+		{
+			System.err.println("!---------------------------------------!");
+			System.err.println("An unknown command was received. It was: ");
+			System.err.println("\t\t - " + commandType);
+			System.err.println("!---------------------------------------!");
+			try
+			{
+				throw new Exception();
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+			}
 		}
 
 		return true;
@@ -103,42 +120,37 @@ public class ProfessorSession extends ClientSession
 	{
 		try
 		{
-			if (interpreter[1].equals("COURSES"))
+			if (interpreter[1].equals(RETRIEVE_COURSES))
 			{
 				System.out.println("I recieve the correct message my id is "
 						+ professor.getId());
 				Vector<Course> myCourses = database.getCourseTable()
 						.searchByProfId(professor.getId());
-
-				objectOut.writeObject(myCourses);
-				objectOut.flush();
+				sendObject(myCourses);
 			}
 
-			if (interpreter[1].equals("STUDENTBYID"))
+			if (interpreter[1].equals(RETRIEVE_STUDENT_BY_ID))
 			{
 				Student myEnrolledStudents = (Student) database.getUserTable()
 						.getUserByID(((int) getMessage));
-				objectOut.writeObject(myEnrolledStudents);
-				objectOut.flush();
+				sendObject(myEnrolledStudents);
 			}
 
-			if (interpreter[1].equals("STUDENTBYLAST"))
+			if (interpreter[1].equals(RETRIEVE_STUDENT_BY_LASTNAME))
 			{
 				Vector<Student> myEnrolledStudents = database.getUserTable()
 						.searchLastName(((String) getMessage));
-				objectOut.writeObject(myEnrolledStudents);
-				objectOut.flush();
+				sendObject(myEnrolledStudents);
 			}
 
-			if (interpreter[1].equals("ALLSTUDENTS"))
+			if (interpreter[1].equals(RETRIEVE_ALL_STUDENTS))
 			{
 				Vector<Student> allStudents = database.getUserTable()
 						.allStudents();
-				objectOut.writeObject(allStudents);
-				objectOut.flush();
+				sendObject(allStudents);
 			}
 
-			if (interpreter[1].equals("ALLENROLLED"))
+			if (interpreter[1].equals(RETRIEVE_ALL_ENROLLED_STUDENTS))
 			{
 				Vector<Integer> enrolled = database.getStudentEnrollmentTable()
 						.getAllEnrolledStudent(((Course) getMessage).getId());
@@ -148,8 +160,7 @@ public class ProfessorSession extends ClientSession
 					enrolledStudent.add((Student) database.getUserTable()
 							.getUserByID(enrolled.get(i)));
 				}
-				objectOut.writeObject(enrolledStudent);
-				objectOut.flush();
+				sendObject(enrolledStudent);
 			}
 
 			if (interpreter[1].equals("ALLASSIGNMENTS"))
@@ -167,9 +178,9 @@ public class ProfessorSession extends ClientSession
 		}
 	}
 
-	private void handleInsert(String[] interpreter, Object getmessageObject)
+	private void handleInsert(String type, Object getmessageObject)
 	{
-		if (interpreter[1].equals("COURSE"))
+		if (type.equals(INSERT_COURSE))
 		{
 			database.getCourseTable().add((Course) getmessageObject);
 			System.out.println(
@@ -177,19 +188,18 @@ public class ProfessorSession extends ClientSession
 							+ " for Prof: " + professor.getFirstName());
 		}
 
-		if (interpreter[1].equals("ENROLL"))
+		if (type.equals(INSERT_ENROLLMENT))
 		{
 			database.getStudentEnrollmentTable()
 					.add((StudentEnrollment) getmessageObject);
 		}
 
-		if (interpreter[1].equals("UNENROLL"))
+		if (type.equals(INSERT_UNENROLLMENT))
 		{
 			database.getStudentEnrollmentTable()
 					.remove((StudentEnrollment) getmessageObject);
 		}
-
-		if (interpreter[1].equals("ASSIGNMENT"))
+		if (type.equals(INSERT_ASSIGNMENT))
 		{
 			database.getAssignmentTable().add(((Assignment) getmessageObject));
 			byte[] file;

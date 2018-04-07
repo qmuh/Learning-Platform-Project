@@ -17,6 +17,7 @@ import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.GUIConstants;
 import shared.interfaces.ServerInfo;
+import shared.interfaces.UserCommands;
 import shared.interfaces.UserInfo;
 import shared.objects.LoginInfo;
 import shared.objects.Professor;
@@ -31,7 +32,7 @@ import shared.objects.User;
  * @since April 6, 2018
  */
 public class LoginGUI extends JFrame implements WondrisInfo, ColourPalette,
-		GUIConstants, ServerInfo, UserInfo
+		GUIConstants, ServerInfo, UserInfo, UserCommands
 {
 
 	private static final long serialVersionUID = 1L;
@@ -123,15 +124,11 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColourPalette,
 				@Override
 				public void windowActivated(WindowEvent arg0)
 				{
-					// TODO Auto-generated method stub
-
 				}
 
 				@Override
 				public void windowClosed(WindowEvent arg0)
 				{
-					// TODO Auto-generated method stub
-
 				}
 
 				@Override
@@ -147,11 +144,10 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColourPalette,
 					{
 						try
 						{
-							objectOutputStream.writeObject(
-									new SendMessage(null, "LOGOUT"));
+							objectOutputStream
+									.writeObject(new SendMessage<>(CMD_LOGOUT));
 						} catch (IOException e)
 						{
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 						System.exit(0);
@@ -161,29 +157,21 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColourPalette,
 				@Override
 				public void windowDeactivated(WindowEvent arg0)
 				{
-					// TODO Auto-generated method stub
-
 				}
 
 				@Override
 				public void windowDeiconified(WindowEvent arg0)
 				{
-					// TODO Auto-generated method stub
-
 				}
 
 				@Override
 				public void windowIconified(WindowEvent arg0)
 				{
-					// TODO Auto-generated method stub
-
 				}
 
 				@Override
 				public void windowOpened(WindowEvent arg0)
 				{
-					// TODO Auto-generated method stub
-
 				}
 			});
 		}

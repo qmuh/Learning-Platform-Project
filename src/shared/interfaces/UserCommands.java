@@ -10,13 +10,13 @@ package shared.interfaces;
  */
 public interface UserCommands
 {
-	public static final String CMD_LOGOUT = "LOGOUT ";
+	public static final String CMD_LOGOUT = "LOGOUT;";
 
-	public static final String CMD_INSERT = "INSERT ";
+	public static final String CMD_INSERT = "INSERT;";
 
-	public static final String CMD_REMOVE = "REMOVE ";
+	public static final String CMD_REMOVE = "REMOVE;";
 
-	public static final String CMD_RECEIVE = "RECEIVE ";
+	public static final String CMD_RECEIVE = "RECEIVE;";
 
-	public static final String CMD_MODIFY = "MODIFY ";
+	public static final String CMD_MODIFY = "MODIFY;";
 }

@@ -44,8 +44,8 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 	@Override
 	boolean interpretMessage(SendMessage<?> command)
 	{
-		String interpreter[] = command.getCommand().split(" ");
-		String commandType = interpreter[0];
+		String interpreter[] = command.getCommand().split(";");
+		String commandType = interpreter[0] + ";";
 
 		if (commandType.equals(CMD_INSERT))
 		{
@@ -122,30 +122,30 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 
 	private void handleRecieve(String type, Object getMessage)
 	{
-		if (type.equals(RETRIEVE_COURSES))
+		if (type.equals(RECEIVE_COURSES))
 		{
 			Vector<Course> myCourses = database.getCourseTable()
 					.searchByProfId(professor.getId());
 			sendObject(myCourses);
 
-		} else if (type.equals(RETRIEVE_STUDENT_BY_ID))
+		} else if (type.equals(RECEIVE_STUDENT_BY_ID))
 		{
 			Student myEnrolledStudents = (Student) database.getUserTable()
 					.getUserByID(((int) getMessage));
 			sendObject(myEnrolledStudents);
 
-		} else if (type.equals(RETRIEVE_STUDENT_BY_LASTNAME))
+		} else if (type.equals(RECEIVE_STUDENT_BY_LASTNAME))
 		{
 			Vector<Student> myEnrolledStudents = database.getUserTable()
 					.searchLastName(((String) getMessage));
 			sendObject(myEnrolledStudents);
 
-		} else if (type.equals(RETRIEVE_ALL_STUDENTS))
+		} else if (type.equals(RECEIVE_ALL_STUDENTS))
 		{
 			Vector<Student> allStudents = database.getUserTable().allStudents();
 			sendObject(allStudents);
 
-		} else if (type.equals(RETRIEVE_ALL_ENROLLED_STUDENTS))
+		} else if (type.equals(RECEIVE_ALL_ENROLLED_STUDENTS))
 		{
 			Vector<Integer> enrolled = database.getStudentEnrollmentTable()
 					.getAllEnrolledStudent(((Course) getMessage).getId());
@@ -157,7 +157,7 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 			}
 			sendObject(enrolledStudent);
 
-		} else if (type.equals(RETRIEVE_ALL_ASSIGNMENTS))
+		} else if (type.equals(RECEIVE_ALL_ASSIGNMENTS))
 		{
 			Vector<Assignment> allAssignments = database.getAssignmentTable()
 					.getAllAssignments(((Course) getMessage).getId());

@@ -74,7 +74,8 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	{
 		HomePage homePage = (HomePage) this.searchPage(HOME_PAGE);
 
-		SendMessage message = new SendMessage(null, "RECEIVE COURSES");
+		SendMessage<Course> message = new SendMessage<Course>(
+				CMD_RECEIVE + RECEIVE_COURSES);
 		Vector<Course> coursesList = new Vector<Course>();
 
 		try
@@ -88,7 +89,8 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 				{
 					Course course = coursesList.elementAt(i);
 
-					CoursePage coursePage = createCoursePage(course);
+					CoursePage<CourseItem, Course> coursePage = createCoursePage(
+							course);
 					createCourseItem(course, homePage);
 
 					createEnrollmentPage(course);
@@ -159,7 +161,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		{
 			Vector<Assignment> myList = (Vector<Assignment>) clientController
 					.sendMessage(new SendMessage<Course>(course,
-							"RECEIVE ALLASSIGNMENTS"));
+							CMD_RECEIVE + RECEIVE_ALL_ASSIGNMENTS));
 
 			for (Assignment assignment : myList)
 			{
@@ -209,13 +211,13 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		try
 		{
 			Vector<Student> myList = (Vector<Student>) clientController
-					.sendMessage(
-							new SendMessage<>(null, "RECEIVE ALLSTUDENTS"));
+					.sendMessage(new SendMessage<>(
+							CMD_RECEIVE + RECEIVE_ALL_STUDENTS));
 			enrollmentPage.setStudentList(myList);
 
 			Vector<Student> enrollList = (Vector<Student>) clientController
 					.sendMessage(new SendMessage<Course>(course,
-							"RECEIVE ALLENROLLED"));
+							CMD_RECEIVE + RECEIVE_ALL_ENROLLED_STUDENTS));
 			enrollmentPage.setEnrolledList(enrollList);
 		} catch (IOException e)
 		{
@@ -233,6 +235,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 			this.enrollmentPage = enrollmentPage;
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
@@ -245,13 +248,13 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 				{
 					Student myResult = (Student) clientController.sendMessage(
 							new SendMessage<>((int) Integer.parseInt(search),
-									"RECEIVE STUDENTBYID"));
+									CMD_RECEIVE + RECEIVE_STUDENT_BY_ID));
 					searchResult.add(myResult);
 				} else if (enrollmentPage.isSearchByLastName())
 				{
 					searchResult = (Vector<Student>) clientController
-							.sendMessage(new SendMessage<>(search,
-									"RECEIVE STUDENTBYLAST"));
+							.sendMessage(new SendMessage<String>(search,
+									CMD_RECEIVE + RECEIVE_STUDENT_BY_LASTNAME));
 				}
 
 				enrollmentPage.setStudentList(searchResult);
@@ -289,7 +292,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 			{
 				clientController.onlySendMessage(
 						new SendMessage<StudentEnrollment>(toSend,
-								"INSERT ENROLL"));
+								CMD_INSERT + INSERT_ENROLLMENT));
 			} catch (IOException e1)
 			{
 				e1.printStackTrace();
@@ -321,7 +324,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 			{
 				clientController.onlySendMessage(
 						new SendMessage<StudentEnrollment>(toSend,
-								"INSERT UNENROLL"));
+								CMD_INSERT + INSERT_UNENROLLMENT));
 			} catch (IOException e1)
 			{
 				e1.printStackTrace();
@@ -356,7 +359,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 			{
 				if (courseName.getText().length() > 40)
 				{
-					JOptionPane.showMessageDialog(null, "Course Name");
+					JOptionPane.showMessageDialog(homePage, "Course Name");
 				} else
 					try
 					{
@@ -364,7 +367,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 								courseName.getText(), false);
 						clientController
 								.onlySendMessage(new SendMessage<Course>(course,
-										"INSERT COURSE"));
+										CMD_INSERT + INSERT_COURSE));
 
 						createCoursePage(course);
 						createEnrollmentPage(course);
@@ -396,14 +399,14 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 				JButton activeButton = (JButton) e.getSource();
 				if (course.getActive())
 				{
-					clientController.onlySendMessage(
-							new SendMessage(course, "MODIFY COURSEINACTIVE"));
+					clientController.onlySendMessage(new SendMessage<Course>(
+							course, CMD_MODIFY + MODIFY_COURSE_INACTIVE));
 					activeButton.setText("ACTIVATE");
 					activeButton.setBackground(BACKGROUND_COLOUR);
 				} else
 				{
-					clientController.onlySendMessage(
-							new SendMessage(course, "MODIFY COURSEACTIVE"));
+					clientController.onlySendMessage(new SendMessage<Course>(
+							course, CMD_MODIFY + MODIFY_COURSE_ACTIVE));
 					activeButton.setText("DEACTIVATE");
 					activeButton.setBackground(CONTRAST_COLOR);
 				}
@@ -499,7 +502,6 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 			this.assignment = course;
 		}
 
-		// FIX THIS TODO: QASIM
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
@@ -510,14 +512,18 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 				if (!checkBox.isSelected() && assignment.getActive())
 				{
 					System.out.println("INACTIVE");
-					clientController.onlySendMessage(new SendMessage(assignment,
-							"MODIFY ASSIGNINACTIVE"));
+					clientController.onlySendMessage(
+							new SendMessage<Assignment>(assignment,
+									CMD_MODIFY + MODIFY_ASSIGNMENT_INACTIVE));
+
 				} else
 				{
 					System.out.println("ACTIVE");
 
 					clientController.onlySendMessage(
-							new SendMessage(assignment, "MODIFY ASSIGNACTIVE"));
+							new SendMessage<Assignment>(assignment,
+									CMD_MODIFY + MODIFY_ASSIGNMENT_ACTIVE));
+
 				}
 			} catch (IOException e1)
 			{
@@ -556,13 +562,14 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 				{
 					clientController.onlySendMessage(
 							new SendMessage<Assignment>(myUpload,
-									"INSERT ASSIGNMENT"));
+									CMD_INSERT + INSERT_ASSIGNMENT));
 
 					long length = assignmentPage.getFile().length();
 					byte[] content = new byte[(int) length]; // Converting Long
 																// to Int
 					FileInputStream fis = new FileInputStream(
 							assignmentPage.getFile());
+
 					BufferedInputStream bos = new BufferedInputStream(fis);
 					bos.read(content, 0, (int) length);
 
@@ -576,10 +583,8 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 				{
 					e1.printStackTrace();
 				}
-
 			}
 		}
-
 	}
 
 	/**
@@ -605,9 +610,8 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 				selectedFile = fileBrowser.getSelectedFile();
 				assignPage.setFile(selectedFile);
 				assignPage.getUploadField().setText(selectedFile.getPath());
-			}
 
-			else
+			} else
 			{
 				assignPage.setFile(null);
 			}

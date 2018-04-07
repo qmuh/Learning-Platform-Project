@@ -28,10 +28,7 @@ public class CoursePageTable extends JPanel implements WondrisInfo, ColourPalett
 
 	private static final String TABLE_TITLE = "My Courses";
 
-
 	private static final String TABLE_CONTENTS = "Table Contents";
-
-	//TODO: Add Edit Course
 
 	private JPanel tablePanel;
 
@@ -50,9 +47,10 @@ public class CoursePageTable extends JPanel implements WondrisInfo, ColourPalett
 	{
 		tablePanel = new JPanel();
 		tablePanel.setLayout(new BorderLayout());
+		tablePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
 		JPanel tableHeader = new JPanel();
 		tableHeader.setLayout(new GridLayout(1, 3));
-		tableHeader.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+		tableHeader.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLACK));
 		tableHeader.setPreferredSize(new Dimension(WINDOW_WIDTH, 50));
 		tableHeader.add(createLabel("Course Name", SUB_TITLE_FONT, JLabel.CENTER), 0);
 		tableHeader.add(createLabel("Active", SUB_TITLE_FONT, JLabel.RIGHT), 1);

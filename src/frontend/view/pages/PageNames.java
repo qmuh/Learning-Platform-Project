@@ -20,5 +20,11 @@ public interface PageNames
 	
 	public static final String GRADES_PAGE = "PAGE_GRADES_";
 	
+	public static final String SUBMISSION_PAGE = "PAGE_SUBMISSION_";
+	
+	public static final String COMPOSE_EMAIL_PAGE = "PAGE_COMPOSE_EMAIL_";
+	
+	public static final String MY_EMAIL_PAGE = "PAGE_MY_EMAIL_";
+	
 	
 }

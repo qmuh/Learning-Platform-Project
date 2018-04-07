@@ -93,8 +93,8 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 	{
 		super(course);
 		this.setName(ENROLLMENT_PAGE+course.getId());
-		body.add(createEnrollmentPanel(), BorderLayout.CENTER);
-
+		setPageTitle("Enrollments");
+		bodyCenter.add(createEnrollmentPanel(), BorderLayout.CENTER);
 	}
 
 

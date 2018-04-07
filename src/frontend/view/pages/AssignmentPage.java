@@ -71,7 +71,8 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 	{
 		super(course);
 		this.setName(ASSIGNMENT_PAGE + course.getId());
-		body.add(createAssignmentPanel(), BorderLayout.CENTER);
+		this.setPageTitle("Assignments");
+		bodyCenter.add(createAssignmentPanel(), BorderLayout.CENTER);
 	}
 
 	private JPanel createAssignmentPanel()
@@ -154,20 +155,10 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 	@Override
 	public void displayPage()
 	{
-		// TODO Auto-generat
 		itemDisplay.revalidate();
 		itemDisplay.repaint();
 	}
 
-	public static void main(String[] args)
-	{
-		JFrame frame = new JFrame("Testing");
-		frame.add(new AssignmentPage(
-				new Course(1010101, "PlaceHolder Text", true)));
-		frame.setSize(1600, 1000);
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
 
 	public void setAssignmentVector(Vector<Assignment> myList)
 	{

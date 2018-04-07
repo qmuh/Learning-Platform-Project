@@ -4,32 +4,36 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import frontend.interfaces.WondrisInfo;
+import shared.objects.Course;
 
 public class CourseNavigationBar extends JPanel implements WondrisInfo
 {
 	private static final long serialVersionUID = 1L;
 
 
-	private JButton enrollmentButton;
-	private JButton assignmentButton;
-	private JButton gradesButton;
+	private JButton assignmentButton, submissionButton, enrollmentButton, myEmailButton, composeEmailButton;
+
 	
 	public CourseNavigationBar() {
-		this.setLayout(new GridLayout(3, 1));
-		enrollmentButton = new JButton("Enrollments");
+		this.setLayout(new GridLayout(5, 1));
 		assignmentButton = new JButton("Assignments");
-		gradesButton = new JButton("Grades");
-		this.add(createButton(enrollmentButton));
+		submissionButton = new JButton("Submissions");
+		enrollmentButton = new JButton("Enrollments");
+		myEmailButton = new JButton("My Emails");
+		composeEmailButton = new JButton("Compose Email");
 		this.add(createButton(assignmentButton));
-		this.add(createButton(gradesButton));
+		this.add(createButton(submissionButton));
+		this.add(createButton(enrollmentButton));
+		this.add(createButton(myEmailButton));
+		this.add(createButton(composeEmailButton));
 	}
 	
 	private JButton createButton(JButton b) {
 		b.setFont(TITLE_FONT);
-//		b.setPreferredSize(new Dimension(400, 200));
 		return b;
 	}
 	
@@ -43,9 +47,19 @@ public class CourseNavigationBar extends JPanel implements WondrisInfo
 		assignmentButton.addActionListener(listener);
 	}
 	
-	public void setGradesButtonListener(ActionListener listener) 
+	public void setSubmissionButtonListener(ActionListener listener) 
 	{
-		gradesButton.addActionListener(listener);
+		submissionButton.addActionListener(listener);
+	}
+	
+	public void setMyEmaillButtonListener(ActionListener listener)
+	{
+		myEmailButton.addActionListener(listener);
+	}
+	
+	public void setComposeEmailButtonListener(ActionListener listener)
+	{
+		composeEmailButton.addActionListener(listener);
 	}
 	
 }

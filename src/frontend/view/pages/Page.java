@@ -5,11 +5,13 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
 import frontend.view.ProfessorGUI;
 import frontend.view.StudentGUI;
@@ -24,7 +26,7 @@ import frontend.view.pages.components.Header;
  * @version 1.0
  * @since April 6, 2018
  */
-public abstract class Page <T extends Box, U> extends JPanel implements PageNames, WondrisInfo
+public abstract class Page <T extends Box, U> extends JPanel implements PageNames, WondrisInfo, ColourPalette
 {
 
 	private static final long serialVersionUID = 1L;
@@ -38,6 +40,7 @@ public abstract class Page <T extends Box, U> extends JPanel implements PageName
 
 	public Page()
 	{
+		this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		this.setLayout(new BorderLayout());
 		itemDisplay = new BoxList<T>();
 		body = new JPanel();

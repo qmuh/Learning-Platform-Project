@@ -42,15 +42,11 @@ import shared.objects.Professor;
  * @version 1.0
  * @since April 6, 2018
  */
-public class WondrisClient extends JFrame
+public class LoginGUI extends JFrame
 		implements WondrisInfo, ColourPalette, GUIConstants, ServerInfo, UserInfo
 {
 
 	private static final long serialVersionUID = 1L;
-
-	private static final String BUTTON_SIGN_IN_TEXT = "Sign In";
-
-	private static final Character PASSWORD_ECHO_CHAR = '\u2022';
 
 	private JTextField userName;
 
@@ -60,43 +56,17 @@ public class WondrisClient extends JFrame
 
 	private JPanel currentPanel;
 
-	public WondrisClient(String windowName)
+	public LoginGUI(String windowName)
 	{
 		super(windowName);
 		this.setSize(WINDOW_SIZE);
 
 		currentPanel = new LoginPanel();
 
-				createLoginPanel();
-
-		// createFields();
-
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		this.add(currentPanel);
 		setVisible(true);
-	}
-
-	private void createFields()
-	{
-		userName = new JTextField(20);
-		password = new JPasswordField(20);
-		password.setEchoChar(PASSWORD_ECHO_CHAR);
-		enterCredentials = new JButton(BUTTON_SIGN_IN_TEXT);
-	}
-
-	private JPanel createLoginPanel()
-	{
-		JPanel loginPanel = new JPanel(new GridLayout(1, 1, 0, 0));
-		loginPanel.setBackground(TERTIARY_COLOR);
-		// TODO: Design interface with all border types.
-		loginPanel.setBorder(BorderFactory.createCompoundBorder(
-				new EmptyBorder(200, 300, 200, 300),
-				new MatteBorder(10, 10, 10, 10, Color.DARK_GRAY)));
-
-		//enterCredentials.addActionListener(new LoginListener());
-		loginPanel.add(createLoginArea());
-		return loginPanel;
 	}
 
 	public class LoginListener implements ActionListener, ServerInfo
@@ -266,77 +236,8 @@ public class WondrisClient extends JFrame
 		return loginInfo;
 	}
 
-	private JPanel createLoginArea()
-	{
-		JPanel thePanel = new JPanel(new GridLayout(1, 2, 0, 0));
-		thePanel.setBackground(ACCENT_COLOR);
-		thePanel.add(createTitle(NAME));
-		thePanel.add(createTextPanel());
-		return thePanel;
-	}
-
-	private JPanel createTextPanel()
-	{
-		JPanel thePanel = new JPanel(new GridLayout(3, 1, 0, 0));
-		JPanel textPanel = new JPanel();
-		textPanel.setLayout(new GridLayout(3, 1));
-		textPanel.add(createTextField("Username", userName));
-		textPanel.add(createTextField("Password", password));
-		textPanel.add(createButtonPanel());
-		thePanel.add(createEmptyPanel(ACCENT_COLOR));
-		thePanel.add(textPanel);
-		thePanel.add(createEmptyPanel(ACCENT_COLOR));
-		return thePanel;
-	}
-
-	private JPanel createTitle(String s)
-	{
-		JPanel titlePanel = new JPanel(new GridLayout(1, 1));
-		titlePanel.setBackground(BACKGROUND_COLOUR);
-		JLabel title = new JLabel(s);
-		title.setFont(TITLE_FONT);
-		title.setForeground(Color.WHITE);
-		title.setHorizontalAlignment(JLabel.CENTER);
-		titlePanel.add(title);
-		return titlePanel;
-	}
-
-	private JPanel createTextField(String s, JTextField field)
-	{
-		JPanel textFieldPanel = new JPanel();
-		textFieldPanel.setBackground(ACCENT_COLOR);
-		JLabel text = new JLabel(s);
-		text.setFont(TEXT_FONT);
-		text.setForeground(Color.WHITE);
-		textFieldPanel.add(text);
-		textFieldPanel.add(field);
-		return textFieldPanel;
-	}
-
-	private JPanel createButtonPanel()
-	{
-		JPanel buttonPanel = new JPanel();
-		buttonPanel.setBackground(ACCENT_COLOR);
-		buttonPanel.setPreferredSize(new Dimension(50, 50));
-		enterCredentials.setFont(TEXT_FONT);
-		enterCredentials.setFocusPainted(false);
-		enterCredentials.setBackground(SECONDARY_COLOR);
-		buttonPanel.add(enterCredentials);
-		return buttonPanel;
-	}
-
-	private JPanel createEmptyPanel(Color c)
-	{
-		FlowLayout panelLayout = new FlowLayout();
-		panelLayout.setVgap(0);
-		panelLayout.setHgap(0);
-		JPanel panel = new JPanel(panelLayout);
-		panel.setBackground(c);
-		return panel;
-	}
-
 	public static void main(String[] args)
 	{
-		new WondrisClient(TITLE);
+		new LoginGUI(TITLE);
 	}
 }

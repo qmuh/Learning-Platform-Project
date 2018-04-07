@@ -72,10 +72,8 @@ public class ProfessorGUI extends PageNavigator
 	@SuppressWarnings("unchecked")
 	private void createHomePage()
 	{
-		@SuppressWarnings("unchecked")
 		HomePage homePage = (HomePage) this.searchPage(HOME_PAGE);
 
-		@SuppressWarnings("unchecked")
 		SendMessage message = new SendMessage(null, "RECEIVE COURSES");
 		Vector<Course> coursesList = new Vector<Course>();
 

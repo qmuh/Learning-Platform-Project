@@ -28,7 +28,7 @@ public class StudentSession extends ClientSession
 	}
 
 	@Override
-	void interpretMessage(SendMessage command)
+	boolean interpretMessage(SendMessage command)
 	{
 		String interpreter[] = command.getCommand().split(" ");
 		
@@ -50,8 +50,11 @@ public class StudentSession extends ClientSession
 		else if(interpreter[0].equals("MODIFY"))
 		{
 			handleModify(interpreter, command.getmessageObject());
+		} else if (interpreter[0].equals("LOGOUT"))
+		{
+			return false;
 		}
-		
+		return true;
 		
 	}
 

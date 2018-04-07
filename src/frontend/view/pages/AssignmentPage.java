@@ -3,6 +3,7 @@ package frontend.view.pages;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Vector;
@@ -25,18 +26,18 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 		implements WondrisInfo
 {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	private BoxList<AssignItem> assignmentList;
 	private JTextField uploadField, month, day, year;
 	private JButton uploadButton, browseButton;
-	
+	private File selectedFile;
+
 	public JTextField getUploadField()
 	{
 		return uploadField;
 	}
-	
+
 	public void setUploadButtonListener(ActionListener listener)
 	{
 		uploadButton.addActionListener(listener);
@@ -46,20 +47,30 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 	{
 		browseButton.addActionListener(listener);
 	}
-	
-	public Date getDate()
+
+	public File getFile()
 	{
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(Integer.parseInt(year.getText()), 
-				Integer.parseInt(month.getText()), 
-				Integer.parseInt(day.getText()));
-		return calendar.getTime();
+		return selectedFile;
+
 	}
-	
+
+	public void setFile(File toSet)
+	{
+		selectedFile = toSet;
+	}
+
+
+	public String getDate()
+	{
+
+		return year.getText() + " " + month.getText() + " " +day.getText();
+
+	}
+
 	public AssignmentPage(Course course)
 	{
 		super(course);
-		this.setName(ASSIGNMENT_PAGE+course.getId());
+		this.setName(ASSIGNMENT_PAGE + course.getId());
 		body.add(createAssignmentPanel(), BorderLayout.CENTER);
 	}
 
@@ -84,8 +95,8 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 	private JScrollPane createAssignmentList()
 	{
 		// TODO: Add default list model to JList
-		assignmentList = new BoxList<AssignItem>();
-		JScrollPane scrollPane = new JScrollPane(assignmentList);
+		itemDisplay = new BoxList<AssignItem>();
+		JScrollPane scrollPane = new JScrollPane(itemDisplay);
 		scrollPane.setVerticalScrollBarPolicy(
 				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		return scrollPane;
@@ -143,8 +154,9 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 	@Override
 	public void displayPage()
 	{
-		// TODO Auto-generated method stub
-
+		// TODO Auto-generat
+		itemDisplay.revalidate();
+		itemDisplay.repaint();
 	}
 
 	public static void main(String[] args)
@@ -159,10 +171,14 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 
 	public void setAssignmentVector(Vector<Assignment> myList)
 	{
+		itemDisplay.removeAll();
 		for (Assignment assignment : myList)
 		{
-			itemDisplay.add(new AssignItem(assignment));
+			this.addToBoxList(new AssignItem(assignment));
 		}
+		System.out.println("#: " + itemDisplay.getComponentCount());
+		itemDisplay.revalidate();
+		itemDisplay.repaint();
 	}
 
 }

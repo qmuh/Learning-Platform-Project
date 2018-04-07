@@ -19,7 +19,7 @@ import shared.objects.Student;
 import shared.objects.User;
 
 /**
- * 
+ *
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
@@ -44,7 +44,7 @@ public class Server implements ServerInfo
 
 	/**
 	 * Creates the server with a port number
-	 * 
+	 *
 	 * @param port
 	 *            The port number
 	 */
@@ -170,7 +170,7 @@ public class Server implements ServerInfo
 
 	/**
 	 * Starts the server.
-	 * 
+	 *
 	 * @param args
 	 *            not used
 	 */

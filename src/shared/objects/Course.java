@@ -77,4 +77,13 @@ public class Course implements Serializable
 		return active;
 	}
 
+	public void setActive() 
+	{
+		if(active == true)
+		{
+			active = false;
+		}
+		else
+			active = true;
+	}
 }

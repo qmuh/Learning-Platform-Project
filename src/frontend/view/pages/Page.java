@@ -10,18 +10,21 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import frontend.interfaces.WondrisInfo;
+import frontend.view.ProfessorGUI;
+import frontend.view.StudentGUI;
 import frontend.view.pages.components.BoxList;
 import frontend.view.pages.components.Footer;
 import frontend.view.pages.components.Header;
 
 /**
- * 
+ *
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
  * @since April 6, 2018
  */
-public abstract class Page <T extends Box, U> extends JPanel implements PageNames
+public abstract class Page <T extends Box, U> extends JPanel implements PageNames, WondrisInfo
 {
 
 	private static final long serialVersionUID = 1L;
@@ -32,7 +35,7 @@ public abstract class Page <T extends Box, U> extends JPanel implements PageName
 	protected BoxList<T> itemDisplay;
 //	protected StudentGUI studentGUI;
 //	protected ProfessorGUI professorGUI;
-	
+
 	public Page()
 	{
 		this.setLayout(new BorderLayout());
@@ -44,9 +47,9 @@ public abstract class Page <T extends Box, U> extends JPanel implements PageName
 		this.add(footer, BorderLayout.SOUTH);
 		this.add(body, BorderLayout.CENTER);
 	}
-	
+
 	public abstract void displayPage();
-	
+
 	protected JPanel createLabel(String label, Font f)
 	{
 		JPanel labelPanel = new JPanel();
@@ -55,30 +58,30 @@ public abstract class Page <T extends Box, U> extends JPanel implements PageName
 		labelPanel.add(theLabel);
 		return labelPanel;
 	}
-	
+
 	protected JButton createButton(JButton button, String name, Font f)
 	{
 		button.setText(name);
 		button.setFont(f);
 		return button;
 	}
-	
+
 	public void setBoxList(BoxList<T> boxList)
 	{
 		this.itemDisplay = boxList;
 	}
-	
+
 	public void setHomeButtonListener(ActionListener listener)
 	{
 		header.setHomeButtonListener(listener);
 	}
-	
+
 	public void setBackButtonListener(ActionListener listener)
 	{
 		header.setBackButtonListener(listener);
 	}
 
-	public void addToBoxList(T item ) 
+	public void addToBoxList(T item )
 	{
 		itemDisplay.add(item);
 	}

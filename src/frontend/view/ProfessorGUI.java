@@ -7,8 +7,14 @@ import java.net.Socket;
 import java.util.Vector;
 
 import javax.swing.JTextField;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 
 import frontend.controller.ClientController;
 import frontend.view.pages.AssignmentPage;
@@ -16,6 +22,7 @@ import frontend.view.pages.HomePage;
 import frontend.view.pages.CoursePage;
 import frontend.view.pages.EnrollmentPage;
 import frontend.view.pages.components.PageNavigator;
+import frontend.view.pages.items.AssignItem;
 import frontend.view.pages.items.CourseItem;
 import shared.objects.Assignment;
 import shared.objects.Course;
@@ -49,16 +56,16 @@ public class ProfessorGUI extends PageNavigator
 
 	/**
 	 * Constructor for this class, it pre-loads the pages
-	 * 
+	 *
 	 * @param socket
-	 * @param toSet
+	 * @param user
 	 */
-	public ProfessorGUI(Socket socket, Professor toSet)
+	public ProfessorGUI(Socket socket, Professor user)
 	{
 		super();
 		this.clientController = new ClientController();
 		this.clientController.connectToServer(socket);
-		thisProfessor = toSet;
+		thisProfessor = user;
 		createHomePage();
 	}
 
@@ -112,8 +119,8 @@ public class ProfessorGUI extends PageNavigator
 		CourseItem courseItem = new CourseItem(course);
 		courseItem
 				.setViewButtonListener(new ViewCoursePageListener(courseItem));
-		courseItem.setActiveCheckBoxListener(
-				new CourseActiveCheckBoxListener(course));
+		courseItem.setActiveButtonListener(
+				new CourseActiveButtonListener(course));
 		homePage.addToBoxList(courseItem);
 	}
 
@@ -139,10 +146,10 @@ public class ProfessorGUI extends PageNavigator
 		assignmentPage
 				.setGradesButtonListener(new GradesButtonListener(course));
 		this.addPage(assignmentPage, assignmentPage.getName());
-		assignmentPage
-				.setUploadButtonListener(new UploadButtonListener(course));
-		assignmentPage.setBrowseButtonListener(new BrowseButtonListener());
-
+		assignmentPage.setUploadButtonListener(
+				new UploadButtonListener(course, assignmentPage));
+		assignmentPage.setBrowseButtonListener(
+				new BrowseButtonListener(assignmentPage));
 		showAllAssignments(course, assignmentPage);
 	}
 
@@ -153,13 +160,29 @@ public class ProfessorGUI extends PageNavigator
 		try
 		{
 			Vector<Assignment> myList = (Vector<Assignment>) clientController
-					.sendMessage(
-							new SendMessage<Course>(course, "RECEIVE ALLASSIGNMENTS"));
-			assignmentPage.setAssignmentVector(myList);
+					.sendMessage(new SendMessage<Course>(course,
+							"RECEIVE ALLASSIGNMENTS"));
+
+			for (Assignment assignment : myList)
+			{
+				createAssignItem(course, assignmentPage, assignment);
+			}
+
+			//assignmentPage.setAssignmentVector(myList);
 		} catch (IOException e)
 		{
 			e.printStackTrace();
 		}
+	}
+
+	private void createAssignItem(Course course, AssignmentPage assignmentPage,
+			Assignment assignment)
+	{
+		AssignItem assignItem = new AssignItem(assignment);
+		assignItem.setActiveCheckboxListener(
+				new AssignmentActiveCheckBoxListener(assignment));
+		assignmentPage.addToBoxList(assignItem);
+		assignmentPage.displayPage();
 	}
 
 	private void createEnrollmentPage(Course course)
@@ -346,6 +369,8 @@ public class ProfessorGUI extends PageNavigator
 										"INSERT COURSE"));
 
 						createCoursePage(course);
+						createEnrollmentPage(course);
+						createAssignmentPage(course);
 						createCourseItem(course, homePage);
 
 					} catch (IOException e1)
@@ -356,11 +381,11 @@ public class ProfessorGUI extends PageNavigator
 		}
 	}
 
-	private class CourseActiveCheckBoxListener implements ActionListener
+	private class CourseActiveButtonListener implements ActionListener
 	{
 		private Course course;
 
-		public CourseActiveCheckBoxListener(Course course)
+		public CourseActiveButtonListener(Course course)
 		{
 			this.course = course;
 		}
@@ -370,22 +395,28 @@ public class ProfessorGUI extends PageNavigator
 		{
 			try
 			{
-				JCheckBox checkBox = (JCheckBox) e.getSource();
-				if (!checkBox.isSelected() && course.getActive())
+				JButton activeButton = (JButton)e.getSource();
+				if (course.getActive())
 				{
 					clientController.onlySendMessage(
 							new SendMessage(course, "MODIFY COURSEINACTIVE"));
+					activeButton.setText("ACTIVATE");
+					activeButton.setBackground(BACKGROUND_COLOUR);
 				} else
 				{
 					clientController.onlySendMessage(
 							new SendMessage(course, "MODIFY COURSEACTIVE"));
+					activeButton.setText("DEACTIVATE");
+					activeButton.setBackground(CONTRAST_COLOR);
 				}
+			
+				course.setActive();
 			} catch (IOException e1)
 			{
 				System.out.println("Unable to change the course active state");
 				e1.printStackTrace();
 			}
-
+			
 		}
 
 	}
@@ -459,69 +490,130 @@ public class ProfessorGUI extends PageNavigator
 		{
 			showPage(GRADES_PAGE + course.getId());
 		}
-
 	}
 
 	private class AssignmentActiveCheckBoxListener implements ActionListener
 	{
-		private Course course;
+		private Assignment assignment;
 
-		public AssignmentActiveCheckBoxListener(Course course)
+		public AssignmentActiveCheckBoxListener(Assignment course)
 		{
-			this.course = course;
+			this.assignment = course;
 		}
-
 		// FIX THIS TODO: QASIM
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
+			System.err.println("Assignment Activity");
 			try
 			{
 				JCheckBox checkBox = (JCheckBox) e.getSource();
-				if (!checkBox.isSelected() && course.getActive())
+				if (!checkBox.isSelected() && assignment.getActive())
 				{
-					clientController.onlySendMessage(
-							new SendMessage(course, "MODIFY COURSEINACTIVE"));
+					System.out.println("INACTIVE");
+					clientController.onlySendMessage(new SendMessage(assignment,
+							"MODIFY ASSIGNINACTIVE"));
 				} else
 				{
+					System.out.println("ACTIVE");
+
 					clientController.onlySendMessage(
-							new SendMessage(course, "MODIFY COURSEACTIVE"));
+							new SendMessage(assignment, "MODIFY ASSIGNACTIVE"));
 				}
 			} catch (IOException e1)
 			{
 				System.out.println("Unable to change the course active state");
 				e1.printStackTrace();
 			}
-
 		}
 	}
 
-	// FIX THIS TODO: QASIM
+
+	/**
+	 * Listener for the upload button on the assignment page
+	 *
+	 */
 	private class UploadButtonListener implements ActionListener
 	{
 		private Course course;
+		private AssignmentPage assignmentPage;
 
-		public UploadButtonListener(Course course)
+		public UploadButtonListener(Course course, AssignmentPage assignPage)
 		{
 			this.course = course;
+			this.assignmentPage = assignPage;
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-			// TODO Auto-generated method stub
+			String append[] = assignmentPage.getFile().getPath().split("/");
+			if (assignmentPage.getFile() != null)
+			{
+				Assignment myUpload = new Assignment(course.getId(),
+						append[append.length -1],
+						assignmentPage.getUploadField().getText(), false,
+						assignmentPage.getDate().toString());
+				try
+				{
+					clientController.onlySendMessage(
+							new SendMessage<Assignment>(myUpload,
+									"INSERT ASSIGNMENT"));
 
+					long length = assignmentPage.getFile().length();
+					byte[] content = new byte[(int) length]; // Converting Long
+																// to Int
+					FileInputStream fis = new FileInputStream(
+							assignmentPage.getFile());
+					BufferedInputStream bos = new BufferedInputStream(fis);
+					bos.read(content, 0, (int) length);
+
+					clientController.getObjectOut().writeObject(content);
+					clientController.getObjectOut().flush();
+
+					createAssignItem(course, assignmentPage, myUpload);
+//					showAllAssignments(course, assignmentPage);
+
+				} catch (IOException e1)
+				{
+					e1.printStackTrace();
+				}
+
+			}
 		}
 
 	}
 
-	// FIX THIS TODO: QASIM
+
+	/**
+	 * Listener for the browse button on the assignment page
+	 *
+	 */
 	private class BrowseButtonListener implements ActionListener
 	{
+		private AssignmentPage assignPage;
+
+		public BrowseButtonListener(AssignmentPage assignPage)
+		{
+			this.assignPage = assignPage;
+		}
+
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-			// TODO Auto-generated method stub
+			File selectedFile;
+			JFileChooser fileBrowser = new JFileChooser();
+			if (fileBrowser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+			{
+				selectedFile = fileBrowser.getSelectedFile();
+				assignPage.setFile(selectedFile);
+				assignPage.getUploadField().setText(selectedFile.getPath());
+			}
+
+			else
+			{
+				assignPage.setFile(null);
+			}
 
 		}
 

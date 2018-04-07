@@ -36,7 +36,7 @@ public class ProfessorSession extends ClientSession
 	}
 
 	@Override
-	void interpretMessage(SendMessage<?> command)
+	boolean interpretMessage(SendMessage<?> command)
 	{
 		String interpreter[] = command.getCommand().split(" ");
 
@@ -58,7 +58,12 @@ public class ProfessorSession extends ClientSession
 		else if (interpreter[0].equals("MODIFY"))
 		{
 			handleModify(interpreter, command.getmessageObject());
+		} else if (interpreter[0].equals("LOGOUT"))
+		{
+			return false;
 		}
+
+		return true;
 	}
 
 	private void handleModify(String[] interpreter, Object getmessageObject)
@@ -74,6 +79,17 @@ public class ProfessorSession extends ClientSession
 			database.getCourseTable()
 					.setInactive(((Course) getmessageObject).getId());
 		}
+
+		if(interpreter[1].equals("ASSIGNACTIVE"))
+		{
+			database.getAssignmentTable().setActive( ((Assignment)getmessageObject).getId());
+		}
+
+		if(interpreter[1].equals("ASSIGNINACTIVE"))
+		{
+			database.getAssignmentTable().setInactive(((Assignment)getmessageObject).getId() );
+		}
+
 	}
 
 	private void handleRecieve(String[] interpreter, Object getMessage)
@@ -129,8 +145,15 @@ public class ProfessorSession extends ClientSession
 				objectOutputStream.flush();
 			}
 
-		} catch (IOException e)
-		{
+			if(interpreter[1].equals("ALLASSIGNMENTS"))
+			{
+				Vector<Assignment> allStudents = database.getAssignmentTable().getAllAssignments(((Course)getMessage).getId());
+				objectOutputStream.writeObject(allStudents);
+				objectOutputStream.flush();
+			}
+
+
+		}catch (IOException e) {
 			System.out.println("Error");
 			e.printStackTrace();
 		}

@@ -34,7 +34,7 @@ public class CoursePage<T extends Box, U> extends Page<T, U>
 	public void setEnrollmentButtonListener(ActionListener listener) 
 	{
 		courseNavigationBar.setEnrollmentButtonListener(listener);
-	}
+	} 
 	
 	public void setAssignmentButtonListener(ActionListener listener) 
 	{

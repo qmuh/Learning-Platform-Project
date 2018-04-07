@@ -9,6 +9,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -24,16 +26,17 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
 import frontend.interfaces.ColourPalette;
+import frontend.interfaces.ServerInfo;
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.GUIConstants;
-import shared.ServerInfo;
 import shared.UserInfo;
 import shared.objects.LoginInfo;
-import shared.objects.Professor;
+import shared.objects.SendMessage;
 import shared.objects.User;
+import shared.objects.Professor;
 
 /**
- * 
+ *
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
@@ -44,13 +47,13 @@ public class WondrisClient extends JFrame
 {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private static final String BUTTON_SIGN_IN_TEXT = "Sign In";
-	
+
 	private static final Character PASSWORD_ECHO_CHAR = '\u2022';
-	
+
 	private JTextField userName;
-	
+
 	private JPasswordField password;
 
 	private JButton enterCredentials;
@@ -63,7 +66,7 @@ public class WondrisClient extends JFrame
 		this.setSize(WINDOW_SIZE);
 
 		currentPanel = new LoginPanel();
-				
+
 				createLoginPanel();
 
 		// createFields();
@@ -90,7 +93,7 @@ public class WondrisClient extends JFrame
 		loginPanel.setBorder(BorderFactory.createCompoundBorder(
 				new EmptyBorder(200, 300, 200, 300),
 				new MatteBorder(10, 10, 10, 10, Color.DARK_GRAY)));
-		
+
 		//enterCredentials.addActionListener(new LoginListener());
 		loginPanel.add(createLoginArea());
 		return loginPanel;
@@ -134,6 +137,7 @@ public class WondrisClient extends JFrame
 				toServer.flush();
 
 				user = (User) fromServer.readObject();
+				checkUser(user, socket, toServer);
 			} catch (IOException e)
 			{
 				e.printStackTrace();
@@ -142,14 +146,14 @@ public class WondrisClient extends JFrame
 				e.printStackTrace();
 			}
 
-			checkUser(user, socket);
+
 		}
 
-		private void checkUser(User user, Socket socket)
+		private void checkUser(User user, Socket socket,
+				ObjectOutputStream objectOutputStream)
 		{
 			if (user.getUserType().equals(USER_PROFESSOR))
 			{
-
 				currentPanel.setVisible(false);
 				currentPanel = new ProfessorGUI(socket, (Professor) user);
 				add(currentPanel);
@@ -160,7 +164,78 @@ public class WondrisClient extends JFrame
 			else if (user.getUserType().equals(USER_STUDENT))
 			{
 				System.out.println("We have a student");
+			} else
+			{
+				return;
 			}
+			addWindowListener(new WindowListener()
+			{
+
+				@Override
+				public void windowOpened(WindowEvent arg0)
+				{
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void windowIconified(WindowEvent arg0)
+				{
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void windowDeiconified(WindowEvent arg0)
+				{
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void windowDeactivated(WindowEvent arg0)
+				{
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void windowClosing(WindowEvent arg0)
+				{
+					int selection = JOptionPane.showConfirmDialog(null,
+							"Are you sure you want to close the program?",
+							"Exit Application", JOptionPane.YES_NO_OPTION,
+							JOptionPane.QUESTION_MESSAGE);
+
+					if (selection == JOptionPane.YES_OPTION)
+					{
+						try
+						{
+							objectOutputStream.writeObject(new SendMessage(null, "LOGOUT"));
+						} catch (IOException e)
+						{
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						System.exit(0);
+					}
+
+				}
+
+				@Override
+				public void windowClosed(WindowEvent arg0)
+				{
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void windowActivated(WindowEvent arg0)
+				{
+					// TODO Auto-generated method stub
+
+				}
+			});
 		}
 	}
 

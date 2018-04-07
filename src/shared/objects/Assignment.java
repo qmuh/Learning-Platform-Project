@@ -1,5 +1,6 @@
 package shared.objects;
 import java.io.Serializable;
+import java.util.Random;
 
 public class Assignment implements Serializable
 {
@@ -51,7 +52,17 @@ public class Assignment implements Serializable
 		due_date = due;
 		
 	}
-
+	public Assignment( int courseID, String assignTitle, String pathway , Boolean isActive, String due)
+	{
+		Random random = new Random();
+		id = random.nextInt(5000) + 2500;
+		course_id = courseID;
+		title = assignTitle;
+		path = pathway;
+		active = isActive;
+		due_date = due;
+		
+	}
 	
 	public int getId()
 	{

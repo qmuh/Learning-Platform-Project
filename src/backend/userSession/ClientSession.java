@@ -12,7 +12,7 @@ import backend.database.Database;
 import backend.database.DatabaseCommands;
 
 /**
- * 
+ *
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
@@ -67,6 +67,24 @@ public abstract class ClientSession implements Runnable, DatabaseCommands
 		}
 	}
 
+	public void run()
+	{
+		boolean isRunning = true;
+
+		while (isRunning)
+		{
+			try
+			{
+				SendMessage<?> newMessage = (SendMessage<?>) objectInputStream
+						.readObject();
+				isRunning = interpretMessage(newMessage);
+			} catch (IOException | ClassNotFoundException e)
+			{
+				e.printStackTrace();
+			}
+		}
+	}
+
 	/**
 	 * Sets the database for the client session
 	 */
@@ -75,25 +93,7 @@ public abstract class ClientSession implements Runnable, DatabaseCommands
 		this.database = database;
 	}
 
-	public void run()
-	{
-		boolean isRunning = true;
-	
-		while (isRunning)
-		{
-			try
-			{
-				SendMessage<?> newMessage = (SendMessage<?>) objectInputStream
-						.readObject();
-				interpretMessage(newMessage);
-			} catch (IOException | ClassNotFoundException e)
-			{
-				e.printStackTrace();
-			}
-		}
-	}
-
-	abstract void interpretMessage(SendMessage<?> command);
+	abstract boolean interpretMessage(SendMessage<?> command);
 
 	abstract public void write();
 }

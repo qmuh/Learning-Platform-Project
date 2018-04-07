@@ -22,19 +22,22 @@ public class FileHelper
 	{
 
 		String toSplit[] = data.getPath().split("/");
-		
-		File newFile = new File("/Users/qasimmuhammad/Desktop/Database" + "/"+ (toSplit[toSplit.length -1]));
-		try{
-		if(! newFile.exists())
-		newFile.createNewFile();
-		FileOutputStream writer = new FileOutputStream(newFile);
-		BufferedOutputStream bos = new BufferedOutputStream(writer);
-		bos.write(file);
-		bos.close();
-		} catch(IOException e){
-		e.printStackTrace();
+
+		File newFile = new File("/Users/qasimmuhammad/Desktop/Database" + "/"
+				+ (toSplit[toSplit.length - 1]));
+		try
+		{
+			if (!newFile.exists())
+				newFile.createNewFile();
+			FileOutputStream writer = new FileOutputStream(newFile);
+			BufferedOutputStream bos = new BufferedOutputStream(writer);
+			bos.write(file);
+			bos.close();
+		} catch (IOException e)
+		{
+			e.printStackTrace();
 		}
-		
+
 	}
 
 }

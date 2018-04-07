@@ -13,11 +13,11 @@ import shared.objects.Grade;
  */
 public class GradeItem extends GeneralItem
 {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private Grade grade;
-	
+
 	public GradeItem(Grade grade)
 	{
 		super(BoxLayout.X_AXIS, Integer.toString(grade.getId()));

@@ -15,11 +15,10 @@ public class StudentGUI
 	Student thisStudent;
 	// Page??
 	MessageHandler comHandler;
-	
+
 	public StudentGUI()
 	{
 		super();
 	}
-	
-	
+
 }

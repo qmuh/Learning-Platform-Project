@@ -22,14 +22,11 @@ public class GradePage extends CoursePage<GradeItem, Grade>
 
 	}
 
-
-
 	@Override
 	public void displayPage()
 	{
 		// TODO Auto-generated method stub
 
 	}
-
 
 }

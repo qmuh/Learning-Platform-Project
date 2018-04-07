@@ -85,14 +85,16 @@ public class ProfessorSession extends ClientSession
 					.setInactive(((Course) getmessageObject).getId());
 		}
 
-		if(interpreter[1].equals("ASSIGNACTIVE"))
+		if (interpreter[1].equals("ASSIGNACTIVE"))
 		{
-			database.getAssignmentTable().setActive( ((Assignment)getmessageObject).getId());
+			database.getAssignmentTable()
+					.setActive(((Assignment) getmessageObject).getId());
 		}
 
-		if(interpreter[1].equals("ASSIGNINACTIVE"))
+		if (interpreter[1].equals("ASSIGNINACTIVE"))
 		{
-			database.getAssignmentTable().setInactive(((Assignment)getmessageObject).getId() );
+			database.getAssignmentTable()
+					.setInactive(((Assignment) getmessageObject).getId());
 		}
 
 	}
@@ -150,15 +152,16 @@ public class ProfessorSession extends ClientSession
 				objectOutputStream.flush();
 			}
 
-			if(interpreter[1].equals("ALLASSIGNMENTS"))
+			if (interpreter[1].equals("ALLASSIGNMENTS"))
 			{
-				Vector<Assignment> allStudents = database.getAssignmentTable().getAllAssignments(((Course)getMessage).getId());
+				Vector<Assignment> allStudents = database.getAssignmentTable()
+						.getAllAssignments(((Course) getMessage).getId());
 				objectOutputStream.writeObject(allStudents);
 				objectOutputStream.flush();
 			}
 
-
-		}catch (IOException e) {
+		} catch (IOException e)
+		{
 			System.out.println("Error");
 			e.printStackTrace();
 		}

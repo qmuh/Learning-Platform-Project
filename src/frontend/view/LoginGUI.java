@@ -105,8 +105,7 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColourPalette,
 						"Error, incorrect username or password.",
 						"Authentication Error", JOptionPane.ERROR_MESSAGE);
 				return;
-			}
-			else if (user.getUserType().equals(USER_PROFESSOR))
+			} else if (user.getUserType().equals(USER_PROFESSOR))
 			{
 				currentPanel.setVisible(false);
 				currentPanel = new ProfessorGUI(socket, (Professor) user);

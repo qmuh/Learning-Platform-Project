@@ -18,16 +18,16 @@ import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.components.BoxList;
 import frontend.view.pages.items.CourseItem;
 
-public class CoursePageTable extends JPanel implements WondrisInfo, ColourPalette, GUIConstants
+public class CoursePageTable extends JPanel
+		implements WondrisInfo, ColourPalette, GUIConstants
 {
 	private static final long serialVersionUID = 1L;
 
 	private static final String TABLE_TITLE = "My Courses";
 
-
 	private static final String TABLE_CONTENTS = "Table Contents";
 
-	//TODO: Add Edit Course
+	// TODO: Add Edit Course
 
 	private JPanel tablePanel;
 
@@ -50,14 +50,17 @@ public class CoursePageTable extends JPanel implements WondrisInfo, ColourPalett
 		tableHeader.setLayout(new GridLayout(1, 3));
 		tableHeader.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
 		tableHeader.setPreferredSize(new Dimension(WINDOW_WIDTH, 50));
-		tableHeader.add(createLabel("Course Name", SUB_TITLE_FONT, JLabel.CENTER), 0);
+		tableHeader.add(
+				createLabel("Course Name", SUB_TITLE_FONT, JLabel.CENTER), 0);
 		tableHeader.add(createLabel("Active", SUB_TITLE_FONT, JLabel.RIGHT), 1);
-		tableHeader.add(createLabel("Course Home", SUB_TITLE_FONT, JLabel.CENTER), 2);
+		tableHeader.add(
+				createLabel("Course Home", SUB_TITLE_FONT, JLabel.CENTER), 2);
 		tablePanel.add(tableHeader, BorderLayout.NORTH);
 		return tablePanel;
 	}
 
-	private JPanel createTitle() {
+	private JPanel createTitle()
+	{
 		titlePanel = new JPanel(new GridLayout(1, 3));
 		JPanel theTitle = new JPanel();
 		JLabel title = new JLabel(TABLE_TITLE);
@@ -79,7 +82,9 @@ public class CoursePageTable extends JPanel implements WondrisInfo, ColourPalett
 		return theButton;
 
 	}
-	private JPanel createLabel(String title, Font font, int alignment) {
+
+	private JPanel createLabel(String title, Font font, int alignment)
+	{
 		JPanel theLabel = new JPanel(new BorderLayout());
 		JLabel label = new JLabel(title);
 		label.setPreferredSize(new Dimension(200, 30));
@@ -92,7 +97,8 @@ public class CoursePageTable extends JPanel implements WondrisInfo, ColourPalett
 	public void setBoxList(BoxList<CourseItem> itemDisplay)
 	{
 		JScrollPane scrollPane = new JScrollPane(itemDisplay);
-		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setVerticalScrollBarPolicy(
+				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 		tablePanel.add(scrollPane, BorderLayout.CENTER);
 	}
@@ -101,6 +107,5 @@ public class CoursePageTable extends JPanel implements WondrisInfo, ColourPalett
 	{
 		newCourseButton.addActionListener(listener);
 	}
-
 
 }

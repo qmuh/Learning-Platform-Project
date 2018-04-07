@@ -12,12 +12,12 @@ public class CourseNavigationBar extends JPanel implements WondrisInfo
 {
 	private static final long serialVersionUID = 1L;
 
-
 	private JButton enrollmentButton;
 	private JButton assignmentButton;
 	private JButton gradesButton;
-	
-	public CourseNavigationBar() {
+
+	public CourseNavigationBar()
+	{
 		this.setLayout(new GridLayout(3, 1));
 		enrollmentButton = new JButton("Enrollments");
 		assignmentButton = new JButton("Assignments");
@@ -26,26 +26,27 @@ public class CourseNavigationBar extends JPanel implements WondrisInfo
 		this.add(createButton(assignmentButton));
 		this.add(createButton(gradesButton));
 	}
-	
-	private JButton createButton(JButton b) {
+
+	private JButton createButton(JButton b)
+	{
 		b.setFont(TITLE_FONT);
-//		b.setPreferredSize(new Dimension(400, 200));
+		// b.setPreferredSize(new Dimension(400, 200));
 		return b;
 	}
-	
-	public void setEnrollmentButtonListener(ActionListener listener) 
+
+	public void setEnrollmentButtonListener(ActionListener listener)
 	{
 		enrollmentButton.addActionListener(listener);
 	}
-	
-	public void setAssignmentButtonListener(ActionListener listener) 
+
+	public void setAssignmentButtonListener(ActionListener listener)
 	{
 		assignmentButton.addActionListener(listener);
 	}
-	
-	public void setGradesButtonListener(ActionListener listener) 
+
+	public void setGradesButtonListener(ActionListener listener)
 	{
 		gradesButton.addActionListener(listener);
 	}
-	
+
 }

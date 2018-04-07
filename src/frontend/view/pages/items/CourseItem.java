@@ -23,7 +23,8 @@ import shared.objects.Course;
  * @version 1.0
  * @since April 6, 2018
  */
-public class CourseItem extends GeneralItem implements WondrisInfo, ColourPalette, GUIConstants
+public class CourseItem extends GeneralItem
+		implements WondrisInfo, ColourPalette, GUIConstants
 {
 
 	/**
@@ -37,7 +38,6 @@ public class CourseItem extends GeneralItem implements WondrisInfo, ColourPalett
 	{
 		super(BoxLayout.X_AXIS, Integer.toString(course.getId()));
 		this.setMaximumSize(new Dimension(Integer.MAX_VALUE, 70));
-
 
 		this.revalidate();
 		this.repaint();
@@ -58,7 +58,7 @@ public class CourseItem extends GeneralItem implements WondrisInfo, ColourPalett
 		active = new JButton();
 		active.setPreferredSize(new Dimension(200, 30));
 		active.setFont(TEXT_FONT);
-		if(course.getActive())
+		if (course.getActive())
 		{
 			active.setText("DEACTIVATE");
 			active.setBackground(CONTRAST_COLOR);

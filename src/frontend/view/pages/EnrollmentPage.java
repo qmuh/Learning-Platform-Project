@@ -30,7 +30,7 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private Course course;
 	private JList<Student> enrolledStudentList;
 	private JList<Student> studentSearchResults;
@@ -62,8 +62,6 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 		return searchField.getText();
 	}
 
-	
-	
 	public void setStudentSearchResultListListener(
 			ListSelectionListener listener)
 	{
@@ -88,25 +86,24 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 	public EnrollmentPage(Course course)
 	{
 		super(course);
-		this.setName(ENROLLMENT_PAGE+course.getId());
+		this.setName(ENROLLMENT_PAGE + course.getId());
 		body.add(createEnrollmentPanel(), BorderLayout.CENTER);
 
 	}
-
 
 	public void setStudentList(Vector<Student> toSet)
 	{
 		studentSearchResults.clearSelection();
 		studentSearchResults.setListData(toSet);
 	}
-	
+
 	public void setEnrolledList(Vector<Student> enrollList)
 	{
 		enrolledStudentList.clearSelection();
 		enrolledStudentList.setListData(enrollList);
-		
+
 	}
-	
+
 	private JPanel createEnrollmentPanel()
 	{
 		JPanel enrollmentPanel = new JPanel(new GridLayout(1, 2));
@@ -128,7 +125,8 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 	{
 		JPanel searchResults = new JPanel(new BorderLayout());
 		searchResults.setBorder(new EmptyBorder(20, 20, 20, 20));
-		searchResults.add(createLabel("Search Results", TEXT_FONT), BorderLayout.NORTH);
+		searchResults.add(createLabel("Search Results", TEXT_FONT),
+				BorderLayout.NORTH);
 		studentSearchResults = new JList<Student>();
 		searchResults.add(studentSearchResults, BorderLayout.CENTER);
 		return searchResults;
@@ -161,14 +159,15 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 	private JPanel createButtonGroup()
 	{
 		JPanel buttonPanel = new JPanel(new GridLayout(2, 1));
-//		buttonPanel.setAlignmentX(LEFT_ALIGNMENT);
+		// buttonPanel.setAlignmentX(LEFT_ALIGNMENT);
 		// BORDER
-		MatteBorder matteBorder = new MatteBorder(1, 1, 1, 1, ColourPalette.CONTRAST_COLOR);
-		TitledBorder titledBorder = BorderFactory.createTitledBorder(matteBorder);
+		MatteBorder matteBorder = new MatteBorder(1, 1, 1, 1,
+				ColourPalette.CONTRAST_COLOR);
+		TitledBorder titledBorder = BorderFactory
+				.createTitledBorder(matteBorder);
 		titledBorder.setTitle("Search");
 		titledBorder.setTitleFont(TEXT_FONT);
 		buttonPanel.setBorder(titledBorder);
-		
 
 		id = new JRadioButton("ID");
 		lastName = new JRadioButton("Last Name");
@@ -197,7 +196,8 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 	{
 		JPanel enrollList = new JPanel(new BorderLayout());
 		// TODO: Fix label font addstatic enrolled student string
-		enrollList.add(createLabel("Enrolled Students", TEXT_FONT), BorderLayout.NORTH);
+		enrollList.add(createLabel("Enrolled Students", TEXT_FONT),
+				BorderLayout.NORTH);
 		enrollList.add(createEnrolledStudentList(), BorderLayout.CENTER);
 
 		return enrollList;
@@ -228,6 +228,5 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-
 
 }

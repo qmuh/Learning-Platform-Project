@@ -25,12 +25,13 @@ public class SubmissionTable extends Table<Submission>
 	@Override
 	public void add(Submission toAdd)
 	{
-		String sql = "INSERT INTO " + tableName +
-				" VALUES" + "(?,?,?,?,?,?,?,?)";
-		try{
-			
+		String sql = "INSERT INTO " + tableName + " VALUES"
+				+ "(?,?,?,?,?,?,?,?)";
+		try
+		{
+
 			preparedStatement = dbConnection.prepareStatement(sql);
-			preparedStatement.setInt(1,toAdd.getId());
+			preparedStatement.setInt(1, toAdd.getId());
 			preparedStatement.setInt(2, toAdd.getAssign_id());
 			preparedStatement.setInt(3, toAdd.getStudent_id());
 			preparedStatement.setString(4, toAdd.getPath());
@@ -39,43 +40,41 @@ public class SubmissionTable extends Table<Submission>
 			preparedStatement.setString(7, toAdd.getComment());
 			preparedStatement.setString(8, toAdd.getTimestamp());
 			preparedStatement.executeUpdate();
-			
+
 			System.out.println("Added Grade ");
-		}
-		catch(SQLException e)
+		} catch (SQLException e)
 		{
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
 	public void createTable()
 	{
-		String sql = "CREATE TABLE " + tableName + "(" +
-			     "ID INT(8) NOT NULL, " +
-			     "ASSIGNID INT(8) NOT NULL, " + 
-			     "STUDENTID INT(8) NOT NULL, " + 
-			     "PATH VARCHAR(100) NOT NULL, " + 
-			     "TITLE VARCHAR(50) NOT NULL, " + 
-			     "SUBMISSION_GRADE INT(3) NOT NULL," +
-			     "COMMENT VARCHAR(140) NOT NULL, " + 
-			     "TIMESTAMP VARCHAR(16) NOT NULL, " + 
-			     "PRIMARY KEY ( id ) )";
-		
-		try{
+		String sql = "CREATE TABLE " + tableName + "(" + "ID INT(8) NOT NULL, "
+				+ "ASSIGNID INT(8) NOT NULL, " + "STUDENTID INT(8) NOT NULL, "
+				+ "PATH VARCHAR(100) NOT NULL, "
+				+ "TITLE VARCHAR(50) NOT NULL, "
+				+ "SUBMISSION_GRADE INT(3) NOT NULL,"
+				+ "COMMENT VARCHAR(140) NOT NULL, "
+				+ "TIMESTAMP VARCHAR(16) NOT NULL, " + "PRIMARY KEY ( id ) )";
+
+		try
+		{
 			preparedStatement = dbConnection.prepareStatement(sql);
 			preparedStatement.executeUpdate();
 			System.out.println("Created Table " + tableName);
-		}
-		catch(SQLException e)
+		} catch (SQLException e)
 		{
 			e.printStackTrace();
 		}
-		
+
 	}
 
-	/** Used by professor to look at submission by a specific student
+	/**
+	 * Used by professor to look at submission by a specific student
+	 * 
 	 * @param studentID
 	 * @return
 	 */
@@ -84,32 +83,36 @@ public class SubmissionTable extends Table<Submission>
 		Vector<Submission> studentSubmissons = new Vector<Submission>();
 		String sql = "SELECT * FROM " + tableName + " WHERE STUDENTID= ? ";
 		ResultSet submission;
-		try {
+		try
+		{
 			preparedStatement = dbConnection.prepareStatement(sql);
 			preparedStatement.setInt(1, studentID);
 			submission = preparedStatement.executeQuery();
-			if(submission.next())
+			if (submission.next())
 			{
-				
-					studentSubmissons.add(new Submission(submission.getInt("ID"),
-								submission.getInt("ASSIGNID"), 
-								submission.getInt("STUDENTID"),
-								submission.getString("PATH"),
-								submission.getInt("SUBMISSION_GRADE"),
-								submission.getString("COMMENT"),
-								submission.getString("TITLE"),
-								submission.getString("TIMESTAMP")));	
+
+				studentSubmissons.add(new Submission(submission.getInt("ID"),
+						submission.getInt("ASSIGNID"),
+						submission.getInt("STUDENTID"),
+						submission.getString("PATH"),
+						submission.getInt("SUBMISSION_GRADE"),
+						submission.getString("COMMENT"),
+						submission.getString("TITLE"),
+						submission.getString("TIMESTAMP")));
 			}
-		
-		} catch (SQLException e) { e.printStackTrace(); }
-		
+
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+
 		return studentSubmissons;
-	
-		
+
 	}
 
-	/** Used by professor to see all submissions for a specific
-	 *  assignment
+	/**
+	 * Used by professor to see all submissions for a specific assignment
+	 * 
 	 * @param assignID
 	 * @return
 	 */
@@ -118,27 +121,31 @@ public class SubmissionTable extends Table<Submission>
 		Vector<Submission> assignSubmissons = new Vector<Submission>();
 		String sql = "SELECT * FROM " + tableName + " WHERE ASSIGNID= ? ";
 		ResultSet submission;
-		try {
+		try
+		{
 			preparedStatement = dbConnection.prepareStatement(sql);
 			preparedStatement.setInt(1, assignID);
 			submission = preparedStatement.executeQuery();
-			if(submission.next())
+			if (submission.next())
 			{
-				
-					assignSubmissons.add(new Submission(submission.getInt("ID"),
-								submission.getInt("ASSIGNID"), 
-								submission.getInt("STUDENTID"),
-								submission.getString("PATH"),
-								submission.getInt("SUBMISSION_GRADE"),
-								submission.getString("COMMENT"),
-								submission.getString("TITLE"),
-								submission.getString("TIMESTAMP")));	
+
+				assignSubmissons.add(new Submission(submission.getInt("ID"),
+						submission.getInt("ASSIGNID"),
+						submission.getInt("STUDENTID"),
+						submission.getString("PATH"),
+						submission.getInt("SUBMISSION_GRADE"),
+						submission.getString("COMMENT"),
+						submission.getString("TITLE"),
+						submission.getString("TIMESTAMP")));
 			}
-		
-		} catch (SQLException e) { e.printStackTrace(); }
-		
+
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+
 		return assignSubmissons;
-		
+
 	}
 
 }

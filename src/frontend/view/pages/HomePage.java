@@ -38,7 +38,8 @@ public class HomePage extends Page<CourseItem, Course>
 		((CoursePageTable) body).setNewCourseListener(listener);
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 		JFrame frame = new JFrame("Testing");
 		frame.setSize(1600, 1000);
 		frame.add(new HomePage());

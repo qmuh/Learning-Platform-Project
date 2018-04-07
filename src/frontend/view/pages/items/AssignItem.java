@@ -46,7 +46,6 @@ public class AssignItem extends GeneralItem
 		assignmentActive.addActionListener(listener);
 	}
 
-
 	@Override
 	public int getId()
 	{

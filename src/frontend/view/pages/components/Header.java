@@ -20,7 +20,8 @@ import frontend.view.pages.NavigationBar;
  * @version 1.0
  * @since April 6, 2018
  */
-public class Header extends JPanel implements GUIConstants, ColourPalette, WondrisInfo
+public class Header extends JPanel
+		implements GUIConstants, ColourPalette, WondrisInfo
 {
 	/**
 	 * 
@@ -39,24 +40,26 @@ public class Header extends JPanel implements GUIConstants, ColourPalette, Wondr
 		this.add(createTitle(""), 1);
 		this.add(navigationBar, 2);
 	}
-	
-	public JLabel createTitle(String title) {
+
+	public JLabel createTitle(String title)
+	{
 		JLabel theTitle = new JLabel(title);
 		theTitle.setFont(TITLE_FONT);
 		theTitle.setForeground(Color.WHITE);
 		return theTitle;
 	}
-	
-	public void setTitle(String title) {
+
+	public void setTitle(String title)
+	{
 		this.remove(1);
 		this.add(createTitle(title), 1);
 	}
-	
+
 	public void setBackButtonListener(ActionListener listener)
 	{
 		navigationBar.setBackButtonListener(listener);
 	}
-	
+
 	public void setHomeButtonListener(ActionListener listener)
 	{
 		navigationBar.setHomeButtonListener(listener);

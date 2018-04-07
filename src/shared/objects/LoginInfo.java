@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class LoginInfo implements Serializable
 {
-	
+
 	/**
 	 * The current version of this class.
 	 */
@@ -14,12 +14,12 @@ public class LoginInfo implements Serializable
 	 * The integer id for the person logging in
 	 */
 	private int username;
-	
+
 	/**
 	 * The password for the user
 	 */
 	private String password;
-	
+
 	public LoginInfo(int user, String pass)
 	{
 		username = user;
@@ -41,7 +41,4 @@ public class LoginInfo implements Serializable
 		return password;
 	}
 
-	
-	
-	
 }

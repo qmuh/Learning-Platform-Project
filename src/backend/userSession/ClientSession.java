@@ -97,7 +97,8 @@ public abstract class ClientSession implements Runnable, DatabaseCommands
 	 * Interprets the message sent by the client. Returns a boolean to denote
 	 * whether the session is still active.
 	 * 
-	 * @param command the command to execute
+	 * @param command
+	 *            the command to execute
 	 * @return true until the client logs off
 	 */
 	abstract boolean interpretMessage(SendMessage<?> command);

@@ -17,6 +17,7 @@ public class StudentSession extends ClientSession
 {
 
 	private Student user;
+
 	public StudentSession(Socket socket)
 	{
 		super(socket);
@@ -26,35 +27,35 @@ public class StudentSession extends ClientSession
 	{
 		user = toSet;
 	}
-	
+
 	@Override
 	public void write()
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	boolean interpretMessage(SendMessage command)
 	{
 		String interpreter[] = command.getCommand().split(" ");
-		
-		if(interpreter[0].equals("INSERT"))
+
+		if (interpreter[0].equals("INSERT"))
 		{
-			handleInsert(interpreter,command.getmessageObject());
+			handleInsert(interpreter, command.getmessageObject());
 		}
-		
-		else if(interpreter[0].equals("REMOVE"))
+
+		else if (interpreter[0].equals("REMOVE"))
 		{
-			
+
 		}
-		
-		else if(interpreter[0].equals("RECEIVE"))
+
+		else if (interpreter[0].equals("RECEIVE"))
 		{
 			handleRecieve(interpreter, command.getmessageObject());
 		}
-		
-		else if(interpreter[0].equals("MODIFY"))
+
+		else if (interpreter[0].equals("MODIFY"))
 		{
 			handleModify(interpreter, command.getmessageObject());
 		} else if (interpreter[0].equals("LOGOUT"))
@@ -62,24 +63,24 @@ public class StudentSession extends ClientSession
 			return false;
 		}
 		return true;
-		
+
 	}
 
 	private void handleModify(String[] interpreter, Object getmessageObject)
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	private void handleRecieve(String[] interpreter, Object getmessageObject)
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	private void handleInsert(String[] interpreter, Object getmessageObject)
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 }

@@ -17,15 +17,16 @@ public class WButton extends JButton
 	 * The version of the class.
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * The identification number of the button used for identification.
+	 * 
 	 * @see HasButtons interface.
 	 */
 	private static int WBUTTON_ID = 0;
-	
+
 	private int id;
-	
+
 	public WButton()
 	{
 		super();
@@ -37,9 +38,10 @@ public class WButton extends JButton
 		super(string);
 		id = WBUTTON_ID++;
 	}
-	
+
 	/**
 	 * Returns the unique identification number of this button.
+	 * 
 	 * @return
 	 */
 	public int getId()

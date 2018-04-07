@@ -165,7 +165,7 @@ public class ProfessorGUI extends PageNavigator
 				createAssignItem(course, assignmentPage, assignment);
 			}
 
-			//assignmentPage.setAssignmentVector(myList);
+			// assignmentPage.setAssignmentVector(myList);
 		} catch (IOException e)
 		{
 			e.printStackTrace();
@@ -346,7 +346,7 @@ public class ProfessorGUI extends PageNavigator
 
 			JTextField courseName = new JTextField(30);
 			Object[] toDisplay =
-				{ "Enter the preferred Course Name", courseName };
+			{ "Enter the preferred Course Name", courseName };
 
 			int response = JOptionPane.showConfirmDialog(null, toDisplay,
 					"Insert node information", JOptionPane.OK_CANCEL_OPTION);
@@ -392,7 +392,7 @@ public class ProfessorGUI extends PageNavigator
 		{
 			try
 			{
-				JButton activeButton = (JButton)e.getSource();
+				JButton activeButton = (JButton) e.getSource();
 				if (course.getActive())
 				{
 					clientController.onlySendMessage(
@@ -406,14 +406,14 @@ public class ProfessorGUI extends PageNavigator
 					activeButton.setText("DEACTIVATE");
 					activeButton.setBackground(CONTRAST_COLOR);
 				}
-			
+
 				course.setActive();
 			} catch (IOException e1)
 			{
 				System.out.println("Unable to change the course active state");
 				e1.printStackTrace();
 			}
-			
+
 		}
 
 	}
@@ -497,6 +497,7 @@ public class ProfessorGUI extends PageNavigator
 		{
 			this.assignment = course;
 		}
+
 		// FIX THIS TODO: QASIM
 		@Override
 		public void actionPerformed(ActionEvent e)
@@ -525,7 +526,6 @@ public class ProfessorGUI extends PageNavigator
 		}
 	}
 
-
 	/**
 	 * Listener for the upload button on the assignment page
 	 *
@@ -548,7 +548,7 @@ public class ProfessorGUI extends PageNavigator
 			if (assignmentPage.getFile() != null)
 			{
 				Assignment myUpload = new Assignment(course.getId(),
-						append[append.length -1],
+						append[append.length - 1],
 						assignmentPage.getUploadField().getText(), false,
 						assignmentPage.getDate().toString());
 				try
@@ -569,7 +569,7 @@ public class ProfessorGUI extends PageNavigator
 					clientController.getObjectOut().flush();
 
 					createAssignItem(course, assignmentPage, myUpload);
-//					showAllAssignments(course, assignmentPage);
+					// showAllAssignments(course, assignmentPage);
 
 				} catch (IOException e1)
 				{
@@ -580,7 +580,6 @@ public class ProfessorGUI extends PageNavigator
 		}
 
 	}
-
 
 	/**
 	 * Listener for the browse button on the assignment page

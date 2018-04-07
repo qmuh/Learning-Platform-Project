@@ -19,10 +19,10 @@ public class CoursePage<T extends Box, U> extends Page<T, U>
 	public CoursePage(Course course)
 	{
 		super();
-		
+
 		this.course = course;
 		this.setName(COURSE_PAGE + course.getId());
-		this.header.setTitle(course.getName());		
+		this.header.setTitle(course.getName());
 
 		courseNavigationBar = new CourseNavigationBar();
 		body = new JPanel();
@@ -30,18 +30,18 @@ public class CoursePage<T extends Box, U> extends Page<T, U>
 		body.add(courseNavigationBar, BorderLayout.EAST);
 		add(body);
 	}
-	
-	public void setEnrollmentButtonListener(ActionListener listener) 
+
+	public void setEnrollmentButtonListener(ActionListener listener)
 	{
 		courseNavigationBar.setEnrollmentButtonListener(listener);
-	} 
-	
-	public void setAssignmentButtonListener(ActionListener listener) 
+	}
+
+	public void setAssignmentButtonListener(ActionListener listener)
 	{
 		courseNavigationBar.setAssignmentButtonListener(listener);
 	}
-	
-	public void setGradesButtonListener(ActionListener listener) 
+
+	public void setGradesButtonListener(ActionListener listener)
 	{
 		courseNavigationBar.setGradesButtonListener(listener);
 	}

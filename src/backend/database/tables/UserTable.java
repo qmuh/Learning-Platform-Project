@@ -130,8 +130,7 @@ public class UserTable extends Table<User> implements UserInfo
 
 				return new Student(user.getInt("ID"),
 						user.getString("FIRSTNAME"), user.getString("LASTNAME"),
-						user.getString("EMAIL"),
-						user.getString("PASSWORD"));
+						user.getString("EMAIL"), user.getString("PASSWORD"));
 			}
 
 		} catch (SQLException e)
@@ -160,8 +159,7 @@ public class UserTable extends Table<User> implements UserInfo
 			{
 				userList.add(new Student(user.getInt("ID"),
 						user.getString("FIRSTNAME"), user.getString("LASTNAME"),
-						user.getString("EMAIL"),
-						user.getString("PASSWORD")));
+						user.getString("EMAIL"), user.getString("PASSWORD")));
 			}
 
 		} catch (SQLException e)
@@ -186,8 +184,7 @@ public class UserTable extends Table<User> implements UserInfo
 			{
 				userList.add(new Student(user.getInt("ID"),
 						user.getString("FIRSTNAME"), user.getString("LASTNAME"),
-						user.getString("EMAIL"),
-						user.getString("PASSWORD")));
+						user.getString("EMAIL"), user.getString("PASSWORD")));
 			}
 
 		} catch (SQLException e)

@@ -22,7 +22,8 @@ import frontend.view.pages.components.Header;
  * @version 1.0
  * @since April 6, 2018
  */
-public abstract class Page <T extends Box, U> extends JPanel implements PageNames, WondrisInfo
+public abstract class Page<T extends Box, U> extends JPanel
+		implements PageNames, WondrisInfo
 {
 
 	private static final long serialVersionUID = 1L;
@@ -31,8 +32,8 @@ public abstract class Page <T extends Box, U> extends JPanel implements PageName
 	protected JPanel body;
 	protected ArrayList<U> itemList;
 	protected BoxList<T> itemDisplay;
-//	protected StudentGUI studentGUI;
-//	protected ProfessorGUI professorGUI;
+	// protected StudentGUI studentGUI;
+	// protected ProfessorGUI professorGUI;
 
 	public Page()
 	{
@@ -79,7 +80,7 @@ public abstract class Page <T extends Box, U> extends JPanel implements PageName
 		header.setBackButtonListener(listener);
 	}
 
-	public void addToBoxList(T item )
+	public void addToBoxList(T item)
 	{
 		itemDisplay.add(item);
 	}

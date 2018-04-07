@@ -19,7 +19,7 @@ public class SubmissionPage extends Page<SubmitItem, Submission>
 	private Course course;
 	private Assignment assignment;
 	private Submission submission;
-	
+
 	public SubmissionPage(BoxList<SubmitItem> boxList)
 	{
 		super();
@@ -29,6 +29,6 @@ public class SubmissionPage extends Page<SubmitItem, Submission>
 	public void displayPage()
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 }

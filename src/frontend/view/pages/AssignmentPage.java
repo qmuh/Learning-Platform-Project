@@ -57,11 +57,10 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 		selectedFile = toSet;
 	}
 
-
 	public String getDate()
 	{
 
-		return year.getText() + " " + month.getText() + " " +day.getText();
+		return year.getText() + " " + month.getText() + " " + day.getText();
 
 	}
 

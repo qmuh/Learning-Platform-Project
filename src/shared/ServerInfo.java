@@ -1,6 +1,5 @@
 package shared;
 
-
 /**
  * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
@@ -12,6 +11,6 @@ public interface ServerInfo
 {
 
 	public static final String HOST_NAME = "localhost";
-	
+
 	public static final int PORT_NUMBER = 8992;
 }

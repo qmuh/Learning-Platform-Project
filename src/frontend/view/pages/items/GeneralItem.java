@@ -20,10 +20,10 @@ public abstract class GeneralItem extends Box
 	public GeneralItem(int axis, String name)
 	{
 		super(axis);
-		
+
 		this.setName(name);
 	}
-	
+
 	public abstract int getId();
 
 }

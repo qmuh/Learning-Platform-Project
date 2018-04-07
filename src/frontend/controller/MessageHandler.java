@@ -15,20 +15,20 @@ public class MessageHandler
 {
 
 	private Client myClient;
-	
-	public void sendFile(File toSend) 
+
+	public void sendFile(File toSend)
 	{
-		
-	}
-	
-	public void SendMessage(SendMessage message)
-	{
-		
+
 	}
 
-	public Object receiveMessage() 
+	public void SendMessage(SendMessage message)
 	{
-		
+
+	}
+
+	public Object receiveMessage()
+	{
+
 		return null;
 	}
 }

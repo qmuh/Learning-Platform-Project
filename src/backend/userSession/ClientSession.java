@@ -70,7 +70,7 @@ public abstract class ClientSession implements Runnable, DatabaseCommands
 			{
 				SendMessage<?> newMessage = (SendMessage<?>) objectInputStream
 						.readObject();
-				interpretMessage(newMessage);
+				isRunning = interpretMessage(newMessage);
 			} catch (IOException | ClassNotFoundException e)
 			{
 				e.printStackTrace();
@@ -86,7 +86,7 @@ public abstract class ClientSession implements Runnable, DatabaseCommands
 		this.database = database;
 	}
 
-	abstract void interpretMessage(SendMessage<?> command);
+	abstract boolean interpretMessage(SendMessage<?> command);
 
 	abstract public void write();
 

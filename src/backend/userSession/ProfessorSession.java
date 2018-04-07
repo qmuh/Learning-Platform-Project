@@ -20,7 +20,7 @@ public class ProfessorSession extends ClientSession
 	{
 		this.professor = professor;
 	}
-	
+
 	@Override
 	public void write()
 	{
@@ -29,7 +29,7 @@ public class ProfessorSession extends ClientSession
 	}
 
 	@Override
-	void interpretMessage(SendMessage<?> command)
+	boolean interpretMessage(SendMessage<?> command)
 	{
 		String interpreter[] = command.getCommand().split(" ");
 
@@ -51,7 +51,12 @@ public class ProfessorSession extends ClientSession
 		else if (interpreter[0].equals("MODIFY"))
 		{
 			handleModify(interpreter, command.getmessageObject());
+		} else if (interpreter[0].equals("LOGOUT"))
+		{
+			return false;
 		}
+		
+		return true;
 	}
 
 	private void handleModify(String[] interpreter, Object getmessageObject)
@@ -141,8 +146,7 @@ public class ProfessorSession extends ClientSession
 
 		if (interpreter[1].equals("ASSIGNMENT"))
 		{
-			database.getAssignmentTable()
-					.add(((Assignment) getmessageObject));
+			database.getAssignmentTable().add(((Assignment) getmessageObject));
 			byte[] file;
 			try
 			{

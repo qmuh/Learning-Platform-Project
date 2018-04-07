@@ -110,32 +110,32 @@ public class ProfessorSession extends ClientSession
 				Vector<Course> myCourses = database.getCourseTable()
 						.searchByProfId(professor.getId());
 
-				objectOutputStream.writeObject(myCourses);
-				objectOutputStream.flush();
+				objectOut.writeObject(myCourses);
+				objectOut.flush();
 			}
 
 			if (interpreter[1].equals("STUDENTBYID"))
 			{
 				Student myEnrolledStudents = (Student) database.getUserTable()
 						.getUserByID(((int) getMessage));
-				objectOutputStream.writeObject(myEnrolledStudents);
-				objectOutputStream.flush();
+				objectOut.writeObject(myEnrolledStudents);
+				objectOut.flush();
 			}
 
 			if (interpreter[1].equals("STUDENTBYLAST"))
 			{
 				Vector<Student> myEnrolledStudents = database.getUserTable()
 						.searchLastName(((String) getMessage));
-				objectOutputStream.writeObject(myEnrolledStudents);
-				objectOutputStream.flush();
+				objectOut.writeObject(myEnrolledStudents);
+				objectOut.flush();
 			}
 
 			if (interpreter[1].equals("ALLSTUDENTS"))
 			{
 				Vector<Student> allStudents = database.getUserTable()
 						.allStudents();
-				objectOutputStream.writeObject(allStudents);
-				objectOutputStream.flush();
+				objectOut.writeObject(allStudents);
+				objectOut.flush();
 			}
 
 			if (interpreter[1].equals("ALLENROLLED"))
@@ -148,16 +148,16 @@ public class ProfessorSession extends ClientSession
 					enrolledStudent.add((Student) database.getUserTable()
 							.getUserByID(enrolled.get(i)));
 				}
-				objectOutputStream.writeObject(enrolledStudent);
-				objectOutputStream.flush();
+				objectOut.writeObject(enrolledStudent);
+				objectOut.flush();
 			}
 
 			if (interpreter[1].equals("ALLASSIGNMENTS"))
 			{
 				Vector<Assignment> allStudents = database.getAssignmentTable()
 						.getAllAssignments(((Course) getMessage).getId());
-				objectOutputStream.writeObject(allStudents);
-				objectOutputStream.flush();
+				objectOut.writeObject(allStudents);
+				objectOut.flush();
 			}
 
 		} catch (IOException e)
@@ -195,7 +195,7 @@ public class ProfessorSession extends ClientSession
 			byte[] file;
 			try
 			{
-				file = (byte[]) objectInputStream.readObject();
+				file = (byte[]) objectIn.readObject();
 				fileHelper.storeFile(file, ((Assignment) getmessageObject));
 			} catch (ClassNotFoundException | IOException e)
 			{

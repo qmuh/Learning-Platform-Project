@@ -29,12 +29,12 @@ public abstract class ClientSession implements Runnable, DatabaseCommands
 	/**
 	 * Used for sending serialized objects
 	 */
-	protected ObjectOutputStream objectOutputStream;
+	protected ObjectOutputStream objectOut;
 
 	/**
 	 * Used for receiving serialized objects
 	 */
-	protected ObjectInputStream objectInputStream;
+	protected ObjectInputStream objectIn;
 
 	/**
 	 * Database used by the server
@@ -56,9 +56,8 @@ public abstract class ClientSession implements Runnable, DatabaseCommands
 		this.socket = socket;
 		try
 		{
-			objectOutputStream = new ObjectOutputStream(
-					socket.getOutputStream());
-			objectInputStream = new ObjectInputStream(socket.getInputStream());
+			objectOut = new ObjectOutputStream(socket.getOutputStream());
+			objectIn = new ObjectInputStream(socket.getInputStream());
 			fileHelper = new FileHelper();
 			emailHelper = new EmailHelper();
 		} catch (IOException e)
@@ -75,7 +74,7 @@ public abstract class ClientSession implements Runnable, DatabaseCommands
 		{
 			try
 			{
-				SendMessage<?> newMessage = (SendMessage<?>) objectInputStream
+				SendMessage<?> newMessage = (SendMessage<?>) objectIn
 						.readObject();
 				isRunning = interpretMessage(newMessage);
 			} catch (IOException | ClassNotFoundException e)

@@ -125,7 +125,7 @@ public class AssignmentTable extends Table<Assignment> implements Activable
 		}
 		return userList;
 	}
-	
+
 	@Override
 	public void setActive(int assignID, boolean isActive)
 	{

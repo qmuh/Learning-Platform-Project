@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import shared.UserInfo;
+import shared.interfaces.UserInfo;
 import shared.objects.Professor;
 import shared.objects.Student;
 import shared.objects.User;

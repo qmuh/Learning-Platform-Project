@@ -17,7 +17,7 @@ import backend.database.tables.GradeTable;
 import backend.database.tables.StudentEnrollmentTable;
 import backend.database.tables.SubmissionTable;
 import backend.database.tables.UserTable;
-import shared.UserInfo;
+import shared.interfaces.UserInfo;
 import shared.objects.Course;
 import shared.objects.Professor;
 import shared.objects.Student;

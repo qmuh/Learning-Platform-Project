@@ -2,7 +2,7 @@ package shared.objects;
 
 import java.io.Serializable;
 
-import shared.UserInfo;
+import shared.interfaces.UserInfo;
 
 public abstract class User implements Serializable, UserInfo
 {

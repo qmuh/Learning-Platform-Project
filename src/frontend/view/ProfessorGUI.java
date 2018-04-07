@@ -23,6 +23,7 @@ import frontend.view.pages.HomePage;
 import frontend.view.pages.components.PageNavigator;
 import frontend.view.pages.items.AssignItem;
 import frontend.view.pages.items.CourseItem;
+import shared.interfaces.ProfessorCommands;
 import shared.objects.Assignment;
 import shared.objects.Course;
 import shared.objects.Professor;
@@ -38,7 +39,7 @@ import shared.objects.StudentEnrollment;
  * @version 1.0
  * @since April 6, 2018
  */
-public class ProfessorGUI extends PageNavigator
+public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 {
 	private static final long serialVersionUID = 1L;
 

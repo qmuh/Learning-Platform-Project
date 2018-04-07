@@ -1,6 +1,14 @@
-package backend.userSession;
+package shared.interfaces;
 
-interface ProfessorCommands extends UserCommands
+/**
+ * An interface that stores all available professor commands.
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 7, 2018
+ */
+public interface ProfessorCommands extends UserCommands
 {
 	public static final String RETRIEVE_COURSES = "COURSES";
 

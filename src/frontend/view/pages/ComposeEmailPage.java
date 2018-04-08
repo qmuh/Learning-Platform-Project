@@ -165,5 +165,4 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 		studentListPanel.add(theButton, BorderLayout.SOUTH);
 		return studentListPanel;
 	}
-	
 }

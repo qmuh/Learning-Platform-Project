@@ -146,8 +146,10 @@ public class ProfessorGUI extends PageNavigator
 				new EnrollmentButtonListener(course));
 		assignmentPage.setAssignmentButtonListener(
 				new AssignmentButtonListener(course));
-		assignmentPage
-				.setSubmissionButtonListener(new SubmissionButtonListener(course));
+		assignmentPage.setSubmissionButtonListener(
+				new SubmissionButtonListener(course));
+		assignmentPage.setComposeEmailButtonListener(
+				new ComposeEmailButtonListener(course));
 		this.addPage(assignmentPage, assignmentPage.getName());
 		assignmentPage.setUploadButtonListener(
 				new UploadButtonListener(course, assignmentPage));
@@ -159,10 +161,21 @@ public class ProfessorGUI extends PageNavigator
 	private void createComposeEmailPage(Course course)
 	{
 		ComposeEmailPage composeEmailPage = new ComposeEmailPage(course);
-		composeEmailPage.setSendToAllButtonListener(new SendToAllButtonListener(course));
-		composeEmailPage.setSendButtonListener(new SendButtonListener(course));
-		composeEmailPage.setAddToEmailButtonListener(new AddToEmailButtonListener(course));
+		composeEmailPage.setEnrollmentButtonListener(
+				new EnrollmentButtonListener(course));
+		composeEmailPage.setAssignmentButtonListener(
+				new AssignmentButtonListener(course));
+		composeEmailPage.setSubmissionButtonListener(
+				new SubmissionButtonListener(course));
+		composeEmailPage.setComposeEmailButtonListener(
+				new ComposeEmailButtonListener(course));
 		this.addPage(composeEmailPage, composeEmailPage.getName());
+		composeEmailPage.setSendToAllButtonListener(
+				new SendToAllButtonListener(course));
+		composeEmailPage.setSendButtonListener(
+				new SendButtonListener(course));
+		composeEmailPage.setAddToEmailButtonListener(
+				new AddToEmailButtonListener(course));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -204,8 +217,10 @@ public class ProfessorGUI extends PageNavigator
 				new EnrollmentButtonListener(course));
 		enrollmentPage.setAssignmentButtonListener(
 				new AssignmentButtonListener(course));
-		enrollmentPage
-				.setSubmissionButtonListener(new SubmissionButtonListener(course));
+		enrollmentPage.setSubmissionButtonListener(
+				new SubmissionButtonListener(course));
+		enrollmentPage.setComposeEmailButtonListener(
+				new ComposeEmailButtonListener(course));
 		this.addPage(enrollmentPage, enrollmentPage.getName());
 		enrollmentPage.setSearchButtonListener(
 				new SearchButtonListener(enrollmentPage));

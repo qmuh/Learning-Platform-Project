@@ -95,7 +95,6 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 
 	private JScrollPane createAssignmentList()
 	{
-		// TODO: Add default list model to JList
 		itemDisplay = new BoxList<AssignItem>();
 		JScrollPane scrollPane = new JScrollPane(itemDisplay);
 		scrollPane.setVerticalScrollBarPolicy(

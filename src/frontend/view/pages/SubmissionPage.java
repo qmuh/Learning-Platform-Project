@@ -5,7 +5,6 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import frontend.view.pages.components.BoxList;
 import frontend.view.pages.items.SubmitItem;
 import shared.objects.Assignment;
 import shared.objects.Course;

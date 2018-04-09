@@ -35,14 +35,16 @@ public class CoursePage<T extends Box, U> extends Page<T, U>
 		add(body);
 	}
 
-	protected void setPageTitle(String s) {
+	protected void setPageTitle(String s)
+	{
 		bodyCenter = new JPanel(new BorderLayout());
 		JPanel theTitle = new JPanel(new GridLayout(1, 1));
 		JLabel title = new JLabel(s);
 		title.setFont(TITLE_FONT);
 		title.setHorizontalAlignment(JLabel.LEFT);
 		theTitle.add(title);
-		theTitle.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, BACKGROUND_COLOUR));
+		theTitle.setBorder(
+				BorderFactory.createMatteBorder(0, 0, 2, 0, BACKGROUND_COLOUR));
 		bodyCenter.add(theTitle, BorderLayout.NORTH);
 		body.add(bodyCenter, BorderLayout.CENTER);
 	}

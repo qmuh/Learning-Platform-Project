@@ -3,12 +3,10 @@ package frontend.view.pages;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -34,7 +32,7 @@ public class MyEmailsPage extends CoursePage
 		setPageTitle("My Emails");
 		bodyCenter.add(createMyEmailsPage(), BorderLayout.CENTER);
 	}
-	
+
 	private JPanel createMyEmailsPage()
 	{
 		JPanel myEmailsPanel = new JPanel(new BorderLayout());
@@ -42,7 +40,7 @@ public class MyEmailsPage extends CoursePage
 		myEmailsPanel.add(createTheEmail(), BorderLayout.CENTER);
 		return myEmailsPanel;
 	}
-	
+
 	private JPanel createEmailList()
 	{
 		JPanel emailList = new JPanel(new BorderLayout());
@@ -52,7 +50,7 @@ public class MyEmailsPage extends CoursePage
 		emailList.add(scrollPane, BorderLayout.CENTER);
 		return emailList;
 	}
-	
+
 	private JPanel createTheEmail()
 	{
 		JPanel theEmail = new JPanel(new BorderLayout());
@@ -62,7 +60,7 @@ public class MyEmailsPage extends CoursePage
 		theEmail.add(createButtonPanel(), BorderLayout.SOUTH);
 		return theEmail;
 	}
-	
+
 	private JPanel createEmailFields()
 	{
 		JPanel emailFieldPanel = new JPanel(new BorderLayout());
@@ -78,17 +76,18 @@ public class MyEmailsPage extends CoursePage
 		emailFieldPanel.add(textFields, BorderLayout.WEST);
 		return emailFieldPanel;
 	}
-	
+
 	private JPanel createTextField(String s, JTextField field)
 	{
 		JPanel textFieldPanel = new JPanel();
 		textFieldPanel.setBorder(BorderFactory.createEmptyBorder(3, 0, 3, 0));
-		textFieldPanel.setLayout(new BoxLayout(textFieldPanel, BoxLayout.X_AXIS));
+		textFieldPanel
+				.setLayout(new BoxLayout(textFieldPanel, BoxLayout.X_AXIS));
 		textFieldPanel.add(createLabel(s, SUB_TITLE_FONT));
 		textFieldPanel.add(field);
 		return textFieldPanel;
 	}
-	
+
 	private JPanel createEmailArea()
 	{
 		JPanel emailAreaPanel = new JPanel(new BorderLayout());
@@ -105,7 +104,8 @@ public class MyEmailsPage extends CoursePage
 	{
 		JPanel buttonPanel = new JPanel(new BorderLayout());
 		replyButton = new JButton();
-		buttonPanel.add(createButton(replyButton, "Reply", TEXT_FONT), BorderLayout.EAST);
+		buttonPanel.add(createButton(replyButton, "Reply", TEXT_FONT),
+				BorderLayout.EAST);
 		return buttonPanel;
 	}
 

@@ -8,9 +8,7 @@ import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
-import javax.swing.DefaultListSelectionModel;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -87,7 +85,7 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 	public EnrollmentPage(Course course)
 	{
 		super(course);
-		this.setName(ENROLLMENT_PAGE+course.getId());
+		this.setName(ENROLLMENT_PAGE + course.getId());
 		setPageTitle("Enrollments");
 		bodyCenter.add(createEnrollmentPanel(), BorderLayout.CENTER);
 	}

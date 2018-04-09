@@ -4,21 +4,19 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import frontend.interfaces.WondrisInfo;
-import shared.objects.Course;
 
 public class CourseNavigationBar extends JPanel implements WondrisInfo
 {
 	private static final long serialVersionUID = 1L;
 
+	private JButton assignmentButton, submissionButton, enrollmentButton,
+			myEmailButton, composeEmailButton;
 
-	private JButton assignmentButton, submissionButton, enrollmentButton, myEmailButton, composeEmailButton;
-
-
-	public CourseNavigationBar() {
+	public CourseNavigationBar()
+	{
 		this.setLayout(new GridLayout(5, 1));
 		assignmentButton = new JButton("Assignments");
 		submissionButton = new JButton("Submissions");

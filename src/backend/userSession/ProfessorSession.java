@@ -7,6 +7,8 @@ import java.util.Vector;
 import shared.interfaces.ProfessorCommands;
 import shared.objects.Assignment;
 import shared.objects.Course;
+import shared.objects.EmailInfo;
+import shared.objects.LoginInfo;
 import shared.objects.Professor;
 import shared.objects.SendMessage;
 import shared.objects.Student;
@@ -67,7 +69,11 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 		{
 			handleModify(interpreter[1], command.getmessageObject());
 
-		} else if (commandType.equals(CMD_LOGOUT))
+		} else if(commandType.equals(CMD_EMAIL)) { 
+		
+			super.handleEmail((EmailInfo)command.getmessageObject());
+		
+		}else if (commandType.equals(CMD_LOGOUT))
 		{
 			return false;
 
@@ -180,17 +186,17 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 			System.out.println(
 					"Adding course " + ((Course) getmessageObject).getName()
 							+ " for Prof: " + professor.getFirstName());
-			
+
 		} else if (type.equals(INSERT_ENROLLMENT))
 		{
 			database.getStudentEnrollmentTable()
-			.add((StudentEnrollment) getmessageObject);
-			
+					.add((StudentEnrollment) getmessageObject);
+
 		} else if (type.equals(INSERT_UNENROLLMENT))
 		{
 			database.getStudentEnrollmentTable()
-			.remove((StudentEnrollment) getmessageObject);
-			
+					.remove((StudentEnrollment) getmessageObject);
+
 		} else if (type.equals(INSERT_ASSIGNMENT))
 		{
 			database.getAssignmentTable().add(((Assignment) getmessageObject));
@@ -203,14 +209,14 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 			{
 				e.printStackTrace();
 			}
-			
+
 		} else
 		{
 			System.err.println("!---------------------------------------!");
 			System.err.println("An unknown type was received. It was: ");
 			System.err.println("\t\t - " + type);
 			System.err.println("!---------------------------------------!");
-			
+
 		}
 	}
 }

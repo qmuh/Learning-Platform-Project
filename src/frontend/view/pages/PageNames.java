@@ -26,5 +26,4 @@ public interface PageNames
 
 	public static final String MY_EMAIL_PAGE = "PAGE_MY_EMAIL_";
 
-
 }

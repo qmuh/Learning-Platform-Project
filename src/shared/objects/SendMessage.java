@@ -16,12 +16,12 @@ public class SendMessage<E> implements Serializable
 	 * Command used by server to interpret the message
 	 */
 	private String command;
-	
+
 	public SendMessage(String commands)
 	{
 		this(null, commands);
 	}
-	
+
 	public SendMessage(E toAdd, String commands)
 	{
 		messageObject = toAdd;

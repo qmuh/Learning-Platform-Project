@@ -5,9 +5,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import javax.mail.Message;
+
 import backend.database.Database;
 import backend.userSession.helpers.EmailHelper;
 import backend.userSession.helpers.FileHelper;
+import shared.objects.EmailInfo;
 import shared.objects.SendMessage;
 
 /**
@@ -89,6 +92,14 @@ public abstract class ClientSession implements Runnable
 	public void setDatabase(Database database)
 	{
 		this.database = database;
+	}
+
+	protected void handleEmail(EmailInfo emailLogin)
+	{
+		
+			Boolean authenticate = emailHelper.sendEmail(emailLogin);
+
+		
 	}
 	
 	protected void sendObject(Object message)

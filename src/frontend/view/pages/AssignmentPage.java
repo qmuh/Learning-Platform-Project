@@ -158,7 +158,6 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 		itemDisplay.repaint();
 	}
 
-
 	public void setAssignmentVector(Vector<Assignment> myList)
 	{
 		itemDisplay.removeAll();

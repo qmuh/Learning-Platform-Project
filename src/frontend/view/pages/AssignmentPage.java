@@ -7,7 +7,6 @@ import java.io.File;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -15,6 +14,7 @@ import javax.swing.JTextField;
 
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.components.BoxList;
+import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.items.AssignItem;
 import shared.objects.Assignment;
 import shared.objects.Course;
@@ -27,7 +27,7 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 	 */
 	private static final long serialVersionUID = 1L;
 	private JTextField uploadField, month, day, year;
-	private JButton uploadButton, browseButton;
+	private WButton uploadButton, browseButton;
 	private File selectedFile;
 
 	public JTextField getUploadField()
@@ -113,7 +113,7 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 		month = new JTextField(2);
 		day = new JTextField(2);
 		year = new JTextField(4);
-		uploadButton = new JButton();
+		uploadButton = new WButton();
 		month.setFont(TEXT_FONT);
 		day.setFont(TEXT_FONT);
 		year.setFont(TEXT_FONT);
@@ -143,7 +143,7 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 		JPanel browse = new JPanel();
 		uploadField = new JTextField(20);
 		uploadField.setFont(TEXT_FONT);
-		browseButton = new JButton();
+		browseButton = new WButton();
 		browse.add(uploadField);
 		browse.add(createButton(browseButton, "Browse", TEXT_FONT));
 		upload.add(createLabel("Upload", TEXT_FONT), 0);

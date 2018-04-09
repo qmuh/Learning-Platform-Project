@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Vector;
 
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -23,8 +22,8 @@ import frontend.view.pages.MyMessagesPage;
 import frontend.view.pages.SubmissionPage;
 import frontend.view.pages.CoursePage;
 import frontend.view.pages.EnrollmentPage;
-import frontend.view.pages.HomePage;
 import frontend.view.pages.components.PageNavigator;
+import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.items.AssignItem;
 import frontend.view.pages.items.CourseItem;
 import shared.interfaces.ProfessorCommands;
@@ -34,7 +33,6 @@ import shared.objects.Professor;
 import shared.objects.SendMessage;
 import shared.objects.Student;
 import shared.objects.StudentEnrollment;
-import shared.objects.Submission;
 
 /**
  * Class which handles the functionality of the Prrofessor GUI
@@ -465,7 +463,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		{
 			try
 			{
-				JButton activeButton = (JButton) e.getSource();
+				WButton activeButton = (WButton) e.getSource();
 				if (course.getActive())
 				{
 					clientController.onlySendMessage(new SendMessage<Course>(

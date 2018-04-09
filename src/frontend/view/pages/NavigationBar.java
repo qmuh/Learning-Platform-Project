@@ -2,11 +2,11 @@ package frontend.view.pages;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
+import frontend.view.pages.components.customSwing.WButton;
 
 /**
  * 
@@ -16,21 +16,21 @@ import frontend.interfaces.WondrisInfo;
  * @since April 6, 2018
  */
 public class NavigationBar extends JPanel
-		implements NavigationBarButtons, WondrisInfo, ColourPalette
+		implements WondrisInfo, ColourPalette
 {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private JButton home;
-	private JButton back;
+	private WButton home;
+	private WButton back;
 
 	public NavigationBar()
 	{
 		setBackground(ACCENT_COLOR);
-		home = new JButton("Home");
-		back = new JButton("Back");
+		home = new WButton("Home");
+		back = new WButton("Back");
 		home.setFont(TEXT_FONT);
 		back.setFont(TEXT_FONT);
 		this.addButtons();

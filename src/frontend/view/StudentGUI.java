@@ -12,9 +12,9 @@ import shared.objects.Student;
  */
 public class StudentGUI
 {
-	Student thisStudent;
+	private Student thisStudent;
 	// Page??
-	MessageHandler comHandler;
+	private MessageHandler comHandler;
 
 	public StudentGUI()
 	{

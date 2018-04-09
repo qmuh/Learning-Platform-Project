@@ -1,7 +1,9 @@
-package frontend.view.pages.components;
+package frontend.view.pages.components.customSwing;
 
 import javax.swing.JButton;
 
+import frontend.interfaces.ColourPalette;
+import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.HasButtons;
 
 /**
@@ -11,32 +13,33 @@ import frontend.view.pages.HasButtons;
  * @version 1.0
  * @since April 6, 2018
  */
-public class WButton extends JButton
+public class WButton extends JButton implements WondrisInfo, ColourPalette
 {
 	/**
 	 * The version of the class.
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * The identification number of the button used for identification.
-	 * 
-	 * @see HasButtons interface.
-	 */
-	private static int WBUTTON_ID = 0;
-
 	private int id;
 
 	public WButton()
 	{
 		super();
-		id = WBUTTON_ID++;
+		defaultSettings();
 	}
 
 	public WButton(String string)
 	{
 		super(string);
-		id = WBUTTON_ID++;
+		defaultSettings();
+	}
+	
+	private void defaultSettings()
+	{
+		this.setFont(TEXT_FONT);
+		this.setFocusPainted(false);
+		this.setOpaque(true);
+		this.setBackground(SECONDARY_COLOR);
 	}
 
 	/**

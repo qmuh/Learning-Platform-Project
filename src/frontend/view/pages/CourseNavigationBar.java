@@ -3,28 +3,26 @@ package frontend.view.pages;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import frontend.interfaces.WondrisInfo;
-import shared.objects.Course;
+import frontend.view.pages.components.customSwing.WButton;
 
 public class CourseNavigationBar extends JPanel implements WondrisInfo
 {
 	private static final long serialVersionUID = 1L;
 
 
-	private JButton assignmentButton, submissionButton, enrollmentButton, myEmailButton, composeEmailButton;
+	private WButton assignmentButton, submissionButton, enrollmentButton, myEmailButton, composeEmailButton;
 
 
 	public CourseNavigationBar() {
 		this.setLayout(new GridLayout(5, 1));
-		assignmentButton = new JButton("Assignments");
-		submissionButton = new JButton("Submissions");
-		enrollmentButton = new JButton("Enrollments");
-		myEmailButton = new JButton("My Emails");
-		composeEmailButton = new JButton("Compose Email");
+		assignmentButton = new WButton("Assignments");
+		submissionButton = new WButton("Submissions");
+		enrollmentButton = new WButton("Enrollments");
+		myEmailButton = new WButton("My Emails");
+		composeEmailButton = new WButton("Compose Email");
 		this.add(createButton(assignmentButton));
 		this.add(createButton(submissionButton));
 		this.add(createButton(enrollmentButton));
@@ -32,7 +30,7 @@ public class CourseNavigationBar extends JPanel implements WondrisInfo
 		this.add(createButton(composeEmailButton));
 	}
 
-	private JButton createButton(JButton b)
+	private WButton createButton(WButton b)
 	{
 		b.setFont(TITLE_FONT);
 		return b;

@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import frontend.interfaces.ColourPalette;
+import frontend.view.pages.components.customSwing.WButton;
 
 /**
  * 
@@ -27,7 +28,7 @@ public class PlaygroundTesting extends JFrame
 		CardLayout cardLayout = new CardLayout();
 		JPanel card1 = new JPanel();
 		JPanel card2 = new JPanel();
-		JButton first = new JButton("Press me");
+		WButton first = new WButton("Press me");
 		first.addActionListener(new ActionListener()
 		{
 
@@ -39,7 +40,7 @@ public class PlaygroundTesting extends JFrame
 			}
 		});
 		card1.add(first);
-		JButton second = new JButton("Don't Press me");
+		WButton second = new WButton("Don't Press me");
 		second.addActionListener(new ActionListener()
 		{
 

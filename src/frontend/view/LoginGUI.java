@@ -46,6 +46,7 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColourPalette,
 		LoginPanel loginPanel = new LoginPanel();
 		loginPanel.setLoginListener(new LoginListener(loginPanel));
 
+		this.getRootPane().setDefaultButton(loginPanel.getLoginButton());
 		this.currentPanel = loginPanel;
 		this.add(currentPanel);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);

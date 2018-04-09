@@ -69,6 +69,8 @@ public class MyEmailsPage extends CoursePage
 		subjectField = new JTextField(20);
 		fromField.setFont(TEXT_FONT);
 		subjectField.setFont(TEXT_FONT);
+		fromField.setEditable(false);
+		subjectField.setEditable(false);
 		textFields.add(createTextField("From: ", fromField), 0);
 		textFields.add(createTextField("Subject: ", subjectField), 1);
 		emailFieldPanel.add(textFields, BorderLayout.WEST);
@@ -92,6 +94,7 @@ public class MyEmailsPage extends CoursePage
 		emailArea = new JTextArea();
 		emailArea.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		emailArea.setFont(TEXT_FONT);
+		emailArea.setEditable(false);
 		emailAreaPanel.add(emailArea, BorderLayout.CENTER);
 		return emailAreaPanel;
 	}

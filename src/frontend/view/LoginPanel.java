@@ -63,6 +63,11 @@ class LoginPanel extends JPanel
 
 		this.add(createLoginArea());
 	}
+	
+	public JButton getLoginButton()
+	{
+		return loginButton;
+	}
 
 	public LoginInfo getLoginInfo()
 	{

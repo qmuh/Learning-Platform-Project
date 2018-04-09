@@ -4,13 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -118,6 +115,9 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 		day = new JTextField(2);
 		year = new JTextField(4);
 		uploadButton = new JButton();
+		month.setFont(TEXT_FONT);
+		day.setFont(TEXT_FONT);
+		year.setFont(TEXT_FONT);
 		JPanel uploadContainer = new JPanel();
 		uploadContainer.add(createButton(uploadButton, "Upload", TEXT_FONT));
 		datePanel.add(createLabel("Due Date", TEXT_FONT), 0);
@@ -143,6 +143,7 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 		upload.setBorder(BorderFactory.createEtchedBorder());
 		JPanel browse = new JPanel();
 		uploadField = new JTextField(20);
+		uploadField.setFont(TEXT_FONT);
 		browseButton = new JButton();
 		browse.add(uploadField);
 		browse.add(createButton(browseButton, "Browse", TEXT_FONT));

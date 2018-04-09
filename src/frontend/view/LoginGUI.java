@@ -70,6 +70,7 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColourPalette,
 			if (loginInfo != null)
 			{
 				authenticateLogin(loginInfo);
+				setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 			}
 		}
 

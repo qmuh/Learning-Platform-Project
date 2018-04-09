@@ -1,16 +1,19 @@
 package frontend.view.pages;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.components.BoxList;
@@ -73,34 +76,29 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 
 	private JPanel createAssignmentPanel()
 	{
-		JPanel assignmentPanel = new JPanel(new GridLayout(1, 2));
-		assignmentPanel.add(createUploadPanel(), 0);
-		assignmentPanel.add(createTheAssignments(), 1);
+		JPanel assignmentPanel = new JPanel(new BorderLayout());
+		assignmentPanel.add(createAssignmentList(), BorderLayout.CENTER);
+		assignmentPanel.add(createUploadPanel(), BorderLayout.SOUTH);
 
 		return assignmentPanel;
 	}
 
-	private JPanel createTheAssignments()
+	private JPanel createAssignmentList()
 	{
-		JPanel assignment = new JPanel(new BorderLayout());
-		assignment.add(createLabel("Current Assignments", TEXT_FONT),
-				BorderLayout.NORTH);
-		assignment.add(createAssignmentList(), BorderLayout.CENTER);
-		return assignment;
-	}
-
-	private JScrollPane createAssignmentList()
-	{
+		JPanel theList = new JPanel(new BorderLayout());
+		theList.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
 		itemDisplay = new BoxList<AssignItem>();
 		JScrollPane scrollPane = new JScrollPane(itemDisplay);
 		scrollPane.setVerticalScrollBarPolicy(
 				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		return scrollPane;
+		theList.add(scrollPane);
+		return theList;
 	}
 
 	private JPanel createUploadPanel()
 	{
-		JPanel uploadPanel = new JPanel(new GridLayout(2, 1));
+		JPanel uploadPanel = new JPanel(new GridLayout(1, 2));
+		uploadPanel.setBorder(BorderFactory.createEtchedBorder());
 		uploadPanel.add(createUpload(), 0);
 		uploadPanel.add(createDatePanel(), 1);
 		return uploadPanel;
@@ -109,7 +107,6 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 	private JPanel createDatePanel()
 	{
 		JPanel datePanel = new JPanel(new GridLayout(3, 1));
-		datePanel.setBorder(BorderFactory.createEtchedBorder());
 		month = new JTextField(2);
 		day = new JTextField(2);
 		year = new JTextField(4);
@@ -119,7 +116,7 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 		year.setFont(TEXT_FONT);
 		JPanel uploadContainer = new JPanel();
 		uploadContainer.add(uploadButton);
-		datePanel.add(createLabel("Due Date", TEXT_FONT), 0);
+		datePanel.add(createLabel("Set a Due Date", SUB_TITLE_FONT), 0);
 		datePanel.add(createTheDate(), 1);
 		datePanel.add(uploadContainer, 2);
 		return datePanel;
@@ -138,16 +135,19 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 
 	private JPanel createUpload()
 	{
-		JPanel upload = new JPanel(new GridLayout(2, 1));
-		upload.setBorder(BorderFactory.createEtchedBorder());
+		JPanel upload = new JPanel();
+		upload.setBorder(new EmptyBorder(0, 20, 0, 0));
+		upload.setLayout(new BorderLayout());
 		JPanel browse = new JPanel();
+		browse.setLayout(new BoxLayout(browse, BoxLayout.X_AXIS));
 		uploadField = new JTextField(20);
 		uploadField.setFont(TEXT_FONT);
+		uploadField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
 		browseButton = new WButton("Browse");
 		browse.add(uploadField);
 		browse.add(browseButton);
-		upload.add(createLabel("Upload a New Assignment", TEXT_FONT), 0);
-		upload.add(browse, 1);
+		upload.add(createLabel("Upload a New Assignment", SUB_TITLE_FONT), BorderLayout.NORTH);
+		upload.add(browse, BorderLayout.CENTER);
 		return upload;
 	}
 

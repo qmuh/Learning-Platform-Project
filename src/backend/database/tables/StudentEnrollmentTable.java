@@ -177,4 +177,31 @@ public class StudentEnrollmentTable extends Table<StudentEnrollment>
 		return listOfStudentIDs;
 	}
 
+	public boolean isStudentEnrolled(int studentID, int courseID)
+	{
+		String sql = "SELECT * FROM " + tableName
+				+ " WHERE COURSEID= ? AND STUDENTID= ?";
+
+		ResultSet studentsInfo;
+		try
+		{
+			preparedStatement = dbConnection.prepareStatement(sql);
+			preparedStatement.setInt(1, courseID);
+			preparedStatement.setInt(2, studentID);
+			studentsInfo = preparedStatement.executeQuery();
+
+			if (studentsInfo.next())
+			{
+				return true;
+			} else
+			{
+				return false;
+			}
+
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return false;
+	}
 }

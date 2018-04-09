@@ -1,10 +1,12 @@
 package frontend.view.pages.components.customSwing;
 
+import java.awt.Color;
+
 import javax.swing.JButton;
+import javax.swing.plaf.ButtonUI;
 
 import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
-import frontend.view.pages.HasButtons;
 
 /**
  * 
@@ -40,8 +42,14 @@ public class WButton extends JButton implements WondrisInfo, ColourPalette
 		this.setFocusPainted(false);
 		this.setOpaque(true);
 		this.setBackground(SECONDARY_COLOR);
+		
 	}
-
+	@Override
+	public void setEnabled(boolean b)
+	{
+		super.setEnabled(b);
+		this.setContentAreaFilled(b);
+	}
 	/**
 	 * Returns the unique identification number of this button.
 	 * 

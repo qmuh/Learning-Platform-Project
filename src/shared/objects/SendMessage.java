@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class SendMessage<E> implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	// Command
 
@@ -16,19 +20,19 @@ public class SendMessage<E> implements Serializable
 	 * Command used by server to interpret the message
 	 */
 	private String command;
-	
+
 	public SendMessage(String commands)
 	{
 		this(null, commands);
 	}
-	
+
 	public SendMessage(E toAdd, String commands)
 	{
 		messageObject = toAdd;
 		command = commands;
 	}
 
-	public E getmessageObject()
+	public E getContents()
 	{
 		return messageObject;
 	}

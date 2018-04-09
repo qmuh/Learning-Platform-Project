@@ -37,9 +37,13 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 	private JRadioButton id;
 	private JRadioButton lastName;
 	private WButton search;
-	private WButton enroll;
-	private WButton unenroll;
+	private WButton enrollment;
 	private JTextField searchField;
+
+	public void setEnrollmentListListener(ListSelectionListener listener)
+	{
+		studentSearchResults.addListSelectionListener(listener);
+	}
 
 	public boolean isSearchById()
 	{
@@ -72,20 +76,15 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 		search.addActionListener(listener);
 	}
 
-	public void setEnrollButtonListener(ActionListener listener)
+	public void setEnrollmentPageButtonListener(ActionListener listener)
 	{
-		enroll.addActionListener(listener);
-	}
-
-	public void setUnenrollButtonListener(ActionListener listener)
-	{
-		unenroll.addActionListener(listener);
+		enrollment.addActionListener(listener);
 	}
 
 	public EnrollmentPage(Course course)
 	{
 		super(course);
-		this.setName(ENROLLMENT_PAGE+course.getId());
+		this.setName(ENROLLMENT_PAGE + course.getId());
 		setPageTitle("Enrollments");
 		bodyCenter.add(createEnrollmentPanel(), BorderLayout.CENTER);
 	}
@@ -100,7 +99,11 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 	{
 		enrolledStudentList.clearSelection();
 		enrolledStudentList.setListData(enrollList);
+	}
 
+	public WButton getEnrollmentButton()
+	{
+		return enrollment;
 	}
 
 	private JPanel createEnrollmentPanel()
@@ -146,12 +149,11 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 	{
 		JPanel buttonPanel = new JPanel();
 		search = new WButton();
-		enroll = new WButton();
-		unenroll = new WButton();
+		enrollment = new WButton();
+		enrollment.setEnabled(false);
 
 		buttonPanel.add(createButton(search, "Search", TEXT_FONT));
-		buttonPanel.add(createButton(enroll, "Enroll", TEXT_FONT));
-		buttonPanel.add(createButton(unenroll, "Unenroll", TEXT_FONT));
+		buttonPanel.add(createButton(enrollment, "Enroll", TEXT_FONT));
 
 		return buttonPanel;
 	}

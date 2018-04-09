@@ -11,18 +11,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
-import backend.database.*;
 import backend.database.tables.AssignmentTable;
 import backend.database.tables.CourseTable;
 import backend.database.tables.GradeTable;
 import backend.database.tables.StudentEnrollmentTable;
 import backend.database.tables.SubmissionTable;
 import backend.database.tables.UserTable;
-import backend.interfaces.DatabaseProperties;
-import sharedobjects.Course;
-import sharedobjects.Professor;
-import sharedobjects.Student;
-import sharedobjects.User;
+import shared.UserInfo;
+import shared.objects.Course;
+import shared.objects.Professor;
+import shared.objects.Student;
 
 /**
  * 
@@ -31,7 +29,7 @@ import sharedobjects.User;
  * @version 1.0
  * @since April 6, 2018
  */
-public class Database implements DatabaseProperties
+public class Database implements DatabaseProperties, UserInfo
 {
 
 	/**
@@ -49,12 +47,12 @@ public class Database implements DatabaseProperties
 	 */
 	private PreparedStatement preparedStatement;
 
-	AssignmentTable assignmentTable;
-	CourseTable courseTable;
-	GradeTable gradeTable;
-	StudentEnrollmentTable studentEnrollmentTable;
-	UserTable userTable;
-	SubmissionTable submissionTable;
+	private AssignmentTable assignmentTable;
+	private CourseTable courseTable;
+	private GradeTable gradeTable;
+	private StudentEnrollmentTable studentEnrollmentTable;
+	private UserTable userTable;
+	private SubmissionTable submissionTable;
 
 	/**
 	 * Constructor for the DB to initialize the connection
@@ -69,7 +67,7 @@ public class Database implements DatabaseProperties
 
 			// If this fails make sure your connectionInfo and login/password
 			// are correct
-			
+
 			Properties connectionProperties = createDatabaseProperties();
 
 			dbConnection = DriverManager.getConnection(CONNECTION_URL,
@@ -83,24 +81,6 @@ public class Database implements DatabaseProperties
 		{
 			e.printStackTrace();
 		}
-	}
-
-	/**
-	 * Creates a properties object to be used by a DriverManager to log into a
-	 * database.
-	 * 
-	 * @return the login properties
-	 */
-
-
-	
-	private Properties createDatabaseProperties()
-	{
-		Properties databaseProperties = new Properties();
-		databaseProperties.put("user", USERNAME);
-		databaseProperties.put("password", PASSWORD);
-
-		return databaseProperties;
 	}
 
 	public AssignmentTable getAssignmentTable()
@@ -136,7 +116,7 @@ public class Database implements DatabaseProperties
 	/**
 	 * Used to create the database itself
 	 */
-	public void createDB()
+	private void createDB()
 	{
 		try
 		{
@@ -152,7 +132,23 @@ public class Database implements DatabaseProperties
 		}
 	}
 
-	public void addAllTables()
+	/**
+	 * Creates a properties object to be used by a DriverManager to log into a
+	 * database.
+	 * 
+	 * @return the login properties
+	 */
+
+	private Properties createDatabaseProperties()
+	{
+		Properties databaseProperties = new Properties();
+		databaseProperties.put("user", USERNAME);
+		databaseProperties.put("password", PASSWORD);
+
+		return databaseProperties;
+	}
+
+	private void addAllTables()
 	{
 		assignmentTable = new AssignmentTable(dbConnection, "AssignmentTable");
 		userTable = new UserTable(dbConnection, "UserTable");
@@ -161,10 +157,9 @@ public class Database implements DatabaseProperties
 				"StudentEnrollmentTable");
 		submissionTable = new SubmissionTable(dbConnection, "SubmissionTable");
 		gradeTable = new GradeTable(dbConnection, "GradeTable");
-
 	}
 
-	public void removeAllTables()
+	private void removeAllTables()
 	{
 		assignmentTable.removeTable();
 		userTable.removeTable();
@@ -172,10 +167,9 @@ public class Database implements DatabaseProperties
 		studentEnrollmentTable.removeTable();
 		submissionTable.removeTable();
 		gradeTable.removeTable();
-
 	}
 
-	public void createAllTables()
+	private void createAllTables()
 	{
 		assignmentTable.createTable();
 		userTable.createTable();
@@ -183,79 +177,88 @@ public class Database implements DatabaseProperties
 		studentEnrollmentTable.createTable();
 		submissionTable.createTable();
 		gradeTable.createTable();
-
 	}
 
-	public static void main(String[] args)
+	private void readUser(String fileName)
 	{
-		Database myDatabase = new Database();
-		  //myDatabase.createDB();
-		 myDatabase.removeAllTables();
-		 myDatabase.createAllTables();
-		 myDatabase.addAllTables();
-		 myDatabase.readUser("users.txt");
-		 myDatabase.readCourses("courses.txt");
-
-	}
-
-	public void readUser(String fileName) {
-		 try
+		try
 		{
-			BufferedReader fileReader = new BufferedReader(new FileReader(fileName));
+			BufferedReader fileReader = new BufferedReader(
+					new FileReader(fileName));
 			String line = fileReader.readLine();
-			
-			while (line!=null)
+
+			while (line != null)
 			{
 				String toAdd[] = line.split(" ");
-				
-				if(toAdd[4].equals("P"))
+
+				if (toAdd[4].equals(IS_PROFESSOR))
 				{
-					this.getUserTable().add(new Professor(Integer.parseInt(toAdd[0]), toAdd[1], toAdd[2], toAdd[3], toAdd[4], toAdd[5]));
+					this.getUserTable()
+							.add(new Professor(Integer.parseInt(toAdd[0]),
+									toAdd[1], toAdd[2], toAdd[3], toAdd[5]));
 				}
-				
-				if(toAdd[4].equals("S"))
+
+				if (toAdd[4].equals(IS_STUDENT))
 				{
-					this.getUserTable().add(new Student(Integer.parseInt(toAdd[0]), toAdd[1], toAdd[2], toAdd[3], toAdd[4], toAdd[5]));
+					this.getUserTable()
+							.add(new Student(Integer.parseInt(toAdd[0]),
+									toAdd[1], toAdd[2], toAdd[3], toAdd[5]));
 				}
 				line = fileReader.readLine();
-
 			}
-			
-			
+			fileReader.close();
 		} catch (FileNotFoundException e)
 		{
 			e.printStackTrace();
-		
-		}catch (IOException e) {
-			
+		} catch (IOException e)
+		{
+			e.printStackTrace();
 		}
-		
+
 	}
-	
-	public void readCourses(String fileName){
-		 try
+
+	private void readCourses(String fileName)
+	{
+		try
+		{
+			BufferedReader fileReader = new BufferedReader(
+					new FileReader(fileName));
+			String line = fileReader.readLine();
+
+			while (line != null)
 			{
-				BufferedReader fileReader = new BufferedReader(new FileReader(fileName));
-				String line = fileReader.readLine();
-				
-				while (line != null)
-				{
-					String toAdd[] = line.split(" ");
-					
-					this.getCourseTable().add(new Course(Integer.parseInt(toAdd[0]), Integer.parseInt(toAdd[1]),
-													toAdd[2], Boolean.parseBoolean(toAdd[3])));
-					line = fileReader.readLine();
-				}
-				
-				
-			} catch (FileNotFoundException e)
-			{
-				e.printStackTrace();
-			
-			}catch (IOException e) {
-				
+				String toAdd[] = line.split(" ");
+
+				this.getCourseTable()
+						.add(new Course(Integer.parseInt(toAdd[0]),
+								Integer.parseInt(toAdd[1]), toAdd[2],
+								Boolean.parseBoolean(toAdd[3])));
+				line = fileReader.readLine();
 			}
-		
+			fileReader.close();
+		} catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
-	
+
+	/**
+	 * Reset the database to a known state.
+	 * 
+	 * @param args
+	 *            unused
+	 */
+	public static void main(String[] args)
+	{
+		Database myDatabase = new Database();
+		// myDatabase.createDB();
+		myDatabase.removeAllTables();
+		myDatabase.createAllTables();
+		myDatabase.addAllTables();
+		myDatabase.readUser("users.txt");
+		myDatabase.readCourses("courses.txt");
+	}
 }

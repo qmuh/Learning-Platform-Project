@@ -1,21 +1,18 @@
 package backend.userSession;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
 
-import backend.interfaces.DatabaseCommands;
+import backend.database.Database;
+import backend.database.DatabaseCommands;
 import backend.userSession.helpers.EmailHelper;
 import backend.userSession.helpers.FileHelper;
-import backend.database.Database;
-import sharedobjects.SendMessage;
+import shared.objects.SendMessage;
 
 /**
- * 
+ *
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
@@ -24,67 +21,87 @@ import sharedobjects.SendMessage;
 
 public abstract class ClientSession implements Runnable, DatabaseCommands
 {
-
 	/**
 	 * Connects Client to a server
 	 */
-	Socket mySocket;
+	protected Socket socket;
 
 	/**
 	 * Used for sending serialized objects
 	 */
-	ObjectOutputStream outputStream;
+	protected ObjectOutputStream objectOutputStream;
 
 	/**
 	 * Used for receiving serialized objects
 	 */
-	ObjectInputStream inputStream;
+	protected ObjectInputStream objectInputStream;
 
 	/**
 	 * Database used by the server
 	 */
-	Database myDatabase;
+	protected Database database;
 
 	/**
-	 * Used for sending emails
+	 * Used for sending email
 	 */
-	EmailHelper myEmailHelper;
+	protected EmailHelper emailHelper;
 
 	/**
 	 * Used to deal with files
 	 */
-	FileHelper myFileHelper;
+	protected FileHelper fileHelper;
 
 	public ClientSession(Socket socket)
 	{
-		mySocket = socket;
+		this.socket = socket;
 		try
 		{
-			outputStream = new ObjectOutputStream(socket.getOutputStream());
-			inputStream = new ObjectInputStream(socket.getInputStream());
-			
-			myFileHelper = new FileHelper();
-			myEmailHelper = new EmailHelper();
-
+			objectOutputStream = new ObjectOutputStream(
+					socket.getOutputStream());
+			objectInputStream = new ObjectInputStream(socket.getInputStream());
+			fileHelper = new FileHelper();
+			emailHelper = new EmailHelper();
 		} catch (IOException e)
 		{
-
 			e.printStackTrace();
 		}
 	}
 
+	public void run()
+	{
+		boolean isRunning = true;
+
+		while (isRunning)
+		{
+			try
+			{
+				SendMessage<?> newMessage = (SendMessage<?>) objectInputStream
+						.readObject();
+				isRunning = interpretMessage(newMessage);
+			} catch (IOException | ClassNotFoundException e)
+			{
+				e.printStackTrace();
+			}
+		}
+	}
 
 	/**
 	 * Sets the database for the client session
 	 */
-	public void setDatabase(Database toAdd)
+	public void setDatabase(Database database)
 	{
-		myDatabase = toAdd;
+		this.database = database;
 	}
 
-	abstract void interpretMessage(SendMessage command);
+	/**
+	 * Interprets the message sent by the client. Returns a boolean to denote
+	 * whether the session is still active.
+	 * 
+	 * @param command
+	 *            the command to execute
+	 * @return true until the client logs off
+	 */
+	abstract boolean interpretMessage(SendMessage<?> command);
 
 	abstract public void write();
-
-
 }

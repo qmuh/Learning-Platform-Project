@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import frontend.interfaces.ColorPalette;
+import frontend.interfaces.ColourPalette;
 
 /**
  * 
@@ -30,19 +30,19 @@ public class PlaygroundTesting extends JFrame
 		JButton first = new JButton("Press me");
 		first.addActionListener(new ActionListener()
 		{
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
 				cardLayout.show(cardPanel, "Card 2");
-				
+
 			}
 		});
 		card1.add(first);
 		JButton second = new JButton("Don't Press me");
 		second.addActionListener(new ActionListener()
 		{
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
@@ -50,18 +50,18 @@ public class PlaygroundTesting extends JFrame
 			}
 		});
 		card2.add(second);
-		card1.setBackground(ColorPalette.ACCENT_COLOR);
-		card2.setBackground(ColorPalette.SECONDARY_COLOR);
+		card1.setBackground(ColourPalette.ACCENT_COLOR);
+		card2.setBackground(ColourPalette.SECONDARY_COLOR);
 		cardPanel.setLayout(cardLayout);
 		cardPanel.add(card1, "Card 1");
 		cardPanel.add(card2, "Card 2");
 		cardLayout.show(cardPanel, "Card 1");
-		
+
 		p.add(cardPanel);
 		p.setSize(500, 500);
 		p.setVisible(true);
 		p.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 	}
-	
+
 }

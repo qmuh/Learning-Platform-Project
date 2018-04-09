@@ -2,7 +2,7 @@ package frontend.view.pages.items;
 
 import javax.swing.BoxLayout;
 
-import sharedobjects.Student;
+import shared.objects.Student;
 
 /**
  * 

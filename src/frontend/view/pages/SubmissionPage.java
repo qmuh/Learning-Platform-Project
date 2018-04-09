@@ -2,9 +2,9 @@ package frontend.view.pages;
 
 import frontend.view.pages.components.BoxList;
 import frontend.view.pages.items.SubmitItem;
-import sharedobjects.Assignment;
-import sharedobjects.Course;
-import sharedobjects.Submission;
+import shared.objects.Assignment;
+import shared.objects.Course;
+import shared.objects.Submission;
 
 /**
  * 
@@ -19,7 +19,7 @@ public class SubmissionPage extends Page<SubmitItem, Submission>
 	private Course course;
 	private Assignment assignment;
 	private Submission submission;
-	
+
 	public SubmissionPage(BoxList<SubmitItem> boxList)
 	{
 		super();
@@ -29,6 +29,6 @@ public class SubmissionPage extends Page<SubmitItem, Submission>
 	public void displayPage()
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 }

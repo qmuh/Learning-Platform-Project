@@ -5,7 +5,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import sharedobjects.SendMessage;
+import frontend.interfaces.WondrisInfo;
+import frontend.view.LoginGUI;
+import shared.objects.SendMessage;
 
 /**
  * 
@@ -15,9 +17,8 @@ import sharedobjects.SendMessage;
  * @since April 6, 2018
  */
 
-public class ClientController
+public class Client
 {
-
 	private Socket mySocket;
 	private ObjectInputStream objectIn;
 	private ObjectOutputStream objectOut;
@@ -41,28 +42,24 @@ public class ClientController
 		objectOut.writeObject(toSend);
 		objectOut.flush();
 
-		
-			try
-			{
-				return objectIn.readObject();
-			} catch (ClassNotFoundException e)
-			{
-				e.printStackTrace();
-			}
-	
-			return null;
+		try
+		{
+			return objectIn.readObject();
+		} catch (ClassNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 
 	public void onlySendMessage(SendMessage toSend) throws IOException
 	{
-
 		objectOut.writeObject(toSend);
 		objectOut.flush();
 		System.out.println("Only sent the message");
-
 	}
-	
-	
+
 	public Socket getMySocket()
 	{
 		return mySocket;
@@ -78,4 +75,9 @@ public class ClientController
 		return objectOut;
 	}
 
+	public static void main(String[] args)
+	{
+		Client client = new Client();
+		LoginGUI loginGUI = new LoginGUI(WondrisInfo.TITLE);
+	}
 }

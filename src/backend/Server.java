@@ -9,31 +9,32 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import backend.database.*;
+import backend.database.Database;
 import backend.userSession.ProfessorSession;
 import backend.userSession.StudentSession;
-import sharedobjects.LoginInfo;
-import sharedobjects.Professor;
-import sharedobjects.Student;
-import sharedobjects.User;
+import shared.ServerInfo;
+import shared.UserInfo;
+import shared.objects.LoginInfo;
+import shared.objects.Professor;
+import shared.objects.Student;
+import shared.objects.User;
 
 /**
- * 
+ *
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
  * @since April 6, 2018
  */
-public class Server
+public class Server implements ServerInfo, UserInfo
 {
-
 	/**
 	 * Allows the server to start up and connect to the client
 	 */
 	private ServerSocket serverSocket;
 
 	/**
-	 * Used to allow multi-threading
+	 * Handles multiple clients on different threads
 	 */
 	private ExecutorService threadPool;
 
@@ -44,7 +45,7 @@ public class Server
 
 	/**
 	 * Creates the server with a port number
-	 * 
+	 *
 	 * @param port
 	 *            The port number
 	 */
@@ -59,11 +60,12 @@ public class Server
 		} catch (IOException e)
 		{
 			System.err.println("Server socket creation error.");
+			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * Runs the server
+	 * While the server is running, accept new connections and handle logins.
 	 */
 	public void runServer()
 	{
@@ -73,23 +75,18 @@ public class Server
 		{
 			try
 			{
-
 				Socket incomingConnection = serverSocket.accept();
-				LoginHandler loginHandler = new LoginHandler(
-						incomingConnection);
-				threadPool.execute(loginHandler);
-
+				threadPool.execute(new LoginHandler(incomingConnection));
 			} catch (IOException e)
 			{
 				e.printStackTrace();
 			}
 		}
-
 		shutdown();
 	}
 
 	/**
-	 * Shuts the server down
+	 * Shut the server down.
 	 */
 	private void shutdown()
 	{
@@ -103,34 +100,30 @@ public class Server
 		} catch (IOException e)
 		{
 			System.err.println("Unable to shutdown server socket.");
+			e.printStackTrace();
 		} catch (InterruptedException e)
 		{
 			System.err.println("Unable to shutdown server thread pool.");
+			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * Provides a class that handles incoming connections using
-	 *
-	 * @author Jimmy Truong
-	 *
+	 * Provides a class that authenticates a user.
 	 */
 	private class LoginHandler implements Runnable
 	{
-		private ObjectInputStream objectInputStream;
-		private ObjectOutputStream objectOutputStream;
-		private Socket mySocket;
+		private ObjectInputStream objectIn;
+		private ObjectOutputStream objectOut;
+		private Socket socket;
 
 		public LoginHandler(Socket guestUser)
 		{
 			try
 			{
-				mySocket = guestUser;
-				objectInputStream = new ObjectInputStream(
-						guestUser.getInputStream());
-				objectOutputStream = new ObjectOutputStream(
-						guestUser.getOutputStream());
-
+				socket = guestUser;
+				objectIn = new ObjectInputStream(guestUser.getInputStream());
+				objectOut = new ObjectOutputStream(guestUser.getOutputStream());
 			} catch (IOException e)
 			{
 				e.printStackTrace();
@@ -142,25 +135,25 @@ public class Server
 		{
 			try
 			{
-				LoginInfo loginInfo = (LoginInfo) objectInputStream
-						.readObject();
+				LoginInfo loginInfo = (LoginInfo) objectIn.readObject();
 				User myUser = database.getUserTable().validateUser(
 						loginInfo.getUsername(), loginInfo.getPassword());
-				objectOutputStream.writeObject(myUser);
-				objectOutputStream.flush();
+				System.out.println("USER: " + myUser);
+				objectOut.writeObject(myUser);
+				objectOut.flush();
 
-				if (myUser.getUserType().equals("P"))
+				if (myUser.getUserType().equals(USER_PROFESSOR))
 				{
 					ProfessorSession handleProfessor = new ProfessorSession(
-							mySocket);
+							socket);
 					handleProfessor.setDatabase(database);
 					handleProfessor.setProfessor((Professor) myUser);
 					handleProfessor.run();
 				}
 
-				else if (myUser.getUserType().equals("P"))
+				else if (myUser.getUserType().equals(USER_STUDENT))
 				{
-					StudentSession handleStudent = new StudentSession(mySocket);
+					StudentSession handleStudent = new StudentSession(socket);
 					handleStudent.setDatabase(database);
 					handleStudent.setStudent((Student) myUser);
 					handleStudent.run();
@@ -176,14 +169,14 @@ public class Server
 	}
 
 	/**
-	 * Starts the server
-	 * 
+	 * Starts the server.
+	 *
 	 * @param args
 	 *            not used
 	 */
 	public static void main(String[] args)
 	{
-		Server myServer = new Server(8991);
+		Server myServer = new Server(PORT_NUMBER);
 		myServer.runServer();
 	}
 }

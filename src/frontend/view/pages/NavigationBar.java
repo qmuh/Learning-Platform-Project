@@ -1,14 +1,12 @@
 package frontend.view.pages;
 
 import java.awt.event.ActionListener;
-import java.util.Hashtable;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import frontend.interfaces.ColorPalette;
+import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
-
 
 /**
  * 
@@ -17,16 +15,17 @@ import frontend.interfaces.WondrisInfo;
  * @version 1.0
  * @since April 6, 2018
  */
-public class NavigationBar extends JPanel implements NavigationBarButtons, WondrisInfo, ColorPalette
+public class NavigationBar extends JPanel
+		implements NavigationBarButtons, WondrisInfo, ColourPalette
 {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private JButton home;
 	private JButton back;
-	
+
 	public NavigationBar()
 	{
 		setBackground(ACCENT_COLOR);
@@ -36,21 +35,21 @@ public class NavigationBar extends JPanel implements NavigationBarButtons, Wondr
 		back.setFont(TEXT_FONT);
 		this.addButtons();
 	}
-	
+
 	private void addButtons()
 	{
 		this.add(back);
 		this.add(home);
 	}
-	
+
 	public void setBackButtonListener(ActionListener listener)
 	{
 		back.addActionListener(listener);
 	}
-	
+
 	public void setHomeButtonListener(ActionListener listener)
 	{
 		home.addActionListener(listener);
 	}
-	
+
 }

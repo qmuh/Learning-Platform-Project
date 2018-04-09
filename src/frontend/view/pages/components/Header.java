@@ -1,4 +1,4 @@
-package frontend.view.pages;
+package frontend.view.pages.components;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,8 +8,10 @@ import java.awt.event.ActionListener;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import frontend.interfaces.ColorPalette;
+import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
+import frontend.view.pages.GUIConstants;
+import frontend.view.pages.NavigationBar;
 
 /**
  * 
@@ -18,7 +20,8 @@ import frontend.interfaces.WondrisInfo;
  * @version 1.0
  * @since April 6, 2018
  */
-public class Header extends JPanel implements GUIConstants, ColorPalette, WondrisInfo
+public class Header extends JPanel
+		implements GUIConstants, ColourPalette, WondrisInfo
 {
 	/**
 	 * 
@@ -37,24 +40,26 @@ public class Header extends JPanel implements GUIConstants, ColorPalette, Wondri
 		this.add(createTitle(""), 1);
 		this.add(navigationBar, 2);
 	}
-	
-	public JLabel createTitle(String title) {
+
+	public JLabel createTitle(String title)
+	{
 		JLabel theTitle = new JLabel(title);
 		theTitle.setFont(TITLE_FONT);
 		theTitle.setForeground(Color.WHITE);
 		return theTitle;
 	}
-	
-	public void setTitle(String title) {
+
+	public void setTitle(String title)
+	{
 		this.remove(1);
 		this.add(createTitle(title), 1);
 	}
-	
+
 	public void setBackButtonListener(ActionListener listener)
 	{
 		navigationBar.setBackButtonListener(listener);
 	}
-	
+
 	public void setHomeButtonListener(ActionListener listener)
 	{
 		navigationBar.setHomeButtonListener(listener);

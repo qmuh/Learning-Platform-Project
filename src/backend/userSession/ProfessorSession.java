@@ -91,22 +91,22 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 
 	private void handleModify(String modify, Object getmessageObject)
 	{
-		if (modify.equals(MODIFY_ASSIGNMENT_ACTIVE))
+		if (modify.equals(MODIFY_COURSE_ACTIVE))
 		{
 			database.getCourseTable()
 					.setActive(((Course) getmessageObject).getId(), true);
 
-		} else if (modify.equals(MODIFY_ASSIGNMENT_INACTIVE))
+		} else if (modify.equals(MODIFY_COURSE_INACTIVE))
 		{
 			database.getCourseTable()
 					.setActive(((Course) getmessageObject).getId(), false);
 
-		} else if (modify.equals(MODIFY_COURSE_ACTIVE))
+		} else if (modify.equals(MODIFY_ASSIGNMENT_ACTIVE))
 		{
 			database.getAssignmentTable()
 					.setActive(((Assignment) getmessageObject).getId(), true);
 
-		} else if (modify.equals(MODIFY_COURSE_INACTIVE))
+		} else if (modify.equals(MODIFY_ASSIGNMENT_INACTIVE))
 		{
 			database.getAssignmentTable()
 					.setActive(((Assignment) getmessageObject).getId(), false);

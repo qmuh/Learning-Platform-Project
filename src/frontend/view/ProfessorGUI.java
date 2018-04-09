@@ -381,19 +381,26 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-			Student selectedStudent = enrollmentPage.getSelectedStudent();
-			StudentEnrollment toSend = new StudentEnrollment(
-					selectedStudent.getId(), myCourse.getId());
+			
 			try
 			{
+				Student selectedStudent = enrollmentPage.getSelectedStudent();
+				System.out.println(selectedStudent.getId());
+				System.out.println(myCourse.getId());
+				
+				StudentEnrollment toSend = new StudentEnrollment(
+						selectedStudent.getId(), myCourse.getId());
+				
 				clientController.onlySendMessage(
 						new SendMessage<StudentEnrollment>(toSend,
 								CMD_INSERT + INSERT_UNENROLLMENT));
 			} catch (IOException e1)
 			{
 				e1.printStackTrace();
+			} catch (NullPointerException e2) {
+				e2.printStackTrace();
 			}
-
+			
 			showAllStudents(myCourse, enrollmentPage);
 
 		}

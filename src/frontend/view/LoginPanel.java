@@ -43,7 +43,7 @@ class LoginPanel extends JPanel
 
 	private static final Character PASSWORD_ECHO_CHAR = '\u2022';
 
-	private static final int FIELD_SIZE = 20;
+	private static final int FIELD_SIZE = 10;
 
 	private JTextField usernameField;
 
@@ -62,6 +62,11 @@ class LoginPanel extends JPanel
 				new MatteBorder(10, 10, 10, 10, Color.DARK_GRAY)));
 
 		this.add(createLoginArea());
+	}
+	
+	public JButton getLoginButton()
+	{
+		return loginButton;
 	}
 
 	public LoginInfo getLoginInfo()
@@ -115,7 +120,10 @@ class LoginPanel extends JPanel
 		JPanel textPanel = new JPanel(new GridLayout(3, 1, 0, 0));
 
 		usernameField = new JTextField(FIELD_SIZE);
+		usernameField.requestFocusInWindow();
+		usernameField.setFont(TEXT_FONT);
 		passwordField = new JPasswordField(FIELD_SIZE);
+		passwordField.setFont(TEXT_FONT);
 		passwordField.setEchoChar(PASSWORD_ECHO_CHAR);
 		loginButton = new JButton(BUTTON_SIGN_IN_TEXT);
 

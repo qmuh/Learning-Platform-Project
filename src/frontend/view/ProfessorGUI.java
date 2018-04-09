@@ -17,6 +17,10 @@ import javax.swing.JTextField;
 
 import frontend.controller.Client;
 import frontend.view.pages.AssignmentPage;
+import frontend.view.pages.ComposeEmailPage;
+import frontend.view.pages.HomePage;
+import frontend.view.pages.MyEmailsPage;
+import frontend.view.pages.SubmissionPage;
 import frontend.view.pages.CoursePage;
 import frontend.view.pages.EnrollmentPage;
 import frontend.view.pages.HomePage;
@@ -30,10 +34,11 @@ import shared.objects.Professor;
 import shared.objects.SendMessage;
 import shared.objects.Student;
 import shared.objects.StudentEnrollment;
+import shared.objects.Submission;
 
 /**
  * Class which handles the functionality of the Prrofessor GUI
- * 
+ *
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
@@ -93,9 +98,11 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 							course);
 					createCourseItem(course, homePage);
 
-					createEnrollmentPage(course);
 					createAssignmentPage(course);
-
+					createSubmissionPage(course);
+					createEnrollmentPage(course);
+					createComposeEmailPage(course);
+					createMyEmailsPage(course);
 					System.out.println(
 							"Course name is: " + coursesList.get(i).getName());
 				}
@@ -131,7 +138,12 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 				new EnrollmentButtonListener(course));
 		coursePage.setAssignmentButtonListener(
 				new AssignmentButtonListener(course));
-		coursePage.setGradesButtonListener(new GradesButtonListener(course));
+		coursePage.setSubmissionButtonListener(
+				new SubmissionButtonListener(course));
+		coursePage.setComposeEmailButtonListener(
+				new ComposeEmailButtonListener(course));
+		coursePage.setMyEmailButtonListener(
+				new MyEmailsButtonListener(course));
 		this.addPage(coursePage, coursePage.getName());
 		return coursePage;
 	}
@@ -141,16 +153,68 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		AssignmentPage assignmentPage = new AssignmentPage(course);
 		assignmentPage.setEnrollmentButtonListener(
 				new EnrollmentButtonListener(course));
-		assignmentPage.setAssignmentButtonListener(
-				new AssignmentButtonListener(course));
-		assignmentPage
-				.setGradesButtonListener(new GradesButtonListener(course));
+		assignmentPage.setSubmissionButtonListener(
+				new SubmissionButtonListener(course));
+		assignmentPage.setComposeEmailButtonListener(
+				new ComposeEmailButtonListener(course));
+		assignmentPage.setMyEmailButtonListener(
+				new MyEmailsButtonListener(course));
 		this.addPage(assignmentPage, assignmentPage.getName());
 		assignmentPage.setUploadButtonListener(
 				new UploadButtonListener(course, assignmentPage));
 		assignmentPage.setBrowseButtonListener(
 				new BrowseButtonListener(assignmentPage));
 		showAllAssignments(course, assignmentPage);
+	}
+
+	private void createComposeEmailPage(Course course)
+	{
+		ComposeEmailPage composeEmailPage = new ComposeEmailPage(course);
+		composeEmailPage.setEnrollmentButtonListener(
+				new EnrollmentButtonListener(course));
+		composeEmailPage.setAssignmentButtonListener(
+				new AssignmentButtonListener(course));
+		composeEmailPage.setSubmissionButtonListener(
+				new SubmissionButtonListener(course));
+		composeEmailPage.setMyEmailButtonListener(
+				new MyEmailsButtonListener(course));
+		this.addPage(composeEmailPage, composeEmailPage.getName());
+		composeEmailPage.setSendToAllButtonListener(
+				new SendToAllButtonListener(course));
+		composeEmailPage.setSendButtonListener(
+				new SendButtonListener(course));
+		composeEmailPage.setAddToEmailButtonListener(
+				new AddToEmailButtonListener(course));
+	}
+
+	private void createSubmissionPage(Course course)
+	{
+		SubmissionPage submissionPage = new SubmissionPage(course);
+		submissionPage.setEnrollmentButtonListener(
+				new EnrollmentButtonListener(course));
+		submissionPage.setAssignmentButtonListener(
+				new AssignmentButtonListener(course));
+		submissionPage.setComposeEmailButtonListener(
+				new ComposeEmailButtonListener(course));
+		submissionPage.setMyEmailButtonListener(
+				new MyEmailsButtonListener(course));
+		this.addPage(submissionPage, submissionPage.getName());
+		// TODO: set up submission page listeners
+	}
+
+	private void createMyEmailsPage(Course course)
+	{
+		MyEmailsPage myEmailsPage = new MyEmailsPage(course);
+		myEmailsPage.setEnrollmentButtonListener(
+				new EnrollmentButtonListener(course));
+		myEmailsPage.setAssignmentButtonListener(
+				new AssignmentButtonListener(course));
+		myEmailsPage.setSubmissionButtonListener(
+				new SubmissionButtonListener(course));
+		myEmailsPage.setComposeEmailButtonListener(
+				new ComposeEmailButtonListener(course));
+		this.addPage(myEmailsPage, myEmailsPage.getName());
+		// TODO: create reply button listener
 	}
 
 	@SuppressWarnings("unchecked")
@@ -188,12 +252,14 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	private void createEnrollmentPage(Course course)
 	{
 		EnrollmentPage enrollmentPage = new EnrollmentPage(course);
-		enrollmentPage.setEnrollmentButtonListener(
-				new EnrollmentButtonListener(course));
 		enrollmentPage.setAssignmentButtonListener(
 				new AssignmentButtonListener(course));
-		enrollmentPage
-				.setGradesButtonListener(new GradesButtonListener(course));
+		enrollmentPage.setSubmissionButtonListener(
+				new SubmissionButtonListener(course));
+		enrollmentPage.setComposeEmailButtonListener(
+				new ComposeEmailButtonListener(course));
+		enrollmentPage.setMyEmailButtonListener(
+				new MyEmailsButtonListener(course));
 		this.addPage(enrollmentPage, enrollmentPage.getName());
 		enrollmentPage.setSearchButtonListener(
 				new SearchButtonListener(enrollmentPage));
@@ -372,6 +438,9 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 						createCoursePage(course);
 						createEnrollmentPage(course);
 						createAssignmentPage(course);
+						createMyEmailsPage(course);
+						createSubmissionPage(course);
+						createComposeEmailPage(course);
 						createCourseItem(course, homePage);
 
 					} catch (IOException e1)
@@ -477,11 +546,11 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 
 	}
 
-	private class GradesButtonListener implements ActionListener
+	private class SubmissionButtonListener implements ActionListener
 	{
 		private Course course;
 
-		public GradesButtonListener(Course course)
+		public SubmissionButtonListener(Course course)
 		{
 			this.course = course;
 		}
@@ -489,7 +558,39 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-			showPage(GRADES_PAGE + course.getId());
+			showPage(SUBMISSION_PAGE + course.getId());
+		}
+	}
+
+	private class ComposeEmailButtonListener implements ActionListener
+	{
+		private Course course;
+
+		public ComposeEmailButtonListener(Course course)
+		{
+			this.course = course;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			showPage(COMPOSE_EMAIL_PAGE + course.getId());
+		}
+	}
+
+	private class MyEmailsButtonListener implements ActionListener
+	{
+		private Course course;
+
+		public MyEmailsButtonListener(Course course)
+		{
+			this.course = course;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			showPage(MY_EMAIL_PAGE + course.getId());
 		}
 	}
 
@@ -615,6 +716,69 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 			{
 				assignPage.setFile(null);
 			}
+
+		}
+
+	}
+
+	/**
+	 * Listener for the send to all button on the compose email page
+	 *
+	 */
+	private class SendToAllButtonListener implements ActionListener
+	{
+		private Course course;
+		public SendToAllButtonListener(Course course)
+		{
+			this.course = course;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			// TODO Auto-generated method stub
+
+		}
+
+	}
+
+	/**
+	 * Listener for the send button on the compose email page
+	 *
+	 */
+	private class SendButtonListener implements ActionListener
+	{
+		private Course course;
+		public SendButtonListener(Course course)
+		{
+			this.course = course;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			// TODO Auto-generated method stub
+
+		}
+
+	}
+
+	/**
+	 * Listener for the add to email button on the compose email page
+	 *
+	 */
+	private class AddToEmailButtonListener implements ActionListener
+	{
+		private Course course;
+		public AddToEmailButtonListener(Course course)
+		{
+			this.course = course;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			// TODO Auto-generated method stub
 
 		}
 

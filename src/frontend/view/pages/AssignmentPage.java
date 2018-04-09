@@ -8,7 +8,6 @@ import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -68,7 +67,8 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 	{
 		super(course);
 		this.setName(ASSIGNMENT_PAGE + course.getId());
-		body.add(createAssignmentPanel(), BorderLayout.CENTER);
+		this.setPageTitle("Assignments");
+		bodyCenter.add(createAssignmentPanel(), BorderLayout.CENTER);
 	}
 
 	private JPanel createAssignmentPanel()
@@ -91,7 +91,6 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 
 	private JScrollPane createAssignmentList()
 	{
-		// TODO: Add default list model to JList
 		itemDisplay = new BoxList<AssignItem>();
 		JScrollPane scrollPane = new JScrollPane(itemDisplay);
 		scrollPane.setVerticalScrollBarPolicy(
@@ -115,6 +114,9 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 		day = new JTextField(2);
 		year = new JTextField(4);
 		uploadButton = new JButton();
+		month.setFont(TEXT_FONT);
+		day.setFont(TEXT_FONT);
+		year.setFont(TEXT_FONT);
 		JPanel uploadContainer = new JPanel();
 		uploadContainer.add(createButton(uploadButton, "Upload", TEXT_FONT));
 		datePanel.add(createLabel("Due Date", TEXT_FONT), 0);
@@ -140,6 +142,7 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 		upload.setBorder(BorderFactory.createEtchedBorder());
 		JPanel browse = new JPanel();
 		uploadField = new JTextField(20);
+		uploadField.setFont(TEXT_FONT);
 		browseButton = new JButton();
 		browse.add(uploadField);
 		browse.add(createButton(browseButton, "Browse", TEXT_FONT));
@@ -151,20 +154,10 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 	@Override
 	public void displayPage()
 	{
-		// TODO Auto-generat
 		itemDisplay.revalidate();
 		itemDisplay.repaint();
 	}
 
-	public static void main(String[] args)
-	{
-		JFrame frame = new JFrame("Testing");
-		frame.add(new AssignmentPage(
-				new Course(1010101, "PlaceHolder Text", true)));
-		frame.setSize(1600, 1000);
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
 
 	public void setAssignmentVector(Vector<Assignment> myList)
 	{

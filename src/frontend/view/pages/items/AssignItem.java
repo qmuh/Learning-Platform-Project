@@ -29,9 +29,7 @@ public class AssignItem extends GeneralItem
 	public AssignItem(Assignment assignment)
 	{
 		super(BoxLayout.X_AXIS, Integer.toString(assignment.getId()));
-
 		assignmentActive = new JCheckBox();
-		assignmentActive.setPreferredSize(new Dimension(50, 50));
 		assignmentActive.setSelected(assignment.getActive());
 		assignmentName = new JLabel(assignment.getTitle() + "  ");
 		assignmentName.setFont(TEXT_FONT);

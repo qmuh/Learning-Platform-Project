@@ -4,7 +4,6 @@ import javax.swing.JButton;
 
 import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
-import frontend.view.pages.HasButtons;
 
 /**
  * 

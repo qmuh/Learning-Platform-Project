@@ -83,7 +83,7 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 	private JPanel createTheAssignments()
 	{
 		JPanel assignment = new JPanel(new BorderLayout());
-		assignment.add(createLabel("Assignments", TEXT_FONT),
+		assignment.add(createLabel("Current Assignments", TEXT_FONT),
 				BorderLayout.NORTH);
 		assignment.add(createAssignmentList(), BorderLayout.CENTER);
 		return assignment;
@@ -113,12 +113,12 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 		month = new JTextField(2);
 		day = new JTextField(2);
 		year = new JTextField(4);
-		uploadButton = new WButton();
+		uploadButton = new WButton("Upload");
 		month.setFont(TEXT_FONT);
 		day.setFont(TEXT_FONT);
 		year.setFont(TEXT_FONT);
 		JPanel uploadContainer = new JPanel();
-		uploadContainer.add(createButton(uploadButton, "Upload", TEXT_FONT));
+		uploadContainer.add(uploadButton);
 		datePanel.add(createLabel("Due Date", TEXT_FONT), 0);
 		datePanel.add(createTheDate(), 1);
 		datePanel.add(uploadContainer, 2);
@@ -129,9 +129,9 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 	{
 		JPanel date = new JPanel();
 		date.add(month);
-		date.add(new JLabel("-"));
+		date.add(createLabel("/", TEXT_FONT));
 		date.add(day);
-		date.add(new JLabel("-"));
+		date.add(createLabel("/", TEXT_FONT));
 		date.add(year);
 		return date;
 	}
@@ -143,10 +143,10 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 		JPanel browse = new JPanel();
 		uploadField = new JTextField(20);
 		uploadField.setFont(TEXT_FONT);
-		browseButton = new WButton();
+		browseButton = new WButton("Browse");
 		browse.add(uploadField);
-		browse.add(createButton(browseButton, "Browse", TEXT_FONT));
-		upload.add(createLabel("Upload", TEXT_FONT), 0);
+		browse.add(browseButton);
+		upload.add(createLabel("Upload a New Assignment", TEXT_FONT), 0);
 		upload.add(browse, 1);
 		return upload;
 	}

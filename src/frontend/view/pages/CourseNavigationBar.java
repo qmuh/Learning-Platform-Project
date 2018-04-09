@@ -15,7 +15,7 @@ public class CourseNavigationBar extends JPanel implements WondrisInfo
 	private static final long serialVersionUID = 1L;
 
 
-	private JButton assignmentButton, submissionButton, enrollmentButton, myEmailButton, composeEmailButton;
+	private JButton assignmentButton, submissionButton, enrollmentButton, myMessagesButton, composeEmailButton;
 
 
 	public CourseNavigationBar() {
@@ -23,12 +23,12 @@ public class CourseNavigationBar extends JPanel implements WondrisInfo
 		assignmentButton = new JButton("Assignments");
 		submissionButton = new JButton("Submissions");
 		enrollmentButton = new JButton("Enrollments");
-		myEmailButton = new JButton("My Emails");
+		myMessagesButton = new JButton("My Messages");
 		composeEmailButton = new JButton("Compose Email");
 		this.add(createButton(assignmentButton));
 		this.add(createButton(submissionButton));
 		this.add(createButton(enrollmentButton));
-		this.add(createButton(myEmailButton));
+		this.add(createButton(myMessagesButton));
 		this.add(createButton(composeEmailButton));
 	}
 
@@ -53,9 +53,9 @@ public class CourseNavigationBar extends JPanel implements WondrisInfo
 		submissionButton.addActionListener(listener);
 	}
 
-	public void setMyEmaillButtonListener(ActionListener listener)
+	public void setMyMessagesButtonListener(ActionListener listener)
 	{
-		myEmailButton.addActionListener(listener);
+		myMessagesButton.addActionListener(listener);
 	}
 
 	public void setComposeEmailButtonListener(ActionListener listener)

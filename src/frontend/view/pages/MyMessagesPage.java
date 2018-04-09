@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 
 import shared.objects.Course;
 
-public class MyEmailsPage extends CoursePage
+public class MyMessagesPage extends CoursePage
 {
 
 	private static final long serialVersionUID = 1L;
@@ -25,23 +25,23 @@ public class MyEmailsPage extends CoursePage
 	private JTextField fromField, subjectField;
 	private JTextArea emailArea;
 
-	public MyEmailsPage(Course course)
+	public MyMessagesPage(Course course)
 	{
 		super(course);
 		this.setName(MY_EMAIL_PAGE + course.getId());
-		setPageTitle("My Emails");
-		bodyCenter.add(createMyEmailsPage(), BorderLayout.CENTER);
+		setPageTitle("My Messages");
+		bodyCenter.add(createMyMessagesPage(), BorderLayout.CENTER);
 	}
 	
-	private JPanel createMyEmailsPage()
+	private JPanel createMyMessagesPage()
 	{
 		JPanel myEmailsPanel = new JPanel(new BorderLayout());
-		myEmailsPanel.add(createEmailList(), BorderLayout.WEST);
-		myEmailsPanel.add(createTheEmail(), BorderLayout.CENTER);
+		myEmailsPanel.add(createMessageList(), BorderLayout.WEST);
+		myEmailsPanel.add(createTheMessage(), BorderLayout.CENTER);
 		return myEmailsPanel;
 	}
 	
-	private JPanel createEmailList()
+	private JPanel createMessageList()
 	{
 		JPanel emailList = new JPanel(new BorderLayout());
 		emailList.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
@@ -51,17 +51,17 @@ public class MyEmailsPage extends CoursePage
 		return emailList;
 	}
 	
-	private JPanel createTheEmail()
+	private JPanel createTheMessage()
 	{
 		JPanel theEmail = new JPanel(new BorderLayout());
 		theEmail.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
-		theEmail.add(createEmailFields(), BorderLayout.NORTH);
-		theEmail.add(createEmailArea(), BorderLayout.CENTER);
+		theEmail.add(createMessageFields(), BorderLayout.NORTH);
+		theEmail.add(createMessageArea(), BorderLayout.CENTER);
 		theEmail.add(createButtonPanel(), BorderLayout.SOUTH);
 		return theEmail;
 	}
 	
-	private JPanel createEmailFields()
+	private JPanel createMessageFields()
 	{
 		JPanel emailFieldPanel = new JPanel(new BorderLayout());
 		JPanel textFields = new JPanel(new GridLayout(2, 1));
@@ -87,7 +87,7 @@ public class MyEmailsPage extends CoursePage
 		return textFieldPanel;
 	}
 	
-	private JPanel createEmailArea()
+	private JPanel createMessageArea()
 	{
 		JPanel emailAreaPanel = new JPanel(new BorderLayout());
 		emailAreaPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));

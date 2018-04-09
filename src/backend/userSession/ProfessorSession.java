@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Vector;
 
+import shared.interfaces.ProfessorCommands;
 import shared.objects.Assignment;
 import shared.objects.Course;
 import shared.objects.Professor;
@@ -15,10 +16,10 @@ import shared.objects.StudentEnrollment;
  *
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
- * @version 1.0
+ * @version 1.01
  * @since April 6, 2018
  */
-public class ProfessorSession extends ClientSession
+public class ProfessorSession extends ClientSession implements ProfessorCommands
 {
 
 	private Professor professor;
@@ -43,165 +44,173 @@ public class ProfessorSession extends ClientSession
 	@Override
 	boolean interpretMessage(SendMessage<?> command)
 	{
-		String interpreter[] = command.getCommand().split(" ");
+		String interpreter[] = command.getCommand().split(";");
+		String commandType = interpreter[0] + ";";
 
-		if (interpreter[0].equals("INSERT"))
+		if (commandType.equals(CMD_INSERT))
 		{
-			handleInsert(interpreter, command.getmessageObject());
-		}
+			handleInsert(interpreter[1], command.getmessageObject());
 
-		else if (interpreter[0].equals("REMOVE"))
+		} else if (commandType.equals(CMD_REMOVE))
 		{
+			System.err.println("!---------------------------------------!");
+			System.err.println(
+					"The command: " + command + " has not been implemented");
+			System.err.println("\t\t - " + commandType);
+			System.err.println("!---------------------------------------!");
 
-		}
-
-		else if (interpreter[0].equals("RECEIVE"))
+		} else if (commandType.equals(CMD_RECEIVE))
 		{
-			handleRecieve(interpreter, command.getmessageObject());
-		}
+			handleRecieve(interpreter[1], command.getmessageObject());
 
-		else if (interpreter[0].equals("MODIFY"))
+		} else if (commandType.equals(CMD_MODIFY))
 		{
-			handleModify(interpreter, command.getmessageObject());
-		} else if (interpreter[0].equals("LOGOUT"))
+			handleModify(interpreter[1], command.getmessageObject());
+
+		} else if (commandType.equals(CMD_LOGOUT))
 		{
 			return false;
+
+		} else
+		{
+			System.err.println("!---------------------------------------!");
+			System.err.println("An unknown command was received. It was: ");
+			System.err.println("\t\t - " + commandType);
+			System.err.println("!---------------------------------------!");
+			try
+			{
+				throw new Exception();
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+			}
 		}
 
 		return true;
 	}
 
-	private void handleModify(String[] interpreter, Object getmessageObject)
+	private void handleModify(String modify, Object getmessageObject)
 	{
-		if (interpreter[1].equals("COURSEACTIVE"))
+		if (modify.equals(MODIFY_ASSIGNMENT_ACTIVE))
 		{
 			database.getCourseTable()
-					.setActive(((Course) getmessageObject).getId());
-		}
+					.setActive(((Course) getmessageObject).getId(), true);
 
-		if (interpreter[1].equals("COURSEINACTIVE"))
+		} else if (modify.equals(MODIFY_ASSIGNMENT_INACTIVE))
 		{
 			database.getCourseTable()
-					.setInactive(((Course) getmessageObject).getId());
-		}
+					.setActive(((Course) getmessageObject).getId(), false);
 
-		if (interpreter[1].equals("ASSIGNACTIVE"))
+		} else if (modify.equals(MODIFY_COURSE_ACTIVE))
 		{
 			database.getAssignmentTable()
-					.setActive(((Assignment) getmessageObject).getId());
-		}
+					.setActive(((Assignment) getmessageObject).getId(), true);
 
-		if (interpreter[1].equals("ASSIGNINACTIVE"))
+		} else if (modify.equals(MODIFY_COURSE_INACTIVE))
 		{
 			database.getAssignmentTable()
-					.setInactive(((Assignment) getmessageObject).getId());
-		}
+					.setActive(((Assignment) getmessageObject).getId(), false);
 
-	}
-
-	private void handleRecieve(String[] interpreter, Object getMessage)
-	{
-		try
+		} else
 		{
-			if (interpreter[1].equals("COURSES"))
-			{
-				System.out.println("I recieve the correct message my id is "
-						+ professor.getId());
-				Vector<Course> myCourses = database.getCourseTable()
-						.searchByProfId(professor.getId());
-
-				objectOutputStream.writeObject(myCourses);
-				objectOutputStream.flush();
-			}
-
-			if (interpreter[1].equals("STUDENTBYID"))
-			{
-				Student myEnrolledStudents = (Student) database.getUserTable()
-						.getUserByID(((int) getMessage));
-				objectOutputStream.writeObject(myEnrolledStudents);
-				objectOutputStream.flush();
-			}
-
-			if (interpreter[1].equals("STUDENTBYLAST"))
-			{
-				Vector<Student> myEnrolledStudents = database.getUserTable()
-						.searchLastName(((String) getMessage));
-				objectOutputStream.writeObject(myEnrolledStudents);
-				objectOutputStream.flush();
-			}
-
-			if (interpreter[1].equals("ALLSTUDENTS"))
-			{
-				Vector<Student> allStudents = database.getUserTable()
-						.allStudents();
-				objectOutputStream.writeObject(allStudents);
-				objectOutputStream.flush();
-			}
-
-			if (interpreter[1].equals("ALLENROLLED"))
-			{
-				Vector<Integer> enrolled = database.getStudentEnrollmentTable()
-						.getAllEnrolledStudent(((Course) getMessage).getId());
-				Vector<Student> enrolledStudent = new Vector<Student>();
-				for (int i = 0; i < enrolled.size(); i++)
-				{
-					enrolledStudent.add((Student) database.getUserTable()
-							.getUserByID(enrolled.get(i)));
-				}
-				objectOutputStream.writeObject(enrolledStudent);
-				objectOutputStream.flush();
-			}
-
-			if (interpreter[1].equals("ALLASSIGNMENTS"))
-			{
-				Vector<Assignment> allStudents = database.getAssignmentTable()
-						.getAllAssignments(((Course) getMessage).getId());
-				objectOutputStream.writeObject(allStudents);
-				objectOutputStream.flush();
-			}
-
-		} catch (IOException e)
-		{
-			System.out.println("Error");
-			e.printStackTrace();
+			System.err.println("!---------------------------------------!");
+			System.err.println("An unknown modify was received. It was: ");
+			System.err.println("\t\t - " + modify);
+			System.err.println("!---------------------------------------!");
 		}
 	}
 
-	private void handleInsert(String[] interpreter, Object getmessageObject)
+	private void handleRecieve(String type, Object getMessage)
 	{
-		if (interpreter[1].equals("COURSE"))
+		if (type.equals(RECEIVE_COURSES))
+		{
+			Vector<Course> myCourses = database.getCourseTable()
+					.searchByProfId(professor.getId());
+			sendObject(myCourses);
+
+		} else if (type.equals(RECEIVE_STUDENT_BY_ID))
+		{
+			Student myEnrolledStudents = (Student) database.getUserTable()
+					.getUserByID(((int) getMessage));
+			sendObject(myEnrolledStudents);
+
+		} else if (type.equals(RECEIVE_STUDENT_BY_LASTNAME))
+		{
+			Vector<Student> myEnrolledStudents = database.getUserTable()
+					.searchLastName(((String) getMessage));
+			sendObject(myEnrolledStudents);
+
+		} else if (type.equals(RECEIVE_ALL_STUDENTS))
+		{
+			Vector<Student> allStudents = database.getUserTable().allStudents();
+			sendObject(allStudents);
+
+		} else if (type.equals(RECEIVE_ALL_ENROLLED_STUDENTS))
+		{
+			Vector<Integer> enrolled = database.getStudentEnrollmentTable()
+					.getAllEnrolledStudent(((Course) getMessage).getId());
+			Vector<Student> enrolledStudent = new Vector<Student>();
+			for (int i = 0; i < enrolled.size(); i++)
+			{
+				enrolledStudent.add((Student) database.getUserTable()
+						.getUserByID(enrolled.get(i)));
+			}
+			sendObject(enrolledStudent);
+
+		} else if (type.equals(RECEIVE_ALL_ASSIGNMENTS))
+		{
+			Vector<Assignment> allAssignments = database.getAssignmentTable()
+					.getAllAssignments(((Course) getMessage).getId());
+			sendObject(allAssignments);
+
+		} else
+		{
+			System.err.println("!---------------------------------------!");
+			System.err.println("An unknown type was received. It was: ");
+			System.err.println("\t\t - " + type);
+			System.err.println("!---------------------------------------!");
+		}
+	}
+
+	private void handleInsert(String type, Object getmessageObject)
+	{
+		if (type.equals(INSERT_COURSE))
 		{
 			database.getCourseTable().add((Course) getmessageObject);
 			System.out.println(
 					"Adding course " + ((Course) getmessageObject).getName()
 							+ " for Prof: " + professor.getFirstName());
-		}
-
-		if (interpreter[1].equals("ENROLL"))
+			
+		} else if (type.equals(INSERT_ENROLLMENT))
 		{
 			database.getStudentEnrollmentTable()
-					.add((StudentEnrollment) getmessageObject);
-		}
-
-		if (interpreter[1].equals("UNENROLL"))
+			.add((StudentEnrollment) getmessageObject);
+			
+		} else if (type.equals(INSERT_UNENROLLMENT))
 		{
 			database.getStudentEnrollmentTable()
-					.remove((StudentEnrollment) getmessageObject);
-		}
-
-		if (interpreter[1].equals("ASSIGNMENT"))
+			.remove((StudentEnrollment) getmessageObject);
+			
+		} else if (type.equals(INSERT_ASSIGNMENT))
 		{
 			database.getAssignmentTable().add(((Assignment) getmessageObject));
 			byte[] file;
 			try
 			{
-				file = (byte[]) objectInputStream.readObject();
+				file = (byte[]) objectIn.readObject();
 				fileHelper.storeFile(file, ((Assignment) getmessageObject));
 			} catch (ClassNotFoundException | IOException e)
 			{
 				e.printStackTrace();
 			}
+			
+		} else
+		{
+			System.err.println("!---------------------------------------!");
+			System.err.println("An unknown type was received. It was: ");
+			System.err.println("\t\t - " + type);
+			System.err.println("!---------------------------------------!");
+			
 		}
 	}
-
 }

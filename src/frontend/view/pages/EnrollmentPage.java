@@ -8,6 +8,7 @@ import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultListSelectionModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -27,7 +28,7 @@ import shared.objects.Student;
 public class EnrollmentPage extends CoursePage implements WondrisInfo
 {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -86,9 +87,9 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 	public EnrollmentPage(Course course)
 	{
 		super(course);
-		this.setName(ENROLLMENT_PAGE + course.getId());
-		body.add(createEnrollmentPanel(), BorderLayout.CENTER);
-
+		this.setName(ENROLLMENT_PAGE+course.getId());
+		setPageTitle("Enrollments");
+		bodyCenter.add(createEnrollmentPanel(), BorderLayout.CENTER);
 	}
 
 	public void setStudentList(Vector<Student> toSet)
@@ -128,6 +129,7 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 		searchResults.add(createLabel("Search Results", TEXT_FONT),
 				BorderLayout.NORTH);
 		studentSearchResults = new JList<Student>();
+		studentSearchResults.setFont(TEXT_FONT);
 		searchResults.add(studentSearchResults, BorderLayout.CENTER);
 		return searchResults;
 	}
@@ -187,7 +189,8 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 	{
 		JPanel textFieldPanel = new JPanel(new GridLayout(1, 1));
 		textFieldPanel.setBorder(new EmptyBorder(10, 40, 10, 40));
-		searchField = new JTextField();
+		searchField = new JTextField(20);
+		searchField.setFont(TEXT_FONT);
 		textFieldPanel.add(searchField);
 		return textFieldPanel;
 	}
@@ -208,6 +211,7 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 		JPanel enrolledPanel = new JPanel(new GridLayout(1, 1));
 		enrolledPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
 		enrolledStudentList = new JList<Student>();
+		enrolledStudentList.setFont(TEXT_FONT);
 		enrolledPanel.add(enrolledStudentList);
 		return enrolledPanel;
 	}
@@ -218,15 +222,4 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 		// TODO Auto-generated method stub
 
 	}
-
-	public static void main(String[] args)
-	{
-		JFrame frame = new JFrame("Testing");
-		frame.add(new EnrollmentPage(
-				new Course(1010101, "PlaceHolder Text", true)));
-		frame.setSize(1600, 1000);
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
-
 }

@@ -1,5 +1,6 @@
 package frontend.view.pages.items;
 
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
@@ -30,9 +31,12 @@ public class AssignItem extends GeneralItem
 		super(BoxLayout.X_AXIS, Integer.toString(assignment.getId()));
 
 		assignmentActive = new JCheckBox();
+		assignmentActive.setPreferredSize(new Dimension(50, 50));
 		assignmentActive.setSelected(assignment.getActive());
 		assignmentName = new JLabel(assignment.getTitle() + "  ");
+		assignmentName.setFont(TEXT_FONT);
 		dueDate = new JLabel(assignment.getDue_date());
+		dueDate.setFont(TEXT_FONT);
 
 		this.add(assignmentActive);
 		this.add(assignmentName);

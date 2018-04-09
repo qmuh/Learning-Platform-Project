@@ -16,8 +16,9 @@ import javax.swing.JPanel;
 import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.GUIConstants;
-import shared.ServerInfo;
-import shared.UserInfo;
+import shared.interfaces.ServerInfo;
+import shared.interfaces.UserCommands;
+import shared.interfaces.UserInfo;
 import shared.objects.LoginInfo;
 import shared.objects.Professor;
 import shared.objects.SendMessage;
@@ -31,7 +32,7 @@ import shared.objects.User;
  * @since April 6, 2018
  */
 public class LoginGUI extends JFrame implements WondrisInfo, ColourPalette,
-		GUIConstants, ServerInfo, UserInfo
+		GUIConstants, ServerInfo, UserInfo, UserCommands
 {
 
 	private static final long serialVersionUID = 1L;
@@ -46,6 +47,7 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColourPalette,
 		LoginPanel loginPanel = new LoginPanel();
 		loginPanel.setLoginListener(new LoginListener(loginPanel));
 
+		this.getRootPane().setDefaultButton(loginPanel.getLoginButton());
 		this.currentPanel = loginPanel;
 		this.add(currentPanel);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -68,6 +70,7 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColourPalette,
 			if (loginInfo != null)
 			{
 				authenticateLogin(loginInfo);
+				setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 			}
 		}
 
@@ -123,15 +126,11 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColourPalette,
 				@Override
 				public void windowActivated(WindowEvent arg0)
 				{
-					// TODO Auto-generated method stub
-
 				}
 
 				@Override
 				public void windowClosed(WindowEvent arg0)
 				{
-					// TODO Auto-generated method stub
-
 				}
 
 				@Override
@@ -147,11 +146,10 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColourPalette,
 					{
 						try
 						{
-							objectOutputStream.writeObject(
-									new SendMessage(null, "LOGOUT"));
+							objectOutputStream
+									.writeObject(new SendMessage<>(CMD_LOGOUT));
 						} catch (IOException e)
 						{
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 						System.exit(0);
@@ -161,29 +159,21 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColourPalette,
 				@Override
 				public void windowDeactivated(WindowEvent arg0)
 				{
-					// TODO Auto-generated method stub
-
 				}
 
 				@Override
 				public void windowDeiconified(WindowEvent arg0)
 				{
-					// TODO Auto-generated method stub
-
 				}
 
 				@Override
 				public void windowIconified(WindowEvent arg0)
 				{
-					// TODO Auto-generated method stub
-
 				}
 
 				@Override
 				public void windowOpened(WindowEvent arg0)
 				{
-					// TODO Auto-generated method stub
-
 				}
 			});
 		}

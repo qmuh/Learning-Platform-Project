@@ -6,7 +6,6 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import backend.database.Database;
-import backend.database.DatabaseCommands;
 import backend.userSession.helpers.EmailHelper;
 import backend.userSession.helpers.FileHelper;
 import shared.objects.SendMessage;
@@ -19,7 +18,7 @@ import shared.objects.SendMessage;
  * @since April 6, 2018
  */
 
-public abstract class ClientSession implements Runnable, DatabaseCommands
+public abstract class ClientSession implements Runnable
 {
 	/**
 	 * Connects Client to a server
@@ -29,12 +28,12 @@ public abstract class ClientSession implements Runnable, DatabaseCommands
 	/**
 	 * Used for sending serialized objects
 	 */
-	protected ObjectOutputStream objectOutputStream;
+	protected ObjectOutputStream objectOut;
 
 	/**
 	 * Used for receiving serialized objects
 	 */
-	protected ObjectInputStream objectInputStream;
+	protected ObjectInputStream objectIn;
 
 	/**
 	 * Database used by the server
@@ -56,9 +55,8 @@ public abstract class ClientSession implements Runnable, DatabaseCommands
 		this.socket = socket;
 		try
 		{
-			objectOutputStream = new ObjectOutputStream(
-					socket.getOutputStream());
-			objectInputStream = new ObjectInputStream(socket.getInputStream());
+			objectOut = new ObjectOutputStream(socket.getOutputStream());
+			objectIn = new ObjectInputStream(socket.getInputStream());
 			fileHelper = new FileHelper();
 			emailHelper = new EmailHelper();
 		} catch (IOException e)
@@ -75,7 +73,7 @@ public abstract class ClientSession implements Runnable, DatabaseCommands
 		{
 			try
 			{
-				SendMessage<?> newMessage = (SendMessage<?>) objectInputStream
+				SendMessage<?> newMessage = (SendMessage<?>) objectIn
 						.readObject();
 				isRunning = interpretMessage(newMessage);
 			} catch (IOException | ClassNotFoundException e)
@@ -91,6 +89,18 @@ public abstract class ClientSession implements Runnable, DatabaseCommands
 	public void setDatabase(Database database)
 	{
 		this.database = database;
+	}
+	
+	protected void sendObject(Object message)
+	{
+		try
+		{
+			objectOut.writeObject(message);
+			objectOut.flush();
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	/**

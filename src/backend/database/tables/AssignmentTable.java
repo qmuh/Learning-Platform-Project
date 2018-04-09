@@ -11,10 +11,10 @@ import shared.objects.Assignment;
  * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
- * @version 1.0
+ * @version 1.01
  * @since April 6, 2018
  */
-public class AssignmentTable extends Table<Assignment>
+public class AssignmentTable extends Table<Assignment> implements Activable
 {
 	String tableName = "AssignmentTable";
 
@@ -27,7 +27,7 @@ public class AssignmentTable extends Table<Assignment>
 	public void add(Assignment toAdd)
 	{
 		String sql = "INSERT INTO " + tableName + " VALUES" + "(?,?,?,?,?,?)";
-		;
+
 		try
 		{
 
@@ -126,9 +126,11 @@ public class AssignmentTable extends Table<Assignment>
 		return userList;
 	}
 
-	public void setActive(int assignID)
+	@Override
+	public void setActive(int assignID, boolean isActive)
 	{
-		String sql = "UPDATE " + tableName + " SET ACTIVE=TRUE WHERE ID=?";
+		String sql = "UPDATE " + tableName + " SET ACTIVE="
+				+ ((Boolean) isActive).toString().toUpperCase() + " WHERE ID=?";
 		try
 		{
 			preparedStatement = dbConnection.prepareStatement(sql);
@@ -139,23 +141,5 @@ public class AssignmentTable extends Table<Assignment>
 		{
 			e.printStackTrace();
 		}
-
 	}
-
-	public void setInactive(int assignID)
-	{
-		String sql = "UPDATE " + tableName + " SET ACTIVE=FALSE WHERE ID=?";
-		try
-		{
-			preparedStatement = dbConnection.prepareStatement(sql);
-			preparedStatement.setInt(1, assignID);
-			preparedStatement.executeUpdate();
-
-		} catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-
-	}
-
 }

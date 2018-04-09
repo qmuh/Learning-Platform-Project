@@ -11,10 +11,10 @@ import shared.objects.Course;
  * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
- * @version 1.0
+ * @version 1.01
  * @since April 6, 2018
  */
-public class CourseTable extends Table<Course>
+public class CourseTable extends Table<Course> implements Activable
 {
 	public String tableName = "CourseTable";
 
@@ -131,9 +131,11 @@ public class CourseTable extends Table<Course>
 
 	}
 
-	public void setActive(int courseID)
+	@Override
+	public void setActive(int courseID, boolean isActive)
 	{
-		String sql = "UPDATE " + tableName + " SET ACTIVE=TRUE WHERE ID=?";
+		String sql = "UPDATE " + tableName + " SET ACTIVE="
+				+ ((Boolean) isActive).toString().toUpperCase() + " WHERE ID=?";
 		try
 		{
 			preparedStatement = dbConnection.prepareStatement(sql);
@@ -144,23 +146,6 @@ public class CourseTable extends Table<Course>
 		{
 			e.printStackTrace();
 		}
-
-	}
-
-	public void setInactive(int courseID)
-	{
-		String sql = "UPDATE " + tableName + " SET ACTIVE=FALSE WHERE ID=?";
-		try
-		{
-			preparedStatement = dbConnection.prepareStatement(sql);
-			preparedStatement.setInt(1, courseID);
-			preparedStatement.executeUpdate();
-
-		} catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-
 	}
 
 }

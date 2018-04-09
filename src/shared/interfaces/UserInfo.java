@@ -1,4 +1,4 @@
-package shared;
+package shared.interfaces;
 
 public interface UserInfo
 {

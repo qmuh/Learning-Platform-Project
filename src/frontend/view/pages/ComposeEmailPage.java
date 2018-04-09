@@ -113,6 +113,9 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 		textFields.add(createTextField("To: ", toField));
 		textFields.add(createTextField("Subject: ", subjectField));
 		emailFieldPanel.add(textFields, BorderLayout.WEST);
+		JPanel theLabel = new JPanel(new BorderLayout());
+		theLabel.add(createLabel("Enrolled Students", SUB_TITLE_FONT), BorderLayout.SOUTH);
+		emailFieldPanel.add(theLabel, BorderLayout.EAST);
 		return emailFieldPanel;
 	}
 	
@@ -130,7 +133,7 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 	{
 		JPanel emailTextPanel = new JPanel(new BorderLayout());
 		emailArea = new JTextArea();
-		emailArea.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		emailArea.setBorder(new JTextField().getBorder());
 		emailArea.setFont(TEXT_FONT);
 		emailTextPanel.add(emailArea, BorderLayout.CENTER);
 		emailTextPanel.add(createButtonPanel(), BorderLayout.SOUTH);
@@ -141,10 +144,10 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 	{
 		JPanel buttonPanel = new JPanel(new BorderLayout());
 		buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
-		sendToAllButton = new WButton();
-		sendButton = new WButton();
-		buttonPanel.add(createButton(sendToAllButton, "Send to Enrolled Students", TEXT_FONT), BorderLayout.WEST);
-		buttonPanel.add(createButton(sendButton, "Send", TEXT_FONT), BorderLayout.EAST);
+		sendToAllButton = new WButton("Send to All Enrolled Students");
+		sendButton = new WButton("Send");
+		buttonPanel.add(sendToAllButton, BorderLayout.WEST);
+		buttonPanel.add(sendButton, BorderLayout.EAST);
 		return buttonPanel;
 	}
 	
@@ -152,15 +155,15 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 	private JPanel createStudentList()
 	{
 		JPanel studentListPanel = new JPanel(new BorderLayout());
-		studentListPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+		studentListPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 		studentList = new JList<Student>();
 		JScrollPane scrollPane = new JScrollPane(studentList);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		studentListPanel.add(scrollPane, BorderLayout.CENTER);
 		JPanel theButton = new JPanel(new BorderLayout());
 		theButton.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
-		addToEmailButton = new WButton();
-		theButton.add(createButton(addToEmailButton, "Add to Email", TEXT_FONT), BorderLayout.EAST);
+		addToEmailButton = new WButton("Add to Email");
+		theButton.add(addToEmailButton, BorderLayout.EAST);
 		studentListPanel.add(theButton, BorderLayout.SOUTH);
 		return studentListPanel;
 	}

@@ -63,9 +63,9 @@ public class CoursePage<T extends Box, U> extends Page<T, U>
 		courseNavigationBar.setSubmissionButtonListener(listener);
 	}
 
-	public void setMyMessagesButtonListener(ActionListener listener)
+	public void setDiscussionButtonListener(ActionListener listener)
 	{
-		courseNavigationBar.setMyMessagesButtonListener(listener);
+		courseNavigationBar.setDiscussionButtonListener(listener);
 	}
 
 	public void setComposeEmailButtonListener(ActionListener listener)

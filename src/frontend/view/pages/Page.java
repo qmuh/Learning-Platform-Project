@@ -60,13 +60,6 @@ public abstract class Page <T extends Box, U> extends JPanel implements PageName
 		return labelPanel;
 	}
 
-	protected JButton createButton(JButton button, String name, Font f)
-	{
-		button.setText(name);
-		button.setFont(f);
-		return button;
-	}
-
 	public void setBoxList(BoxList<T> boxList)
 	{
 		this.itemDisplay = boxList;

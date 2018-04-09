@@ -185,6 +185,20 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 				new SendButtonListener(course));
 		composeEmailPage.setAddToEmailButtonListener(
 				new AddToEmailButtonListener(course));
+		
+		// Sets the enrolled J-List to help email choosing
+				try
+				{
+					Vector<Student> enrollList = (Vector<Student>) clientController
+							.sendMessage(new SendMessage<Course>(course,
+									CMD_RECEIVE + RECEIVE_ALL_ENROLLED_STUDENTS));
+					composeEmailPage.setStudentList(enrollList);
+				} catch (IOException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		
 	}
 
 	private void createSubmissionPage(Course course)
@@ -214,6 +228,9 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		myEmailsPage.setComposeEmailButtonListener(
 				new ComposeEmailButtonListener(course));
 		this.addPage(myEmailsPage, myEmailsPage.getName());
+		
+		
+		
 		// TODO: create reply button listener
 	}
 

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -164,5 +165,12 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 		theButton.add(createButton(addToEmailButton, "Add to Email", TEXT_FONT), BorderLayout.EAST);
 		studentListPanel.add(theButton, BorderLayout.SOUTH);
 		return studentListPanel;
+	}
+
+	
+	public void setStudentList(Vector<Student> enrollList)
+	{
+		studentList.clearSelection();
+		studentList.setListData(enrollList);
 	}
 }

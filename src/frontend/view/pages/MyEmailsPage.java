@@ -3,6 +3,7 @@ package frontend.view.pages;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -15,12 +16,13 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import shared.objects.Course;
+import shared.objects.Student;
 
 public class MyEmailsPage extends CoursePage
 {
 
 	private static final long serialVersionUID = 1L;
-	private JList<String> theEmails;
+	private JList<Student> theEmails;
 	private JButton replyButton;
 	private JTextField fromField, subjectField;
 	private JTextArea emailArea;
@@ -106,4 +108,5 @@ public class MyEmailsPage extends CoursePage
 		buttonPanel.add(createButton(replyButton, "Reply", TEXT_FONT), BorderLayout.EAST);
 		return buttonPanel;
 	}
+
 }

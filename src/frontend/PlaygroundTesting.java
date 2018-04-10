@@ -1,4 +1,4 @@
-package frontend.view;
+package frontend;
 
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;

@@ -19,7 +19,7 @@ import javax.swing.border.MatteBorder;
 
 import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
-import frontend.view.pageNavigation.pages.GUIConstants;
+import frontend.view.pages.GUIConstants;
 import frontend.view.pages.components.customSwing.WButton;
 import shared.objects.LoginInfo;
 
@@ -30,7 +30,7 @@ import shared.objects.LoginInfo;
  * @version 1.1
  * @since April 6, 2018
  */
-class LoginPanel extends JPanel
+public class LoginPanel extends JPanel
 		implements ColourPalette, GUIConstants, WondrisInfo
 {
 

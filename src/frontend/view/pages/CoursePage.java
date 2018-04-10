@@ -1,8 +1,7 @@
-package frontend.view.pageNavigation.pages;
+package frontend.view.pages;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -10,7 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import frontend.view.pageNavigation.CourseNavigationBar;
+import frontend.view.pages.components.CourseNavigationBar;
+import frontend.view.pages.components.PageNavigator;
 import shared.objects.Course;
 
 public class CoursePage<T extends Box, U> extends Page<T, U>
@@ -52,29 +52,10 @@ public class CoursePage<T extends Box, U> extends Page<T, U>
 		body.add(bodyCenter, BorderLayout.CENTER);
 	}
 
-	public void setEnrollmentPageButtonListener(ActionListener listener)
+	public void createSidebarListeners(Course course,
+			PageNavigator pageNavigator)
 	{
-		courseNavigationBar.setEnrollmentButtonListener(listener);
-	}
-
-	public void setAssignmentButtonListener(ActionListener listener)
-	{
-		courseNavigationBar.setAssignmentButtonListener(listener);
-	}
-
-	public void setSubmissionButtonListener(ActionListener listener)
-	{
-		courseNavigationBar.setSubmissionButtonListener(listener);
-	}
-
-	public void setDiscussionButtonListener(ActionListener listener)
-	{
-		courseNavigationBar.setDiscussionButtonListener(listener);
-	}
-
-	public void setComposeEmailButtonListener(ActionListener listener)
-	{
-		courseNavigationBar.setComposeEmailButtonListener(listener);
+		courseNavigationBar.createListeners(course, pageNavigator);
 	}
 
 	@Override

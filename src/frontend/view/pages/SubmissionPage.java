@@ -1,4 +1,4 @@
-package frontend.view.pageNavigation.pages;
+package frontend.view.pages;
 
 import java.awt.BorderLayout;
 
@@ -35,7 +35,6 @@ public class SubmissionPage extends CoursePage<SubmitItem, Submission>
 	private JPanel createSubmissionPage()
 	{
 		JPanel submissionPagePanel = new JPanel();
-
 		return submissionPagePanel;
 	}
 

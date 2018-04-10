@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 
 import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
-import frontend.view.pageNavigation.pages.GUIConstants;
+import frontend.view.pages.GUIConstants;
 import frontend.view.pages.components.customSwing.WButton;
 import shared.objects.Course;
 

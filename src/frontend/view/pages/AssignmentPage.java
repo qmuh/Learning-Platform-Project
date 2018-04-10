@@ -1,4 +1,4 @@
-package frontend.view.pageNavigation.pages;
+package frontend.view.pages;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -15,8 +15,9 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 
+import frontend.controller.Client;
 import frontend.interfaces.WondrisInfo;
-import frontend.view.pageNavigation.BoxList;
+import frontend.view.pages.components.BoxList;
 import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.items.AssignItem;
 import shared.objects.Assignment;
@@ -32,6 +33,14 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 	private JTextField uploadField, month, day, year;
 	private WButton uploadButton, browseButton;
 	private File selectedFile;
+
+	public AssignmentPage(Course course)
+	{
+		super(course);
+		this.setName(ASSIGNMENT_PAGE + course.getId());
+		this.setPageTitle("Assignments");
+		bodyCenter.add(createAssignmentPanel(), BorderLayout.CENTER);
+	}
 
 	public JTextField getUploadField()
 	{
@@ -61,17 +70,7 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 
 	public String getDate()
 	{
-
 		return year.getText() + "/" + month.getText() + "/" + day.getText();
-
-	}
-
-	public AssignmentPage(Course course)
-	{
-		super(course);
-		this.setName(ASSIGNMENT_PAGE + course.getId());
-		this.setPageTitle("Assignments");
-		bodyCenter.add(createAssignmentPanel(), BorderLayout.CENTER);
 	}
 
 	private JPanel createAssignmentPanel()
@@ -182,4 +181,12 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 		itemDisplay.repaint();
 	}
 
+	public void createAssignItem(Assignment assignment, ActionListener listener)
+	{
+		AssignItem assignItem = new AssignItem(assignment);
+		assignItem.setAssignmentActiveButtonListener(listener);
+		
+		this.addToBoxList(assignItem);
+		
+	}
 }

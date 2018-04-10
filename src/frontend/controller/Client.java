@@ -6,7 +6,6 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import frontend.interfaces.WondrisInfo;
-import frontend.view.LoginGUI;
 import shared.objects.SendMessage;
 
 /**
@@ -36,7 +35,7 @@ public class Client
 		}
 	}
 
-	public Object sendMessage(SendMessage toSend) throws IOException
+	public Object sendMessage(SendMessage<?> toSend) throws IOException
 	{
 
 		objectOut.writeObject(toSend);
@@ -45,6 +44,7 @@ public class Client
 		try
 		{
 			return objectIn.readObject();
+			
 		} catch (ClassNotFoundException e)
 		{
 			e.printStackTrace();
@@ -53,11 +53,10 @@ public class Client
 		return null;
 	}
 
-	public void onlySendMessage(SendMessage toSend) throws IOException
+	public void onlySendMessage(SendMessage<?> toSend) throws IOException
 	{
 		objectOut.writeObject(toSend);
 		objectOut.flush();
-		System.out.println("Only sent the message");
 	}
 
 	public Socket getMySocket()
@@ -73,11 +72,5 @@ public class Client
 	public ObjectOutputStream getObjectOut()
 	{
 		return objectOut;
-	}
-
-	public static void main(String[] args)
-	{
-		Client client = new Client();
-		LoginGUI loginGUI = new LoginGUI(WondrisInfo.TITLE);
 	}
 }

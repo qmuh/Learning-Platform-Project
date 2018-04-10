@@ -1,4 +1,4 @@
-package frontend.view.pageNavigation.pages;
+package frontend.view.pages;
 
 import frontend.view.pages.items.GradeItem;
 import shared.objects.Course;

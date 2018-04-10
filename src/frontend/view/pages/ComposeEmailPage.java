@@ -1,4 +1,4 @@
-package frontend.view.pageNavigation.pages;
+package frontend.view.pages;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;

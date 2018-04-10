@@ -1,4 +1,4 @@
-package frontend.view.pageNavigation.pages;
+package frontend.view.pages;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -30,7 +30,6 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Course course;
 	private JList<Student> enrolledStudentList;
 	private JList<Student> studentSearchResults;
 
@@ -84,7 +83,6 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 		search.addActionListener(listener);
 	}
 
-	@Override
 	public void setEnrollmentPageButtonListener(ActionListener listener)
 	{
 		enrollment.addActionListener(listener);

@@ -1,4 +1,4 @@
-package frontend.view.pageNavigation;
+package frontend.view.pages.components;
 
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -8,9 +8,10 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 import frontend.interfaces.ColourPalette;
-import frontend.view.pageNavigation.pages.HomePage;
-import frontend.view.pageNavigation.pages.Page;
-import frontend.view.pageNavigation.pages.PageNames;
+import frontend.view.pages.HomePage;
+import frontend.view.pages.Page;
+import frontend.view.pages.PageNames;
+import shared.objects.Course;
 
 /**
  *
@@ -29,7 +30,7 @@ public class PageNavigator extends JPanel implements PageNames, ColourPalette
 	{
 		cardLayout = new CardLayout();
 		this.setLayout(cardLayout);
-		addPage(new HomePage(), HOME_PAGE);
+		addPage(new HomePage());
 		this.showPage(HOME_PAGE);
 	}
 
@@ -52,11 +53,11 @@ public class PageNavigator extends JPanel implements PageNames, ColourPalette
 		return null;
 	}
 
-	protected void addPage(Page<?, ?> page, String pageName)
+	protected void addPage(Page<?, ?> page)
 	{
 		page.setHomeButtonListener(new HomeButtonListener());
 		page.setBackButtonListener(new BackButtonListener());
-		this.add(page, pageName);
+		this.add(page, page.getName());
 	}
 
 	public void previousPage()
@@ -84,13 +85,19 @@ public class PageNavigator extends JPanel implements PageNames, ColourPalette
 		}
 	}
 
-	public class ViewCourseListener implements ActionListener
+	public class ViewCoursePageListener implements ActionListener
 	{
+		private Course course;
+
+		public ViewCoursePageListener(Course course)
+		{
+			this.course = course;
+		}
 
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-			showPage(COURSE_PAGE);
+			showPage(COURSE_PAGE + course.getId());
 		}
 
 	}

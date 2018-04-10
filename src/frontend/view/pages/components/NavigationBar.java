@@ -1,4 +1,4 @@
-package frontend.view.pageNavigation;
+package frontend.view.pages.components;
 
 import java.awt.event.ActionListener;
 

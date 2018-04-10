@@ -1,4 +1,4 @@
-package frontend.view.pageNavigation.pages;
+package frontend.view.pages;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -12,9 +12,9 @@ import javax.swing.JPanel;
 
 import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
-import frontend.view.pageNavigation.BoxList;
-import frontend.view.pageNavigation.Footer;
-import frontend.view.pageNavigation.Header;
+import frontend.view.pages.components.BoxList;
+import frontend.view.pages.components.Footer;
+import frontend.view.pages.components.Header;
 
 /**
  *
@@ -78,5 +78,8 @@ public abstract class Page<T extends Box, U> extends JPanel
 	public void addToBoxList(T item)
 	{
 		itemDisplay.add(item);
+		// TODO: Consider removal.
+		itemDisplay.revalidate();
+		itemDisplay.repaint();
 	}
 }

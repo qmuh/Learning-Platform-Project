@@ -1,14 +1,18 @@
-package frontend.view.pageNavigation;
+package frontend.view.pages.components;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
+import frontend.controller.listeners.CoursePageNavigationButtonListener;
 import frontend.interfaces.WondrisInfo;
+import frontend.view.pages.PageNames;
 import frontend.view.pages.components.customSwing.WButton;
+import shared.objects.Course;
 
-public class CourseNavigationBar extends JPanel implements WondrisInfo
+public class CourseNavigationBar extends JPanel
+		implements WondrisInfo, PageNames
 {
 	private static final long serialVersionUID = 1L;
 
@@ -36,29 +40,27 @@ public class CourseNavigationBar extends JPanel implements WondrisInfo
 		return b;
 	}
 
-	public void setEnrollmentButtonListener(ActionListener listener)
+	public void createListeners(Course course, PageNavigator pageNavigator)
 	{
-		enrollmentButton.addActionListener(listener);
-	}
+		assignmentButton.addActionListener(
+				new CoursePageNavigationButtonListener(course, ASSIGNMENT_PAGE,
+						pageNavigator));
 
-	public void setAssignmentButtonListener(ActionListener listener)
-	{
-		assignmentButton.addActionListener(listener);
-	}
+		enrollmentButton.addActionListener(
+				new CoursePageNavigationButtonListener(course, ENROLLMENT_PAGE,
+						pageNavigator));
 
-	public void setSubmissionButtonListener(ActionListener listener)
-	{
-		submissionButton.addActionListener(listener);
-	}
+		submissionButton.addActionListener(
+				new CoursePageNavigationButtonListener(course, SUBMISSION_PAGE,
+						pageNavigator));
 
-	public void setDiscussionButtonListener(ActionListener listener)
-	{
-		discussionButton.addActionListener(listener);
-	}
+		discussionButton.addActionListener(
+				new CoursePageNavigationButtonListener(course, DISCUSSION_PAGE,
+						pageNavigator));
 
-	public void setComposeEmailButtonListener(ActionListener listener)
-	{
-		composeEmailButton.addActionListener(listener);
+		composeEmailButton.addActionListener(
+				new CoursePageNavigationButtonListener(course,
+						COMPOSE_EMAIL_PAGE, pageNavigator));
 	}
 
 }

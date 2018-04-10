@@ -1,4 +1,4 @@
-package frontend.view.pageNavigation.pages;
+package frontend.view.pages;
 
 import java.awt.event.ActionListener;
 
@@ -24,19 +24,19 @@ public class HomePage extends Page<CourseItem, Course>
 		super();
 		this.header.setTitle("Home");
 		setName(HOME_PAGE);
-		body = new CoursePageTable();
+		body = new HomePageCoursesTable();
 		this.add(body);
 	}
 
 	@Override
 	public void displayPage()
 	{
-		((CoursePageTable) this.body).setBoxList(itemDisplay);
+		((HomePageCoursesTable) this.body).setBoxList(itemDisplay);
 	}
 
 	public void setNewCourseListener(ActionListener listener)
 	{
-		((CoursePageTable) body).setNewCourseListener(listener);
+		((HomePageCoursesTable) body).setNewCourseListener(listener);
 	}
 
 	public static void main(String[] args)

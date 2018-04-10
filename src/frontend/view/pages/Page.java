@@ -24,7 +24,8 @@ import frontend.view.pages.components.Header;
  * @version 1.0
  * @since April 6, 2018
  */
-public abstract class Page <T extends Box, U> extends JPanel implements PageNames, WondrisInfo, ColourPalette
+public abstract class Page<T extends Box, U> extends JPanel
+		implements PageNames, WondrisInfo, ColourPalette
 {
 
 	private static final long serialVersionUID = 1L;

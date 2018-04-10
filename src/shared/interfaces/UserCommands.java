@@ -19,4 +19,6 @@ public interface UserCommands
 	public static final String CMD_RECEIVE = "RECEIVE;";
 
 	public static final String CMD_MODIFY = "MODIFY;";
+
+	public static final String CMD_EMAIL = "EMAIL;";
 }

@@ -63,7 +63,7 @@ class LoginPanel extends JPanel
 
 		this.add(createLoginArea());
 	}
-	
+
 	public WButton getLoginButton()
 	{
 		return loginButton;
@@ -156,7 +156,7 @@ class LoginPanel extends JPanel
 
 	private JPanel createTextField(String s, JTextField field)
 	{
-		JPanel textFieldPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));	
+		JPanel textFieldPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		JLabel text = new JLabel(s);
 		text.setFont(TEXT_FONT);
 		text.setForeground(Color.WHITE);

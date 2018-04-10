@@ -179,14 +179,33 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 				new AssignmentPageButtonListener(course));
 		composeEmailPage.setSubmissionButtonListener(
 				new SubmissionPageButtonListener(course));
+		composeEmailPage
+				.setMyEmailButtonListener(new MyEmailsButtonListener(course));
+		this.addPage(composeEmailPage, composeEmailPage.getName());
+		composeEmailPage.setSendToAllButtonListener(
+				new SendToAllButtonListener(course, composeEmailPage));
 		composeEmailPage.setDiscussionButtonListener(
 				new DiscussionButtonListener(course));
 		this.addPage(composeEmailPage, composeEmailPage.getName());
 		composeEmailPage.setSendToAllButtonListener(
-				new SendToAllButtonListener(course));
-		composeEmailPage.setSendButtonListener(new SendButtonListener(course));
+				new SendToAllButtonListener(course, composeEmailPage));
+		composeEmailPage.setSendButtonListener(new SendButtonListener(course, composeEmailPage));
 		composeEmailPage.setAddToEmailButtonListener(
-				new AddToEmailButtonListener(course));
+				new AddToEmailButtonListener(course, composeEmailPage));
+
+		// Sets the enrolled J-List to help email choosing
+		try
+		{
+			Vector<Student> enrollList = (Vector<Student>) clientController
+					.sendMessage(new SendMessage<Course>(course,
+							CMD_RECEIVE + RECEIVE_ALL_ENROLLED_STUDENTS));
+			composeEmailPage.setStudentList(enrollList);
+		} catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	private void createSubmissionPage(Course course)
@@ -446,6 +465,8 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 
 			}
 
+			showAllStudents(myCourse, enrollmentPage);
+			createComposeEmailPage(myCourse);
 		}
 	}
 
@@ -486,7 +507,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 			}
 
 			showAllStudents(myCourse, enrollmentPage);
-
+			createComposeEmailPage(myCourse);
 		}
 	}
 
@@ -822,16 +843,35 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	private class SendToAllButtonListener implements ActionListener
 	{
 		private Course course;
+		private ComposeEmailPage composePage;
 
-		public SendToAllButtonListener(Course course)
+		public SendToAllButtonListener(Course course,
+				ComposeEmailPage composeEmailPage)
 		{
 			this.course = course;
+			composePage = composeEmailPage;
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-			// TODO Auto-generated method stub
+			try
+			{
+				composePage.clearEmail();
+				Vector<Student> enrollList = (Vector<Student>) clientController
+						.sendMessage(new SendMessage<Course>(course,
+								CMD_RECEIVE + RECEIVE_ALL_ENROLLED_STUDENTS));
+
+				for (int i = 0; i < enrollList.size(); i++)
+				{
+					String add = enrollList.get(i).getEmail();
+					composePage.appendEmail(add);
+				}
+
+			} catch (IOException e1)
+			{
+				e1.printStackTrace();
+			}
 
 		}
 
@@ -844,16 +884,18 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	private class SendButtonListener implements ActionListener
 	{
 		private Course course;
+		ComposeEmailPage emailPage;
 
-		public SendButtonListener(Course course)
+		public SendButtonListener(Course course, ComposeEmailPage email)
 		{
 			this.course = course;
+			ComposeEmailPage emailPage;
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-			// TODO Auto-generated method stub
+
 
 		}
 
@@ -866,16 +908,22 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	private class AddToEmailButtonListener implements ActionListener
 	{
 		private Course course;
+		private ComposeEmailPage myEmailPage;
 
-		public AddToEmailButtonListener(Course course)
+		public AddToEmailButtonListener(Course course, ComposeEmailPage myPage)
 		{
 			this.course = course;
+			myEmailPage = myPage;
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-			// TODO Auto-generated method stub
+			String add = myEmailPage.getSelected();
+			if (add != null)
+			{
+				myEmailPage.appendEmail(add);
+			}
 
 		}
 

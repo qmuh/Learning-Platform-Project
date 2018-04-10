@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -60,15 +61,17 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 	{
 		return studentList;
 	}
-	
+
 	public void setSendToAllButtonListener(ActionListener listener)
 	{
 		sendToAllButton.addActionListener(listener);
 	}
+
 	public void setSendButtonListener(ActionListener listener)
 	{
 		sendButton.addActionListener(listener);
 	}
+
 	public void setAddToEmailButtonListener(ActionListener listener)
 	{
 		addToEmailButton.addActionListener(listener);
@@ -80,16 +83,19 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 		this.setName(COMPOSE_EMAIL_PAGE + course.getId());
 		this.setPageTitle("Compose Email");
 		bodyCenter.add(createComposeEmailPanel(), BorderLayout.CENTER);
+		toField.setText("");
+		toField.setEditable(false);
 	}
 
 	private JPanel createComposeEmailPanel()
 	{
 		JPanel composeEmailPanel = new JPanel(new BorderLayout());
-		composeEmailPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+		composeEmailPanel
+				.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
 		composeEmailPanel.add(createEmailComponents(), BorderLayout.CENTER);
 		return composeEmailPanel;
 	}
-	
+
 	private JPanel createEmailComponents()
 	{
 		JPanel emailComponentPanel = new JPanel(new BorderLayout());
@@ -101,7 +107,7 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 		emailComponentPanel.add(centerPanel, BorderLayout.CENTER);
 		return emailComponentPanel;
 	}
-	
+
 	private JPanel createEmailFields()
 	{
 		JPanel emailFieldPanel = new JPanel(new BorderLayout());
@@ -118,17 +124,18 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 		emailFieldPanel.add(theLabel, BorderLayout.EAST);
 		return emailFieldPanel;
 	}
-	
+
 	private JPanel createTextField(String s, JTextField field)
 	{
 		JPanel textFieldPanel = new JPanel();
 		textFieldPanel.setBorder(BorderFactory.createEmptyBorder(3, 0, 3, 0));
-		textFieldPanel.setLayout(new BoxLayout(textFieldPanel, BoxLayout.X_AXIS));
+		textFieldPanel
+				.setLayout(new BoxLayout(textFieldPanel, BoxLayout.X_AXIS));
 		textFieldPanel.add(createLabel(s, SUB_TITLE_FONT));
 		textFieldPanel.add(field);
 		return textFieldPanel;
 	}
-	
+
 	private JPanel createEmailTextArea()
 	{
 		JPanel emailTextPanel = new JPanel(new BorderLayout());
@@ -139,7 +146,7 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 		emailTextPanel.add(createButtonPanel(), BorderLayout.SOUTH);
 		return emailTextPanel;
 	}
-	
+
 	private JPanel createButtonPanel()
 	{
 		JPanel buttonPanel = new JPanel(new BorderLayout());
@@ -150,15 +157,15 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 		buttonPanel.add(sendButton, BorderLayout.EAST);
 		return buttonPanel;
 	}
-	
-	
+
 	private JPanel createStudentList()
 	{
 		JPanel studentListPanel = new JPanel(new BorderLayout());
 		studentListPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 		studentList = new JList<Student>();
 		JScrollPane scrollPane = new JScrollPane(studentList);
-		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setVerticalScrollBarPolicy(
+				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		studentListPanel.add(scrollPane, BorderLayout.CENTER);
 		JPanel theButton = new JPanel(new BorderLayout());
 		theButton.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
@@ -167,4 +174,40 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 		studentListPanel.add(theButton, BorderLayout.SOUTH);
 		return studentListPanel;
 	}
+
+	public void setStudentList(Vector<Student> enrollList)
+	{
+		studentList.clearSelection();
+		studentList.setListData(enrollList);
+	}
+
+	public String getSelected()
+	{
+		Student selected = getStudentList().getSelectedValue();
+		return selected.getEmail();
+	}
+
+	public void appendEmail(String add)
+	{
+
+		String head = toField.getText();
+
+		if (head.equals(""))
+		{
+			toField.setText(add);
+		}
+
+		else
+		{
+			head = head + "," + add;
+			toField.setText(head);
+		}
+	}
+
+	public void clearEmail()
+	{
+		toField.setText("");
+
+	}
+
 }

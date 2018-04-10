@@ -1,6 +1,7 @@
 package shared.objects;
 
 import java.io.Serializable;
+import java.util.Random;
 
 public class Grade implements Serializable
 {
@@ -36,6 +37,17 @@ public class Grade implements Serializable
 		courseID = course;
 	}
 
+	public Grade(int stuID, int grade, int assign, int course)
+	{
+		Random random = new Random();
+		id = random.nextInt(3000) + 2000;
+		student_id = stuID;
+		this.grade = grade;
+		assignID = assign;
+		courseID = course;
+	}
+
+	
 	public int getId()
 	{
 		return id;

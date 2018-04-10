@@ -15,6 +15,7 @@ import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.components.BoxList;
 import frontend.view.pages.components.Footer;
 import frontend.view.pages.components.Header;
+import frontend.view.pages.components.customSwing.WButton;
 
 /**
  *
@@ -65,14 +66,24 @@ public abstract class Page<T extends Box, U> extends JPanel
 		this.itemDisplay = boxList;
 	}
 
-	public void setHomeButtonListener(ActionListener listener)
+	public WButton getHomeButton()
 	{
-		header.setHomeButtonListener(listener);
+		return header.getHomeButton();
 	}
-
-	public void setBackButtonListener(ActionListener listener)
+	
+	public WButton getBackButton()
 	{
-		header.setBackButtonListener(listener);
+		return header.getBackButton();
+	}
+	
+	public WButton getGearButton()
+	{
+		return header.getGearButton();
+	}
+	
+	public void setBackButtonEnabled(boolean b)
+	{
+		header.getBackButton().setEnabled(b);
 	}
 
 	public void addToBoxList(T item)

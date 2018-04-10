@@ -4,6 +4,7 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Stack;
 
 import javax.swing.JPanel;
 
@@ -11,6 +12,7 @@ import frontend.interfaces.ColourPalette;
 import frontend.view.pages.HomePage;
 import frontend.view.pages.Page;
 import frontend.view.pages.PageNames;
+import frontend.view.pages.components.customSwing.WButton;
 import shared.objects.Course;
 
 /**
@@ -25,20 +27,36 @@ public class PageNavigator extends JPanel implements PageNames, ColourPalette
 	private static final long serialVersionUID = 1L;
 	private CardLayout cardLayout;
 	private Page<?, ?> currentPage;
+	private Stack<Page<?, ?>> pageStack;
 
 	public PageNavigator()
 	{
-		cardLayout = new CardLayout();
+		this.cardLayout = new CardLayout();
 		this.setLayout(cardLayout);
-		addPage(new HomePage());
-		this.showPage(HOME_PAGE);
+
+		this.pageStack = new Stack<Page<?, ?>>();
+
+		this.currentPage = new HomePage();
+		currentPage.setBackButtonEnabled(false);
+
+		this.addPage(currentPage);
+		cardLayout.show(this, HOME_PAGE);
 	}
 
 	public void showPage(String pageName)
 	{
-		cardLayout.show(this, pageName);
-		currentPage = searchPage(pageName);
-
+		if (currentPage.getName().equals(pageName))
+		{
+			return;
+			
+		} else
+		{
+			currentPage.setBackButtonEnabled(true);
+			pageStack.push(currentPage);
+			pageStack.peek();
+			cardLayout.show(this, pageName);
+			currentPage = searchPage(pageName);
+		}
 	}
 
 	public Page<?, ?> searchPage(String name)
@@ -55,14 +73,27 @@ public class PageNavigator extends JPanel implements PageNames, ColourPalette
 
 	protected void addPage(Page<?, ?> page)
 	{
-		page.setHomeButtonListener(new HomeButtonListener());
-		page.setBackButtonListener(new BackButtonListener());
+		page.getHomeButton().addActionListener(new HomeButtonListener());
+		page.getBackButton().addActionListener(new BackButtonListener());
 		this.add(page, page.getName());
 	}
 
 	public void previousPage()
 	{
-		cardLayout.previous(this);
+		if (!pageStack.isEmpty())
+		{
+			String pageName = pageStack.pop().getName();
+			cardLayout.show(this, pageName);
+			currentPage = searchPage(pageName);
+			System.out.println(pageName + " was removed from the stack.");
+			if (pageStack.isEmpty())
+			{
+				currentPage.setBackButtonEnabled(false);
+			}
+		} else
+		{
+
+		}
 	}
 
 	public class BackButtonListener implements ActionListener
@@ -73,7 +104,6 @@ public class PageNavigator extends JPanel implements PageNames, ColourPalette
 		{
 			previousPage();
 		}
-
 	}
 
 	public class HomeButtonListener implements ActionListener
@@ -99,7 +129,5 @@ public class PageNavigator extends JPanel implements PageNames, ColourPalette
 		{
 			showPage(COURSE_PAGE + course.getId());
 		}
-
 	}
-
 }

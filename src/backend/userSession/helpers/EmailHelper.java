@@ -58,7 +58,7 @@ public class EmailHelper
 			Transport.send(message); // Send the Email Message
 
 		} catch (MessagingException e)
-		{
+		{	System.out.println("Error sending email");
 			e.printStackTrace();
 			return false;
 		}

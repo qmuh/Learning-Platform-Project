@@ -84,7 +84,7 @@ public class GradeTable extends Table<Grade>
 			preparedStatement = dbConnection.prepareStatement(sql);
 			preparedStatement.setInt(1, assign_id);
 			grade = preparedStatement.executeQuery();
-			if (grade.next())
+			while (grade.next())
 			{
 
 				gradeList.add(new Grade(grade.getInt("ID"),
@@ -99,5 +99,33 @@ public class GradeTable extends Table<Grade>
 
 		return gradeList;
 
+	}
+
+	public Vector<Grade> studentGradesForCourse(int courseID, int studentID)
+	{
+		Vector<Grade> gradeList = new Vector<Grade>();
+
+		String sql = "SELECT * FROM " + tableName + " WHERE COURSEID= ? AND STUDENTID= ?";
+		ResultSet grade;
+		try
+		{
+			preparedStatement = dbConnection.prepareStatement(sql);
+			preparedStatement.setInt(1, courseID);
+			preparedStatement.setInt(2, studentID);
+			grade = preparedStatement.executeQuery();
+			while (grade.next())
+			{
+
+				gradeList.add(new Grade(grade.getInt("ID"),
+						grade.getInt("STUDENTID"), grade.getInt("ASSIGN_GRADE"),
+						grade.getInt("ASSIGNID"), grade.getInt("COURSEID")));
+			}
+
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+
+		return gradeList;
 	}
 }

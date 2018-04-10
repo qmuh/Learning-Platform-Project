@@ -12,6 +12,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
@@ -130,6 +131,7 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 				BorderLayout.NORTH);
 		studentSearchResults = new JList<Student>();
 		studentSearchResults.setFont(TEXT_FONT);
+		studentSearchResults.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		searchResults.add(studentSearchResults, BorderLayout.CENTER);
 		return searchResults;
 	}
@@ -210,6 +212,7 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 		JPanel enrolledPanel = new JPanel(new GridLayout(1, 1));
 		enrolledPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
 		enrolledStudentList = new JList<Student>();
+		enrolledStudentList.setEnabled(false);
 		enrolledStudentList.setFont(TEXT_FONT);
 		enrolledPanel.add(enrolledStudentList);
 		return enrolledPanel;

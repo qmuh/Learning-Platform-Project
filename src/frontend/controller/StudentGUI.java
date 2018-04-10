@@ -13,7 +13,7 @@ public class StudentGUI
 {
 	private Student thisStudent;
 	// Page??
-	private MessageHandler comHandler;
+	
 
 	public StudentGUI()
 	{

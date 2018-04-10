@@ -181,10 +181,19 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 			Boolean isEnrolled = database.getStudentEnrollmentTable()
 					.isStudentEnrolled(studentID, courseID);
 			sendObject(isEnrolled);
+		
 		} else if(type.equals(RECEIVE_STUDENT_ASSIGNMENT))
 		{
 			super.sendBackFile(((Submission)getMessage).getPath());
+		
+		} else if(type.equals(RECEIVE_ALL_SUBMISSIONS))
+		{
+			Vector<Submission> allSubmission = database.getSubmissionTable().
+					searchByCourse(((Course)getMessage).getId());
+			sendObject(allSubmission);
+			
 		}
+		
 		else
 		{
 

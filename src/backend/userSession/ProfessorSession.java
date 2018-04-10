@@ -49,7 +49,7 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 
 		if (commandType.equals(CMD_INSERT))
 		{
-			handleInsert(interpreter[1], command.getmessageObject());
+			handleInsert(interpreter[1], command.getContents());
 
 		} else if (commandType.equals(CMD_REMOVE))
 		{
@@ -61,11 +61,11 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 
 		} else if (commandType.equals(CMD_RECEIVE))
 		{
-			handleRecieve(interpreter[1], command.getmessageObject());
+			handleRecieve(interpreter[1], command.getContents());
 
 		} else if (commandType.equals(CMD_MODIFY))
 		{
-			handleModify(interpreter[1], command.getmessageObject());
+			handleModify(interpreter[1], command.getContents());
 
 		} else if (commandType.equals(CMD_LOGOUT))
 		{
@@ -163,8 +163,18 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 					.getAllAssignments(((Course) getMessage).getId());
 			sendObject(allAssignments);
 
+		} else if (type.equals(RECEIVE_STUDENT_IS_ENROLLED))
+		{
+
+			int studentID = ((StudentEnrollment) getMessage).getStudent_id();
+			int courseID = ((StudentEnrollment) getMessage).getCourse_id();
+
+			Boolean isEnrolled = database.getStudentEnrollmentTable()
+					.isStudentEnrolled(studentID, courseID);
+			sendObject(isEnrolled);
 		} else
 		{
+
 			System.err.println("!---------------------------------------!");
 			System.err.println("An unknown type was received. It was: ");
 			System.err.println("\t\t - " + type);
@@ -180,17 +190,17 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 			System.out.println(
 					"Adding course " + ((Course) getmessageObject).getName()
 							+ " for Prof: " + professor.getFirstName());
-			
+
 		} else if (type.equals(INSERT_ENROLLMENT))
 		{
 			database.getStudentEnrollmentTable()
-			.add((StudentEnrollment) getmessageObject);
-			
+					.add((StudentEnrollment) getmessageObject);
+
 		} else if (type.equals(INSERT_UNENROLLMENT))
 		{
 			database.getStudentEnrollmentTable()
-			.remove((StudentEnrollment) getmessageObject);
-			
+					.remove((StudentEnrollment) getmessageObject);
+
 		} else if (type.equals(INSERT_ASSIGNMENT))
 		{
 			database.getAssignmentTable().add(((Assignment) getmessageObject));
@@ -203,14 +213,14 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 			{
 				e.printStackTrace();
 			}
-			
+
 		} else
 		{
 			System.err.println("!---------------------------------------!");
 			System.err.println("An unknown type was received. It was: ");
 			System.err.println("\t\t - " + type);
 			System.err.println("!---------------------------------------!");
-			
+
 		}
 	}
 }

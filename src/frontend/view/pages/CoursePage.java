@@ -48,7 +48,7 @@ public class CoursePage<T extends Box, U> extends Page<T, U>
 		body.add(bodyCenter, BorderLayout.CENTER);
 	}
 
-	public void setEnrollmentButtonListener(ActionListener listener)
+	public void setEnrollmentPageButtonListener(ActionListener listener)
 	{
 		courseNavigationBar.setEnrollmentButtonListener(listener);
 	}

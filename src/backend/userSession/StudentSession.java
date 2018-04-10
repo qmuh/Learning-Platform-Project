@@ -42,7 +42,7 @@ public class StudentSession extends ClientSession
 
 		if (interpreter[0].equals("INSERT"))
 		{
-			handleInsert(interpreter, command.getmessageObject());
+			handleInsert(interpreter, command.getContents());
 		}
 
 		else if (interpreter[0].equals("REMOVE"))
@@ -52,12 +52,12 @@ public class StudentSession extends ClientSession
 
 		else if (interpreter[0].equals("RECEIVE"))
 		{
-			handleRecieve(interpreter, command.getmessageObject());
+			handleRecieve(interpreter, command.getContents());
 		}
 
 		else if (interpreter[0].equals("MODIFY"))
 		{
-			handleModify(interpreter, command.getmessageObject());
+			handleModify(interpreter, command.getContents());
 		} else if (interpreter[0].equals("LOGOUT"))
 		{
 			return false;

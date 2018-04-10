@@ -21,6 +21,8 @@ public interface ProfessorCommands extends UserCommands
 	public static final String RECEIVE_ALL_ENROLLED_STUDENTS = "ALLENROLLED";
 	
 	public static final String RECEIVE_ALL_ASSIGNMENTS = "ALLASSIGNMENTS";
+	
+	public static final String RECEIVE_STUDENT_IS_ENROLLED = "STUDENTISENROLLED";
 
 	
 	public static final String INSERT_COURSE = "COURSE";

@@ -96,7 +96,26 @@ public abstract class ClientSession implements Runnable
 	protected void handleEmail(EmailInfo emailLogin)
 	{
 
-		Boolean authenticate = emailHelper.sendEmail(emailLogin);
+			Boolean authenticate = emailHelper.sendEmail(emailLogin);
+			try
+			{
+				objectOut.writeObject(authenticate);
+				objectOut.flush();
+			} catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+	}
+
+	protected void sendBackFile(String path)
+	{
+		byte[] file = fileHelper.receiveFile(path);
+		try{
+			objectOut.writeObject(file);
+			objectOut.flush();
+			} catch(IOException e){
+			e.printStackTrace();
+			}
 
 	}
 
@@ -115,7 +134,7 @@ public abstract class ClientSession implements Runnable
 	/**
 	 * Interprets the message sent by the client. Returns a boolean to denote
 	 * whether the session is still active.
-	 * 
+	 *
 	 * @param command
 	 *            the command to execute
 	 * @return true until the client logs off

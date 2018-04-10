@@ -27,8 +27,6 @@ public class HomePageCoursesTable extends JPanel
 
 	private static final String TABLE_TITLE = "My Courses";
 
-	private static final String TABLE_CONTENTS = "Table Contents";
-
 	private JPanel tablePanel;
 
 	private JPanel titlePanel;

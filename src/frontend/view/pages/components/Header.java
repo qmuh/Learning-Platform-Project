@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.GUIConstants;
+import frontend.view.pages.components.customSwing.WButton;
 
 /**
  * 
@@ -54,13 +55,18 @@ public class Header extends JPanel
 		this.add(createTitle(title), 1);
 	}
 
-	public void setBackButtonListener(ActionListener listener)
+	public WButton getHomeButton()
 	{
-		navigationBar.setBackButtonListener(listener);
+		return navigationBar.getHomeButton();
 	}
-
-	public void setHomeButtonListener(ActionListener listener)
+	
+	public WButton getBackButton()
 	{
-		navigationBar.setHomeButtonListener(listener);
+		return navigationBar.getBackButton();
+	}
+	
+	public WButton getGearButton()
+	{
+		return navigationBar.getGearButton();
 	}
 }

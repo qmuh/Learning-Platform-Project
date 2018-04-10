@@ -31,26 +31,26 @@ public class NavigationBar extends JPanel implements WondrisInfo, ColourPalette
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private WButton home;
-	private WButton back;
-	private WButton gear;
+	private WButton homeButton;
+	private WButton backButton;
+	private WButton gearButton;
 
 	public NavigationBar()
 	{
-		home = new WButton();
-		back = new WButton();
-		gear = new WButton();
+		homeButton = new WButton();
+		backButton = new WButton();
+		gearButton = new WButton();
 		try
 		{
 			BufferedImage image = ImageIO.read(new File("home.png"));
 			ImageIcon icon = new ImageIcon(image);
-			home.setIcon(icon);
+			homeButton.setIcon(icon);
 			image = ImageIO.read(new File("back.png"));
 			icon = new ImageIcon(image);
-			back.setIcon(icon);
+			backButton.setIcon(icon);
 			image = ImageIO.read(new File("gear.png"));
 			icon = new ImageIcon(image);
-			gear.setIcon(icon);
+			gearButton.setIcon(icon);
 		} catch (IOException e)
 		{
 			e.printStackTrace();
@@ -69,8 +69,8 @@ public class NavigationBar extends JPanel implements WondrisInfo, ColourPalette
 	{
 		JPanel thePanel = new JPanel();
 		thePanel.setBackground(ACCENT_COLOR);
-		thePanel.add(back);
-		thePanel.add(home);
+		thePanel.add(backButton);
+		thePanel.add(homeButton);
 		return thePanel;
 	}
 
@@ -80,18 +80,23 @@ public class NavigationBar extends JPanel implements WondrisInfo, ColourPalette
 		thePanel.setBackground(ACCENT_COLOR);
 		JPanel gearPanel = new JPanel();
 		gearPanel.setBackground(ACCENT_COLOR);
-		gearPanel.add(gear);
+		gearPanel.add(gearButton);
 		thePanel.add(gearPanel, BorderLayout.EAST);
 		return thePanel;
 	}
-	public void setBackButtonListener(ActionListener listener)
+	
+	public WButton getHomeButton()
 	{
-		back.addActionListener(listener);
+		return homeButton;
 	}
-
-	public void setHomeButtonListener(ActionListener listener)
+	
+	public WButton getBackButton()
 	{
-		home.addActionListener(listener);
+		return backButton;
 	}
-
+	
+	public WButton getGearButton()
+	{
+		return gearButton;
+	}
 }

@@ -8,10 +8,13 @@ import shared.interfaces.ProfessorCommands;
 import shared.objects.Assignment;
 import shared.objects.Course;
 import shared.objects.EmailInfo;
+import shared.objects.Grade;
+import shared.objects.LoginInfo;
 import shared.objects.Professor;
 import shared.objects.SendMessage;
 import shared.objects.Student;
 import shared.objects.StudentEnrollment;
+import shared.objects.Submission;
 
 /**
  *
@@ -178,7 +181,11 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 			Boolean isEnrolled = database.getStudentEnrollmentTable()
 					.isStudentEnrolled(studentID, courseID);
 			sendObject(isEnrolled);
-		} else
+		} else if(type.equals(RECEIVE_STUDENT_ASSIGNMENT))
+		{
+			super.sendBackFile(((Submission)getMessage).getPath());
+		}
+		else
 		{
 
 			System.err.println("!---------------------------------------!");
@@ -209,18 +216,28 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 
 		} else if (type.equals(INSERT_ASSIGNMENT))
 		{
-			database.getAssignmentTable().add(((Assignment) getmessageObject));
+
+			Assignment profAssign = (Assignment)getmessageObject;
+			String toSplit[] = profAssign.getPath().split("/");
+			profAssign.setPath(DATABASE_STORAGE + profAssign.getTitle() +
+					"/" + (toSplit[toSplit.length - 1]));
+
+			database.getAssignmentTable().add(profAssign);
 			byte[] file;
 			try
 			{
 				file = (byte[]) objectIn.readObject();
-				fileHelper.storeFile(file, ((Assignment) getmessageObject));
+				fileHelper.checkDir(DATABASE_STORAGE + profAssign.getTitle());
+				fileHelper.storeFile(file, profAssign);
 			} catch (ClassNotFoundException | IOException e)
 			{
 				e.printStackTrace();
 			}
 
-		} else
+		} else if(type.equals(INSERT_GRADE))
+		{
+			database.getGradeTable().add((Grade)getmessageObject);
+		}else
 		{
 			System.err.println("!---------------------------------------!");
 			System.err.println("An unknown type was received. It was: ");

@@ -51,9 +51,9 @@ public class StudentSubItem extends GeneralItem
 		return student.getId();
 	}
 
-	public void addSubmission(Submission submission)
+	public void addSubmissionItem(SubmitItem submitItem)
 	{
-		submissionItems.add(new SubmitItem(submission));
+		submissionItems.add(submitItem);
 	}
 
 }

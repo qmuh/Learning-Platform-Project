@@ -33,8 +33,22 @@ public class SubmitItem extends GeneralItem
 		
 		this.setBackground(SECONDARY_COLOR);
 		
-		
 		this.add(makeSubmissionPanel());
+	}
+	
+	public Submission getSubmission()
+	{
+		return submission;
+	}
+	
+	public String getGradeText()
+	{
+		return gradeField.getText();
+	}
+	
+	public WButton getGradeButton()
+	{
+		return gradeButton;
 	}
 	
 	private JPanel makeSubmissionPanel()

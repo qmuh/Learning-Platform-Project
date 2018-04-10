@@ -1,4 +1,4 @@
 1000 Adam Smith adam.smith@ucalgary.ca P 1
-1001 Alex Smith alex.smith1@ucalgary.ca S 1
-1002 Jimbo Smith jimbo.smith2@ucalgary.ca S 1
-1003 Qasim Muhammad qasim.m@ucalgary.ca S 1
+1001 Alex Smith qasim1000@hotmail.com S 1
+1002 Jimbo Smith qasim.muhammad@ucalgary.ca S 1
+1003 Qasim Muhammad qasim1000@hotmail.com S 1

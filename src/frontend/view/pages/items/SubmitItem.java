@@ -22,11 +22,10 @@ import shared.objects.Submission;
  */
 public class SubmitItem extends GeneralItem
 {
-
+	private WButton gradeButton;
+	private JTextField gradeField;
 	private Submission submission;
 	private JLabel assignmentLink;
-	private JTextField gradeField;
-	private WButton gradeButton;
 
 	public SubmitItem(Submission submission)
 	{
@@ -38,7 +37,7 @@ public class SubmitItem extends GeneralItem
 		this.add(makeSubmissionPanel());
 	}
 	
-	public JLabel getAssignmentLink ()
+	public JLabel getAssignmentLink()
 	{
 		return assignmentLink;
 	}
@@ -104,5 +103,5 @@ public class SubmitItem extends GeneralItem
 	{
 		return submission.getId();
 	}
-
+	
 }

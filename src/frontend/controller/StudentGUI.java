@@ -16,7 +16,7 @@ public class StudentGUI extends PageNavigator
 {
 	private Student thisStudent;
 	// Page??
-	private MessageHandler comHandler;
+	
 
 	public StudentGUI(Socket socket, Student user)
 	{

@@ -3,10 +3,15 @@ package frontend.view.pages;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Vector;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -17,6 +22,7 @@ import javax.swing.ScrollPaneConstants;
 import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.items.StudentItem;
 import shared.objects.Course;
+import shared.objects.EmailInfo;
 import shared.objects.Student;
 
 public class ComposeEmailPage extends CoursePage<StudentItem, Student>
@@ -152,8 +158,16 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 	{
 		JPanel buttonPanel = new JPanel(new BorderLayout());
 		buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
-		sendToAllButton = new WButton("Send to All Enrolled Students");
-		sendButton = new WButton("Send");
+		sendToAllButton = new WButton("Add All Enrolled Students");
+		sendButton = new WButton();
+		try {
+			BufferedImage image = ImageIO.read(new File("send.png"));
+			ImageIcon icon = new ImageIcon(image);
+			sendButton.setIcon(icon);
+		} catch(IOException e)
+		{
+			e.printStackTrace();
+		}
 		buttonPanel.add(sendToAllButton, BorderLayout.WEST);
 		buttonPanel.add(sendButton, BorderLayout.EAST);
 		return buttonPanel;
@@ -210,6 +224,23 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 	{
 		toField.setText("");
 
+	}
+
+	public EmailInfo getEmailInfo()
+	{
+		String emails[] = toField.getText().split(",");
+		EmailInfo composedEmail = new EmailInfo(null, null);
+		
+		for (int i = 0; i < emails.length; i++)
+		{
+			composedEmail.addRecipient(emails[i]);
+		}
+		
+		composedEmail.setContent(emailArea.getText());
+		composedEmail.setSubject(subjectField.getText());
+		
+		return composedEmail;
+	
 	}
 
 }

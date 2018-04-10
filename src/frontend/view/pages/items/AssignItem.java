@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -41,7 +42,7 @@ public class AssignItem extends GeneralItem
 		assignmentName.setFont(TEXT_FONT);
 		dueDate = new JLabel(assignment.getDueDate());
 		dueDate.setFont(TEXT_FONT);
-
+		this.setBorder(BorderFactory.createEtchedBorder());
 		this.add(createTheAssignment());
 	}
 	

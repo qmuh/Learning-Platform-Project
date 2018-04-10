@@ -63,6 +63,16 @@ public class Assignment implements Serializable
 		Random random = new Random();
 		id = random.nextInt(5000) + 2500;
 		course_id = courseID;
+		
+		for (int i = 0; i < assignTitle.length(); i++)
+		{
+			if(assignTitle.charAt(i) == '.')
+			{
+				assignTitle = assignTitle.substring(0, i);
+				break;
+			}
+		}
+		
 		title = assignTitle;
 		path = pathway;
 		active = isActive;
@@ -106,6 +116,12 @@ public class Assignment implements Serializable
 	public String getDueDate()
 	{
 		return due_date;
+	}
+
+	public void setPath(String string)
+	{
+		path = string;
+		
 	}
 
 }

@@ -67,4 +67,13 @@ public class EmailInfo implements Serializable
 		return emailContent;
 	}
 
+	public void setFromEmail(String fromEmail)
+	{
+		email = fromEmail;
+	}
+
+	public void setFromEmailPassword(String pass)
+	{
+		password = pass;
+	}
 }

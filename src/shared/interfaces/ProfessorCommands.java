@@ -2,7 +2,7 @@ package shared.interfaces;
 
 /**
  * An interface that stores all available professor commands.
- * 
+ *
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
@@ -23,8 +23,10 @@ public interface ProfessorCommands extends UserCommands
 	public static final String RECEIVE_ALL_ASSIGNMENTS = "ALLASSIGNMENTS";
 
 	public static final String RECEIVE_STUDENT_IS_ENROLLED = "STUDENTISENROLLED";
-	
+
 	public static final String RECEIVE_ALL_SUBMISSIONS = "ALLSUBMISSIONS";
+	
+	public static final String RECEIVE_STUDENT_ASSIGNMENT = "STUDENTASSIGNMENT";
 
 	public static final String INSERT_COURSE = "COURSE";
 
@@ -33,6 +35,8 @@ public interface ProfessorCommands extends UserCommands
 	public static final String INSERT_UNENROLLMENT = "UNENROLL";
 
 	public static final String INSERT_ASSIGNMENT = "ASSIGNMENT";
+
+	public static final String INSERT_GRADE = "GRADE";
 
 	public static final String MODIFY_COURSE_ACTIVE = "COURSEACTIVE";
 

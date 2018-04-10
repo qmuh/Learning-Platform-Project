@@ -2,6 +2,7 @@ package frontend.view.pages.items;
 
 import javax.swing.Box;
 
+import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
 
 /**
@@ -11,7 +12,7 @@ import frontend.interfaces.WondrisInfo;
  * @version 1.0
  * @since April 6, 2018
  */
-public abstract class GeneralItem extends Box implements WondrisInfo
+public abstract class GeneralItem extends Box implements WondrisInfo, ColourPalette
 {
 
 	/**

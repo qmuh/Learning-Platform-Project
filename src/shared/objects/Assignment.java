@@ -69,6 +69,14 @@ public class Assignment implements Serializable
 		due_date = due;
 
 	}
+	
+	public void setActive()
+	{
+		if(active)
+			active = false;
+		else
+			active = true;
+	}
 
 	public int getId()
 	{
@@ -95,7 +103,7 @@ public class Assignment implements Serializable
 		return active;
 	}
 
-	public String getDue_date()
+	public String getDueDate()
 	{
 		return due_date;
 	}

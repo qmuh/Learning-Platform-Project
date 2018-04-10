@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Vector;
 
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -241,8 +242,8 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 			Assignment assignment)
 	{
 		AssignItem assignItem = new AssignItem(assignment);
-		assignItem.setActiveCheckboxListener(
-				new AssignmentActiveCheckBoxListener(assignment));
+		assignItem.setAssignmentActiveButtonListener(
+				new AssignmentActiveButtonListener(assignment));
 		assignmentPage.addToBoxList(assignItem);
 		assignmentPage.displayPage();
 	}
@@ -599,11 +600,11 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		}
 	}
 
-	private class AssignmentActiveCheckBoxListener implements ActionListener
+	private class AssignmentActiveButtonListener implements ActionListener
 	{
 		private Assignment assignment;
 
-		public AssignmentActiveCheckBoxListener(Assignment course)
+		public AssignmentActiveButtonListener(Assignment course)
 		{
 			this.assignment = course;
 		}
@@ -614,14 +615,15 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 			System.err.println("Assignment Activity");
 			try
 			{
-				JCheckBox checkBox = (JCheckBox) e.getSource();
-				if (!checkBox.isSelected() && assignment.getActive())
+				WButton activeButton = (WButton) e.getSource();
+				if (assignment.getActive())
 				{
 					System.out.println("INACTIVE");
 					clientController.onlySendMessage(
 							new SendMessage<Assignment>(assignment,
 									CMD_MODIFY + MODIFY_ASSIGNMENT_INACTIVE));
-
+					activeButton.setText("ACTIVATE");
+					activeButton.setBackground(BACKGROUND_COLOUR);
 				} else
 				{
 					System.out.println("ACTIVE");
@@ -629,8 +631,11 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 					clientController.onlySendMessage(
 							new SendMessage<Assignment>(assignment,
 									CMD_MODIFY + MODIFY_ASSIGNMENT_ACTIVE));
+					activeButton.setText("DEACTIVATE");
+					activeButton.setBackground(CONTRAST_COLOR);
 
 				}
+				assignment.setActive();
 			} catch (IOException e1)
 			{
 				System.out.println("Unable to change the course active state");
@@ -657,13 +662,14 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-			String append[] = assignmentPage.getFile().getPath().split("/");
+			System.out.println(assignmentPage.getFile().getPath());
+			String append[] = assignmentPage.getFile().getPath().split(File.pathSeparator);
 			if (assignmentPage.getFile() != null)
 			{
 				Assignment myUpload = new Assignment(course.getId(),
 						append[append.length - 1],
 						assignmentPage.getUploadField().getText(), false,
-						assignmentPage.getDate().toString());
+						assignmentPage.getDate());
 				try
 				{
 					clientController.onlySendMessage(

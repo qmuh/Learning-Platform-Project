@@ -37,7 +37,7 @@ public class AssignmentTable extends Table<Assignment> implements Activable
 			preparedStatement.setString(3, toAdd.getTitle());
 			preparedStatement.setString(4, toAdd.getPath());
 			preparedStatement.setBoolean(5, toAdd.getActive());
-			preparedStatement.setString(6, toAdd.getDue_date());
+			preparedStatement.setString(6, toAdd.getDueDate());
 			preparedStatement.executeUpdate();
 
 			System.out.println("Added Assignment " + toAdd.getTitle()

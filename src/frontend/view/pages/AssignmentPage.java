@@ -1,6 +1,7 @@
 package frontend.view.pages;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
@@ -62,7 +63,7 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 	public String getDate()
 	{
 
-		return year.getText() + " " + month.getText() + " " + day.getText();
+		return year.getText() + "/" + month.getText() + "/" + day.getText();
 
 	}
 
@@ -91,8 +92,19 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 		JScrollPane scrollPane = new JScrollPane(itemDisplay);
 		scrollPane.setVerticalScrollBarPolicy(
 				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		theList.add(scrollPane);
+		theList.add(createListHeader(), BorderLayout.NORTH);
+		theList.add(scrollPane, BorderLayout.CENTER);
 		return theList;
+	}
+	
+	private JPanel createListHeader()
+	{
+		JPanel theHeader = new JPanel(new GridLayout(1, 3));
+		theHeader.setBorder(new JTextField().getBorder());
+		theHeader.add(createLabel("Name", SUB_TITLE_FONT));
+		theHeader.add(createLabel("Active", SUB_TITLE_FONT));
+		theHeader.add(createLabel("Due Date", SUB_TITLE_FONT));
+		return theHeader;
 	}
 
 	private JPanel createUploadPanel()

@@ -7,13 +7,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.GUIConstants;
+import frontend.view.pages.components.customSwing.WButton;
 import shared.objects.Course;
 
 /**
@@ -32,7 +32,7 @@ public class CourseItem extends GeneralItem
 	 */
 	private static final long serialVersionUID = 1L;
 	private Course course;
-	private JButton view, active;
+	private WButton view, active;
 
 	public CourseItem(Course course)
 	{
@@ -55,7 +55,7 @@ public class CourseItem extends GeneralItem
 	private JPanel createActiveButton()
 	{
 		JPanel activePanel = new JPanel(new BorderLayout());
-		active = new JButton();
+		active = new WButton();
 		active.setPreferredSize(new Dimension(200, 30));
 		active.setFont(TEXT_FONT);
 		if (course.getActive())
@@ -83,7 +83,7 @@ public class CourseItem extends GeneralItem
 	private JPanel createViewButton(String name)
 	{
 		JPanel theButton = new JPanel();
-		view = new JButton(name);
+		view = new WButton(name);
 		view.setFont(TEXT_FONT);
 		theButton.add(view);
 		return theButton;

@@ -38,10 +38,11 @@ public class CoursePage<T extends Box, U> extends Page<T, U>
 	protected void setPageTitle(String s)
 	{
 		bodyCenter = new JPanel(new BorderLayout());
+		bodyCenter.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
 		JPanel theTitle = new JPanel(new GridLayout(1, 1));
 		JLabel title = new JLabel(s);
 		title.setFont(TITLE_FONT);
-		title.setHorizontalAlignment(JLabel.LEFT);
+		title.setHorizontalAlignment(JLabel.CENTER);
 		theTitle.add(title);
 		theTitle.setBorder(
 				BorderFactory.createMatteBorder(0, 0, 2, 0, BACKGROUND_COLOUR));
@@ -49,7 +50,7 @@ public class CoursePage<T extends Box, U> extends Page<T, U>
 		body.add(bodyCenter, BorderLayout.CENTER);
 	}
 
-	public void setEnrollmentButtonListener(ActionListener listener)
+	public void setEnrollmentPageButtonListener(ActionListener listener)
 	{
 		courseNavigationBar.setEnrollmentButtonListener(listener);
 	}
@@ -64,9 +65,9 @@ public class CoursePage<T extends Box, U> extends Page<T, U>
 		courseNavigationBar.setSubmissionButtonListener(listener);
 	}
 
-	public void setMyEmailButtonListener(ActionListener listener)
+	public void setDiscussionButtonListener(ActionListener listener)
 	{
-		courseNavigationBar.setMyEmaillButtonListener(listener);
+		courseNavigationBar.setDiscussionButtonListener(listener);
 	}
 
 	public void setComposeEmailButtonListener(ActionListener listener)

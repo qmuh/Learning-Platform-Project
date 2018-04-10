@@ -8,13 +8,13 @@ import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.items.StudentItem;
 import shared.objects.Course;
 import shared.objects.Student;
@@ -24,7 +24,7 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 	private static final long serialVersionUID = 1L;
 	private JTextField toField, subjectField;
 	private JTextArea emailArea;
-	private JButton sendToAllButton, sendButton, addToEmailButton;
+	private WButton sendToAllButton, sendButton, addToEmailButton;
 	private JList<Student> studentList;
 
 	public JTextField getToField()
@@ -42,17 +42,17 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 		return emailArea;
 	}
 
-	public JButton getSendToAllButton()
+	public WButton getSendToAllButton()
 	{
 		return sendToAllButton;
 	}
 
-	public JButton getSendButton()
+	public WButton getSendButton()
 	{
 		return sendButton;
 	}
 
-	public JButton getAddToEmailButton()
+	public WButton getAddToEmailButton()
 	{
 		return addToEmailButton;
 	}
@@ -119,6 +119,9 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 		textFields.add(createTextField("To: ", toField));
 		textFields.add(createTextField("Subject: ", subjectField));
 		emailFieldPanel.add(textFields, BorderLayout.WEST);
+		JPanel theLabel = new JPanel(new BorderLayout());
+		theLabel.add(createLabel("Enrolled Students", SUB_TITLE_FONT), BorderLayout.SOUTH);
+		emailFieldPanel.add(theLabel, BorderLayout.EAST);
 		return emailFieldPanel;
 	}
 
@@ -137,7 +140,7 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 	{
 		JPanel emailTextPanel = new JPanel(new BorderLayout());
 		emailArea = new JTextArea();
-		emailArea.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		emailArea.setBorder(new JTextField().getBorder());
 		emailArea.setFont(TEXT_FONT);
 		emailTextPanel.add(emailArea, BorderLayout.CENTER);
 		emailTextPanel.add(createButtonPanel(), BorderLayout.SOUTH);
@@ -148,20 +151,17 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 	{
 		JPanel buttonPanel = new JPanel(new BorderLayout());
 		buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
-		sendToAllButton = new JButton();
-		sendButton = new JButton();
-		buttonPanel.add(createButton(sendToAllButton,
-				"Send to Enrolled Students", TEXT_FONT), BorderLayout.WEST);
-		buttonPanel.add(createButton(sendButton, "Send", TEXT_FONT),
-				BorderLayout.EAST);
+		sendToAllButton = new WButton("Send to All Enrolled Students");
+		sendButton = new WButton("Send");
+		buttonPanel.add(sendToAllButton, BorderLayout.WEST);
+		buttonPanel.add(sendButton, BorderLayout.EAST);
 		return buttonPanel;
 	}
 
 	private JPanel createStudentList()
 	{
 		JPanel studentListPanel = new JPanel(new BorderLayout());
-		studentListPanel
-				.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+		studentListPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 		studentList = new JList<Student>();
 		JScrollPane scrollPane = new JScrollPane(studentList);
 		scrollPane.setVerticalScrollBarPolicy(
@@ -169,9 +169,8 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 		studentListPanel.add(scrollPane, BorderLayout.CENTER);
 		JPanel theButton = new JPanel(new BorderLayout());
 		theButton.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
-		addToEmailButton = new JButton();
-		theButton.add(createButton(addToEmailButton, "Add to Email", TEXT_FONT),
-				BorderLayout.EAST);
+		addToEmailButton = new WButton("Add to Email");
+		theButton.add(addToEmailButton, BorderLayout.EAST);
 		studentListPanel.add(theButton, BorderLayout.SOUTH);
 		return studentListPanel;
 	}

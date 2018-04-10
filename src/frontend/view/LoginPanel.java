@@ -7,7 +7,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -20,6 +19,7 @@ import javax.swing.border.MatteBorder;
 import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.GUIConstants;
+import frontend.view.pages.components.customSwing.WButton;
 import shared.objects.LoginInfo;
 
 /**
@@ -49,7 +49,7 @@ class LoginPanel extends JPanel
 
 	private JPasswordField passwordField;
 
-	private JButton loginButton;
+	private WButton loginButton;
 
 	public LoginPanel()
 	{
@@ -64,7 +64,7 @@ class LoginPanel extends JPanel
 		this.add(createLoginArea());
 	}
 
-	public JButton getLoginButton()
+	public WButton getLoginButton()
 	{
 		return loginButton;
 	}
@@ -125,7 +125,7 @@ class LoginPanel extends JPanel
 		passwordField = new JPasswordField(FIELD_SIZE);
 		passwordField.setFont(TEXT_FONT);
 		passwordField.setEchoChar(PASSWORD_ECHO_CHAR);
-		loginButton = new JButton(BUTTON_SIGN_IN_TEXT);
+		loginButton = new WButton(BUTTON_SIGN_IN_TEXT);
 
 		textPanel.add(createTextField(USERNAME_LABEL, usernameField));
 		textPanel.add(createTextField(PASSWORD_LABEL, passwordField));
@@ -142,9 +142,6 @@ class LoginPanel extends JPanel
 	{
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setPreferredSize(new Dimension(50, 50));
-		loginButton.setFont(TEXT_FONT);
-		loginButton.setFocusPainted(false);
-		loginButton.setBackground(SECONDARY_COLOR);
 		buttonPanel.add(loginButton);
 		buttonPanel.setOpaque(false);
 		return buttonPanel;

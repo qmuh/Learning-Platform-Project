@@ -8,7 +8,6 @@ import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
-import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -20,6 +19,7 @@ import javax.swing.event.ListSelectionListener;
 
 import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
+import frontend.view.pages.components.customSwing.WButton;
 import shared.objects.Course;
 import shared.objects.Student;
 
@@ -36,10 +36,14 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 
 	private JRadioButton id;
 	private JRadioButton lastName;
-	private JButton search;
-	private JButton enroll;
-	private JButton unenroll;
+	private WButton search;
+	private WButton enrollment;
 	private JTextField searchField;
+
+	public void setEnrollmentListListener(ListSelectionListener listener)
+	{
+		studentSearchResults.addListSelectionListener(listener);
+	}
 
 	public boolean isSearchById()
 	{
@@ -72,14 +76,9 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 		search.addActionListener(listener);
 	}
 
-	public void setEnrollButtonListener(ActionListener listener)
+	public void setEnrollmentPageButtonListener(ActionListener listener)
 	{
-		enroll.addActionListener(listener);
-	}
-
-	public void setUnenrollButtonListener(ActionListener listener)
-	{
-		unenroll.addActionListener(listener);
+		enrollment.addActionListener(listener);
 	}
 
 	public EnrollmentPage(Course course)
@@ -100,7 +99,11 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 	{
 		enrolledStudentList.clearSelection();
 		enrolledStudentList.setListData(enrollList);
+	}
 
+	public WButton getEnrollmentButton()
+	{
+		return enrollment;
 	}
 
 	private JPanel createEnrollmentPanel()
@@ -145,13 +148,12 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 	private JPanel createSearchButtonPanel()
 	{
 		JPanel buttonPanel = new JPanel();
-		search = new JButton();
-		enroll = new JButton();
-		unenroll = new JButton();
+		search = new WButton();
+		enrollment = new WButton();
+		enrollment.setEnabled(false);
 
 		buttonPanel.add(createButton(search, "Search", TEXT_FONT));
-		buttonPanel.add(createButton(enroll, "Enroll", TEXT_FONT));
-		buttonPanel.add(createButton(unenroll, "Unenroll", TEXT_FONT));
+		buttonPanel.add(createButton(enrollment, "Enroll", TEXT_FONT));
 
 		return buttonPanel;
 	}

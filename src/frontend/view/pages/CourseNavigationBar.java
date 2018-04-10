@@ -3,10 +3,10 @@ package frontend.view.pages;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import frontend.interfaces.WondrisInfo;
+import frontend.view.pages.components.customSwing.WButton;
 
 public class CourseNavigationBar extends JPanel implements WondrisInfo
 {
@@ -15,22 +15,24 @@ public class CourseNavigationBar extends JPanel implements WondrisInfo
 	private JButton assignmentButton, submissionButton, enrollmentButton,
 			myEmailButton, composeEmailButton;
 
-	public CourseNavigationBar()
-	{
+	private WButton assignmentButton, submissionButton, enrollmentButton, discussionButton, composeEmailButton;
+
+
+	public CourseNavigationBar() {
 		this.setLayout(new GridLayout(5, 1));
-		assignmentButton = new JButton("Assignments");
-		submissionButton = new JButton("Submissions");
-		enrollmentButton = new JButton("Enrollments");
-		myEmailButton = new JButton("My Emails");
-		composeEmailButton = new JButton("Compose Email");
+		assignmentButton = new WButton("Assignments");
+		submissionButton = new WButton("Submissions");
+		enrollmentButton = new WButton("Enrollments");
+		discussionButton = new WButton("Discussion");
+		composeEmailButton = new WButton("Compose Email");
 		this.add(createButton(assignmentButton));
 		this.add(createButton(submissionButton));
 		this.add(createButton(enrollmentButton));
-		this.add(createButton(myEmailButton));
+		this.add(createButton(discussionButton));
 		this.add(createButton(composeEmailButton));
 	}
 
-	private JButton createButton(JButton b)
+	private WButton createButton(WButton b)
 	{
 		b.setFont(TITLE_FONT);
 		return b;
@@ -51,9 +53,9 @@ public class CourseNavigationBar extends JPanel implements WondrisInfo
 		submissionButton.addActionListener(listener);
 	}
 
-	public void setMyEmaillButtonListener(ActionListener listener)
+	public void setDiscussionButtonListener(ActionListener listener)
 	{
-		myEmailButton.addActionListener(listener);
+		discussionButton.addActionListener(listener);
 	}
 
 	public void setComposeEmailButtonListener(ActionListener listener)

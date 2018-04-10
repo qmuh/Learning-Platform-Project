@@ -32,7 +32,6 @@ public class StudentEnrollment implements Serializable
 		id = random.nextInt(4000) + 3000;
 		student_id = stuID;
 		course_id = courseID;
-
 	}
 
 	public int getId()
@@ -54,5 +53,4 @@ public class StudentEnrollment implements Serializable
 	{
 		return enrolling;
 	}
-
 }

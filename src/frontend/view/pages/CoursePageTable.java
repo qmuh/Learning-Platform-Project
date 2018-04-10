@@ -8,7 +8,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -16,6 +15,7 @@ import javax.swing.JScrollPane;
 import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.components.BoxList;
+import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.items.CourseItem;
 
 public class CoursePageTable extends JPanel
@@ -31,7 +31,7 @@ public class CoursePageTable extends JPanel
 
 	private JPanel titlePanel;
 
-	private JButton newCourseButton;
+	private WButton newCourseButton;
 
 	public CoursePageTable()
 	{
@@ -76,7 +76,7 @@ public class CoursePageTable extends JPanel
 	{
 		JPanel theButton = new JPanel();
 		theButton.setBackground(BACKGROUND_COLOUR);
-		newCourseButton = new JButton(label);
+		newCourseButton = new WButton(label);
 		newCourseButton.setFont(font);
 		theButton.add(newCourseButton);
 		return theButton;

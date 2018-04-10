@@ -23,6 +23,7 @@ import frontend.view.pages.SubmissionPage;
 import frontend.view.pages.components.PageNavigator;
 import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.items.CourseItem;
+import frontend.view.pages.items.SubmitItem;
 import shared.interfaces.ProfessorCommands;
 import shared.objects.Assignment;
 import shared.objects.Course;
@@ -159,11 +160,16 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 					submissionPage.addAssignment(assignment, students);
 				}
 			}
-			
-			
+
 			for (int i = 0; i < submissions.size(); i++)
 			{
-				submissionPage.addSubmission(submissions.elementAt(i));
+				Submission submission = submissions.elementAt(i);
+				SubmitItem submitItem = new SubmitItem(submission);
+				submitItem.getGradeButton()
+						.addActionListener(new GradeSubmissionButtonListener(client, course, submitItem));
+				submitItem.getAssignmentLink().addMouseListener(new SubmissionLabelMouseListener(submission));
+				
+				submissionPage.addSubmission(submitItem);
 			}
 		} catch (IOException e)
 		{

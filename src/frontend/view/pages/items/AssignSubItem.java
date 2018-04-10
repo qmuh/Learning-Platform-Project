@@ -1,6 +1,7 @@
 package frontend.view.pages.items;
 
 import java.awt.Color;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Vector;
 
@@ -37,6 +38,7 @@ public class AssignSubItem extends GeneralItem
 			studentItemMap.put(student.getId(), item);
 			studentList.add(item);
 		}
+		
 		MatteBorder matte = new MatteBorder(2, 2, 2, 2, Color.GREEN);
 		TitledBorder titledBorder = new TitledBorder(matte);
 		titledBorder.setTitle(assignment.getTitle());
@@ -45,9 +47,10 @@ public class AssignSubItem extends GeneralItem
 		this.add(studentList);
 	}
 	
-	public void addSubmission(Submission submission)
+	public void addSubmission(SubmitItem submitItem)
 	{
-		studentItemMap.get(submission.getStudent_id()).addSubmission(submission);
+		Submission submission = submitItem.getSubmission();
+		studentItemMap.get(submission.getStudent_id()).addSubmissionItem(submitItem);
 	}
 
 	@Override

@@ -25,7 +25,9 @@ public class SubmitItem extends GeneralItem
 	private WButton gradeButton;
 	private JTextField gradeField;
 	private Submission submission;
-
+	private JLabel assignmentLink;
+	
+	
 	public SubmitItem(Submission submission)
 	{
 		super(BoxLayout.X_AXIS, Integer.toString(submission.getId()));
@@ -33,8 +35,27 @@ public class SubmitItem extends GeneralItem
 		
 		this.setBackground(SECONDARY_COLOR);
 		
-		
 		this.add(makeSubmissionPanel());
+	}
+	
+	public JLabel getAssignmentLink()
+	{
+		return assignmentLink;
+	}
+	
+	public Submission getSubmission()
+	{
+		return submission;
+	}
+	
+	public JTextField getGradeTextField()
+	{
+		return gradeField;
+	}
+	
+	public WButton getGradeButton()
+	{
+		return gradeButton;
 	}
 	
 	private JPanel makeSubmissionPanel()

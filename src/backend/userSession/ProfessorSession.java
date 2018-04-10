@@ -8,7 +8,6 @@ import shared.interfaces.ProfessorCommands;
 import shared.objects.Assignment;
 import shared.objects.Course;
 import shared.objects.EmailInfo;
-import shared.objects.LoginInfo;
 import shared.objects.Professor;
 import shared.objects.SendMessage;
 import shared.objects.Student;
@@ -69,11 +68,12 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 		{
 			handleModify(interpreter[1], command.getContents());
 
-		} else if(commandType.equals(CMD_EMAIL)) { 
-		
-			super.handleEmail((EmailInfo)command.getContents());
-		
-		}else if (commandType.equals(CMD_LOGOUT))
+		} else if (commandType.equals(CMD_EMAIL))
+		{
+
+			super.handleEmail((EmailInfo) command.getContents());
+
+		} else if (commandType.equals(CMD_LOGOUT))
 		{
 			return false;
 

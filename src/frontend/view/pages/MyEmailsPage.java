@@ -29,7 +29,7 @@ public class MyEmailsPage extends CoursePage implements PageNames
 	public MyEmailsPage(Course course)
 	{
 		super(course);
-		//this.setName(MY_EMAIL_PAGE + course.getId());
+		// this.setName(MY_EMAIL_PAGE + course.getId());
 		setPageTitle("My Emails");
 		bodyCenter.add(createMyEmailsPage(), BorderLayout.CENTER);
 	}
@@ -105,8 +105,7 @@ public class MyEmailsPage extends CoursePage implements PageNames
 	{
 		JPanel buttonPanel = new JPanel(new BorderLayout());
 		replyButton = new WButton("Reply");
-		buttonPanel.add(replyButton,
-				BorderLayout.EAST);
+		buttonPanel.add(replyButton, BorderLayout.EAST);
 		return buttonPanel;
 	}
 

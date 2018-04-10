@@ -8,6 +8,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import shared.objects.Course;
 
@@ -42,7 +43,7 @@ public class CoursePage<T extends Box, U> extends Page<T, U>
 		JPanel theTitle = new JPanel(new GridLayout(1, 1));
 		JLabel title = new JLabel(s);
 		title.setFont(TITLE_FONT);
-		title.setHorizontalAlignment(JLabel.CENTER);
+		title.setHorizontalAlignment(SwingConstants.CENTER);
 		theTitle.add(title);
 		theTitle.setBorder(
 				BorderFactory.createMatteBorder(0, 0, 2, 0, BACKGROUND_COLOUR));

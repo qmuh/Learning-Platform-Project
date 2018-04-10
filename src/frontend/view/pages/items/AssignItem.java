@@ -1,6 +1,5 @@
 package frontend.view.pages.items;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -8,10 +7,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import frontend.view.pages.components.customSwing.WButton;
 import shared.objects.Assignment;
@@ -45,33 +43,36 @@ public class AssignItem extends GeneralItem
 		this.setBorder(BorderFactory.createEtchedBorder());
 		this.add(createTheAssignment());
 	}
-	
+
 	private JPanel createTheAssignment()
 	{
 		JPanel theAssignment = new JPanel(new GridLayout(1, 3));
 		theAssignment.setPreferredSize(new Dimension(500, 50));
-		theAssignment.add(createLabelPanel(assignmentName, assignment.getTitle(), TEXT_FONT), 0);
+		theAssignment.add(createLabelPanel(assignmentName,
+				assignment.getTitle(), TEXT_FONT), 0);
 		theAssignment.add(createActivateButton(), 1);
-		theAssignment.add(createLabelPanel(dueDate, assignment.getDueDate(), TEXT_FONT), 2);
+		theAssignment.add(
+				createLabelPanel(dueDate, assignment.getDueDate(), TEXT_FONT),
+				2);
 		return theAssignment;
 	}
-	
+
 	public JPanel createLabelPanel(JLabel label, String s, Font f)
 	{
 		JPanel labelPanel = new JPanel();
 		label = new JLabel(s);
 		label.setFont(f);
-		label.setHorizontalAlignment(JLabel.LEFT);
+		label.setHorizontalAlignment(SwingConstants.LEFT);
 		labelPanel.add(label);
 		return labelPanel;
 	}
-	
+
 	private JPanel createActivateButton()
 	{
 		JPanel buttonPanel = new JPanel();
 		activeButton = new WButton();
 		activeButton.setPreferredSize(new Dimension(200, 40));
-		if(assignment.getActive())
+		if (assignment.getActive())
 		{
 			activeButton.setText("DEACTIVATE");
 			activeButton.setBackground(CONTRAST_COLOR);

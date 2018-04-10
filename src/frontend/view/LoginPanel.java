@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
@@ -107,7 +108,7 @@ class LoginPanel extends JPanel
 
 		title.setFont(TITLE_FONT);
 		title.setForeground(Color.WHITE);
-		title.setHorizontalAlignment(JLabel.CENTER);
+		title.setHorizontalAlignment(SwingConstants.CENTER);
 
 		titlePanel.setBackground(BACKGROUND_COLOUR);
 		titlePanel.add(title);

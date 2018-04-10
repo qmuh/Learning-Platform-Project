@@ -11,6 +11,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 
 import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
@@ -51,10 +53,10 @@ public class CoursePageTable extends JPanel
 				BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLACK));
 		tableHeader.setPreferredSize(new Dimension(WINDOW_WIDTH, 50));
 		tableHeader.add(
-				createLabel("Course Name", SUB_TITLE_FONT, JLabel.CENTER), 0);
-		tableHeader.add(createLabel("Active", SUB_TITLE_FONT, JLabel.RIGHT), 1);
+				createLabel("Course Name", SUB_TITLE_FONT, SwingConstants.CENTER), 0);
+		tableHeader.add(createLabel("Active", SUB_TITLE_FONT, SwingConstants.RIGHT), 1);
 		tableHeader.add(
-				createLabel("Course Home", SUB_TITLE_FONT, JLabel.CENTER), 2);
+				createLabel("Course Home", SUB_TITLE_FONT, SwingConstants.CENTER), 2);
 		tablePanel.add(tableHeader, BorderLayout.NORTH);
 		return tablePanel;
 	}
@@ -98,7 +100,7 @@ public class CoursePageTable extends JPanel
 	{
 		JScrollPane scrollPane = new JScrollPane(itemDisplay);
 		scrollPane.setVerticalScrollBarPolicy(
-				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 		tablePanel.add(scrollPane, BorderLayout.CENTER);
 	}

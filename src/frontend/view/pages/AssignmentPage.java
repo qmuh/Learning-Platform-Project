@@ -1,7 +1,6 @@
 package frontend.view.pages;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
@@ -10,10 +9,10 @@ import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 
 import frontend.interfaces.WondrisInfo;
@@ -91,12 +90,12 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 		itemDisplay = new BoxList<AssignItem>();
 		JScrollPane scrollPane = new JScrollPane(itemDisplay);
 		scrollPane.setVerticalScrollBarPolicy(
-				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		theList.add(createListHeader(), BorderLayout.NORTH);
 		theList.add(scrollPane, BorderLayout.CENTER);
 		return theList;
 	}
-	
+
 	private JPanel createListHeader()
 	{
 		JPanel theHeader = new JPanel(new GridLayout(1, 3));
@@ -158,7 +157,8 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 		browseButton = new WButton("Browse");
 		browse.add(uploadField);
 		browse.add(browseButton);
-		upload.add(createLabel("Upload a New Assignment", SUB_TITLE_FONT), BorderLayout.NORTH);
+		upload.add(createLabel("Upload a New Assignment", SUB_TITLE_FONT),
+				BorderLayout.NORTH);
 		upload.add(browse, BorderLayout.CENTER);
 		return upload;
 	}

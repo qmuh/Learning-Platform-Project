@@ -5,8 +5,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import javax.mail.Message;
-
 import backend.database.Database;
 import backend.userSession.helpers.EmailHelper;
 import backend.userSession.helpers.FileHelper;
@@ -68,6 +66,7 @@ public abstract class ClientSession implements Runnable
 		}
 	}
 
+	@Override
 	public void run()
 	{
 		boolean isRunning = true;
@@ -96,12 +95,11 @@ public abstract class ClientSession implements Runnable
 
 	protected void handleEmail(EmailInfo emailLogin)
 	{
-		
-			Boolean authenticate = emailHelper.sendEmail(emailLogin);
 
-		
+		Boolean authenticate = emailHelper.sendEmail(emailLogin);
+
 	}
-	
+
 	protected void sendObject(Object message)
 	{
 		try

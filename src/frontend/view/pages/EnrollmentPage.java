@@ -76,6 +76,7 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 		search.addActionListener(listener);
 	}
 
+	@Override
 	public void setEnrollmentPageButtonListener(ActionListener listener)
 	{
 		enrollment.addActionListener(listener);

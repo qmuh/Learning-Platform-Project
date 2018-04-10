@@ -36,7 +36,7 @@ public class PageNavigator extends JPanel implements PageNames, ColourPalette
 	public void showPage(String pageName)
 	{
 		cardLayout.show(this, pageName);
-		currentPage = (Page<?, ?>) searchPage(pageName);
+		currentPage = searchPage(pageName);
 
 	}
 

@@ -69,10 +69,10 @@ public class Assignment implements Serializable
 		due_date = due;
 
 	}
-	
+
 	public void setActive()
 	{
-		if(active)
+		if (active)
 			active = false;
 		else
 			active = true;

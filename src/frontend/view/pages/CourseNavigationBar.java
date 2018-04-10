@@ -15,9 +15,8 @@ public class CourseNavigationBar extends JPanel implements WondrisInfo
 	private WButton assignmentButton, submissionButton, enrollmentButton,
 			discussionButton, composeEmailButton;
 
-
-
-	public CourseNavigationBar() {
+	public CourseNavigationBar()
+	{
 		this.setLayout(new GridLayout(5, 1));
 		assignmentButton = new WButton("Assignments");
 		submissionButton = new WButton("Submissions");

@@ -9,13 +9,10 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Vector;
 
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -73,7 +70,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		super();
 		this.clientController = new Client();
 		this.clientController.connectToServer(socket);
-		thisProfessor = user;
+		this.thisProfessor = user;
 		createHomePage();
 	}
 
@@ -97,10 +94,8 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 				{
 					Course course = coursesList.elementAt(i);
 
-					CoursePage<CourseItem, Course> coursePage = createCoursePage(
-							course);
+					createCoursePage(course);
 					createCourseItem(course, homePage);
-
 					createAssignmentPage(course);
 					createSubmissionPage(course);
 					createEnrollmentPage(course);
@@ -117,7 +112,6 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		}
 		homePage.setNewCourseListener(new NewCourseButtonListener(homePage));
 		homePage.displayPage();
-		// TODO: Set listeners for all view buttons
 	}
 
 	/**
@@ -170,6 +164,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		showAllAssignments(course, assignmentPage);
 	}
 
+	@SuppressWarnings("unchecked")
 	private void createComposeEmailPage(Course course)
 	{
 		ComposeEmailPage composeEmailPage = new ComposeEmailPage(course);
@@ -179,8 +174,8 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 				new AssignmentPageButtonListener(course));
 		composeEmailPage.setSubmissionButtonListener(
 				new SubmissionPageButtonListener(course));
-//		composeEmailPage
-//				.setMyEmailButtonListener(new MyEmailsButtonListener(course));
+		// composeEmailPage
+		// .setMyEmailButtonListener(new MyEmailsButtonListener(course));
 		this.addPage(composeEmailPage, composeEmailPage.getName());
 		composeEmailPage.setSendToAllButtonListener(
 				new SendToAllButtonListener(course, composeEmailPage));
@@ -189,7 +184,8 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		this.addPage(composeEmailPage, composeEmailPage.getName());
 		composeEmailPage.setSendToAllButtonListener(
 				new SendToAllButtonListener(course, composeEmailPage));
-		composeEmailPage.setSendButtonListener(new SendButtonListener(course, composeEmailPage));
+		composeEmailPage.setSendButtonListener(
+				new SendButtonListener(course, composeEmailPage));
 		composeEmailPage.setAddToEmailButtonListener(
 				new AddToEmailButtonListener(course, composeEmailPage));
 
@@ -312,7 +308,6 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		{
 			e.printStackTrace();
 		}
-
 	}
 
 	private class SearchButtonListener implements ActionListener
@@ -336,7 +331,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 				if (enrollmentPage.isSearchById())
 				{
 					Student myResult = (Student) clientController.sendMessage(
-							new SendMessage<>((int) Integer.parseInt(search),
+							new SendMessage<>(Integer.parseInt(search),
 									CMD_RECEIVE + RECEIVE_STUDENT_BY_ID));
 					searchResult.add(myResult);
 				} else if (enrollmentPage.isSearchByLastName())
@@ -767,7 +762,8 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		public void actionPerformed(ActionEvent e)
 		{
 			System.out.println(assignmentPage.getFile().getPath());
-			String append[] = assignmentPage.getFile().getPath().split(File.pathSeparator);
+			String append[] = assignmentPage.getFile().getPath()
+					.split(File.pathSeparator);
 			if (assignmentPage.getFile() != null)
 			{
 				Assignment myUpload = new Assignment(course.getId(),
@@ -896,7 +892,6 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-
 
 		}
 

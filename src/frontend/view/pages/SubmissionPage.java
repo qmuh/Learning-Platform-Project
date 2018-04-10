@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
 import frontend.view.pages.items.SubmitItem;
 import shared.objects.Assignment;
@@ -51,6 +52,6 @@ public class SubmissionPage extends CoursePage<SubmitItem, Submission>
 		frame.add(new SubmissionPage(new Course(1010101, "ENGG 201", true)));
 		frame.setSize(1600, 1000);
 		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
 }

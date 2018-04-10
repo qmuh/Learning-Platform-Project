@@ -1,7 +1,6 @@
 package frontend.view.pages;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.util.Vector;
@@ -13,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 
 import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.items.StudentItem;
@@ -120,7 +120,8 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 		textFields.add(createTextField("Subject: ", subjectField));
 		emailFieldPanel.add(textFields, BorderLayout.WEST);
 		JPanel theLabel = new JPanel(new BorderLayout());
-		theLabel.add(createLabel("Enrolled Students", SUB_TITLE_FONT), BorderLayout.SOUTH);
+		theLabel.add(createLabel("Enrolled Students", SUB_TITLE_FONT),
+				BorderLayout.SOUTH);
 		emailFieldPanel.add(theLabel, BorderLayout.EAST);
 		return emailFieldPanel;
 	}
@@ -161,11 +162,12 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 	private JPanel createStudentList()
 	{
 		JPanel studentListPanel = new JPanel(new BorderLayout());
-		studentListPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+		studentListPanel
+				.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 		studentList = new JList<Student>();
 		JScrollPane scrollPane = new JScrollPane(studentList);
 		scrollPane.setVerticalScrollBarPolicy(
-				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		studentListPanel.add(scrollPane, BorderLayout.CENTER);
 		JPanel theButton = new JPanel(new BorderLayout());
 		theButton.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));

@@ -3,6 +3,7 @@ package frontend.view.pages;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 
 import frontend.view.pages.items.CourseItem;
 import shared.objects.Course;
@@ -44,6 +45,6 @@ public class HomePage extends Page<CourseItem, Course>
 		frame.setSize(1600, 1000);
 		frame.add(new HomePage());
 		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
 }

@@ -106,7 +106,17 @@ public abstract class ClientSession implements Runnable
 			{
 				e.printStackTrace();
 			}
-
+	}
+	
+	protected void sendBackFile(String path)
+	{
+		byte[] file = fileHelper.receiveFile(path);
+		try{
+			objectOut.writeObject(file);
+			objectOut.flush();
+			} catch(IOException e){
+			e.printStackTrace();
+			}
 		
 	}
 	

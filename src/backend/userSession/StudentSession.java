@@ -104,6 +104,7 @@ public class StudentSession extends ClientSession implements StudentCommands
 
 	private void handleRecieve(String interpreter, Object getmessageObject)
 	{
+		//Returns the students courses
 		if(interpreter.equals(RECEIVE_COURSES));
 		{
 			Vector<Integer> studentCoursesIds = database.getStudentEnrollmentTable().getCourseIDs(user.getId());
@@ -113,36 +114,22 @@ public class StudentSession extends ClientSession implements StudentCommands
 			{
 				studentCourses.add(database.getCourseTable().searchByCourseID(studentCoursesIds.get(i)));
 			}
-			
-			try
-			{
-				objectOut.writeObject(studentCourses);
-				objectOut.flush();
-			} catch (IOException e)
-			{
-				e.printStackTrace();
-			}
+			sendObject(studentCourses);
 		} 
+		// Returns the students assignments for each course
 		if (interpreter.equals(RECEIVE_ASSIGNMENTS))
 		{
 			Vector<Assignment> courseAssignments = database.getAssignmentTable().
 					getAllStudentAssignments(((Course)getmessageObject).getId());
-			try
-			{
-				objectOut.writeObject(courseAssignments);
-				objectOut.flush();
-			} catch (IOException e)
-			{
-				e.printStackTrace();
-			}
+			
+			sendObject(courseAssignments);
 		}
-		
+		// Returns the students grades
 		if(interpreter.equals(RECEIVE_GRADES))
 		{
 			Vector<Grade> myGrades = database.getGradeTable().
 					studentGradesForCourse(((Course)getmessageObject).getId(),user.getId());
 			//Decide what to do here?
-			
 			
 		}
 	

@@ -41,9 +41,9 @@ public class SubmitItem extends GeneralItem
 		return submission;
 	}
 	
-	public String getGradeText()
+	public JTextField getGradeTextField()
 	{
-		return gradeField.getText();
+		return gradeField;
 	}
 	
 	public WButton getGradeButton()

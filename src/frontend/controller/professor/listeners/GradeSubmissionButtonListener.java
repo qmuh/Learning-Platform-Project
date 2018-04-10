@@ -15,6 +15,7 @@ public class GradeSubmissionButtonListener implements ActionListener
 	private Submission submission;
 	
 	
+	
 	public GradeSubmissionButtonListener(Client client, SubmitItem submitItem)
 	{
 		this.client = client;
@@ -25,7 +26,6 @@ public class GradeSubmissionButtonListener implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{
 		
-		// TODO Auto-generated method stub
 		
 	}
 

@@ -59,16 +59,6 @@ public class SubmissionPage extends CoursePage<AssignSubItem, Submission>
 		return submissionScrollPane;
 	}
 
-	// @Override
-	// public void setBoxList(BoxList<SubmitItem> itemDisplay)
-	// {
-	// JScrollPane scrollPane = new JScrollPane(itemDisplay);
-	// scrollPane.setVerticalScrollBarPolicy(
-	// ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-	// scrollPane.getVerticalScrollBar().setUnitIncrement(20);
-	// bodyCenter.add(scrollPane, BorderLayout.CENTER);
-	// }
-
 	public void addAssignment(Assignment assignment, Vector<Student> classList)
 	{
 		AssignSubItem assignmentItem = new AssignSubItem(assignment, classList);

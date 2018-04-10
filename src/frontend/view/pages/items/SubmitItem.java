@@ -20,6 +20,7 @@ public class SubmitItem extends GeneralItem
 	{
 		super(BoxLayout.X_AXIS, Integer.toString(submission.getId()));
 		this.submission = submission;
+		
 	}
 
 	@Override

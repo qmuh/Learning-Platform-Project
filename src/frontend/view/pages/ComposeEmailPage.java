@@ -4,9 +4,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -144,8 +149,16 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 	{
 		JPanel buttonPanel = new JPanel(new BorderLayout());
 		buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
-		sendToAllButton = new WButton("Send to All Enrolled Students");
-		sendButton = new WButton("Send");
+		sendToAllButton = new WButton("Add All Enrolled Students");
+		sendButton = new WButton();
+		try {
+			BufferedImage image = ImageIO.read(new File("send.png"));
+			ImageIcon icon = new ImageIcon(image);
+			sendButton.setIcon(icon);
+		} catch(IOException e)
+		{
+			e.printStackTrace();
+		}
 		buttonPanel.add(sendToAllButton, BorderLayout.WEST);
 		buttonPanel.add(sendButton, BorderLayout.EAST);
 		return buttonPanel;

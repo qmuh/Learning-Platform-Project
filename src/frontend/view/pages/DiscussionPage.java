@@ -3,15 +3,22 @@ package frontend.view.pages;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import com.sun.prism.Image;
 
 import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.items.CourseItem;
@@ -43,10 +50,18 @@ public class DiscussionPage extends CoursePage<CourseItem, Course>
 	private JPanel createSendField()
 	{
 		JPanel sendFieldPanel = new JPanel(new BorderLayout());
-		sendArea = new JTextArea(5, 200);
+		sendArea = new JTextArea(3, 200);
 		sendArea.setFont(TEXT_FONT);
 		sendArea.setBorder(new JTextField().getBorder());
-		sendButton = new WButton("Send");
+		sendButton = new WButton();
+		try {
+			BufferedImage image = ImageIO.read(new File("send.png"));
+			ImageIcon icon = new ImageIcon(image);
+			sendButton.setIcon(icon);
+		} catch(IOException e)
+		{
+			e.printStackTrace();
+		}
 		sendFieldPanel.add(sendArea, BorderLayout.CENTER);
 		sendFieldPanel.add(sendButton, BorderLayout.EAST);
 		return sendFieldPanel;

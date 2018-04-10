@@ -60,23 +60,22 @@ public class CoursePageTable extends JPanel
 
 	private JPanel createTitle()
 	{
-		titlePanel = new JPanel(new GridLayout(1, 3));
+		titlePanel = new JPanel(new GridLayout(1, 2));
 		JPanel theTitle = new JPanel();
 		JLabel title = new JLabel(TABLE_TITLE);
 		title.setFont(TITLE_FONT);
 		theTitle.setBackground(BACKGROUND_COLOUR);
 		theTitle.add(title);
 		titlePanel.add(theTitle, 0);
-		titlePanel.add(createButton("Add a New Course", TEXT_FONT), 1);
+		titlePanel.add(createButton("New Course"), 1);
 		return titlePanel;
 	}
 
-	private JPanel createButton(String label, Font font)
+	private JPanel createButton(String label)
 	{
 		JPanel theButton = new JPanel();
 		theButton.setBackground(BACKGROUND_COLOUR);
 		newCourseButton = new WButton(label);
-		newCourseButton.setFont(font);
 		theButton.add(newCourseButton);
 		return theButton;
 

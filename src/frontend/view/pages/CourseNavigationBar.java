@@ -12,10 +12,9 @@ public class CourseNavigationBar extends JPanel implements WondrisInfo
 {
 	private static final long serialVersionUID = 1L;
 
-	private JButton assignmentButton, submissionButton, enrollmentButton,
-			myEmailButton, composeEmailButton;
+	private WButton assignmentButton, submissionButton, enrollmentButton,
+			discussionButton, composeEmailButton;
 
-	private WButton assignmentButton, submissionButton, enrollmentButton, discussionButton, composeEmailButton;
 
 
 	public CourseNavigationBar() {

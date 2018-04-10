@@ -71,7 +71,7 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 
 		} else if(commandType.equals(CMD_EMAIL)) { 
 		
-			super.handleEmail((EmailInfo)command.getmessageObject());
+			super.handleEmail((EmailInfo)command.getContents());
 		
 		}else if (commandType.equals(CMD_LOGOUT))
 		{

@@ -13,10 +13,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import frontend.view.pages.components.customSwing.WButton;
 import shared.objects.Course;
 import shared.objects.Student;
 
-public class MyEmailsPage extends CoursePage
+public class MyEmailsPage extends CoursePage implements PageNames
 {
 
 	private static final long serialVersionUID = 1L;
@@ -28,7 +29,7 @@ public class MyEmailsPage extends CoursePage
 	public MyEmailsPage(Course course)
 	{
 		super(course);
-		this.setName(MY_EMAIL_PAGE + course.getId());
+		//this.setName(MY_EMAIL_PAGE + course.getId());
 		setPageTitle("My Emails");
 		bodyCenter.add(createMyEmailsPage(), BorderLayout.CENTER);
 	}
@@ -103,8 +104,8 @@ public class MyEmailsPage extends CoursePage
 	private JPanel createButtonPanel()
 	{
 		JPanel buttonPanel = new JPanel(new BorderLayout());
-		replyButton = new JButton();
-		buttonPanel.add(createButton(replyButton, "Reply", TEXT_FONT),
+		replyButton = new WButton("Reply");
+		buttonPanel.add(replyButton,
 				BorderLayout.EAST);
 		return buttonPanel;
 	}

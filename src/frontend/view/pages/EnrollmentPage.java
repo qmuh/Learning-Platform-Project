@@ -148,12 +148,12 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 	private JPanel createSearchButtonPanel()
 	{
 		JPanel buttonPanel = new JPanel();
-		search = new WButton();
-		enrollment = new WButton();
+		search = new WButton("Search");
+		enrollment = new WButton("Enroll");
 		enrollment.setEnabled(false);
 
-		buttonPanel.add(createButton(search, "Search", TEXT_FONT));
-		buttonPanel.add(createButton(enrollment, "Enroll", TEXT_FONT));
+		buttonPanel.add(search);
+		buttonPanel.add(enrollment);
 
 		return buttonPanel;
 	}

@@ -1,5 +1,8 @@
 package frontend.controller;
 
+import java.net.Socket;
+
+import frontend.view.pages.components.PageNavigator;
 import shared.objects.Student;
 
 /**
@@ -9,13 +12,13 @@ import shared.objects.Student;
  * @version 1.0
  * @since April 6, 2018
  */
-public class StudentGUI
+public class StudentGUI extends PageNavigator
 {
 	private Student thisStudent;
 	// Page??
 	private MessageHandler comHandler;
 
-	public StudentGUI()
+	public StudentGUI(Socket socket, Student user)
 	{
 		super();
 	}

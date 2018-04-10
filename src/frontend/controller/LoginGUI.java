@@ -24,6 +24,7 @@ import shared.interfaces.UserInfo;
 import shared.objects.LoginInfo;
 import shared.objects.Professor;
 import shared.objects.SendMessage;
+import shared.objects.Student;
 import shared.objects.User;
 
 /**
@@ -119,7 +120,9 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColourPalette,
 
 			} else if (user.getUserType().equals(USER_STUDENT))
 			{
-
+				currentPanel.setVisible(false);
+				currentPanel = new StudentGUI(socket, (Student)user);
+				add(currentPanel);
 			}
 
 			// Logout functionality;

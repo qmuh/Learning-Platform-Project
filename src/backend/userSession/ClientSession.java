@@ -8,6 +8,7 @@ import java.net.Socket;
 import backend.database.Database;
 import backend.userSession.helpers.EmailHelper;
 import backend.userSession.helpers.FileHelper;
+import shared.objects.EmailInfo;
 import shared.objects.SendMessage;
 
 /**
@@ -65,6 +66,7 @@ public abstract class ClientSession implements Runnable
 		}
 	}
 
+	@Override
 	public void run()
 	{
 		boolean isRunning = true;
@@ -90,7 +92,14 @@ public abstract class ClientSession implements Runnable
 	{
 		this.database = database;
 	}
-	
+
+	protected void handleEmail(EmailInfo emailLogin)
+	{
+
+		Boolean authenticate = emailHelper.sendEmail(emailLogin);
+
+	}
+
 	protected void sendObject(Object message)
 	{
 		try

@@ -3,6 +3,7 @@ package frontend.view.pages;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 
 import frontend.view.pages.items.CourseItem;
 import shared.objects.Course;
@@ -23,19 +24,19 @@ public class HomePage extends Page<CourseItem, Course>
 		super();
 		this.header.setTitle("Home");
 		setName(HOME_PAGE);
-		body = new CoursePageTable();
+		body = new HomePageCoursesTable();
 		this.add(body);
 	}
 
 	@Override
 	public void displayPage()
 	{
-		((CoursePageTable) this.body).setBoxList(itemDisplay);
+		((HomePageCoursesTable) this.body).setBoxList(itemDisplay);
 	}
 
 	public void setNewCourseListener(ActionListener listener)
 	{
-		((CoursePageTable) body).setNewCourseListener(listener);
+		((HomePageCoursesTable) body).setNewCourseListener(listener);
 	}
 
 	public static void main(String[] args)
@@ -44,6 +45,6 @@ public class HomePage extends Page<CourseItem, Course>
 		frame.setSize(1600, 1000);
 		frame.add(new HomePage());
 		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
 }

@@ -2,13 +2,15 @@ package frontend.view.pages;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
+import frontend.view.pages.components.CourseNavigationBar;
+import frontend.view.pages.components.PageNavigator;
 import shared.objects.Course;
 
 public class CoursePage<T extends Box, U> extends Page<T, U>
@@ -35,42 +37,25 @@ public class CoursePage<T extends Box, U> extends Page<T, U>
 		add(body);
 	}
 
-	protected void setPageTitle(String s) {
+	protected void setPageTitle(String s)
+	{
 		bodyCenter = new JPanel(new BorderLayout());
 		bodyCenter.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
 		JPanel theTitle = new JPanel(new GridLayout(1, 1));
 		JLabel title = new JLabel(s);
 		title.setFont(TITLE_FONT);
-		title.setHorizontalAlignment(JLabel.CENTER);
+		title.setHorizontalAlignment(SwingConstants.CENTER);
 		theTitle.add(title);
-		theTitle.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, BACKGROUND_COLOUR));
+		theTitle.setBorder(
+				BorderFactory.createMatteBorder(0, 0, 2, 0, BACKGROUND_COLOUR));
 		bodyCenter.add(theTitle, BorderLayout.NORTH);
 		body.add(bodyCenter, BorderLayout.CENTER);
 	}
 
-	public void setEnrollmentPageButtonListener(ActionListener listener)
+	public void createSidebarListeners(Course course,
+			PageNavigator pageNavigator)
 	{
-		courseNavigationBar.setEnrollmentButtonListener(listener);
-	}
-
-	public void setAssignmentButtonListener(ActionListener listener)
-	{
-		courseNavigationBar.setAssignmentButtonListener(listener);
-	}
-
-	public void setSubmissionButtonListener(ActionListener listener)
-	{
-		courseNavigationBar.setSubmissionButtonListener(listener);
-	}
-
-	public void setDiscussionButtonListener(ActionListener listener)
-	{
-		courseNavigationBar.setDiscussionButtonListener(listener);
-	}
-
-	public void setComposeEmailButtonListener(ActionListener listener)
-	{
-		courseNavigationBar.setComposeEmailButtonListener(listener);
+		courseNavigationBar.createListeners(course, pageNavigator);
 	}
 
 	@Override

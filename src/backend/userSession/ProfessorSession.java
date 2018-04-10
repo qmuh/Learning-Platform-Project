@@ -7,6 +7,7 @@ import java.util.Vector;
 import shared.interfaces.ProfessorCommands;
 import shared.objects.Assignment;
 import shared.objects.Course;
+import shared.objects.EmailInfo;
 import shared.objects.Professor;
 import shared.objects.SendMessage;
 import shared.objects.Student;
@@ -66,6 +67,11 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 		} else if (commandType.equals(CMD_MODIFY))
 		{
 			handleModify(interpreter[1], command.getContents());
+
+		} else if (commandType.equals(CMD_EMAIL))
+		{
+
+			super.handleEmail((EmailInfo) command.getContents());
 
 		} else if (commandType.equals(CMD_LOGOUT))
 		{

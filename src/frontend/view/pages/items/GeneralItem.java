@@ -12,7 +12,8 @@ import frontend.interfaces.WondrisInfo;
  * @version 1.0
  * @since April 6, 2018
  */
-public abstract class GeneralItem extends Box implements WondrisInfo, ColourPalette
+public abstract class GeneralItem extends Box
+		implements WondrisInfo, ColourPalette
 {
 
 	/**

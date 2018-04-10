@@ -1,6 +1,5 @@
-package frontend.view;
+package frontend.controller;
 
-import frontend.controller.MessageHandler;
 import shared.objects.Student;
 
 /**

@@ -1,4 +1,4 @@
-package frontend.view;
+package frontend.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,8 +13,10 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import frontend.controller.professor.ProfessorGUI;
 import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
+import frontend.view.LoginPanel;
 import frontend.view.pages.GUIConstants;
 import shared.interfaces.ServerInfo;
 import shared.interfaces.UserCommands;

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -24,7 +23,8 @@ import frontend.view.pages.components.Header;
  * @version 1.0
  * @since April 6, 2018
  */
-public abstract class Page <T extends Box, U> extends JPanel implements PageNames, WondrisInfo, ColourPalette
+public abstract class Page<T extends Box, U> extends JPanel
+		implements PageNames, WondrisInfo, ColourPalette
 {
 
 	private static final long serialVersionUID = 1L;
@@ -78,5 +78,8 @@ public abstract class Page <T extends Box, U> extends JPanel implements PageName
 	public void addToBoxList(T item)
 	{
 		itemDisplay.add(item);
+		// TODO: Consider removal.
+		itemDisplay.revalidate();
+		itemDisplay.repaint();
 	}
 }

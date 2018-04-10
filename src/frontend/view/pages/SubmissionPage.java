@@ -11,8 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.WindowConstants;
 
-import frontend.view.pages.components.BoxList;
 import frontend.view.pages.items.SubmitItem;
 import shared.objects.Assignment;
 import shared.objects.Course;
@@ -37,29 +37,29 @@ public class SubmissionPage extends CoursePage<SubmitItem, Submission>
 		super(course);
 		this.setName(SUBMISSION_PAGE + course.getId());
 		setPageTitle("Submissions");
-		
+
 		setAssignments(); // remove this later
 		createAssignmentPanels();
 		bodyCenter.add(createSubmissionPage(), BorderLayout.CENTER);
 	}
-	
+
 	private JScrollPane createSubmissionPage()
 	{
 		JPanel view = new JPanel();
 		view.setLayout(new BoxLayout(view, BoxLayout.Y_AXIS));
-		
+
 		for(JPanel panel : thePanels)
 		{
 			panel.setPreferredSize(new Dimension(0, 200));
 			view.add(panel);
 		}
-		
-		
-		
+
+
+
 		JScrollPane submissionPagePanel = new JScrollPane(view);
 		return submissionPagePanel;
 	}
-	
+
 	private void setAssignments()
 	{
 		theAssignments = new Vector<Assignment>();
@@ -69,7 +69,7 @@ public class SubmissionPage extends CoursePage<SubmitItem, Submission>
 		theAssignments.add(new Assignment(100, "Assignment 4", "C:\\Users\\trevo\\repos\\ENSF409\\", true, "04/12/2018"));
 
 	}
-	
+
 	private void createAssignmentPanels()
 	{
 		thePanels = new Vector<JPanel>();
@@ -86,19 +86,19 @@ public class SubmissionPage extends CoursePage<SubmitItem, Submission>
 			thePanels.add(assignmentPanel);
 		}
 	}
-	
+
 	private JPanel createSubmission()
 	{
 		JPanel submissionPanel = new JPanel();
 		submissionPanel.add(createLabel("Default", TEXT_FONT));
 		return submissionPanel;
 	}
-	
+
 	public void addAssignment(Assignment assignment)
 	{
-		
+
 	}
-	
+
 	@Override
 	public void addToBoxList(SubmitItem item)
 	{
@@ -119,6 +119,6 @@ public class SubmissionPage extends CoursePage<SubmitItem, Submission>
 		frame.add(submissionPage);
 		frame.setSize(1600, 1000);
 		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
 }

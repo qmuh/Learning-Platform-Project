@@ -1,7 +1,6 @@
 package frontend.view.pages;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
@@ -10,12 +9,13 @@ import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 
+import frontend.controller.Client;
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.components.BoxList;
 import frontend.view.pages.components.customSwing.WButton;
@@ -33,6 +33,14 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 	private JTextField uploadField, month, day, year;
 	private WButton uploadButton, browseButton;
 	private File selectedFile;
+
+	public AssignmentPage(Course course)
+	{
+		super(course);
+		this.setName(ASSIGNMENT_PAGE + course.getId());
+		this.setPageTitle("Assignments");
+		bodyCenter.add(createAssignmentPanel(), BorderLayout.CENTER);
+	}
 
 	public JTextField getUploadField()
 	{
@@ -62,17 +70,7 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 
 	public String getDate()
 	{
-
 		return year.getText() + "/" + month.getText() + "/" + day.getText();
-
-	}
-
-	public AssignmentPage(Course course)
-	{
-		super(course);
-		this.setName(ASSIGNMENT_PAGE + course.getId());
-		this.setPageTitle("Assignments");
-		bodyCenter.add(createAssignmentPanel(), BorderLayout.CENTER);
 	}
 
 	private JPanel createAssignmentPanel()
@@ -91,12 +89,12 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 		itemDisplay = new BoxList<AssignItem>();
 		JScrollPane scrollPane = new JScrollPane(itemDisplay);
 		scrollPane.setVerticalScrollBarPolicy(
-				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		theList.add(createListHeader(), BorderLayout.NORTH);
 		theList.add(scrollPane, BorderLayout.CENTER);
 		return theList;
 	}
-	
+
 	private JPanel createListHeader()
 	{
 		JPanel theHeader = new JPanel(new GridLayout(1, 3));
@@ -158,7 +156,8 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 		browseButton = new WButton("Browse");
 		browse.add(uploadField);
 		browse.add(browseButton);
-		upload.add(createLabel("Upload a New Assignment", SUB_TITLE_FONT), BorderLayout.NORTH);
+		upload.add(createLabel("Upload a New Assignment", SUB_TITLE_FONT),
+				BorderLayout.NORTH);
 		upload.add(browse, BorderLayout.CENTER);
 		return upload;
 	}
@@ -169,7 +168,6 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 		itemDisplay.revalidate();
 		itemDisplay.repaint();
 	}
-
 
 	public void setAssignmentVector(Vector<Assignment> myList)
 	{
@@ -183,4 +181,12 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 		itemDisplay.repaint();
 	}
 
+	public void createAssignItem(Assignment assignment, ActionListener listener)
+	{
+		AssignItem assignItem = new AssignItem(assignment);
+		assignItem.setAssignmentActiveButtonListener(listener);
+		
+		this.addToBoxList(assignItem);
+		
+	}
 }

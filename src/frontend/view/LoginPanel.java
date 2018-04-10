@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
@@ -29,7 +30,7 @@ import shared.objects.LoginInfo;
  * @version 1.1
  * @since April 6, 2018
  */
-class LoginPanel extends JPanel
+public class LoginPanel extends JPanel
 		implements ColourPalette, GUIConstants, WondrisInfo
 {
 
@@ -63,7 +64,7 @@ class LoginPanel extends JPanel
 
 		this.add(createLoginArea());
 	}
-	
+
 	public WButton getLoginButton()
 	{
 		return loginButton;
@@ -107,7 +108,7 @@ class LoginPanel extends JPanel
 
 		title.setFont(TITLE_FONT);
 		title.setForeground(Color.WHITE);
-		title.setHorizontalAlignment(JLabel.CENTER);
+		title.setHorizontalAlignment(SwingConstants.CENTER);
 
 		titlePanel.setBackground(BACKGROUND_COLOUR);
 		titlePanel.add(title);
@@ -156,7 +157,7 @@ class LoginPanel extends JPanel
 
 	private JPanel createTextField(String s, JTextField field)
 	{
-		JPanel textFieldPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));	
+		JPanel textFieldPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		JLabel text = new JLabel(s);
 		text.setFont(TEXT_FONT);
 		text.setForeground(Color.WHITE);

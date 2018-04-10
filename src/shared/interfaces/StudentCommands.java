@@ -1,4 +1,5 @@
 package shared.interfaces;
+
 /**
  * An interface that stores all available student commands.
  * 

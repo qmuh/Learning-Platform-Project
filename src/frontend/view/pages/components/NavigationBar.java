@@ -1,4 +1,4 @@
-package frontend.view.pages;
+package frontend.view.pages.components;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -24,8 +24,7 @@ import frontend.view.pages.components.customSwing.WButton;
  * @version 1.0
  * @since April 6, 2018
  */
-public class NavigationBar extends JPanel
-		implements WondrisInfo, ColourPalette
+public class NavigationBar extends JPanel implements WondrisInfo, ColourPalette
 {
 	/**
 	 * 

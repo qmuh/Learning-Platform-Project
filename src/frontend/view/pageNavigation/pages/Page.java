@@ -1,4 +1,4 @@
-package frontend.view.pages;
+package frontend.view.pageNavigation.pages;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -12,9 +12,9 @@ import javax.swing.JPanel;
 
 import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
-import frontend.view.pages.components.BoxList;
-import frontend.view.pages.components.Footer;
-import frontend.view.pages.components.Header;
+import frontend.view.pageNavigation.BoxList;
+import frontend.view.pageNavigation.Footer;
+import frontend.view.pageNavigation.Header;
 
 /**
  *

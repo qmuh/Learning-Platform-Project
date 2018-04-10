@@ -1,4 +1,4 @@
-package frontend.view.pages;
+package frontend.view.pageNavigation.pages;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -40,9 +40,12 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 	private WButton enrollment;
 	private JTextField searchField;
 
-	public void setEnrollmentListListener(ListSelectionListener listener)
+	public EnrollmentPage(Course course)
 	{
-		studentSearchResults.addListSelectionListener(listener);
+		super(course);
+		this.setName(ENROLLMENT_PAGE + course.getId());
+		setPageTitle("Enrollments");
+		bodyCenter.add(createEnrollmentPanel(), BorderLayout.CENTER);
 	}
 
 	public boolean isSearchById()
@@ -53,6 +56,11 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 	public boolean isSearchByLastName()
 	{
 		return lastName.isSelected();
+	}
+
+	public WButton getEnrollmentButton()
+	{
+		return enrollment;
 	}
 
 	public Student getSelectedStudent()
@@ -82,12 +90,9 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 		enrollment.addActionListener(listener);
 	}
 
-	public EnrollmentPage(Course course)
+	public void setEnrollmentListListener(ListSelectionListener listener)
 	{
-		super(course);
-		this.setName(ENROLLMENT_PAGE + course.getId());
-		setPageTitle("Enrollments");
-		bodyCenter.add(createEnrollmentPanel(), BorderLayout.CENTER);
+		studentSearchResults.addListSelectionListener(listener);
 	}
 
 	public void setStudentList(Vector<Student> toSet)
@@ -100,11 +105,6 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 	{
 		enrolledStudentList.clearSelection();
 		enrolledStudentList.setListData(enrollList);
-	}
-
-	public WButton getEnrollmentButton()
-	{
-		return enrollment;
 	}
 
 	private JPanel createEnrollmentPanel()

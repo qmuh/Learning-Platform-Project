@@ -1,4 +1,4 @@
-package frontend.view.pages;
+package frontend.view.pageNavigation.pages;
 
 import java.awt.BorderLayout;
 

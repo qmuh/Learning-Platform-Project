@@ -1,4 +1,4 @@
-package frontend.view.pages.components;
+package frontend.view.pageNavigation;
 
 import java.awt.Component;
 import java.util.ArrayList;

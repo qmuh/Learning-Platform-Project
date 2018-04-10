@@ -1,4 +1,4 @@
-package frontend.view.pages;
+package frontend.view.pageNavigation.pages;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -16,7 +16,7 @@ import javax.swing.SwingConstants;
 
 import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
-import frontend.view.pages.components.BoxList;
+import frontend.view.pageNavigation.BoxList;
 import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.items.CourseItem;
 

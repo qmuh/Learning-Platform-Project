@@ -1,4 +1,4 @@
-package frontend.view.pages;
+package frontend.view.pageNavigation.pages;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import frontend.view.pageNavigation.CourseNavigationBar;
 import shared.objects.Course;
 
 public class CoursePage<T extends Box, U> extends Page<T, U>

@@ -17,14 +17,14 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import frontend.controller.Client;
-import frontend.view.pages.AssignmentPage;
-import frontend.view.pages.ComposeEmailPage;
-import frontend.view.pages.HomePage;
-import frontend.view.pages.DiscussionPage;
-import frontend.view.pages.SubmissionPage;
-import frontend.view.pages.CoursePage;
-import frontend.view.pages.EnrollmentPage;
-import frontend.view.pages.components.PageNavigator;
+import frontend.view.pageNavigation.PageNavigator;
+import frontend.view.pageNavigation.pages.AssignmentPage;
+import frontend.view.pageNavigation.pages.ComposeEmailPage;
+import frontend.view.pageNavigation.pages.CoursePage;
+import frontend.view.pageNavigation.pages.DiscussionPage;
+import frontend.view.pageNavigation.pages.EnrollmentPage;
+import frontend.view.pageNavigation.pages.HomePage;
+import frontend.view.pageNavigation.pages.SubmissionPage;
 import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.items.AssignItem;
 import frontend.view.pages.items.CourseItem;
@@ -458,47 +458,6 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 
 				showAllStudents(myCourse, enrollmentPage);
 
-			}
-
-			showAllStudents(myCourse, enrollmentPage);
-			createComposeEmailPage(myCourse);
-		}
-	}
-
-	private class UnenrollButtonListener implements ActionListener
-	{
-		private EnrollmentPage enrollmentPage;
-		private Course myCourse;
-
-		public UnenrollButtonListener(EnrollmentPage enrollmentPage,
-				Course course)
-		{
-			this.enrollmentPage = enrollmentPage;
-			myCourse = course;
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent e)
-		{
-
-			try
-			{
-				Student selectedStudent = enrollmentPage.getSelectedStudent();
-				System.out.println(selectedStudent.getId());
-				System.out.println(myCourse.getId());
-
-				StudentEnrollment toSend = new StudentEnrollment(
-						selectedStudent.getId(), myCourse.getId());
-
-				clientController.onlySendMessage(
-						new SendMessage<StudentEnrollment>(toSend,
-								CMD_INSERT + INSERT_UNENROLLMENT));
-			} catch (IOException e1)
-			{
-				e1.printStackTrace();
-			} catch (NullPointerException e2)
-			{
-				e2.printStackTrace();
 			}
 
 			showAllStudents(myCourse, enrollmentPage);

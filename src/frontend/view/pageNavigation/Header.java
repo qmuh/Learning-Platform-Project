@@ -1,4 +1,4 @@
-package frontend.view.pages.components;
+package frontend.view.pageNavigation;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -10,8 +10,7 @@ import javax.swing.JPanel;
 
 import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
-import frontend.view.pages.GUIConstants;
-import frontend.view.pages.NavigationBar;
+import frontend.view.pageNavigation.pages.GUIConstants;
 
 /**
  * 

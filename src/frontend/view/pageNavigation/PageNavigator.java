@@ -1,4 +1,4 @@
-package frontend.view.pages.components;
+package frontend.view.pageNavigation;
 
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -8,9 +8,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 import frontend.interfaces.ColourPalette;
-import frontend.view.pages.HomePage;
-import frontend.view.pages.Page;
-import frontend.view.pages.PageNames;
+import frontend.view.pageNavigation.pages.HomePage;
+import frontend.view.pageNavigation.pages.Page;
+import frontend.view.pageNavigation.pages.PageNames;
 
 /**
  *

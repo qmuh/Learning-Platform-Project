@@ -1,4 +1,4 @@
-package frontend.view.pages.components;
+package frontend.view.pageNavigation;
 
 import javax.swing.JPanel;
 

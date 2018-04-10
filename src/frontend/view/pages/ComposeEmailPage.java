@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.items.StudentItem;
 import shared.objects.Course;
+import shared.objects.EmailInfo;
 import shared.objects.Student;
 
 public class ComposeEmailPage extends CoursePage<StudentItem, Student>
@@ -208,6 +209,23 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 	{
 		toField.setText("");
 
+	}
+
+	public EmailInfo getEmailInfo()
+	{
+		String emails[] = toField.getText().split(",");
+		EmailInfo composedEmail = new EmailInfo(null, null);
+		
+		for (int i = 0; i < emails.length; i++)
+		{
+			composedEmail.addRecipient(emails[i]);
+		}
+		
+		composedEmail.setContent(emailArea.getText());
+		composedEmail.setSubject(subjectField.getText());
+		
+		return composedEmail;
+	
 	}
 
 }

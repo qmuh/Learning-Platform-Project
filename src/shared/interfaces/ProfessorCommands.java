@@ -32,6 +32,8 @@ public interface ProfessorCommands extends UserCommands
 
 	public static final String INSERT_ASSIGNMENT = "ASSIGNMENT";
 
+	public static final String INSERT_GRADE = "GRADE";
+	
 	public static final String MODIFY_COURSE_ACTIVE = "COURSEACTIVE";
 
 	public static final String MODIFY_COURSE_INACTIVE = "COURSEINACTIVE";

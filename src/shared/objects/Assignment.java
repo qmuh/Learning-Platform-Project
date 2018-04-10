@@ -100,4 +100,10 @@ public class Assignment implements Serializable
 		return due_date;
 	}
 
+	public void setPath(String string)
+	{
+		path = string;
+		
+	}
+
 }

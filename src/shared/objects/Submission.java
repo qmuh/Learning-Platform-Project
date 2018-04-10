@@ -1,6 +1,7 @@
 package shared.objects;
 
 import java.io.Serializable;
+import java.util.Random;
 
 public class Submission implements Serializable
 {
@@ -44,10 +45,25 @@ public class Submission implements Serializable
 	 */
 	private String timestamp;
 
-	public Submission(int subID, int assignID, int stuID, String filePath,
+	public Submission( int assignID, int stuID, String filePath,
 			int subGrade, String subComment, String subTitle, String time)
 	{
-		id = subID;
+		Random random = new Random();
+		id = random.nextInt(6000) + 4000;
+		assign_id = assignID;
+		student_id = stuID;
+		path = filePath;
+		grade = subGrade;
+		comment = subComment;
+		title = subTitle;
+		timestamp = time;
+	}
+	
+	public Submission( int subId, int assignID, int stuID, String filePath,
+			int subGrade, String subComment, String subTitle, String time)
+	{
+		
+		id = subId;
 		assign_id = assignID;
 		student_id = stuID;
 		path = filePath;
@@ -95,6 +111,12 @@ public class Submission implements Serializable
 	public String getTimestamp()
 	{
 		return timestamp;
+	}
+
+	public void setPath(String string)
+	{
+		path = string;
+		
 	}
 
 }

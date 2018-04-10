@@ -8,6 +8,7 @@ import shared.interfaces.ProfessorCommands;
 import shared.objects.Assignment;
 import shared.objects.Course;
 import shared.objects.EmailInfo;
+import shared.objects.Grade;
 import shared.objects.LoginInfo;
 import shared.objects.Professor;
 import shared.objects.SendMessage;
@@ -209,7 +210,13 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 
 		} else if (type.equals(INSERT_ASSIGNMENT))
 		{
-			database.getAssignmentTable().add(((Assignment) getmessageObject));
+			
+			Assignment profAssign = (Assignment)getmessageObject;
+			String toSplit[] = profAssign.getPath().split("/");
+			profAssign.setPath("/Users/qasimmuhammad/Desktop/Database" + "/"
+					+ (toSplit[toSplit.length - 1]));
+			
+			database.getAssignmentTable().add(profAssign);
 			byte[] file;
 			try
 			{
@@ -220,7 +227,10 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 				e.printStackTrace();
 			}
 
-		} else
+		} else if(type.equals(INSERT_GRADE))
+		{
+			database.getGradeTable().add((Grade)getmessageObject);	
+		}else
 		{
 			System.err.println("!---------------------------------------!");
 			System.err.println("An unknown type was received. It was: ");

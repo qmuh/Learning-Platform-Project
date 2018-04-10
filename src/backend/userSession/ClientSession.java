@@ -98,6 +98,14 @@ public abstract class ClientSession implements Runnable
 	{
 		
 			Boolean authenticate = emailHelper.sendEmail(emailLogin);
+			try
+			{
+				objectOut.writeObject(authenticate);
+				objectOut.flush();
+			} catch (IOException e)
+			{
+				e.printStackTrace();
+			}
 
 		
 	}

@@ -33,6 +33,7 @@ import frontend.view.pages.items.CourseItem;
 import shared.interfaces.ProfessorCommands;
 import shared.objects.Assignment;
 import shared.objects.Course;
+import shared.objects.EmailInfo;
 import shared.objects.Professor;
 import shared.objects.SendMessage;
 import shared.objects.Student;
@@ -178,8 +179,6 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 				new AssignmentPageButtonListener(course));
 		composeEmailPage.setSubmissionButtonListener(
 				new SubmissionPageButtonListener(course));
-		composeEmailPage
-				.setMyEmailButtonListener(new MyEmailsButtonListener(course));
 		this.addPage(composeEmailPage, composeEmailPage.getName());
 		composeEmailPage.setSendToAllButtonListener(
 				new SendToAllButtonListener(course, composeEmailPage));
@@ -884,13 +883,49 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		public SendButtonListener(Course course, ComposeEmailPage email)
 		{
 			this.course = course;
-			ComposeEmailPage emailPage;
+			emailPage = email;
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-
+			EmailInfo mailInfo = emailPage.getEmailInfo();
+			JTextField gEmail = new JTextField(50);
+			JTextField password = new JTextField(50);
+			Object toDisplay[] = {"GMail Email: ", gEmail, "GMail Password: ", password};
+			int response =JOptionPane.showConfirmDialog(null, toDisplay, "Insert real email information", JOptionPane.OK_CANCEL_OPTION);
+			
+			if( response == JOptionPane.OK_OPTION)
+			{
+				if(gEmail.getText().length() == 0 || password.getText().length() == 0)
+				{
+					JOptionPane.showMessageDialog(null,"Either Password or Email was incoorect");
+				}
+				
+				else {
+				mailInfo.setFromEmail(gEmail.getText());
+				mailInfo.setFromEmailPassword(password.getText());
+				try
+				{
+					Boolean h = (Boolean) clientController.sendMessage(new SendMessage<EmailInfo>(mailInfo, CMD_EMAIL));
+					if(h == true)
+					{
+						JOptionPane.showMessageDialog(null,"Email Sent");
+					}
+					else 
+					{
+						JOptionPane.showMessageDialog(null,"Email not sent, error in login info or email addresses");
+					}
+				} catch (IOException e1)
+				{
+					e1.printStackTrace();
+				}
+				
+				}
+			}
+		
+			
+			
 
 		}
 

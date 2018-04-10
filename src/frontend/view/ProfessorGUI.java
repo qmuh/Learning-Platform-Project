@@ -179,8 +179,8 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 				new AssignmentPageButtonListener(course));
 		composeEmailPage.setSubmissionButtonListener(
 				new SubmissionPageButtonListener(course));
-		composeEmailPage
-				.setMyEmailButtonListener(new MyEmailsButtonListener(course));
+//		composeEmailPage
+//				.setMyEmailButtonListener(new MyEmailsButtonListener(course));
 		this.addPage(composeEmailPage, composeEmailPage.getName());
 		composeEmailPage.setSendToAllButtonListener(
 				new SendToAllButtonListener(course, composeEmailPage));
@@ -858,6 +858,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 			try
 			{
 				composePage.clearEmail();
+				@SuppressWarnings("unchecked")
 				Vector<Student> enrollList = (Vector<Student>) clientController
 						.sendMessage(new SendMessage<Course>(course,
 								CMD_RECEIVE + RECEIVE_ALL_ENROLLED_STUDENTS));

@@ -1,5 +1,6 @@
 package backend.userSession;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Vector;
@@ -25,7 +26,9 @@ import shared.objects.Submission;
  */
 public class ProfessorSession extends ClientSession implements ProfessorCommands
 {
-
+	/**
+	 * The professor associated with this session
+	 */
 	private Professor professor;
 
 	public ProfessorSession(Socket socket)
@@ -98,6 +101,10 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 		return true;
 	}
 
+	/** Handles client commands having to do with them modifying data
+	 * @param modify The specific command from an interface
+	 * @param getmessageObject The object that is used to help modify
+	 */
 	private void handleModify(String modify, Object getmessageObject)
 	{
 		if (modify.equals(MODIFY_COURSE_ACTIVE))
@@ -129,6 +136,10 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 		}
 	}
 
+	/** Handles client commands having to do with them receiving data
+	 * @param type The specific command from an interface
+	 * @param getmessageObject The object that is used for some commands
+	 */
 	private void handleRecieve(String type, Object getMessage)
 	{
 		if (type.equals(RECEIVE_COURSES))
@@ -204,6 +215,10 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 		}
 	}
 
+	/** Handles client commands having to do with keeping database updated
+	 * @param interpreter The specific command from an interface
+	 * @param getmessageObject The object that is being inserted
+	 */
 	private void handleInsert(String type, Object getmessageObject)
 	{
 		if (type.equals(INSERT_COURSE))
@@ -227,7 +242,7 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 		{
 
 			Assignment profAssign = (Assignment)getmessageObject;
-			String toSplit[] = profAssign.getPath().split("/");
+			String toSplit[] = profAssign.getPath().split(File.separator);
 			profAssign.setPath(DATABASE_STORAGE + profAssign.getTitle() +
 					"/" + (toSplit[toSplit.length - 1]));
 

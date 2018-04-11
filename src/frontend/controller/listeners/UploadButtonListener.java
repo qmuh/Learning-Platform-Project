@@ -38,7 +38,7 @@ public class UploadButtonListener implements ActionListener, ProfessorCommands
 	{
 		System.out.println(assignmentPage.getFile().getPath());
 		String append[] = assignmentPage.getFile().getPath()
-				.split(File.pathSeparator);
+				.split("/");
 		if (assignmentPage.getFile() != null)
 		{
 			Assignment myUpload = new Assignment(course.getId(),

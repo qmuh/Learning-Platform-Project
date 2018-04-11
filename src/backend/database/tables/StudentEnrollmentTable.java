@@ -8,7 +8,7 @@ import java.util.Vector;
 import shared.objects.StudentEnrollment;
 
 /**
- * 
+ *
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
@@ -66,7 +66,7 @@ public class StudentEnrollmentTable extends Table<StudentEnrollment>
 
 	/**
 	 * Searches for the list of course IDs from a specific student
-	 * 
+	 *
 	 * @param studentID
 	 * @return
 	 */
@@ -80,7 +80,6 @@ public class StudentEnrollmentTable extends Table<StudentEnrollment>
 			preparedStatement = dbConnection.prepareStatement(sql);
 			preparedStatement.setInt(1, studentID);
 			courseInfo = preparedStatement.executeQuery();
-			
 			while (courseInfo.next())
 			{
 
@@ -98,7 +97,7 @@ public class StudentEnrollmentTable extends Table<StudentEnrollment>
 	/**
 	 * Searches for the list of student IDs who are enrolled in a specific class
 	 * Used by the professor
-	 * 
+	 *
 	 * @param courseID
 	 * @return
 	 */
@@ -150,7 +149,7 @@ public class StudentEnrollmentTable extends Table<StudentEnrollment>
 	/**
 	 * Searches for the list of student IDs who are enrolled in a specific class
 	 * Used by the professor
-	 * 
+	 *
 	 * @param courseID
 	 * @return
 	 */
@@ -205,7 +204,7 @@ public class StudentEnrollmentTable extends Table<StudentEnrollment>
 		}
 		return false;
 	}
-	
-	
-	
+
+
+
 }

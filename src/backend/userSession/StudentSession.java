@@ -25,13 +25,22 @@ import shared.objects.Submission;
 public class StudentSession extends ClientSession implements StudentCommands
 {
 
+	/**
+	 * The student associated with this session
+	 */
 	private Student user;
 
+	/** Initializes this session with a socket and calls super
+	 * @param socket The socket given to the super
+	 */
 	public StudentSession(Socket socket)
 	{
 		super(socket);
 	}
 
+	/** Sets the student for this class
+	 * @param toSet
+	 */
 	public void setStudent(Student toSet)
 	{
 		user = toSet;
@@ -95,13 +104,20 @@ public class StudentSession extends ClientSession implements StudentCommands
 		return true;
 
 	}
-
 	
+	/** Handles client commands having to do with them modifying data
+	 * @param interpreter The specific command from an interface
+	 * @param getmessageObject The object that is used to help modify
+	 */
 	private void handleModify(String interpreter, Object getmessageObject)
 	{
 	
 	}
 
+	/** Handles client commands having to do with them receiving data
+	 * @param interpreter The specific command from an interface
+	 * @param getmessageObject The object that is used for some commands
+	 */
 	private void handleRecieve(String interpreter, Object getmessageObject)
 	{
 		//Returns the students courses
@@ -135,6 +151,10 @@ public class StudentSession extends ClientSession implements StudentCommands
 	
 	}
 
+	/** Handles client commands having to do with keeping database updated
+	 * @param interpreter The specific command from an interface
+	 * @param getmessageObject The object that is being inserted
+	 */
 	private void handleInsert(String interpreter, Object getmessageObject)
 	{
 		if(interpreter.equals(INSERT_SUBMISSION))

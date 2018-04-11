@@ -52,11 +52,6 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	private Professor professor;
 
 	/**
-	 * Object needed to communicate effectively with the server
-	 */
-	private Client client;
-
-	/**
 	 * Constructor for this class, it pre-loads the pages
 	 *
 	 * @param socket
@@ -64,9 +59,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	 */
 	public ProfessorGUI(Socket socket, Professor user)
 	{
-		super();
-		this.client = new Client();
-		this.client.connectToServer(socket);
+		super(socket);
 		this.professor = user;
 		createHomePage();
 	}
@@ -93,50 +86,25 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	{
 		return professor;
 	}
-
+	
+	@Override
 	public void createNewCourse(Course course, HomePage homePage)
 	{
-		createCourseItem(course, homePage);
-		createCoursePage(course);
-		createAssignmentPage(course);
-		createSubmissionPage(course);
+		super.createNewCourse(course, homePage);
 		createEnrollmentPage(course);
-		createComposeEmailPage(course);
-		createDiscussionPage(course);
 	}
 
-	@SuppressWarnings("unchecked")
-	private void createHomePage()
+	@Override
+	protected HomePage createHomePage()
 	{
-		HomePage homePage = (HomePage) this.searchPage(HOME_PAGE);
-
-		SendMessage<Course> message = new SendMessage<Course>(CMD_RECEIVE + RECEIVE_COURSES);
-		try
-		{
-			Vector<Course> coursesList = (Vector<Course>) this.client.sendMessage(message);
-
-			if (coursesList != null)
-			{
-				for (int i = 0; i < coursesList.size(); i++)
-				{
-					Course course = coursesList.elementAt(i);
-
-					createNewCourse(course, homePage);
-
-					System.out.println("Course name is: " + coursesList.get(i).getName());
-				}
-			}
-
-		} catch (IOException e)
-		{
-			e.printStackTrace();
-		}
+		HomePage homePage = super.createHomePage();
 		homePage.setNewCourseListener(new NewCourseButtonListener(this, client, homePage));
-		homePage.displayPage();
+		return homePage;
 	}
 
 	@SuppressWarnings("unchecked")
-	private void createSubmissionPage(Course course)
+	@Override
+	protected void createSubmissionPage(Course course)
 	{
 		SubmissionPage submissionPage = new SubmissionPage(course);
 		submissionPage.createSidebarListeners(course, this);
@@ -168,7 +136,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 				submitItem.getGradeButton()
 						.addActionListener(new GradeSubmissionButtonListener(client, course, submitItem));
 				submitItem.getAssignmentLink().addMouseListener(new SubmissionLabelMouseListener(submission));
-				
+
 				submissionPage.addSubmission(submitItem);
 			}
 		} catch (IOException e)
@@ -183,24 +151,16 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	 * @param course
 	 * @param homePage
 	 */
-	private void createCourseItem(Course course, HomePage homePage)
+	@Override
+	protected CourseItem createCourseItem(Course course, HomePage homePage)
 	{
-		CourseItem courseItem = new CourseItem(course);
-		courseItem.setViewButtonListener(new ViewCoursePageListener(course));
+		CourseItem courseItem = super.createCourseItem(course, homePage);
 		courseItem.setActiveButtonListener(new CourseActiveButtonListener(client, course));
-		homePage.addToBoxList(courseItem);
+		return courseItem;
 	}
 
-	private void createCoursePage(Course course)
-	{
-		CoursePage coursePage = new CoursePage(course);
-
-		coursePage.createSidebarListeners(course, this);
-
-		this.addPage(coursePage);
-	}
-
-	private void createAssignmentPage(Course course)
+	@Override
+	protected void createAssignmentPage(Course course)
 	{
 		AssignmentPage assignmentPage = new AssignmentPage(course);
 		assignmentPage.createSidebarListeners(course, this);
@@ -213,7 +173,8 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	}
 
 	@SuppressWarnings("unchecked")
-	private void createComposeEmailPage(Course course)
+	@Override
+	protected void createComposeEmailPage(Course course)
 	{
 		ComposeEmailPage composeEmailPage = new ComposeEmailPage(course);
 		composeEmailPage.createSidebarListeners(course, this);
@@ -238,15 +199,6 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 			e.printStackTrace();
 		}
 
-	}
-
-	private void createDiscussionPage(Course course)
-	{
-		DiscussionPage discussionPage = new DiscussionPage(course);
-		discussionPage.createSidebarListeners(course, this);
-
-		this.addPage(discussionPage);
-		// TODO: create reply button listener
 	}
 
 	@SuppressWarnings("unchecked")

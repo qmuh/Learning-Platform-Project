@@ -23,4 +23,7 @@ public interface UserCommands
 	public static final String CMD_EMAIL = "EMAIL;";
 	
 	public static final String DATABASE_STORAGE = "/Users/qasimmuhammad/Desktop/Database/" ;
+	
+	public static final String RECEIVE_COURSES = "COURSES";
+
 }

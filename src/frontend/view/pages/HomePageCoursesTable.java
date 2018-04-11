@@ -30,6 +30,8 @@ public class HomePageCoursesTable extends JPanel
 	private JPanel tablePanel;
 
 	private JPanel titlePanel;
+	
+	private JPanel newCourseButtonPanel;
 
 	private WButton newCourseButton;
 
@@ -74,11 +76,11 @@ public class HomePageCoursesTable extends JPanel
 
 	private JPanel createButton(String label)
 	{
-		JPanel theButton = new JPanel();
-		theButton.setBackground(BACKGROUND_COLOUR);
+		newCourseButtonPanel = new JPanel();
+		newCourseButtonPanel.setBackground(BACKGROUND_COLOUR);
 		newCourseButton = new WButton(label);
-		theButton.add(newCourseButton);
-		return theButton;
+//		newCourseButtonPanel.add(newCourseButton);
+		return newCourseButtonPanel;
 
 	}
 

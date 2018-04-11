@@ -80,7 +80,8 @@ public class StudentEnrollmentTable extends Table<StudentEnrollment>
 			preparedStatement = dbConnection.prepareStatement(sql);
 			preparedStatement.setInt(1, studentID);
 			courseInfo = preparedStatement.executeQuery();
-			if (courseInfo.next())
+			
+			while (courseInfo.next())
 			{
 
 				myCourseIDs.add(courseInfo.getInt("COURSEID"));

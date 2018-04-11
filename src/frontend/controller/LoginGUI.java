@@ -74,6 +74,7 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColourPalette,
 			{
 				authenticateLogin(loginInfo);
 				setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+				
 			}
 		}
 
@@ -123,7 +124,12 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColourPalette,
 				currentPanel.setVisible(false);
 				currentPanel = new StudentGUI(socket, (Student)user);
 				add(currentPanel);
+			} else {
+				return;
+				
 			}
+			
+			getRootPane().setDefaultButton(null);
 
 			// Logout functionality;
 			addWindowListener(new WindowListener()

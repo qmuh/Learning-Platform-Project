@@ -10,7 +10,6 @@ package shared.interfaces;
  */
 public interface ProfessorCommands extends UserCommands
 {
-	public static final String RECEIVE_COURSES = "COURSES";
 
 	public static final String RECEIVE_STUDENT_BY_ID = "STUDENTBYID";
 

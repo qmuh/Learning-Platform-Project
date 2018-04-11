@@ -26,6 +26,7 @@ public class CourseNavigationBarStudent extends CourseNavigationBar
 	public void createListeners(Course course, PageNavigator pageNavigator)
 	{
 		super.createListeners(course, pageNavigator);
-		gradeButton.addActionListener(new CoursePageNavigationButtonListener(course, ENROLLMENT_PAGE, pageNavigator));
+		gradeButton.addActionListener(new CoursePageNavigationButtonListener(
+				course, GRADES_PAGE, pageNavigator));
 	}
 }

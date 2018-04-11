@@ -16,15 +16,34 @@ import shared.objects.Course;
 import shared.objects.SendMessage;
 
 /**
- * Listener for the upload button on the assignment page
- *
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 6, 2018
  */
 public class UploadButtonListener implements ActionListener, ProfessorCommands
 {
+	/**
+	 * The client
+	 */
 	private Client client;
+	
+	/**
+	 * The specific course associated with this listener
+	 */
 	private Course course;
+	
+	/**
+	 * The assignment page for this specific course
+	 */
 	private AssignmentPage assignmentPage;
 
+	/** The upload button listener, uploads an assignment to the server
+	 * @param client The client 
+	 * @param course The course
+	 * @param assignPage The Assignment page
+	 */
 	public UploadButtonListener(Client client, Course course,
 			AssignmentPage assignPage)
 	{

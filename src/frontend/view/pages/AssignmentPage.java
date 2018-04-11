@@ -113,23 +113,31 @@ public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 		uploadPanel.add(createDatePanel(), 1);
 		return uploadPanel;
 	}
+	
+	private JPanel createUploadButton()
+	{
+		JPanel uploadContainer = new JPanel();
+		uploadContainer.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
+		uploadButton = new WButton("Upload");
+		uploadContainer.add(uploadButton);
+		return uploadContainer;
+	}
 
 	private JPanel createDatePanel()
 	{
-		JPanel datePanel = new JPanel(new GridLayout(3, 1));
+		JPanel thePanel = new JPanel(new GridLayout(1, 2));
+		JPanel datePanel = new JPanel(new GridLayout(2, 1));
 		month = new JTextField(2);
 		day = new JTextField(2);
 		year = new JTextField(4);
-		uploadButton = new WButton("Upload");
 		month.setFont(TEXT_FONT);
 		day.setFont(TEXT_FONT);
 		year.setFont(TEXT_FONT);
-		JPanel uploadContainer = new JPanel();
-		uploadContainer.add(uploadButton);
 		datePanel.add(createLabel("Set a Due Date", SUB_TITLE_FONT), 0);
 		datePanel.add(createTheDate(), 1);
-		datePanel.add(uploadContainer, 2);
-		return datePanel;
+		thePanel.add(datePanel);
+		thePanel.add(createUploadButton());
+		return thePanel;
 	}
 
 	private JPanel createTheDate()

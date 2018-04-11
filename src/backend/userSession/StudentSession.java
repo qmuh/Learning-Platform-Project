@@ -127,8 +127,11 @@ public class StudentSession extends ClientSession implements StudentCommands
 			Vector<Course> studentCourses = new Vector<Course>();
 			
 			for (int i = 0; i < studentCoursesIds.size(); i++)
-			{
-				studentCourses.add(database.getCourseTable().searchByCourseID(studentCoursesIds.get(i)));
+			{	Course myCourse = database.getCourseTable().searchActiveCourseID(studentCoursesIds.get(i));
+				if(myCourse != null)
+				{
+					studentCourses.add(myCourse);
+				}
 			}
 			sendObject(studentCourses);
 		} 

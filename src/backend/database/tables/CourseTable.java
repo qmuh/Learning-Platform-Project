@@ -147,5 +147,36 @@ public class CourseTable extends Table<Course> implements Activable
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * Searches for a course by the courseID
+	 * 
+	 * @param courseID
+	 * @return
+	 */
+	public Course searchActiveCourseID(int courseID)
+	{
+		String sql = "SELECT * FROM " + tableName + " WHERE ID= ? AND ACTIVE=?";
+		ResultSet course;
+		try
+		{
+			preparedStatement = dbConnection.prepareStatement(sql);
+			preparedStatement.setInt(1, courseID);
+			preparedStatement.setBoolean(2, true);
+			System.out.println("Checking course number: " + courseID);
+			course = preparedStatement.executeQuery();
+			if (course.next())
+			{
 
+				return new Course(course.getInt("ID"), course.getInt("PROFID"),
+						course.getString("NAME"), course.getBoolean("ACTIVE"));
+			}
+
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		
+		return null;
+
+	}
 }

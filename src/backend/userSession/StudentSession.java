@@ -147,7 +147,8 @@ public class StudentSession extends ClientSession implements StudentCommands
 		{
 			Vector<Grade> myGrades = database.getGradeTable().
 					studentGradesForCourse(((Course)getmessageObject).getId(),user.getId());
-			//Decide what to do here?
+			System.out.println("I have recieved the correct request");
+			sendObject(myGrades);
 			
 		}
 	

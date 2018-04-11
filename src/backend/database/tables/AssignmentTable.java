@@ -16,8 +16,11 @@ import shared.objects.Assignment;
  */
 public class AssignmentTable extends Table<Assignment> implements Activable
 {
-	String tableName = "AssignmentTable";
-
+	
+	/** Initializes the table using the super
+	 * @param connectionToDB The connection to connect with
+	 * @param tableName The name of the table
+	 */
 	public AssignmentTable(Connection connectionToDB, String tableName)
 	{
 		super(connectionToDB, tableName);
@@ -69,6 +72,10 @@ public class AssignmentTable extends Table<Assignment> implements Activable
 
 	}
 
+	/** Searches for the course using the course ID
+	 * @param courseID The ID for the course to search for
+	 * @return A vector assignments which contains the result of a search
+	 */
 	public Vector<Assignment> searchByCourseID(int courseID)
 	{
 		Vector<Assignment> myAssignments = new Vector<Assignment>();
@@ -98,6 +105,10 @@ public class AssignmentTable extends Table<Assignment> implements Activable
 
 	}
 
+	/** Searches for all the assignments give a course ID
+	 * @param id The course ID which is used for the query
+	 * @return A vector assignments which contains the result of a search
+	 */
 	public Vector<Assignment> getAllAssignments(int id)
 	{
 		String sql = "SELECT * FROM " + tableName + " WHERE COURSEID= ? ";
@@ -143,6 +154,10 @@ public class AssignmentTable extends Table<Assignment> implements Activable
 		}
 	}
 
+	/** Searches for all the active assignments for a student give a course ID
+	 * @param id The course ID which is used for the query
+	 * @return A vector assignments which contains the result of a search
+	 */
 	public Vector<Assignment> getAllStudentAssignments(int id)
 	{
 		String sql = "SELECT * FROM " + tableName + " WHERE COURSEID= ? AND ACTIVE= TRUE";

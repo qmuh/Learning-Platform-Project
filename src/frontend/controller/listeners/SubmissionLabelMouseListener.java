@@ -13,11 +13,30 @@ import shared.interfaces.UserCommands;
 import shared.objects.SendMessage;
 import shared.objects.Submission;
 
+/**
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 6, 2018
+ */
 public class SubmissionLabelMouseListener implements MouseListener, ProfessorCommands
 {
+	/**
+	 * The submission asscociated with the listener
+	 */
 	private Submission submission;
+	
+	/**
+	 * The client used to communicate with the server
+	 */
 	private Client client;
 	
+	/** The listener for submissions, used by the professor
+	 * 
+	 * @param submission The submission
+	 * @param client2 The client
+	 */
 	public SubmissionLabelMouseListener(Submission submission, Client client2)
 	{
 		this.submission = submission;

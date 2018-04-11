@@ -12,12 +12,31 @@ import shared.interfaces.ProfessorCommands;
 import shared.objects.Assignment;
 import shared.objects.SendMessage;
 
+/**
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 6, 2018
+ *  Used to activate/deactivate an assignment
+ */
 public class AssignmentActiveButtonListener
 		implements ActionListener, ProfessorCommands, ColourPalette
 {
+	/**
+	 * The client where the associated client it
+	 */
 	private Client client;
+	
+	/**
+	 * The assignment where this button would be
+	 */
 	private Assignment assignment;
 
+	/** Constructor for the inner class
+	 * @param client The client 
+	 * @param course The specific course
+	 */
 	public AssignmentActiveButtonListener(Client client, Assignment course)
 	{
 		this.client = client;

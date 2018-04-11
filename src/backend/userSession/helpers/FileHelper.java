@@ -22,10 +22,12 @@ import shared.objects.Assignment;
 public class FileHelper
 {
 
+	/** Stores file into a directory
+	 * @param file The byte[] data from the file
+	 * @param data The assignment that is being stored
+	 */
 	public void storeFile(byte[] file, Assignment data)
 	{
-
-		
 
 		File newFile = new File(data.getPath());
 		try
@@ -43,6 +45,10 @@ public class FileHelper
 
 	}
 
+	/** Stores files into a directory
+	 * @param file The byte[] data form the file
+	 * @param submission The assignment that is being stored
+	 */
 	public void storeFile(byte[] file, Submission submission)
 	{
 		File newFile = new File(submission.getPath());
@@ -61,6 +67,10 @@ public class FileHelper
 		
 	}
 
+	/** For sending a file to the client
+	 * @param path The path to bring the file back from
+	 * @return The byte data for the file
+	 */
 	public byte[] receiveFile(String path)
 	{
 		File selectedFile = new File(path);

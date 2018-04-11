@@ -9,11 +9,23 @@ package backend.database;
  */
 public interface DatabaseProperties
 {
+	/**
+	 * The name of the database
+	 */
 	public static final String DATABASE_NAME = "PlatformDB";
 
+	/**
+	 * The username for the database
+	 */
 	public static final String USERNAME = "root";
 
+	/**
+	 * The database password
+	 */
 	public static final String PASSWORD = "qazxsw123";
 
+	/**
+	 * Connection for the jdbc connection
+	 */
 	public static final String CONNECTION_URL = "jdbc:mysql://localhost:3306/PlatformDB";
 }

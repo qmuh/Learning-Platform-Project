@@ -8,16 +8,35 @@ import frontend.view.pages.ComposeEmailPage;
 import shared.objects.Course;
 
 /**
- * Listener for the add to email button on the compose email page
- *
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 6, 2018
  */
 public class AddToEmailButtonListener implements ActionListener
 {
+	/**
+	 * The client used to communicate with server
+	 */
 	private Client client;
+	
+	/**
+	 * The specific course 
+	 */
 	private Course course;
+	
+	/**
+	 * The page where the button is located
+	 */
 	private ComposeEmailPage myEmailPage;
 	
 
+	/** Constructor for this inner class
+	 * @param client The client
+	 * @param course The course
+	 * @param myPage The page
+	 */
 	public AddToEmailButtonListener(Client client, Course course, ComposeEmailPage myPage)
 	{
 		this.client = client;

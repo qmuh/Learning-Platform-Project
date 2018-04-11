@@ -60,8 +60,8 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	/**
 	 * Constructor for this class, it pre-loads the pages
 	 *
-	 * @param socket
-	 * @param user
+	 * @param socket Used to handle communication between user and server
+	 * @param user The professor object associated with this class
 	 */
 	public ProfessorGUI(Socket socket, Professor user)
 	{
@@ -70,6 +70,10 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		createHomePage();
 	}
 
+	/** Shows all students overall, and all enrolled student
+	 * @param course The course where this is shown
+	 * @param enrollmentPage The page for this
+	 */
 	@SuppressWarnings("unchecked")
 	public void showAllStudents(Course course, EnrollmentPage enrollmentPage)
 	{
@@ -89,6 +93,9 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		}
 	}
 
+	/** Getter method for the professor
+	 * @return
+	 */
 	public Professor getProfessor()
 	{
 		return professor;
@@ -219,6 +226,10 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		completeCoursePage(composeEmailPage, course);
 	}
 
+	/** Shows all assignments for a course
+	 * @param course The course
+	 * @param assignmentPage The page where the assignmnets would be shown
+	 */
 	@SuppressWarnings("unchecked")
 	private void showAllAssignments(Course course,
 			AssignmentPage assignmentPage)
@@ -244,6 +255,9 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		}
 	}
 
+	/** Creates the enrollment page and sets up it's listeners by calling them
+	 * @param course The course
+	 */
 	private void createEnrollmentPage(Course course)
 	{
 		EnrollmentPage enrollmentPage = new EnrollmentPage(course);
@@ -261,6 +275,9 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		completeCoursePage(enrollmentPage, course);
 	}
 
+	/**
+	 * Inner class used for the Enrollment Page search button
+	 */
 	private class EnrollmentPageSearchButtonListener implements ActionListener
 	{
 		private EnrollmentPage enrollmentPage;
@@ -304,6 +321,10 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		}
 	}
 
+
+	/**
+	 * Inner class for the Enrollment list listener
+	 */
 	private class EnrollmentListSelectionListener
 			implements ListSelectionListener
 	{
@@ -359,6 +380,10 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		}
 	}
 
+	/** Sets a course page and its content
+	 * @param genericCoursePage The hashmap used
+	 * @param course The associated course
+	 */
 	private void completeCoursePage(CoursePage<?, ?> genericCoursePage,
 			Course course)
 	{

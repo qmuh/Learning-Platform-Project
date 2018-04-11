@@ -31,11 +31,17 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 	 */
 	private Professor professor;
 
+	/** Constructor for the ProfessorSession
+	 * @param socket The socket used to connect the server with the client
+	 */
 	public ProfessorSession(Socket socket)
 	{
 		super(socket);
 	}
 
+	/** Sets the professor 
+	 * @param professor The professor set to this
+	 */
 	public void setProfessor(Professor professor)
 	{
 		this.professor = professor;
@@ -224,9 +230,6 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 		if (type.equals(INSERT_COURSE))
 		{
 			database.getCourseTable().add((Course) getmessageObject);
-			System.out.println(
-					"Adding course " + ((Course) getmessageObject).getName()
-							+ " for Prof: " + professor.getFirstName());
 
 		} else if (type.equals(INSERT_ENROLLMENT))
 		{

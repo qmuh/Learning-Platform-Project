@@ -8,8 +8,11 @@ import frontend.view.pages.ComposeEmailPage;
 import shared.objects.Course;
 
 /**
- * Listener for the send button on the compose email page
- *
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 6, 2018
  */
 public class SendButtonListener implements ActionListener
 {

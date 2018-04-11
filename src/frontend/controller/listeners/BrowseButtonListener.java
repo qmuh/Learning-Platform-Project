@@ -9,15 +9,24 @@ import javax.swing.JFileChooser;
 import frontend.view.pages.AssignmentPageProfessor;
 
 /**
- * Listener for the browse button on the assignment page
  *
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 6, 2018
  */
 public class BrowseButtonListener implements ActionListener
 {
+	/**
+	 * The page where the button is located
+	 */
 	private AssignmentPageProfessor assignPage;
 
-	public BrowseButtonListener(
-			AssignmentPageProfessor assignPage)
+	/** The listener for this, is it used to browse files in a computer
+	 * @param assignPage The page where the button is located
+	 */
+	 public BrowseButtonListener(
+ 			AssignmentPageProfessor assignPage)
 	{
 		this.assignPage = assignPage;
 	}

@@ -41,10 +41,19 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColourPalette,
 		GUIConstants, ServerInfo, UserInfo, UserCommands
 {
 
+	/**
+	 * Used for the version of the class
+	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * The panel where everything happens
+	 */
 	private JPanel currentPanel;
 
+	/** Constructs the LoginGUI
+	 * @param windowName Name of the Window
+	 */
 	public LoginGUI(String windowName)
 	{
 		super(windowName);
@@ -52,9 +61,9 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColourPalette,
 
 		LoginPanel loginPanel = new LoginPanel();
 		loginPanel.setLoginListener(new LoginListener(loginPanel));
-		
+
 		this.setLookAndFeel();
-		
+
 		this.getRootPane().setDefaultButton(loginPanel.getLoginButton());
 		this.currentPanel = loginPanel;
 		this.add(currentPanel);
@@ -75,6 +84,10 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColourPalette,
 		}
 	}
 
+	/**
+	 * Controls the complete logic for handling a user logging in with the
+	 * server and making decisions based on server response
+	 */
 	private class LoginListener implements ActionListener
 	{
 		private LoginPanel loginPanel;

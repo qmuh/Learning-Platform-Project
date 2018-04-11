@@ -2,18 +2,14 @@ package frontend.view.pages;
 
 
 import java.awt.BorderLayout;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.awt.Color;
+import java.awt.GridLayout;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.JScrollPane;
 
-import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.items.GradeItem;
 import shared.objects.Course;
 import shared.objects.Grade;
@@ -33,10 +29,33 @@ public class GradePage extends CoursePage<GradeItem, Grade>
 	{
 		super(course);
 		this.setName(GRADES_PAGE + course.getId());
-		setPageTitle("Grades Page");
-		bodyCenter.add(createDiscussionPage(), BorderLayout.CENTER);
+		this.setPageTitle("Grades");
+		bodyCenter.add(createGradesPage(), BorderLayout.CENTER);
+	}
+	
+	private JPanel createGradesPage()
+	{
+		JPanel gradesPagePanel = new JPanel(new BorderLayout());
+		gradesPagePanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+		JPanel gradesHeader = new JPanel(new GridLayout(1, 2));
+		gradesHeader.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+		gradesHeader.add(createLabel("Assignment", SUB_TITLE_FONT));
+		gradesHeader.add(createLabel("Grade", SUB_TITLE_FONT));
+		gradesPagePanel.add(gradesHeader, BorderLayout.NORTH);
+		gradesPagePanel.add(createTheGrades(), BorderLayout.CENTER);
+		return gradesPagePanel;
+	}
+	
+	private JScrollPane createTheGrades()
+	{
+		JScrollPane scrollPane = new JScrollPane(itemDisplay);
+		return scrollPane;
 	}
 
+	public void addGradeItem(GradeItem item)
+	{
+		itemDisplay.add(item);
+	}
 	@Override
 	public void displayPage()
 	{
@@ -44,47 +63,17 @@ public class GradePage extends CoursePage<GradeItem, Grade>
 
 	}
 	
-	private WButton sendButton;
-	private JTextArea sendArea;
+	public static void main(String[] args)
+	{
+		JFrame frame = new JFrame("Testing 123");
+		GradePage gradePage = new GradePage(new Course(10101, "ENGG 501", true));
+		gradePage.addToBoxList(new GradeItem("Short Quiz", new Grade(1, 87, 221, 1123)));
+		gradePage.addToBoxList(new GradeItem("Long Descriptive Assignment 2", new Grade(1, 73, 221, 1123)));
+		gradePage.addToBoxList(new GradeItem("Reasonable Assigmment", new Grade(1, 100, 221, 1123)));
+		frame.add(gradePage);
+		frame.setSize(1600, 1000);
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
 	
-	private JPanel createDiscussionPage()
-	{
-		JPanel myEmailsPanel = new JPanel(new BorderLayout());
-		myEmailsPanel.add(createDiscussionArea(), BorderLayout.CENTER);
-		myEmailsPanel.add(createSendField(), BorderLayout.SOUTH);
-		return myEmailsPanel;
-	}
-
-	private JPanel createSendField()
-	{
-		JPanel sendFieldPanel = new JPanel(new BorderLayout());
-		sendArea = new JTextArea(3, 200);
-		sendArea.setFont(TEXT_FONT);
-		sendArea.setBorder(new JTextField().getBorder());
-		sendButton = new WButton();
-		try {
-			BufferedImage image = ImageIO.read(new File("send.png"));
-			ImageIcon icon = new ImageIcon(image);
-			sendButton.setIcon(icon);
-		} catch(IOException e)
-		{
-			e.printStackTrace();
-		}
-		sendFieldPanel.add(sendArea, BorderLayout.CENTER);
-		sendFieldPanel.add(sendButton, BorderLayout.EAST);
-		return sendFieldPanel;
-	}
-
-	private JPanel createDiscussionArea()
-	{
-		// Note: The final product will not be a JTextArea
-		// TODO: Change from JTextArea to itemDisplay (BoxList)
-		JPanel theChat = new JPanel(new BorderLayout());
-		theChat.add(itemDisplay);
-		theChat.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
-		JTextArea sampleTextArea = new JTextArea();
-		sampleTextArea.setBorder(new JTextField().getBorder());
-		theChat.add(sampleTextArea, BorderLayout.CENTER);
-		return theChat;
-	}
 }

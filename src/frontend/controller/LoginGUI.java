@@ -12,6 +12,8 @@ import java.net.Socket;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import frontend.controller.professor.ProfessorGUI;
 import frontend.controller.student.StudentGUI;
@@ -50,12 +52,27 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColourPalette,
 
 		LoginPanel loginPanel = new LoginPanel();
 		loginPanel.setLoginListener(new LoginListener(loginPanel));
-
+		
+		this.setLookAndFeel();
+		
 		this.getRootPane().setDefaultButton(loginPanel.getLoginButton());
 		this.currentPanel = loginPanel;
 		this.add(currentPanel);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setVisible(true);
+	}
+
+	private void setLookAndFeel()
+	{
+		try
+		{
+			UIManager.setLookAndFeel(
+			        UIManager.getCrossPlatformLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	private class LoginListener implements ActionListener

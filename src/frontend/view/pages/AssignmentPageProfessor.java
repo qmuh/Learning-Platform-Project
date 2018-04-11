@@ -82,6 +82,7 @@ public class AssignmentPageProfessor extends AssignmentPage
 		uploadField = new JTextField(20);
 		uploadField.setFont(TEXT_FONT);
 		uploadField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
+		uploadField.setEditable(false);
 		browseButton = new WButton("Browse");
 		browse.add(uploadField);
 		browse.add(browseButton);

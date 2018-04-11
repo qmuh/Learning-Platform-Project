@@ -242,7 +242,11 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 		{
 
 			Assignment profAssign = (Assignment)getmessageObject;
-			String toSplit[] = profAssign.getPath().split(File.separator);
+			
+			String fileName = profAssign.getPath();
+			fileName.replaceAll("\\\\", "/");
+			
+			String toSplit[] = profAssign.getPath().split("/");
 			profAssign.setPath(DATABASE_STORAGE + profAssign.getTitle() +
 					"/" + (toSplit[toSplit.length - 1]));
 

@@ -1,15 +1,20 @@
 package frontend.view.pages.items;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
+import frontend.view.pages.components.customSwing.WButton;
+import frontend.view.pages.components.customSwing.WButtonActivatable;
 import shared.objects.Course;
 
-public class CourseItemProfessor extends CourseItem
+final public class CourseItemProfessor extends CourseItem
 {
 
 	private static final long serialVersionUID = 1L;
+	private WButtonActivatable activeButton;
 
 	public CourseItemProfessor(Course course)
 	{
@@ -20,5 +25,18 @@ public class CourseItemProfessor extends CourseItem
 		thePanel.add(createViewButton("View"));
 		this.add(thePanel);
 	}
-
+	
+	private JPanel createActiveButton()
+	{
+		JPanel activePanel = new JPanel(new BorderLayout());
+		activeButton = new WButtonActivatable(course.getActive());
+		activeButton.setPreferredSize(new Dimension(200, 30));
+		activePanel.add(activeButton, BorderLayout.EAST);
+		return activePanel;
+	}
+	
+	public WButtonActivatable getActiveButton()
+	{
+		return activeButton;
+	}
 }

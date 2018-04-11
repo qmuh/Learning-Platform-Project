@@ -7,6 +7,7 @@ import java.io.IOException;
 import frontend.controller.Client;
 import frontend.interfaces.ColourPalette;
 import frontend.view.pages.components.customSwing.WButton;
+import frontend.view.pages.components.customSwing.WButtonActivatable;
 import shared.interfaces.ProfessorCommands;
 import shared.objects.Assignment;
 import shared.objects.SendMessage;
@@ -26,25 +27,19 @@ public class AssignmentActiveButtonListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		System.err.println("Assignment Activity");
 		try
 		{
-			WButton activeButton = (WButton) e.getSource();
+			WButtonActivatable activeButton = (WButtonActivatable) e.getSource();
 			if (assignment.getActive())
 			{
-				System.out.println("INACTIVE");
 				client.onlySendMessage(new SendMessage<Assignment>(assignment,
 						CMD_MODIFY + MODIFY_ASSIGNMENT_INACTIVE));
-				activeButton.setText("ACTIVATE");
-				activeButton.setBackground(BACKGROUND_COLOUR);
+				activeButton.setActive(false);
 			} else
 			{
-				System.out.println("ACTIVE");
-
 				client.onlySendMessage(new SendMessage<Assignment>(assignment,
 						CMD_MODIFY + MODIFY_ASSIGNMENT_ACTIVE));
-				activeButton.setText("DEACTIVATE");
-				activeButton.setBackground(CONTRAST_COLOR);
+				activeButton.setActive(true);
 
 			}
 			assignment.setActive();

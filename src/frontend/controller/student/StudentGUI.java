@@ -138,7 +138,7 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 	protected void createCourseItem(Course course, HomePage homePage)
 	{
 		CourseItemStudent courseItem = new CourseItemStudent(course);
-		courseItem.setViewButtonListener(new ViewCoursePageListener(course));
+		courseItem.getViewButton().addActionListener(new ViewCoursePageListener(course));
 		homePage.addToBoxList(courseItem);
 		
 	}

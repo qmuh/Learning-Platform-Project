@@ -1,5 +1,6 @@
 package frontend.view.pages.items;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
@@ -40,11 +41,11 @@ public final class AssignItemProfessor extends AssignItem
 	@Override
 	protected JPanel createTheAssignment()
 	{
-		JPanel theAssignment = new JPanel(new GridLayout(1, 3));
-		// theAssignment.setPreferredSize(new Dimension(500, 50));
-		theAssignment.add(assignmentName, 0);
-		theAssignment.add(createActivateButton(), 1);
-		theAssignment.add(dueDate, 2);
+		JPanel theAssignment = new JPanel(new BorderLayout());
+		theAssignment.setPreferredSize(new Dimension(500, 50));
+		theAssignment.add(assignmentName, BorderLayout.WEST);
+		theAssignment.add(createActivateButton(), BorderLayout.CENTER);
+		theAssignment.add(dueDate, BorderLayout.EAST);
 		return theAssignment;
 	}
 }

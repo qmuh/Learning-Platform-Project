@@ -7,6 +7,7 @@ import java.io.IOException;
 import frontend.controller.Client;
 import frontend.interfaces.ColourPalette;
 import frontend.view.pages.components.customSwing.WButton;
+import frontend.view.pages.components.customSwing.WButtonActivatable;
 import shared.interfaces.ProfessorCommands;
 import shared.objects.Course;
 import shared.objects.SendMessage;
@@ -28,19 +29,17 @@ public class CourseActiveButtonListener
 	{
 		try
 		{
-			WButton activeButton = (WButton) e.getSource();
+			WButtonActivatable activeButton = (WButtonActivatable) e.getSource();
 			if (course.getActive())
 			{
 				client.onlySendMessage(new SendMessage<Course>(course,
 						CMD_MODIFY + MODIFY_COURSE_INACTIVE));
-				activeButton.setText("ACTIVATE");
-				activeButton.setBackground(BACKGROUND_COLOUR);
+				activeButton.setActive(false);
 			} else
 			{
 				client.onlySendMessage(new SendMessage<Course>(course,
 						CMD_MODIFY + MODIFY_COURSE_ACTIVE));
-				activeButton.setText("DEACTIVATE");
-				activeButton.setBackground(CONTRAST_COLOR);
+				activeButton.setActive(true);
 			}
 
 			course.setActive();

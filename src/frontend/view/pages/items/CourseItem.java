@@ -23,7 +23,7 @@ import shared.objects.Course;
  * @version 1.0
  * @since April 6, 2018
  */
-public class CourseItem extends GeneralItem
+abstract public class CourseItem extends GeneralItem
 		implements WondrisInfo, ColourPalette, GUIConstants
 {
 
@@ -31,8 +31,8 @@ public class CourseItem extends GeneralItem
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	private Course course;
-	protected WButton viewButton, activeButton;
+	protected Course course;
+	protected WButton viewButton;
 
 	public CourseItem(Course course)
 	{
@@ -44,24 +44,6 @@ public class CourseItem extends GeneralItem
 
 		this.course = course;
 		this.setBorder(BorderFactory.createEtchedBorder());
-	}
-
-	protected JPanel createActiveButton()
-	{
-		JPanel activePanel = new JPanel(new BorderLayout());
-		activeButton = new WButton();
-		activeButton.setPreferredSize(new Dimension(200, 30));
-		if (course.getActive())
-		{
-			activeButton.setText("DEACTIVATE");
-			activeButton.setBackground(CONTRAST_COLOR);
-		} else
-		{
-			activeButton.setText("ACTIVATE");
-			activeButton.setBackground(BACKGROUND_COLOUR);
-		}
-		activePanel.add(activeButton, BorderLayout.EAST);
-		return activePanel;
 	}
 
 	protected JPanel createLabel(String name)
@@ -81,16 +63,10 @@ public class CourseItem extends GeneralItem
 		theButton.add(viewButton);
 		return theButton;
 	}
-
-	public void setViewButtonListener(ActionListener listener)
+	
+	public WButton getViewButton()
 	{
-		viewButton.addActionListener(listener);
-	}
-
-	public void setActiveButtonListener(ActionListener listener)
-	{
-		
-		activeButton.addActionListener(listener);
+		return viewButton;
 	}
 
 	@Override

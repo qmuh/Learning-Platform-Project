@@ -38,8 +38,15 @@ public class UploadButtonListener implements ActionListener, ProfessorCommands
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		System.out.println(assignmentPage.getFile().getPath());
+		// https://stackoverflow.com/questions/28629990/split-string-by
+		// by Avinash Raj
+		
+		String fileName = assignmentPage.getFile().getAbsolutePath();
+		fileName.replaceAll("\\\\", "/");
+		
+		System.out.println(fileName);
 		String append[] = assignmentPage.getFile().getPath().split("/");
+		System.out.println("TITLE.JPG: " + append[append.length - 1]);
 		if (assignmentPage.getFile() != null)
 		{
 			Assignment myUpload = new Assignment(course.getId(),

@@ -168,9 +168,9 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	protected void createCourseItem(Course course, HomePage homePage)
 	{
 		CourseItemProfessor courseItem = new CourseItemProfessor(course);
-		courseItem.setActiveButtonListener(
+		courseItem.getActiveButton().addActionListener(
 				new CourseActiveButtonListener(client, course));
-		courseItem.setViewButtonListener(new ViewCoursePageListener(course));
+		courseItem.getViewButton().addActionListener(new ViewCoursePageListener(course));
 		homePage.addToBoxList(courseItem);
 	}
 

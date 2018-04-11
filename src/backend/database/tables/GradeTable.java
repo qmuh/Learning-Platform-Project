@@ -16,8 +16,12 @@ import shared.objects.Grade;
  */
 public class GradeTable extends Table<Grade>
 {
-	public String tableName = "GradeTable";
+	
 
+	/** The constructor for the grade table
+	 * @param connectionToDB Connection to the SQL database
+	 * @param tableName name of the database
+	 */
 	public GradeTable(Connection connectionToDB, String tableName)
 	{
 		super(connectionToDB, tableName);
@@ -66,7 +70,6 @@ public class GradeTable extends Table<Grade>
 
 	}
 
-	// ??? SEEMS WRONG GUYS
 	/**
 	 * Search for a grade by using assignment ID
 	 * 
@@ -101,6 +104,11 @@ public class GradeTable extends Table<Grade>
 
 	}
 
+	/** Searches the tables by using a course ID and student ID
+	 * @param courseID Course to be searched
+	 * @param studentID Student to be searched
+	 * @return vector of grade objects
+	 */
 	public Vector<Grade> studentGradesForCourse(int courseID, int studentID)
 	{
 		Vector<Grade> gradeList = new Vector<Grade>();

@@ -16,6 +16,10 @@ import shared.objects.StudentEnrollment;
  */
 public class StudentEnrollmentTable extends Table<StudentEnrollment>
 {
+	/** Constructor for the student enrollment table
+	 * @param connectionToDB Connection to SQL
+	 * @param tableName Name of the table
+	 */
 	public StudentEnrollmentTable(Connection connectionToDB, String tableName)
 	{
 		super(connectionToDB, tableName);
@@ -127,6 +131,9 @@ public class StudentEnrollmentTable extends Table<StudentEnrollment>
 		return listOfStudentIDs;
 	}
 
+	/** Removes the student from a class they are enrolled in
+	 * @param getmessageObject Used course and student information
+	 */
 	public void remove(StudentEnrollment getmessageObject)
 	{
 		String sql = "DELETE FROM " + tableName
@@ -165,7 +172,6 @@ public class StudentEnrollmentTable extends Table<StudentEnrollment>
 			studentsInfo = preparedStatement.executeQuery();
 			while (studentsInfo.next())
 			{
-				System.out.println("In getAllEnrolled");
 				listOfStudentIDs.add(studentsInfo.getInt("STUDENTID"));
 			}
 
@@ -177,6 +183,11 @@ public class StudentEnrollmentTable extends Table<StudentEnrollment>
 		return listOfStudentIDs;
 	}
 
+	/** Checks whether a student is enrolled in a specific class
+	 * @param studentID The ID of the student
+	 * @param courseID The OD of the course
+	 * @return True is student is enrolled, false otherwise
+	 */
 	public boolean isStudentEnrolled(int studentID, int courseID)
 	{
 		String sql = "SELECT * FROM " + tableName

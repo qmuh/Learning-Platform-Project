@@ -16,8 +16,11 @@ import shared.objects.Course;
  */
 public class CourseTable extends Table<Course> implements Activable
 {
-	public String tableName = "CourseTable";
 
+	/** Constructor for the table
+	 * @param connectionToDB Connection between table and database 
+	 * @param tableName Name of the table
+	 */
 	public CourseTable(Connection connectionToDB, String tableName)
 	{
 		super(connectionToDB, tableName);
@@ -162,11 +165,9 @@ public class CourseTable extends Table<Course> implements Activable
 			preparedStatement = dbConnection.prepareStatement(sql);
 			preparedStatement.setInt(1, courseID);
 			preparedStatement.setBoolean(2, true);
-			System.out.println("Checking course number: " + courseID);
 			course = preparedStatement.executeQuery();
 			if (course.next())
 			{
-
 				return new Course(course.getInt("ID"), course.getInt("PROFID"),
 						course.getString("NAME"), course.getBoolean("ACTIVE"));
 			}

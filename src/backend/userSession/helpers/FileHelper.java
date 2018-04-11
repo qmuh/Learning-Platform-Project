@@ -25,8 +25,6 @@ public class FileHelper
 	public void storeFile(byte[] file, Assignment data)
 	{
 
-		
-
 		File newFile = new File(data.getPath());
 		try
 		{

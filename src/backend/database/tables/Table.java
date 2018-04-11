@@ -14,12 +14,25 @@ import java.sql.SQLException;
 public abstract class Table<E>
 {
 
+	/**
+	 * Used to create connection with a SQL database
+	 */
 	public Connection dbConnection;
 
+	/**
+	 * The name for a table
+	 */
 	public String tableName;
 
+	/**
+	 * Statement used for querying a database
+	 */
 	public PreparedStatement preparedStatement;
 
+	/** Constructor for a database
+	 * @param connectionToDB The connection to allow connection with SQL
+	 * @param table The name of the table
+	 */
 	public Table(Connection connectionToDB, String table)
 	{
 		dbConnection = connectionToDB;
@@ -39,6 +52,9 @@ public abstract class Table<E>
 	 */
 	abstract public void createTable();
 
+	/**
+	 * Removes table from the database
+	 */
 	public void removeTable()
 	{
 		String sql = "DROP TABLE " + tableName;

@@ -17,6 +17,10 @@ import shared.objects.Submission;
 public class SubmissionTable extends Table<Submission>
 {
 
+	/** Constructor for the submission table
+	 * @param connectionToDB Connection with SQL server
+	 * @param tableName
+	 */
 	public SubmissionTable(Connection connectionToDB, String tableName)
 	{
 		super(connectionToDB, tableName);
@@ -148,6 +152,10 @@ public class SubmissionTable extends Table<Submission>
 
 	}
 
+	/** Searches the table by course ID''s
+	 * @param courseID The course ID to search for
+	 * @return The vector containing all the submissions for a course ID
+	 */
 	public Vector<Submission> searchByCourse(int courseID)
 	{
 		Vector<Submission> assignSubmissons = new Vector<Submission>();

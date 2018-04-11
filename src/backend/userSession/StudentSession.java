@@ -1,6 +1,5 @@
 package backend.userSession;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Vector;
@@ -25,13 +24,22 @@ import shared.objects.Submission;
 public class StudentSession extends ClientSession implements StudentCommands
 {
 
+	/**
+	 * The student associated with this session
+	 */
 	private Student user;
 
+	/** Initializes this session with a socket and calls super
+	 * @param socket The socket given to the super
+	 */
 	public StudentSession(Socket socket)
 	{
 		super(socket);
 	}
 
+	/** Sets the student for this class
+	 * @param toSet
+	 */
 	public void setStudent(Student toSet)
 	{
 		user = toSet;
@@ -95,13 +103,20 @@ public class StudentSession extends ClientSession implements StudentCommands
 		return true;
 
 	}
-
 	
+	/** Handles client commands having to do with them modifying data
+	 * @param interpreter The specific command from an interface
+	 * @param getmessageObject The object that is used to help modify
+	 */
 	private void handleModify(String interpreter, Object getmessageObject)
 	{
 	
 	}
 
+	/** Handles client commands having to do with them receiving data
+	 * @param interpreter The specific command from an interface
+	 * @param getmessageObject The object that is used for some commands
+	 */
 	private void handleRecieve(String interpreter, Object getmessageObject)
 	{
 		//Returns the students courses
@@ -111,8 +126,11 @@ public class StudentSession extends ClientSession implements StudentCommands
 			Vector<Course> studentCourses = new Vector<Course>();
 			
 			for (int i = 0; i < studentCoursesIds.size(); i++)
-			{
-				studentCourses.add(database.getCourseTable().searchByCourseID(studentCoursesIds.get(i)));
+			{	Course myCourse = database.getCourseTable().searchActiveCourseID(studentCoursesIds.get(i));
+				if(myCourse != null)
+				{
+					studentCourses.add(myCourse);
+				}
 			}
 			sendObject(studentCourses);
 		} 
@@ -129,12 +147,17 @@ public class StudentSession extends ClientSession implements StudentCommands
 		{
 			Vector<Grade> myGrades = database.getGradeTable().
 					studentGradesForCourse(((Course)getmessageObject).getId(),user.getId());
-			//Decide what to do here?
+			System.out.println("I have recieved the correct request");
+			sendObject(myGrades);
 			
 		}
 	
 	}
 
+	/** Handles client commands having to do with keeping database updated
+	 * @param interpreter The specific command from an interface
+	 * @param getmessageObject The object that is being inserted
+	 */
 	private void handleInsert(String interpreter, Object getmessageObject)
 	{
 		if(interpreter.equals(INSERT_SUBMISSION))

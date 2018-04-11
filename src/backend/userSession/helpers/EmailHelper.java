@@ -22,6 +22,10 @@ import shared.objects.EmailInfo;
 public class EmailHelper
 {
 
+	/** Sends an email using a GMAIL server
+	 * @param emailLogin The complete email information
+	 * @return True if email sent, false otherwise due to incorrect login info
+	 */
 	public Boolean sendEmail(EmailInfo emailLogin)
 	{
 		Properties properties = new Properties();

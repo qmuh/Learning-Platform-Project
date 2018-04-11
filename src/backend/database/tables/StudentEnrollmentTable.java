@@ -8,7 +8,7 @@ import java.util.Vector;
 import shared.objects.StudentEnrollment;
 
 /**
- * 
+ *
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
@@ -16,6 +16,10 @@ import shared.objects.StudentEnrollment;
  */
 public class StudentEnrollmentTable extends Table<StudentEnrollment>
 {
+	/** Constructor for the student enrollment table
+	 * @param connectionToDB Connection to SQL
+	 * @param tableName Name of the table
+	 */
 	public StudentEnrollmentTable(Connection connectionToDB, String tableName)
 	{
 		super(connectionToDB, tableName);
@@ -66,7 +70,7 @@ public class StudentEnrollmentTable extends Table<StudentEnrollment>
 
 	/**
 	 * Searches for the list of course IDs from a specific student
-	 * 
+	 *
 	 * @param studentID
 	 * @return
 	 */
@@ -80,7 +84,7 @@ public class StudentEnrollmentTable extends Table<StudentEnrollment>
 			preparedStatement = dbConnection.prepareStatement(sql);
 			preparedStatement.setInt(1, studentID);
 			courseInfo = preparedStatement.executeQuery();
-			if (courseInfo.next())
+			while (courseInfo.next())
 			{
 
 				myCourseIDs.add(courseInfo.getInt("COURSEID"));
@@ -97,7 +101,7 @@ public class StudentEnrollmentTable extends Table<StudentEnrollment>
 	/**
 	 * Searches for the list of student IDs who are enrolled in a specific class
 	 * Used by the professor
-	 * 
+	 *
 	 * @param courseID
 	 * @return
 	 */
@@ -127,6 +131,9 @@ public class StudentEnrollmentTable extends Table<StudentEnrollment>
 		return listOfStudentIDs;
 	}
 
+	/** Removes the student from a class they are enrolled in
+	 * @param getmessageObject Used course and student information
+	 */
 	public void remove(StudentEnrollment getmessageObject)
 	{
 		String sql = "DELETE FROM " + tableName
@@ -149,7 +156,7 @@ public class StudentEnrollmentTable extends Table<StudentEnrollment>
 	/**
 	 * Searches for the list of student IDs who are enrolled in a specific class
 	 * Used by the professor
-	 * 
+	 *
 	 * @param courseID
 	 * @return
 	 */
@@ -165,7 +172,6 @@ public class StudentEnrollmentTable extends Table<StudentEnrollment>
 			studentsInfo = preparedStatement.executeQuery();
 			while (studentsInfo.next())
 			{
-				System.out.println("In getAllEnrolled");
 				listOfStudentIDs.add(studentsInfo.getInt("STUDENTID"));
 			}
 
@@ -177,6 +183,11 @@ public class StudentEnrollmentTable extends Table<StudentEnrollment>
 		return listOfStudentIDs;
 	}
 
+	/** Checks whether a student is enrolled in a specific class
+	 * @param studentID The ID of the student
+	 * @param courseID The OD of the course
+	 * @return True is student is enrolled, false otherwise
+	 */
 	public boolean isStudentEnrolled(int studentID, int courseID)
 	{
 		String sql = "SELECT * FROM " + tableName
@@ -204,7 +215,7 @@ public class StudentEnrollmentTable extends Table<StudentEnrollment>
 		}
 		return false;
 	}
-	
-	
-	
+
+
+
 }

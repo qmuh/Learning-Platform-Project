@@ -20,6 +20,10 @@ import shared.objects.User;
 public class UserTable extends Table<User> implements UserInfo
 {
 
+	/** Initializes the table using the super
+	 * @param connectionToDB The connection to connect with
+	 * @param tableName The name of the table
+	 */
 	public UserTable(Connection connectionToDB, String tableName)
 	{
 		super(connectionToDB, tableName);
@@ -113,6 +117,10 @@ public class UserTable extends Table<User> implements UserInfo
 		return null;
 	}
 
+	/** Searches for a user given their ID and then returns said user
+	 * @param userID The user which is being searched for
+	 * @return The User object, contains null if none are found
+	 */
 	public User getUserByID(int userID)
 	{
 		String sql = "SELECT * FROM " + tableName + " WHERE ID= ? ";
@@ -141,6 +149,10 @@ public class UserTable extends Table<User> implements UserInfo
 		return null;
 	}
 
+	/** Searches for users given their last name for the query key
+	 * @param string The last name that off being searched for 
+	 * @return Vector of student object 
+	 */
 	public Vector<Student> searchLastName(String string)
 	{
 		String sql = "SELECT * FROM " + tableName

@@ -4,16 +4,30 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.Socket;
 import java.util.Stack;
+import java.util.Vector;
 
 import javax.swing.JPanel;
 
+import frontend.controller.Client;
+import frontend.controller.professor.listeners.NewCourseButtonListener;
 import frontend.interfaces.ColourPalette;
+import frontend.view.pages.AssignmentPage;
+import frontend.view.pages.ComposeEmailPage;
+import frontend.view.pages.CoursePage;
+import frontend.view.pages.DiscussionPage;
 import frontend.view.pages.HomePage;
 import frontend.view.pages.Page;
 import frontend.view.pages.PageNames;
+import frontend.view.pages.SubmissionPage;
+import frontend.view.pages.components.PageNavigator.ViewCoursePageListener;
 import frontend.view.pages.components.customSwing.WButton;
+import frontend.view.pages.items.CourseItem;
+import shared.interfaces.UserCommands;
 import shared.objects.Course;
+import shared.objects.SendMessage;
 
 /**
  *
@@ -22,18 +36,20 @@ import shared.objects.Course;
  * @version 1.0
  * @since April 6, 2018
  */
-public class PageNavigator extends JPanel implements PageNames, ColourPalette
+public abstract class PageNavigator extends JPanel implements PageNames, ColourPalette, UserCommands
 {
 	private static final long serialVersionUID = 1L;
 	private CardLayout cardLayout;
 	private Page<?, ?> currentPage;
 	private Stack<Page<?, ?>> pageStack;
+	protected Client client;
 
-	public PageNavigator()
+	public PageNavigator(Socket socket)
 	{
 		this.cardLayout = new CardLayout();
 		this.setLayout(cardLayout);
-
+		client = new Client();
+		client.connectToServer(socket);
 		this.pageStack = new Stack<Page<?, ?>>();
 
 		this.currentPage = new HomePage();
@@ -45,12 +61,12 @@ public class PageNavigator extends JPanel implements PageNames, ColourPalette
 
 	public void showPage(String pageName)
 	{
-		if (currentPage.getName().equals(pageName))
+		System.out.println(currentPage.getName());
+		
+		// If the page to show is not the current page
+		if (!currentPage.getName().equals(pageName))
 		{
-			return;
-			
-		} else
-		{
+			// Go to the page to show
 			currentPage.setBackButtonEnabled(true);
 			pageStack.push(currentPage);
 			pageStack.peek();
@@ -59,7 +75,7 @@ public class PageNavigator extends JPanel implements PageNames, ColourPalette
 		}
 	}
 
-	public Page<?, ?> searchPage(String name)
+	protected Page<?, ?> searchPage(String name)
 	{
 		for (Component component : this.getComponents())
 		{
@@ -78,25 +94,76 @@ public class PageNavigator extends JPanel implements PageNames, ColourPalette
 		this.add(page, page.getName());
 	}
 
-	public void previousPage()
+	private void previousPage()
 	{
+		// If the stack is not empty
 		if (!pageStack.isEmpty())
 		{
 			String pageName = pageStack.pop().getName();
 			cardLayout.show(this, pageName);
 			currentPage = searchPage(pageName);
-			System.out.println(pageName + " was removed from the stack.");
+			
+			// If the stack is empty after hitting the back button
 			if (pageStack.isEmpty())
 			{
 				currentPage.setBackButtonEnabled(false);
 			}
-		} else
-		{
-
-		}
+		} 
 	}
 
-	public class BackButtonListener implements ActionListener
+	protected void createNewCourse(Course course, HomePage homePage)
+	{
+		createCourseItem(course, homePage); 
+		createCoursePage(course);
+		createAssignmentPage(course);
+		createSubmissionPage(course);
+		createComposeEmailPage(course);
+		createDiscussionPage(course);
+	}
+
+	abstract protected void createCoursePage(Course course);
+	
+	abstract protected void createAssignmentPage(Course course);
+	
+	abstract protected void createSubmissionPage(Course course);
+
+	abstract protected void createComposeEmailPage(Course course);		
+
+	abstract protected void createDiscussionPage(Course course); 	
+
+	@SuppressWarnings("unchecked")
+	protected HomePage createHomePage()
+	{
+		HomePage homePage = (HomePage) this.searchPage(HOME_PAGE);
+
+		SendMessage<Course> message = new SendMessage<Course>(CMD_RECEIVE + RECEIVE_COURSES);
+		try
+		{
+			Vector<Course> coursesList = (Vector<Course>) this.client.sendMessage(message);
+
+			if (coursesList != null)
+			{
+				for (int i = 0; i < coursesList.size(); i++)
+				{
+					Course course = coursesList.elementAt(i);
+
+					createNewCourse(course, homePage);
+
+					System.out.println("Course name is: " + coursesList.get(i).getName());
+				}
+			}
+
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		homePage.displayPage();
+		return homePage;
+	}
+
+	abstract protected void createCourseItem(Course course, HomePage homePage);
+
+	private class BackButtonListener implements ActionListener
 	{
 		// TODO: Fix or Remove
 		@Override
@@ -106,7 +173,7 @@ public class PageNavigator extends JPanel implements PageNames, ColourPalette
 		}
 	}
 
-	public class HomeButtonListener implements ActionListener
+	private class HomeButtonListener implements ActionListener
 	{
 		@Override
 		public void actionPerformed(ActionEvent e)

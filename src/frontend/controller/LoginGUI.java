@@ -12,8 +12,11 @@ import java.net.Socket;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import frontend.controller.professor.ProfessorGUI;
+import frontend.controller.student.StudentGUI;
 import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
 import frontend.view.LoginPanel;
@@ -24,6 +27,7 @@ import shared.interfaces.UserInfo;
 import shared.objects.LoginInfo;
 import shared.objects.Professor;
 import shared.objects.SendMessage;
+import shared.objects.Student;
 import shared.objects.User;
 
 /**
@@ -37,10 +41,19 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColourPalette,
 		GUIConstants, ServerInfo, UserInfo, UserCommands
 {
 
+	/**
+	 * Used for the version of the class
+	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * The panel where everything happens
+	 */
 	private JPanel currentPanel;
 
+	/** Constructs the LoginGUI
+	 * @param windowName Name of the Window
+	 */
 	public LoginGUI(String windowName)
 	{
 		super(windowName);
@@ -49,6 +62,8 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColourPalette,
 		LoginPanel loginPanel = new LoginPanel();
 		loginPanel.setLoginListener(new LoginListener(loginPanel));
 
+		this.setLookAndFeel();
+
 		this.getRootPane().setDefaultButton(loginPanel.getLoginButton());
 		this.currentPanel = loginPanel;
 		this.add(currentPanel);
@@ -56,6 +71,23 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColourPalette,
 		this.setVisible(true);
 	}
 
+	private void setLookAndFeel()
+	{
+		try
+		{
+			UIManager.setLookAndFeel(
+			        UIManager.getCrossPlatformLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Controls the complete logic for handling a user logging in with the
+	 * server and making decisions based on server response
+	 */
 	private class LoginListener implements ActionListener
 	{
 		private LoginPanel loginPanel;
@@ -114,13 +146,22 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColourPalette,
 			{
 				currentPanel.setVisible(false);
 				currentPanel = new ProfessorGUI(socket, (Professor) user);
-				add(currentPanel);
+
 				// cardPanel.add(new ProfessorGUI(mySocket), "PROF");
 
 			} else if (user.getUserType().equals(USER_STUDENT))
 			{
+				currentPanel.setVisible(false);
+				currentPanel = new StudentGUI(socket, (Student) user);
+
+			} else
+			{ // user is not logged in
+				return;
 
 			}
+
+			add(currentPanel);
+			getRootPane().setDefaultButton(null);
 
 			// Logout functionality;
 			addWindowListener(new WindowListener()

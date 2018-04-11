@@ -83,31 +83,49 @@ public class Database implements DatabaseProperties, UserInfo
 		}
 	}
 
+	/** Returns the assignment table
+	 * @return The assignment table
+	 */
 	public AssignmentTable getAssignmentTable()
 	{
 		return assignmentTable;
 	}
 
+	/** Returns the course table
+	 * @return the course table
+	 */
 	public CourseTable getCourseTable()
 	{
 		return courseTable;
 	}
 
+	/** Returns the grade table
+	 * @return The grade table
+	 */
 	public GradeTable getGradeTable()
 	{
 		return gradeTable;
 	}
 
+	/** Returns the student enrollment table
+	 * @return The sudent enrollment table
+	 */
 	public StudentEnrollmentTable getStudentEnrollmentTable()
 	{
 		return studentEnrollmentTable;
 	}
 
+	/** Returns the user table
+	 * @return The user table
+	 */
 	public UserTable getUserTable()
 	{
 		return userTable;
 	}
 
+	/** Returns the submission table
+	 * @return The submission table
+	 */
 	public SubmissionTable getSubmissionTable()
 	{
 		return submissionTable;
@@ -148,6 +166,9 @@ public class Database implements DatabaseProperties, UserInfo
 		return databaseProperties;
 	}
 
+	/**
+	 *  Attaches all the tables to the database
+	 */
 	private void addAllTables()
 	{
 		assignmentTable = new AssignmentTable(dbConnection, "AssignmentTable");
@@ -159,6 +180,9 @@ public class Database implements DatabaseProperties, UserInfo
 		gradeTable = new GradeTable(dbConnection, "GradeTable");
 	}
 
+	/**
+	 * Deletes the connection with the database and the table
+	 */
 	private void removeAllTables()
 	{
 		assignmentTable.removeTable();
@@ -169,6 +193,9 @@ public class Database implements DatabaseProperties, UserInfo
 		gradeTable.removeTable();
 	}
 
+	/**
+	 * Creates the tables in the data , used ot initalize
+	 */
 	private void createAllTables()
 	{
 		assignmentTable.createTable();
@@ -179,6 +206,9 @@ public class Database implements DatabaseProperties, UserInfo
 		gradeTable.createTable();
 	}
 
+	/** Used to read users into the User table for initialization
+	 * @param fileName The textfile containing the users 
+	 */
 	private void readUser(String fileName)
 	{
 		try
@@ -217,6 +247,9 @@ public class Database implements DatabaseProperties, UserInfo
 
 	}
 
+	/** Used to read users into the Course table for the professor
+	 * @param fileName The textfile containing the users
+	 */
 	private void readCourses(String fileName)
 	{
 		try
@@ -248,8 +281,7 @@ public class Database implements DatabaseProperties, UserInfo
 	/**
 	 * Reset the database to a known state.
 	 * 
-	 * @param args
-	 *            unused
+	 * @param args unused
 	 */
 	public static void main(String[] args)
 	{

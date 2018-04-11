@@ -93,6 +93,9 @@ public abstract class ClientSession implements Runnable
 		this.database = database;
 	}
 
+	/** Handles the email sending
+	 * @param emailLogin The complete email information
+	 */
 	protected void handleEmail(EmailInfo emailLogin)
 	{
 
@@ -107,6 +110,9 @@ public abstract class ClientSession implements Runnable
 			}
 	}
 
+	/** Used to send a file to the client
+	 * @param path The client being sent to the client
+	 */
 	protected void sendBackFile(String path)
 	{
 		byte[] file = fileHelper.receiveFile(path);
@@ -119,6 +125,9 @@ public abstract class ClientSession implements Runnable
 
 	}
 
+	/** Used to send an Object to the client
+	 * @param message The object being sent
+	 */
 	protected void sendObject(Object message)
 	{
 		try
@@ -141,5 +150,8 @@ public abstract class ClientSession implements Runnable
 	 */
 	abstract boolean interpretMessage(SendMessage<?> command);
 
+	/**
+	 * Used for writing data
+	 */
 	abstract public void write();
 }

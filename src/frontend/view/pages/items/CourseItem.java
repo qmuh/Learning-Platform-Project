@@ -23,7 +23,7 @@ import shared.objects.Course;
  * @version 1.0
  * @since April 6, 2018
  */
-public class CourseItem extends GeneralItem
+abstract public class CourseItem extends GeneralItem
 		implements WondrisInfo, ColourPalette, GUIConstants
 {
 
@@ -31,8 +31,8 @@ public class CourseItem extends GeneralItem
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	private Course course;
-	private WButton view, active;
+	protected Course course;
+	protected WButton viewButton;
 
 	public CourseItem(Course course)
 	{
@@ -42,36 +42,11 @@ public class CourseItem extends GeneralItem
 		this.revalidate();
 		this.repaint();
 
-		JPanel wrapper = new JPanel(new GridLayout(1, 3));
 		this.course = course;
 		this.setBorder(BorderFactory.createEtchedBorder());
-		wrapper.add(createLabel(course.getName()));
-		wrapper.add(createActiveButton());
-		wrapper.add(createViewButton("View"));
-
-		this.add(wrapper);
 	}
 
-	private JPanel createActiveButton()
-	{
-		JPanel activePanel = new JPanel(new BorderLayout());
-		active = new WButton();
-		active.setPreferredSize(new Dimension(200, 30));
-		active.setFont(TEXT_FONT);
-		if (course.getActive())
-		{
-			active.setText("DEACTIVATE");
-			active.setBackground(CONTRAST_COLOR);
-		} else
-		{
-			active.setText("ACTIVATE");
-			active.setBackground(BACKGROUND_COLOUR);
-		}
-		activePanel.add(active, BorderLayout.EAST);
-		return activePanel;
-	}
-
-	private JPanel createLabel(String name)
+	protected JPanel createLabel(String name)
 	{
 		JPanel theLabel = new JPanel();
 		JLabel label = new JLabel(name);
@@ -80,23 +55,18 @@ public class CourseItem extends GeneralItem
 		return theLabel;
 	}
 
-	private JPanel createViewButton(String name)
+	protected JPanel createViewButton(String name)
 	{
 		JPanel theButton = new JPanel();
-		view = new WButton(name);
-		view.setFont(TEXT_FONT);
-		theButton.add(view);
+		viewButton = new WButton(name);
+		viewButton.setFont(TEXT_FONT);
+		theButton.add(viewButton);
 		return theButton;
 	}
-
-	public void setViewButtonListener(ActionListener listener)
+	
+	public WButton getViewButton()
 	{
-		view.addActionListener(listener);
-	}
-
-	public void setActiveButtonListener(ActionListener listener)
-	{
-		active.addActionListener(listener);
+		return viewButton;
 	}
 
 	@Override

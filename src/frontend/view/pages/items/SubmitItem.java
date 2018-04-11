@@ -26,8 +26,7 @@ public class SubmitItem extends GeneralItem
 	private JTextField gradeField;
 	private Submission submission;
 	private JLabel assignmentLink;
-	
-	
+
 	public SubmitItem(Submission submission)
 	{
 		super(BoxLayout.X_AXIS, Integer.toString(submission.getId()));

@@ -1,5 +1,6 @@
 package backend.userSession;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Vector;
@@ -25,14 +26,22 @@ import shared.objects.Submission;
  */
 public class ProfessorSession extends ClientSession implements ProfessorCommands
 {
-
+	/**
+	 * The professor associated with this session
+	 */
 	private Professor professor;
 
+	/** Constructor for the ProfessorSession
+	 * @param socket The socket used to connect the server with the client
+	 */
 	public ProfessorSession(Socket socket)
 	{
 		super(socket);
 	}
 
+	/** Sets the professor 
+	 * @param professor The professor set to this
+	 */
 	public void setProfessor(Professor professor)
 	{
 		this.professor = professor;
@@ -98,6 +107,10 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 		return true;
 	}
 
+	/** Handles client commands having to do with them modifying data
+	 * @param modify The specific command from an interface
+	 * @param getmessageObject The object that is used to help modify
+	 */
 	private void handleModify(String modify, Object getmessageObject)
 	{
 		if (modify.equals(MODIFY_COURSE_ACTIVE))
@@ -129,6 +142,10 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 		}
 	}
 
+	/** Handles client commands having to do with them receiving data
+	 * @param type The specific command from an interface
+	 * @param getmessageObject The object that is used for some commands
+	 */
 	private void handleRecieve(String type, Object getMessage)
 	{
 		if (type.equals(RECEIVE_COURSES))
@@ -204,14 +221,15 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 		}
 	}
 
+	/** Handles client commands having to do with keeping database updated
+	 * @param interpreter The specific command from an interface
+	 * @param getmessageObject The object that is being inserted
+	 */
 	private void handleInsert(String type, Object getmessageObject)
 	{
 		if (type.equals(INSERT_COURSE))
 		{
 			database.getCourseTable().add((Course) getmessageObject);
-			System.out.println(
-					"Adding course " + ((Course) getmessageObject).getName()
-							+ " for Prof: " + professor.getFirstName());
 
 		} else if (type.equals(INSERT_ENROLLMENT))
 		{
@@ -227,6 +245,10 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 		{
 
 			Assignment profAssign = (Assignment)getmessageObject;
+			
+			String fileName = profAssign.getPath();
+			fileName.replaceAll("\\\\", "/");
+			
 			String toSplit[] = profAssign.getPath().split("/");
 			profAssign.setPath(DATABASE_STORAGE + profAssign.getTitle() +
 					"/" + (toSplit[toSplit.length - 1]));

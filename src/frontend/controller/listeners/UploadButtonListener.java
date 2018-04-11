@@ -10,13 +10,15 @@ import java.io.IOException;
 import frontend.controller.Client;
 import frontend.controller.professor.listeners.AssignmentActiveButtonListener;
 import frontend.view.pages.AssignmentPage;
+import frontend.view.pages.AssignmentPageProfessor;
+import frontend.view.pages.items.AssignItemProfessor;
 import shared.interfaces.ProfessorCommands;
 import shared.objects.Assignment;
 import shared.objects.Course;
 import shared.objects.SendMessage;
 
 /**
- * 
+ *
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
@@ -28,24 +30,24 @@ public class UploadButtonListener implements ActionListener, ProfessorCommands
 	 * The client
 	 */
 	private Client client;
-	
+
 	/**
 	 * The specific course associated with this listener
 	 */
 	private Course course;
-	
+
 	/**
 	 * The assignment page for this specific course
 	 */
-	private AssignmentPage assignmentPage;
+	private AssignmentPageProfessor assignmentPage;
 
 	/** The upload button listener, uploads an assignment to the server
-	 * @param client The client 
+	 * @param client The client
 	 * @param course The course
 	 * @param assignPage The Assignment page
 	 */
 	public UploadButtonListener(Client client, Course course,
-			AssignmentPage assignPage)
+			AssignmentPageProfessor assignPage)
 	{
 		this.client = client;
 		this.course = course;
@@ -56,8 +58,7 @@ public class UploadButtonListener implements ActionListener, ProfessorCommands
 	public void actionPerformed(ActionEvent e)
 	{
 		System.out.println(assignmentPage.getFile().getPath());
-		String append[] = assignmentPage.getFile().getPath()
-				.split("/");
+		String append[] = assignmentPage.getFile().getPath().split("/");
 		if (assignmentPage.getFile() != null)
 		{
 			Assignment myUpload = new Assignment(course.getId(),
@@ -81,8 +82,12 @@ public class UploadButtonListener implements ActionListener, ProfessorCommands
 				client.getObjectOut().writeObject(content);
 				client.getObjectOut().flush();
 
-				assignmentPage.createAssignItem(myUpload,
+				AssignItemProfessor newAssign = new AssignItemProfessor(
+						myUpload);
+				newAssign.getActiveButton().addActionListener(
 						new AssignmentActiveButtonListener(client, myUpload));
+
+				assignmentPage.addToBoxList(newAssign);
 				// showAllAssignments(course, assignmentPage);
 
 			} catch (IOException e1)

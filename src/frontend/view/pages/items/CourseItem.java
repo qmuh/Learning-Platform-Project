@@ -32,7 +32,8 @@ public class CourseItem extends GeneralItem
 	 */
 	private static final long serialVersionUID = 1L;
 	private Course course;
-	private WButton view, active;
+	private WButton viewButton, activeButton;
+	private JPanel activeButtonPanel;
 
 	public CourseItem(Course course)
 	{
@@ -55,19 +56,18 @@ public class CourseItem extends GeneralItem
 	private JPanel createActiveButton()
 	{
 		JPanel activePanel = new JPanel(new BorderLayout());
-		active = new WButton();
-		active.setPreferredSize(new Dimension(200, 30));
-		active.setFont(TEXT_FONT);
+		activeButton = new WButton();
+		activeButton.setPreferredSize(new Dimension(200, 30));
 		if (course.getActive())
 		{
-			active.setText("DEACTIVATE");
-			active.setBackground(CONTRAST_COLOR);
+			activeButton.setText("DEACTIVATE");
+			activeButton.setBackground(CONTRAST_COLOR);
 		} else
 		{
-			active.setText("ACTIVATE");
-			active.setBackground(BACKGROUND_COLOUR);
+			activeButton.setText("ACTIVATE");
+			activeButton.setBackground(BACKGROUND_COLOUR);
 		}
-		activePanel.add(active, BorderLayout.EAST);
+		activePanel.add(activeButton, BorderLayout.EAST);
 		return activePanel;
 	}
 
@@ -83,20 +83,21 @@ public class CourseItem extends GeneralItem
 	private JPanel createViewButton(String name)
 	{
 		JPanel theButton = new JPanel();
-		view = new WButton(name);
-		view.setFont(TEXT_FONT);
-		theButton.add(view);
+		viewButton = new WButton(name);
+		viewButton.setFont(TEXT_FONT);
+		theButton.add(viewButton);
 		return theButton;
 	}
 
 	public void setViewButtonListener(ActionListener listener)
 	{
-		view.addActionListener(listener);
+		viewButton.addActionListener(listener);
 	}
 
 	public void setActiveButtonListener(ActionListener listener)
 	{
-		active.addActionListener(listener);
+		
+		activeButton.addActionListener(listener);
 	}
 
 	@Override

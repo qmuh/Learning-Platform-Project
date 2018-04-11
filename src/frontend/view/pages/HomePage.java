@@ -23,8 +23,8 @@ public class HomePage extends Page<CourseItem, Course>
 	{
 		super();
 		this.header.setTitle("Home");
-		setName(HOME_PAGE);
-		body = new HomePageCoursesTable();
+		this.setName(HOME_PAGE);
+		this.body = new HomePageCoursesTable();
 		this.add(body);
 	}
 

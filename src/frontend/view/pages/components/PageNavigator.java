@@ -111,7 +111,15 @@ public abstract class PageNavigator extends JPanel implements PageNames, ColourP
 		} 
 	}
 
-	abstract protected void createNewCourse(Course course, HomePage homePage);
+	protected void createNewCourse(Course course, HomePage homePage)
+	{
+		createCourseItem(course, homePage); 
+		createCoursePage(course);
+		createAssignmentPage(course);
+		createSubmissionPage(course);
+		createComposeEmailPage(course);
+		createDiscussionPage(course);
+	}
 
 	abstract protected void createCoursePage(Course course);
 	

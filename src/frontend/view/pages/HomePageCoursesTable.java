@@ -106,7 +106,9 @@ public class HomePageCoursesTable extends JPanel
 
 	public void setNewCourseListener(ActionListener listener)
 	{
+		newCourseButton = new WButton("New Course");
 		newCourseButton.addActionListener(listener);
+		newCourseButtonPanel.add(newCourseButton);
 	}
 
 }

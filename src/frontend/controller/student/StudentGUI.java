@@ -38,12 +38,7 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 	@Override
 	protected void createNewCourse(Course course, HomePage homePage)
 	{
-		super.createCourseItem(course, homePage); 
-		createCoursePage(course);
-		createAssignmentPage(course);
-		createSubmissionPage(course);
-		createComposeEmailPage(course);
-		createDiscussionPage(course);
+		super.createNewCourse(course, homePage);
 		createGradesPage(course);
 	}
 

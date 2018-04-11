@@ -92,12 +92,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	@Override
 	public void createNewCourse(Course course, HomePage homePage)
 	{
-		createCourseItem(course, homePage); 
-		createCoursePage(course);
-		createAssignmentPage(course);
-		createSubmissionPage(course);
-		createComposeEmailPage(course);
-		createDiscussionPage(course);
+		super.createNewCourse(course, homePage);
 		createEnrollmentPage(course);
 	}
 	

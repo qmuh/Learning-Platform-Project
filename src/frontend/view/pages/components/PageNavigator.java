@@ -14,11 +14,14 @@ import javax.swing.JPanel;
 import frontend.controller.Client;
 import frontend.controller.professor.listeners.NewCourseButtonListener;
 import frontend.interfaces.ColourPalette;
+import frontend.view.pages.AssignmentPage;
+import frontend.view.pages.ComposeEmailPage;
 import frontend.view.pages.CoursePage;
 import frontend.view.pages.DiscussionPage;
 import frontend.view.pages.HomePage;
 import frontend.view.pages.Page;
 import frontend.view.pages.PageNames;
+import frontend.view.pages.SubmissionPage;
 import frontend.view.pages.components.PageNavigator.ViewCoursePageListener;
 import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.items.CourseItem;
@@ -115,34 +118,19 @@ public abstract class PageNavigator extends JPanel implements PageNames, ColourP
 		createCoursePage(course);
 		createAssignmentPage(course);
 		createSubmissionPage(course);
-
 		createComposeEmailPage(course);
 		createDiscussionPage(course);
-
 	}
 
-	protected void createCoursePage(Course course)
-	{
-		CoursePage coursePage = new CoursePage(course);
-
-		coursePage.createSidebarListeners(course, this);
-
-		this.addPage(coursePage);
-	}
-
-	protected abstract void createAssignmentPage(Course course);
-
+	abstract protected void createCoursePage(Course course);
+	
+	abstract protected void createAssignmentPage(Course course);
+	
 	abstract protected void createSubmissionPage(Course course);
 
-	abstract protected void createComposeEmailPage(Course course);
+	abstract protected void createComposeEmailPage(Course course);		
 
-	protected void createDiscussionPage(Course course)
-	{
-		DiscussionPage discussionPage = new DiscussionPage(course);
-		discussionPage.createSidebarListeners(course, this);
-
-		this.addPage(discussionPage);
-	}
+	abstract protected void createDiscussionPage(Course course);
 
 	@SuppressWarnings("unchecked")
 	protected HomePage createHomePage()

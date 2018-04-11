@@ -1,17 +1,18 @@
 package frontend.controller;
 
-import java.io.IOException;
 import java.net.Socket;
-import java.util.Vector;
 
-import frontend.controller.professor.listeners.NewCourseButtonListener;
+import frontend.view.pages.AssignmentPage;
+import frontend.view.pages.ComposeEmailPage;
+import frontend.view.pages.CoursePage;
+import frontend.view.pages.DiscussionPage;
 import frontend.view.pages.GradePage;
 import frontend.view.pages.HomePage;
+import frontend.view.pages.SubmissionPage;
+import frontend.view.pages.components.CourseNavigationBarStudent;
 import frontend.view.pages.components.PageNavigator;
 import shared.interfaces.StudentCommands;
-import shared.interfaces.UserCommands;
 import shared.objects.Course;
-import shared.objects.SendMessage;
 import shared.objects.Student;
 
 /**
@@ -40,30 +41,46 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 	{
 		super.createNewCourse(course, homePage);
 		createGradesPage(course);
+		
+	}
+	
+	@Override
+	protected void createCoursePage(Course course)
+	{
+		CoursePage coursePage = new CoursePage<>(course);
+		coursePage.setCourseNavigationBar(new CourseNavigationBarStudent());
+		coursePage.createSidebarListeners(course, this);
+		this.addPage(coursePage);
 	}
 
 
 	@Override
 	protected void createAssignmentPage(Course course)
 	{
-		// TODO Auto-generated method stub
-		
+		AssignmentPage assignmentPage = new AssignmentPage(course);
+		assignmentPage.setCourseNavigationBar(new CourseNavigationBarStudent());
+		assignmentPage.createSidebarListeners(course, this);
+		this.addPage(assignmentPage);
 	}
 
 
 	@Override
 	protected void createSubmissionPage(Course course)
 	{
-		// TODO Auto-generated method stub
-		
+		SubmissionPage submissionPage = new SubmissionPage(course);
+		submissionPage.setCourseNavigationBar(new CourseNavigationBarStudent());
+		submissionPage.createSidebarListeners(course, this);
+		this.addPage(submissionPage);
 	}
 
 
 	@Override
 	protected void createComposeEmailPage(Course course)
 	{
-		// TODO Auto-generated method stub
-		
+		ComposeEmailPage composeEmailPage = new ComposeEmailPage(course);
+		composeEmailPage.setCourseNavigationBar(new CourseNavigationBarStudent());
+		composeEmailPage.createSidebarListeners(course, this);
+		this.addPage(composeEmailPage);
 	}
 	
 	private void createGradesPage(Course course)
@@ -72,6 +89,16 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 		
 		
 		this.addPage(gradePage);
+	}
+
+
+	@Override
+	protected void createDiscussionPage(Course course)
+	{
+		DiscussionPage discussionPage = new DiscussionPage(course);
+		discussionPage.setCourseNavigationBar(new CourseNavigationBarStudent());
+		discussionPage.createSidebarListeners(course, this);
+		this.addPage(discussionPage);
 	}
 
 

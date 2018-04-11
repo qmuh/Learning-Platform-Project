@@ -10,7 +10,6 @@ import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import frontend.controller.Client;
 import frontend.controller.listeners.*;
 import frontend.controller.professor.listeners.*;
 import frontend.view.pages.AssignmentPage;
@@ -20,6 +19,7 @@ import frontend.view.pages.DiscussionPage;
 import frontend.view.pages.EnrollmentPage;
 import frontend.view.pages.HomePage;
 import frontend.view.pages.SubmissionPage;
+import frontend.view.pages.components.CourseNavigationBarProfessor;
 import frontend.view.pages.components.PageNavigator;
 import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.items.CourseItem;
@@ -107,6 +107,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	protected void createSubmissionPage(Course course)
 	{
 		SubmissionPage submissionPage = new SubmissionPage(course);
+		submissionPage.setCourseNavigationBar(new CourseNavigationBarProfessor());
 		submissionPage.createSidebarListeners(course, this);
 
 		SendMessage<Course> requestAssignments = new SendMessage<Course>(course, CMD_RECEIVE + RECEIVE_ALL_ASSIGNMENTS);
@@ -163,6 +164,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	protected void createAssignmentPage(Course course)
 	{
 		AssignmentPage assignmentPage = new AssignmentPage(course);
+		assignmentPage.setCourseNavigationBar(new CourseNavigationBarProfessor());
 		assignmentPage.createSidebarListeners(course, this);
 
 		assignmentPage.setUploadButtonListener(new UploadButtonListener(client, course, assignmentPage));
@@ -177,6 +179,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	protected void createComposeEmailPage(Course course)
 	{
 		ComposeEmailPage composeEmailPage = new ComposeEmailPage(course);
+		composeEmailPage.setCourseNavigationBar(new CourseNavigationBarProfessor());
 		composeEmailPage.createSidebarListeners(course, this);
 		// composeEmailPage
 		// .setMyEmailButtonListener(new MyEmailsButtonListener(course));
@@ -223,6 +226,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	private void createEnrollmentPage(Course course)
 	{
 		EnrollmentPage enrollmentPage = new EnrollmentPage(course);
+		enrollmentPage.setCourseNavigationBar(new CourseNavigationBarProfessor());
 		enrollmentPage.createSidebarListeners(course, this);
 		enrollmentPage.setSearchButtonListener(new EnrollmentPageSearchButtonListener(enrollmentPage));
 		enrollmentPage
@@ -326,5 +330,23 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 				enrollmentButton.setEnabled(true);
 			}
 		}
+	}
+
+	@Override
+	protected void createCoursePage(Course course)
+	{
+		CoursePage coursePage = new CoursePage<>(course);
+		coursePage.setCourseNavigationBar(new CourseNavigationBarProfessor());
+		coursePage.createSidebarListeners(course, this);
+		this.addPage(coursePage);
+	}
+
+	@Override
+	protected void createDiscussionPage(Course course)
+	{
+		DiscussionPage discussionPage = new DiscussionPage(course);
+		discussionPage.setCourseNavigationBar(new CourseNavigationBarProfessor());
+		discussionPage.createSidebarListeners(course, this);
+		this.addPage(discussionPage);
 	}
 }

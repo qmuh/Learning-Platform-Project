@@ -1,4 +1,4 @@
-package frontend.controller;
+package frontend.controller.student;
 
 import java.net.Socket;
 
@@ -9,6 +9,7 @@ import frontend.view.pages.DiscussionPage;
 import frontend.view.pages.GradePage;
 import frontend.view.pages.HomePage;
 import frontend.view.pages.SubmissionPage;
+import frontend.view.pages.components.CourseNavigationBar;
 import frontend.view.pages.components.CourseNavigationBarStudent;
 import frontend.view.pages.components.PageNavigator;
 import shared.interfaces.StudentCommands;
@@ -26,7 +27,6 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 {
 	private Student student;
 	// Page??
-	
 
 	public StudentGUI(Socket socket, Student user)
 	{
@@ -35,71 +35,66 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 		createHomePage();
 	}
 
-
 	@Override
 	protected void createNewCourse(Course course, HomePage homePage)
 	{
-		super.createNewCourse(course, homePage);
+		super.createCourseItem(course, homePage); 
+		createCoursePage(course);
+		createAssignmentPage(course);
+		createSubmissionPage(course);
+		createComposeEmailPage(course);
+		createDiscussionPage(course);
 		createGradesPage(course);
-		
 	}
-	
+
 	@Override
 	protected void createCoursePage(Course course)
 	{
 		CoursePage coursePage = new CoursePage<>(course);
-		coursePage.setCourseNavigationBar(new CourseNavigationBarStudent());
-		coursePage.createSidebarListeners(course, this);
-		this.addPage(coursePage);
+		completeCoursePage(coursePage, course);
 	}
-
 
 	@Override
 	protected void createAssignmentPage(Course course)
 	{
 		AssignmentPage assignmentPage = new AssignmentPage(course);
-		assignmentPage.setCourseNavigationBar(new CourseNavigationBarStudent());
-		assignmentPage.createSidebarListeners(course, this);
-		this.addPage(assignmentPage);
+		completeCoursePage(assignmentPage, course);
 	}
-
 
 	@Override
 	protected void createSubmissionPage(Course course)
 	{
 		SubmissionPage submissionPage = new SubmissionPage(course);
-		submissionPage.setCourseNavigationBar(new CourseNavigationBarStudent());
-		submissionPage.createSidebarListeners(course, this);
-		this.addPage(submissionPage);
+		completeCoursePage(submissionPage, course);
 	}
-
 
 	@Override
 	protected void createComposeEmailPage(Course course)
 	{
 		ComposeEmailPage composeEmailPage = new ComposeEmailPage(course);
-		composeEmailPage.setCourseNavigationBar(new CourseNavigationBarStudent());
-		composeEmailPage.createSidebarListeners(course, this);
-		this.addPage(composeEmailPage);
+		completeCoursePage(composeEmailPage, course);
 	}
-	
+
 	private void createGradesPage(Course course)
 	{
 		GradePage gradePage = new GradePage(course);
-		
-		
-		this.addPage(gradePage);
+		completeCoursePage(gradePage, course);
 	}
 
+	private void completeCoursePage(CoursePage<?, ?> genericCoursePage,
+			Course course)
+	{
+		genericCoursePage
+				.setCourseNavigationBar(new CourseNavigationBarStudent());
+		genericCoursePage.createSidebarListeners(course, this);
+		this.addPage(genericCoursePage);
+	}
 
 	@Override
 	protected void createDiscussionPage(Course course)
 	{
 		DiscussionPage discussionPage = new DiscussionPage(course);
-		discussionPage.setCourseNavigationBar(new CourseNavigationBarStudent());
-		discussionPage.createSidebarListeners(course, this);
-		this.addPage(discussionPage);
+		completeCoursePage(discussionPage, course);
 	}
-
 
 }

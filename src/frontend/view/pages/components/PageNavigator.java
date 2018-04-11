@@ -61,12 +61,12 @@ public abstract class PageNavigator extends JPanel implements PageNames, ColourP
 
 	public void showPage(String pageName)
 	{
-		if (currentPage.getName().equals(pageName))
+		System.out.println(currentPage.getName());
+		
+		// If the page to show is not the current page
+		if (!currentPage.getName().equals(pageName))
 		{
-			return;
-
-		} else
-		{
+			// Go to the page to show
 			currentPage.setBackButtonEnabled(true);
 			pageStack.push(currentPage);
 			pageStack.peek();
@@ -75,7 +75,7 @@ public abstract class PageNavigator extends JPanel implements PageNames, ColourP
 		}
 	}
 
-	public Page<?, ?> searchPage(String name)
+	protected Page<?, ?> searchPage(String name)
 	{
 		for (Component component : this.getComponents())
 		{
@@ -94,33 +94,24 @@ public abstract class PageNavigator extends JPanel implements PageNames, ColourP
 		this.add(page, page.getName());
 	}
 
-	public void previousPage()
+	private void previousPage()
 	{
+		// If the stack is not empty
 		if (!pageStack.isEmpty())
 		{
 			String pageName = pageStack.pop().getName();
 			cardLayout.show(this, pageName);
 			currentPage = searchPage(pageName);
-			System.out.println(pageName + " was removed from the stack.");
+			
+			// If the stack is empty after hitting the back button
 			if (pageStack.isEmpty())
 			{
 				currentPage.setBackButtonEnabled(false);
 			}
-		} else
-		{
-
-		}
+		} 
 	}
 
-	protected void createNewCourse(Course course, HomePage homePage)
-	{
-		createCourseItem(course, homePage);
-		createCoursePage(course);
-		createAssignmentPage(course);
-		createSubmissionPage(course);
-		createComposeEmailPage(course);
-		createDiscussionPage(course);
-	}
+	abstract protected void createNewCourse(Course course, HomePage homePage);
 
 	abstract protected void createCoursePage(Course course);
 	
@@ -170,7 +161,7 @@ public abstract class PageNavigator extends JPanel implements PageNames, ColourP
 		return courseItem;
 	}
 
-	public class BackButtonListener implements ActionListener
+	private class BackButtonListener implements ActionListener
 	{
 		// TODO: Fix or Remove
 		@Override
@@ -180,7 +171,7 @@ public abstract class PageNavigator extends JPanel implements PageNames, ColourP
 		}
 	}
 
-	public class HomeButtonListener implements ActionListener
+	private class HomeButtonListener implements ActionListener
 	{
 		@Override
 		public void actionPerformed(ActionEvent e)

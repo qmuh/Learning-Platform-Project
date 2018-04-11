@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import frontend.controller.professor.ProfessorGUI;
+import frontend.controller.student.StudentGUI;
 import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
 import frontend.view.LoginPanel;
@@ -74,7 +75,6 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColourPalette,
 			{
 				authenticateLogin(loginInfo);
 				setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-				
 			}
 		}
 
@@ -116,19 +116,21 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColourPalette,
 			{
 				currentPanel.setVisible(false);
 				currentPanel = new ProfessorGUI(socket, (Professor) user);
-				add(currentPanel);
+
 				// cardPanel.add(new ProfessorGUI(mySocket), "PROF");
 
 			} else if (user.getUserType().equals(USER_STUDENT))
 			{
 				currentPanel.setVisible(false);
-				currentPanel = new StudentGUI(socket, (Student)user);
-				add(currentPanel);
-			} else {
+				currentPanel = new StudentGUI(socket, (Student) user);
+
+			} else
+			{ // user is not logged in
 				return;
-				
+
 			}
-			
+
+			add(currentPanel);
 			getRootPane().setDefaultButton(null);
 
 			// Logout functionality;

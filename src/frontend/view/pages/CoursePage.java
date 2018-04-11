@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import frontend.view.pages.components.CourseNavigationBar;
-import frontend.view.pages.components.NavigationBar;
 import frontend.view.pages.components.PageNavigator;
 import shared.objects.Course;
 

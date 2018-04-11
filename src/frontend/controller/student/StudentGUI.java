@@ -13,6 +13,8 @@ import frontend.view.pages.HomePage;
 import frontend.view.pages.SubmissionPage;
 import frontend.view.pages.components.CourseNavigationBarStudent;
 import frontend.view.pages.components.PageNavigator;
+import frontend.view.pages.items.CourseItem;
+import frontend.view.pages.items.CourseItemStudent;
 import frontend.view.pages.items.GradeItem;
 import shared.interfaces.StudentCommands;
 import shared.objects.Assignment;
@@ -121,6 +123,15 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 	{
 		DiscussionPage discussionPage = new DiscussionPage(course);
 		completeCoursePage(discussionPage, course);
+	}
+	
+	@Override
+	protected void createCourseItem(Course course, HomePage homePage)
+	{
+		CourseItemStudent courseItem = new CourseItemStudent(course);
+		courseItem.setViewButtonListener(new ViewCoursePageListener(course));
+		homePage.addToBoxList(courseItem);
+		
 	}
 
 }

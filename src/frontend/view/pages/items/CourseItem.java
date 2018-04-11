@@ -32,8 +32,7 @@ public class CourseItem extends GeneralItem
 	 */
 	private static final long serialVersionUID = 1L;
 	private Course course;
-	private WButton viewButton, activeButton;
-	private JPanel activeButtonPanel;
+	protected WButton viewButton, activeButton;
 
 	public CourseItem(Course course)
 	{
@@ -43,17 +42,11 @@ public class CourseItem extends GeneralItem
 		this.revalidate();
 		this.repaint();
 
-		JPanel wrapper = new JPanel(new GridLayout(1, 3));
 		this.course = course;
 		this.setBorder(BorderFactory.createEtchedBorder());
-		wrapper.add(createLabel(course.getName()));
-		wrapper.add(createActiveButton());
-		wrapper.add(createViewButton("View"));
-
-		this.add(wrapper);
 	}
 
-	private JPanel createActiveButton()
+	protected JPanel createActiveButton()
 	{
 		JPanel activePanel = new JPanel(new BorderLayout());
 		activeButton = new WButton();
@@ -71,7 +64,7 @@ public class CourseItem extends GeneralItem
 		return activePanel;
 	}
 
-	private JPanel createLabel(String name)
+	protected JPanel createLabel(String name)
 	{
 		JPanel theLabel = new JPanel();
 		JLabel label = new JLabel(name);
@@ -80,7 +73,7 @@ public class CourseItem extends GeneralItem
 		return theLabel;
 	}
 
-	private JPanel createViewButton(String name)
+	protected JPanel createViewButton(String name)
 	{
 		JPanel theButton = new JPanel();
 		viewButton = new WButton(name);

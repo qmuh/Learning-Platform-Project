@@ -22,8 +22,10 @@ import frontend.view.pages.SubmissionPage;
 import frontend.view.pages.components.CourseNavigationBarProfessor;
 import frontend.view.pages.components.CourseNavigationBarStudent;
 import frontend.view.pages.components.PageNavigator;
+import frontend.view.pages.components.PageNavigator.ViewCoursePageListener;
 import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.items.CourseItem;
+import frontend.view.pages.items.CourseItemProfessor;
 import frontend.view.pages.items.SubmitItem;
 import shared.interfaces.ProfessorCommands;
 import shared.objects.Assignment;
@@ -161,12 +163,13 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	 * @param homePage
 	 */
 	@Override
-	protected CourseItem createCourseItem(Course course, HomePage homePage)
+	protected void createCourseItem(Course course, HomePage homePage)
 	{
-		CourseItem courseItem = super.createCourseItem(course, homePage);
+		CourseItemProfessor courseItem = new CourseItemProfessor(course);
 		courseItem.setActiveButtonListener(
 				new CourseActiveButtonListener(client, course));
-		return courseItem;
+		courseItem.setViewButtonListener(new ViewCoursePageListener(course));
+		homePage.addToBoxList(courseItem);
 	}
 
 	@Override

@@ -161,13 +161,7 @@ public abstract class PageNavigator extends JPanel implements PageNames, ColourP
 		return homePage;
 	}
 
-	protected CourseItem createCourseItem(Course course, HomePage homePage)
-	{
-		CourseItem courseItem = new CourseItem(course);
-		courseItem.setViewButtonListener(new ViewCoursePageListener(course));
-		homePage.addToBoxList(courseItem);
-		return courseItem;
-	}
+	abstract protected void createCourseItem(Course course, HomePage homePage);
 
 	private class BackButtonListener implements ActionListener
 	{

@@ -33,6 +33,16 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 	private WButton sendToAllButton, sendButton, addToEmailButton;
 	private JList<Student> studentList;
 
+	public ComposeEmailPage(Course course)
+	{
+		super(course);
+		this.setName(COMPOSE_EMAIL_PAGE + course.getId());
+		this.setPageTitle("Compose Email");
+		bodyCenter.add(createComposeEmailPanel(), BorderLayout.CENTER);
+		toField.setText("");
+		toField.setEditable(false);
+	}
+
 	public JTextField getToField()
 	{
 		return toField;
@@ -68,6 +78,12 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 		return studentList;
 	}
 
+	public String getSelected()
+	{
+		Student selected = getStudentList().getSelectedValue();
+		return selected.getEmail();
+	}
+
 	public void setSendToAllButtonListener(ActionListener listener)
 	{
 		sendToAllButton.addActionListener(listener);
@@ -83,14 +99,10 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 		addToEmailButton.addActionListener(listener);
 	}
 
-	public ComposeEmailPage(Course course)
+	public void setStudentList(Vector<Student> enrollList)
 	{
-		super(course);
-		this.setName(COMPOSE_EMAIL_PAGE + course.getId());
-		this.setPageTitle("Compose Email");
-		bodyCenter.add(createComposeEmailPanel(), BorderLayout.CENTER);
-		toField.setText("");
-		toField.setEditable(false);
+		studentList.clearSelection();
+		studentList.setListData(enrollList);
 	}
 
 	private JPanel createComposeEmailPanel()
@@ -160,11 +172,12 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 		buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
 		sendToAllButton = new WButton("Add All Enrolled Students");
 		sendButton = new WButton();
-		try {
+		try
+		{
 			BufferedImage image = ImageIO.read(new File("send.png"));
 			ImageIcon icon = new ImageIcon(image);
 			sendButton.setIcon(icon);
-		} catch(IOException e)
+		} catch (IOException e)
 		{
 			e.printStackTrace();
 		}
@@ -191,29 +204,16 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 		return studentListPanel;
 	}
 
-	public void setStudentList(Vector<Student> enrollList)
-	{
-		studentList.clearSelection();
-		studentList.setListData(enrollList);
-	}
-
-	public String getSelected()
-	{
-		Student selected = getStudentList().getSelectedValue();
-		return selected.getEmail();
-	}
-
 	public void appendEmail(String add)
 	{
-
+	
 		String head = toField.getText();
-
+	
 		if (head.equals(""))
 		{
 			toField.setText(add);
-		}
-
-		else
+			
+		} else
 		{
 			head = head + "," + add;
 			toField.setText(head);
@@ -230,17 +230,17 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 	{
 		String emails[] = toField.getText().split(",");
 		EmailInfo composedEmail = new EmailInfo(null, null);
-		
+
 		for (int i = 0; i < emails.length; i++)
 		{
 			composedEmail.addRecipient(emails[i]);
 		}
-		
+
 		composedEmail.setContent(emailArea.getText());
 		composedEmail.setSubject(subjectField.getText());
-		
+
 		return composedEmail;
-	
+
 	}
 
 }

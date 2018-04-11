@@ -14,11 +14,14 @@ import javax.swing.JPanel;
 import frontend.controller.Client;
 import frontend.controller.professor.listeners.NewCourseButtonListener;
 import frontend.interfaces.ColourPalette;
+import frontend.view.pages.AssignmentPage;
+import frontend.view.pages.ComposeEmailPage;
 import frontend.view.pages.CoursePage;
 import frontend.view.pages.DiscussionPage;
 import frontend.view.pages.HomePage;
 import frontend.view.pages.Page;
 import frontend.view.pages.PageNames;
+import frontend.view.pages.SubmissionPage;
 import frontend.view.pages.components.PageNavigator.ViewCoursePageListener;
 import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.items.CourseItem;
@@ -58,12 +61,12 @@ public abstract class PageNavigator extends JPanel implements PageNames, ColourP
 
 	public void showPage(String pageName)
 	{
-		if (currentPage.getName().equals(pageName))
+		System.out.println(currentPage.getName());
+		
+		// If the page to show is not the current page
+		if (!currentPage.getName().equals(pageName))
 		{
-			return;
-
-		} else
-		{
+			// Go to the page to show
 			currentPage.setBackButtonEnabled(true);
 			pageStack.push(currentPage);
 			pageStack.peek();
@@ -72,7 +75,7 @@ public abstract class PageNavigator extends JPanel implements PageNames, ColourP
 		}
 	}
 
-	public Page<?, ?> searchPage(String name)
+	protected Page<?, ?> searchPage(String name)
 	{
 		for (Component component : this.getComponents())
 		{
@@ -91,58 +94,34 @@ public abstract class PageNavigator extends JPanel implements PageNames, ColourP
 		this.add(page, page.getName());
 	}
 
-	public void previousPage()
+	private void previousPage()
 	{
+		// If the stack is not empty
 		if (!pageStack.isEmpty())
 		{
 			String pageName = pageStack.pop().getName();
 			cardLayout.show(this, pageName);
 			currentPage = searchPage(pageName);
-			System.out.println(pageName + " was removed from the stack.");
+			
+			// If the stack is empty after hitting the back button
 			if (pageStack.isEmpty())
 			{
 				currentPage.setBackButtonEnabled(false);
 			}
-		} else
-		{
-
-		}
+		} 
 	}
 
-	protected void createNewCourse(Course course, HomePage homePage)
-	{
-		createCourseItem(course, homePage);
-		createCoursePage(course);
-		createAssignmentPage(course);
-		createSubmissionPage(course);
+	abstract protected void createNewCourse(Course course, HomePage homePage);
 
-		createComposeEmailPage(course);
-		createDiscussionPage(course);
-
-	}
-
-	protected void createCoursePage(Course course)
-	{
-		CoursePage coursePage = new CoursePage(course);
-
-		coursePage.createSidebarListeners(course, this);
-
-		this.addPage(coursePage);
-	}
-
-	protected abstract void createAssignmentPage(Course course);
-
+	abstract protected void createCoursePage(Course course);
+	
+	abstract protected void createAssignmentPage(Course course);
+	
 	abstract protected void createSubmissionPage(Course course);
 
-	abstract protected void createComposeEmailPage(Course course);
+	abstract protected void createComposeEmailPage(Course course);		
 
-	protected void createDiscussionPage(Course course)
-	{
-		DiscussionPage discussionPage = new DiscussionPage(course);
-		discussionPage.createSidebarListeners(course, this);
-
-		this.addPage(discussionPage);
-	}
+	abstract protected void createDiscussionPage(Course course); 	
 
 	@SuppressWarnings("unchecked")
 	protected HomePage createHomePage()
@@ -182,7 +161,7 @@ public abstract class PageNavigator extends JPanel implements PageNames, ColourP
 		return courseItem;
 	}
 
-	public class BackButtonListener implements ActionListener
+	private class BackButtonListener implements ActionListener
 	{
 		// TODO: Fix or Remove
 		@Override
@@ -192,7 +171,7 @@ public abstract class PageNavigator extends JPanel implements PageNames, ColourP
 		}
 	}
 
-	public class HomeButtonListener implements ActionListener
+	private class HomeButtonListener implements ActionListener
 	{
 		@Override
 		public void actionPerformed(ActionEvent e)

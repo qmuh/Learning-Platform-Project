@@ -29,14 +29,18 @@ public class CoursePage<T extends Box, U> extends Page<T, U>
 		this.setName(COURSE_PAGE + course.getId());
 		this.header.setTitle(course.getName());
 		bodyCenter = new JPanel();
-		courseNavigationBar = new CourseNavigationBar();
 		body = new JPanel();
 		body.setLayout(new BorderLayout());
 		setPageTitle("Welcome to " + course.getName());
-		body.add(courseNavigationBar, BorderLayout.EAST);
 		add(body);
 	}
 
+	public void setCourseNavigationBar(CourseNavigationBar courseNavigationBar)
+	{
+		this.courseNavigationBar = courseNavigationBar;
+		body.add(courseNavigationBar, BorderLayout.EAST);
+		System.out.println("STUFF");
+	}
 	protected void setPageTitle(String s)
 	{
 		bodyCenter = new JPanel(new BorderLayout());

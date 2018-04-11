@@ -60,8 +60,10 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	/**
 	 * Constructor for this class, it pre-loads the pages
 	 *
-	 * @param socket Used to handle communication between user and server
-	 * @param user The professor object associated with this class
+	 * @param socket
+	 *            Used to handle communication between user and server
+	 * @param user
+	 *            The professor object associated with this class
 	 */
 	public ProfessorGUI(Socket socket, Professor user)
 	{
@@ -70,9 +72,13 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		createHomePage();
 	}
 
-	/** Shows all students overall, and all enrolled student
-	 * @param course The course where this is shown
-	 * @param enrollmentPage The page for this
+	/**
+	 * Shows all students overall, and all enrolled student
+	 * 
+	 * @param course
+	 *            The course where this is shown
+	 * @param enrollmentPage
+	 *            The page for this
 	 */
 	@SuppressWarnings("unchecked")
 	public void showAllStudents(Course course, EnrollmentPage enrollmentPage)
@@ -93,7 +99,9 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		}
 	}
 
-	/** Getter method for the professor
+	/**
+	 * Getter method for the professor
+	 * 
 	 * @return
 	 */
 	public Professor getProfessor()
@@ -177,7 +185,8 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		CourseItemProfessor courseItem = new CourseItemProfessor(course);
 		courseItem.getActiveButton().addActionListener(
 				new CourseActiveButtonListener(client, course));
-		courseItem.getViewButton().addActionListener(new ViewCoursePageListener(course));
+		courseItem.getViewButton()
+				.addActionListener(new ViewCoursePageListener(course));
 		homePage.addToBoxList(courseItem);
 	}
 
@@ -226,19 +235,26 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		completeCoursePage(composeEmailPage, course);
 	}
 
-	/** Shows all assignments for a course
-	 * @param course The course
-	 * @param assignmentPage The page where the assignmnets would be shown
+	/**
+	 * Shows all assignments for a course
+	 * 
+	 * @param course
+	 *            The course
+	 * @param assignmentPage
+	 *            The page where the assignmnets would be shown
 	 */
 	@SuppressWarnings("unchecked")
 	private void showAllAssignments(Course course,
-			AssignmentPage assignmentPage)
+			AssignmentPageProfessor assignmentPage)
 	{
 		try
 		{
+
+			SendMessage<Course> requestAssignments = new SendMessage<Course>(
+					course, CMD_RECEIVE + RECEIVE_ALL_ASSIGNMENTS);
 			Vector<Assignment> myList = (Vector<Assignment>) client
-					.sendMessage(new SendMessage<Course>(course,
-							CMD_RECEIVE + RECEIVE_ALL_ASSIGNMENTS));
+					.sendMessage(requestAssignments);
+			
 			for (Assignment assignment : myList)
 			{
 				AssignItemProfessor assignItem = new AssignItemProfessor(
@@ -246,6 +262,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 
 				assignItem.getActiveButton().addActionListener(
 						new AssignmentActiveButtonListener(client, assignment));
+				assignmentPage.addToBoxList(assignItem);
 			}
 
 			// assignmentPage.setAssignmentVector(myList);
@@ -255,8 +272,11 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		}
 	}
 
-	/** Creates the enrollment page and sets up it's listeners by calling them
-	 * @param course The course
+	/**
+	 * Creates the enrollment page and sets up it's listeners by calling them
+	 * 
+	 * @param course
+	 *            The course
 	 */
 	private void createEnrollmentPage(Course course)
 	{
@@ -321,7 +341,6 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		}
 	}
 
-
 	/**
 	 * Inner class for the Enrollment list listener
 	 */
@@ -380,9 +399,13 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		}
 	}
 
-	/** Sets a course page and its content
-	 * @param genericCoursePage The hashmap used
-	 * @param course The associated course
+	/**
+	 * Sets a course page and its content
+	 * 
+	 * @param genericCoursePage
+	 *            The hashmap used
+	 * @param course
+	 *            The associated course
 	 */
 	private void completeCoursePage(CoursePage<?, ?> genericCoursePage,
 			Course course)

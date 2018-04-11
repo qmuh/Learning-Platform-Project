@@ -14,14 +14,13 @@ public class WLabel extends JLabel implements WondrisInfo
 
 	public WLabel (String text, int alignment)
 	{
-		super(text, alignment);
 		this.setFont(TEXT_FONT);
 		this.setForeground(Color.BLACK);
 	}
 	
-	public WLabel(String text, Font font, Color color)
+	public WLabel(String text, Font font, Color color, int alignment)
 	{
-		super(text);
+		super(text, alignment);
 		this.setFont(font);
 		this.setForeground(color);
 	}
@@ -38,11 +37,16 @@ public class WLabel extends JLabel implements WondrisInfo
 	
 	public WLabel(String text, Font font)
 	{
-		this(text, font, Color.BLACK);
+		this(text, font, Color.BLACK, CENTER);
 	}
 	
 	public WLabel(String text, Color color)
 	{
-		this(text, TEXT_FONT, color);
+		this(text, TEXT_FONT, color, CENTER);
+	}
+
+	public WLabel(String text, Font font, int right)
+	{
+		this(text, font, Color.BLACK, right);
 	}
 }

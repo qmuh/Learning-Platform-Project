@@ -6,7 +6,7 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
-import frontend.view.pages.AssignmentPage;
+import frontend.view.pages.AssignmentPageProfessor;
 
 /**
  * Listener for the browse button on the assignment page
@@ -14,9 +14,10 @@ import frontend.view.pages.AssignmentPage;
  */
 public class BrowseButtonListener implements ActionListener
 {
-	private AssignmentPage assignPage;
+	private AssignmentPageProfessor assignPage;
 
-	public BrowseButtonListener(AssignmentPage assignPage)
+	public BrowseButtonListener(
+			AssignmentPageProfessor assignPage)
 	{
 		this.assignPage = assignPage;
 	}

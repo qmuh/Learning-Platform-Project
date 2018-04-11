@@ -5,6 +5,7 @@ import java.net.Socket;
 import java.util.Vector;
 
 import frontend.view.pages.AssignmentPage;
+import frontend.view.pages.AssignmentPageStudent;
 import frontend.view.pages.ComposeEmailPage;
 import frontend.view.pages.CoursePage;
 import frontend.view.pages.DiscussionPage;
@@ -59,7 +60,8 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 	@Override
 	protected void createAssignmentPage(Course course)
 	{
-		AssignmentPage assignmentPage = new AssignmentPage(course);
+		AssignmentPageStudent assignmentPage = new AssignmentPageStudent(
+				course);
 		completeCoursePage(assignmentPage, course);
 	}
 
@@ -82,15 +84,19 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 	{
 		GradePage gradePage = new GradePage(course);
 
-		SendMessage<Course> gradesReqeuest = new SendMessage<Course>(course, CMD_RECEIVE + RECEIVE_GRADES);
-		SendMessage<Course> assignmentsRequest = new SendMessage<Course>(course, CMD_RECEIVE + RECEIVE_ASSIGNMENTS);
-		
+		SendMessage<Course> gradesReqeuest = new SendMessage<Course>(course,
+				CMD_RECEIVE + RECEIVE_GRADES);
+		SendMessage<Course> assignmentsRequest = new SendMessage<Course>(course,
+				CMD_RECEIVE + RECEIVE_ASSIGNMENTS);
+
 		try
 		{
-			
-			Vector<Grade> grades = (Vector<Grade>) this.client.sendMessage(gradesReqeuest);
-			Vector<Assignment> assignments = (Vector<Assignment>) this.client.sendMessage(assignmentsRequest);
-			
+
+			Vector<Grade> grades = (Vector<Grade>) this.client
+					.sendMessage(gradesReqeuest);
+			Vector<Assignment> assignments = (Vector<Assignment>) this.client
+					.sendMessage(assignmentsRequest);
+
 			for (Grade grade : grades)
 			{
 				for (int i = 0; i < assignments.size(); i++)
@@ -98,11 +104,12 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 					Assignment assignment = assignments.elementAt(i);
 					if (grade.getAssignID() == assignment.getId())
 					{
-						gradePage.addToBoxList(new GradeItem(assignment.getTitle(), grade));
+						gradePage.addToBoxList(
+								new GradeItem(assignment.getTitle(), grade));
 					}
 				}
 			}
-			
+
 		} catch (IOException e)
 		{
 			e.printStackTrace();
@@ -111,9 +118,11 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 		completeCoursePage(gradePage, course);
 	}
 
-	private void completeCoursePage(CoursePage<?, ?> genericCoursePage, Course course)
+	private void completeCoursePage(CoursePage<?, ?> genericCoursePage,
+			Course course)
 	{
-		genericCoursePage.setCourseNavigationBar(new CourseNavigationBarStudent());
+		genericCoursePage
+				.setCourseNavigationBar(new CourseNavigationBarStudent());
 		genericCoursePage.createSidebarListeners(course, this);
 		this.addPage(genericCoursePage);
 	}

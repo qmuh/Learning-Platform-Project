@@ -10,6 +10,8 @@ import java.io.IOException;
 import frontend.controller.Client;
 import frontend.controller.professor.listeners.AssignmentActiveButtonListener;
 import frontend.view.pages.AssignmentPage;
+import frontend.view.pages.AssignmentPageProfessor;
+import frontend.view.pages.items.AssignItemProfessor;
 import shared.interfaces.ProfessorCommands;
 import shared.objects.Assignment;
 import shared.objects.Course;
@@ -23,10 +25,10 @@ public class UploadButtonListener implements ActionListener, ProfessorCommands
 {
 	private Client client;
 	private Course course;
-	private AssignmentPage assignmentPage;
+	private AssignmentPageProfessor assignmentPage;
 
 	public UploadButtonListener(Client client, Course course,
-			AssignmentPage assignPage)
+			AssignmentPageProfessor assignPage)
 	{
 		this.client = client;
 		this.course = course;
@@ -37,8 +39,7 @@ public class UploadButtonListener implements ActionListener, ProfessorCommands
 	public void actionPerformed(ActionEvent e)
 	{
 		System.out.println(assignmentPage.getFile().getPath());
-		String append[] = assignmentPage.getFile().getPath()
-				.split("/");
+		String append[] = assignmentPage.getFile().getPath().split("/");
 		if (assignmentPage.getFile() != null)
 		{
 			Assignment myUpload = new Assignment(course.getId(),
@@ -62,8 +63,12 @@ public class UploadButtonListener implements ActionListener, ProfessorCommands
 				client.getObjectOut().writeObject(content);
 				client.getObjectOut().flush();
 
-				assignmentPage.createAssignItem(myUpload,
+				AssignItemProfessor newAssign = new AssignItemProfessor(
+						myUpload);
+				newAssign.getActiveButton().addActionListener(
 						new AssignmentActiveButtonListener(client, myUpload));
+				
+				assignmentPage.addToBoxList(newAssign);
 				// showAllAssignments(course, assignmentPage);
 
 			} catch (IOException e1)

@@ -120,7 +120,7 @@ public class StudentSession extends ClientSession implements StudentCommands
 	private void handleRecieve(String interpreter, Object getmessageObject)
 	{
 		//Returns the students courses
-		if(interpreter.equals(RECEIVE_COURSES));
+		if(interpreter.equals(RECEIVE_COURSES))
 		{
 			Vector<Integer> studentCoursesIds = database.getStudentEnrollmentTable().getCourseIDs(user.getId());
 			Vector<Course> studentCourses = new Vector<Course>();
@@ -135,19 +135,20 @@ public class StudentSession extends ClientSession implements StudentCommands
 			sendObject(studentCourses);
 		} 
 		// Returns the students assignments for each course
-		if (interpreter.equals(RECEIVE_ASSIGNMENTS))
+		else if (interpreter.equals(RECEIVE_ASSIGNMENTS))
 		{
 			Vector<Assignment> courseAssignments = database.getAssignmentTable().
 					getAllStudentAssignments(((Course)getmessageObject).getId());
 			
 			sendObject(courseAssignments);
 		}
+		
 		// Returns the students grades
-		if(interpreter.equals(RECEIVE_GRADES))
+		else if(interpreter.equals(RECEIVE_GRADES))
 		{
 			Vector<Grade> myGrades = database.getGradeTable().
 					studentGradesForCourse(((Course)getmessageObject).getId(),user.getId());
-			System.out.println("I have recieved the correct request");
+			
 			sendObject(myGrades);
 			
 		}

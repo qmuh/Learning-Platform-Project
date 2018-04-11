@@ -13,16 +13,35 @@ import shared.objects.SendMessage;
 import shared.objects.Student;
 
 /**
- * Listener for the send to all button on the compose email page
- *
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 6, 2018
  */
 public class SendToAllButtonListener
 		implements ActionListener, ProfessorCommands
 {
+	/**
+	 * client to connect
+	 */
 	private Client client;
+	
+	/**
+	 * The course itself
+	 */
 	private Course course;
+	
+	/**
+	 * The ComposeEmailPage where the button is located
+	 */
 	private ComposeEmailPage composePage;
 
+	/**
+	 * @param client
+	 * @param course
+	 * @param composeEmailPage
+	 */
 	public SendToAllButtonListener(Client client, Course course,
 			ComposeEmailPage composeEmailPage)
 	{

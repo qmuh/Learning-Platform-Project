@@ -92,18 +92,19 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 
 			Vector<Grade> grades = (Vector<Grade>) this.client
 					.sendMessage(gradesReqeuest);
+			
 			Vector<Assignment> assignments = (Vector<Assignment>) this.client
 					.sendMessage(assignmentsRequest);
 
-			for (Grade grade : grades)
+			for (int j = 0; j < grades.size() ; j++)
 			{
 				for (int i = 0; i < assignments.size(); i++)
 				{
 					Assignment assignment = assignments.elementAt(i);
-					if (grade.getAssignID() == assignment.getId())
+					if (grades.elementAt(j).getAssignID() == assignment.getId())
 					{
 						gradePage.addToBoxList(
-								new GradeItem(assignment.getTitle(), grade));
+								new GradeItem(assignment.getTitle(), grades.elementAt(j)));
 					}
 				}
 			}

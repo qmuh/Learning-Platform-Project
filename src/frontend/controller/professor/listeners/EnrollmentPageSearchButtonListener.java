@@ -11,13 +11,30 @@ import shared.interfaces.ProfessorCommands;
 import shared.objects.SendMessage;
 import shared.objects.Student;
 
+/**
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 6, 2018
+ */
 public class EnrollmentPageSearchButtonListener
 		implements ActionListener, ProfessorCommands
 {
+	/**
+	 * The client object
+	 */
 	private Client client;
 
+	/**
+	 * The enrollment page
+	 */
 	private EnrollmentPage enrollmentPage;
 
+	/** The enrollment page listener constructor
+	 * @param enrollmentPage The page to add
+	 * @param client The client connection
+	 */
 	public EnrollmentPageSearchButtonListener(EnrollmentPage enrollmentPage,
 			Client client)
 	{

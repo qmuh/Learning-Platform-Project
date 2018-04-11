@@ -13,15 +13,42 @@ import shared.objects.Course;
 import shared.objects.SendMessage;
 import shared.objects.Student;
 import shared.objects.StudentEnrollment;
-
+/**
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 6, 2018
+ */
 public class EnrollmentButtonListener
 		implements ActionListener, ProfessorCommands
 {
+	/**
+	 * ProfessorGUI object for use for the listener
+	 */
 	private ProfessorGUI professorGUI;
+	
+	/**
+	 * The client associated with the client
+	 */
 	private Client client;
+	
+	/**
+	 * The enrollment page 
+	 */
 	private EnrollmentPage enrollmentPage;
+	
+	/**
+	 * The course 
+	 */
 	private Course myCourse;
 
+	/** The constructor for the enrollment button listener
+	 * @param professorGUI The professor GUI 
+	 * @param client The connection used for connections
+	 * @param enrollmentPage The enrollment page
+	 * @param course The specific course
+	 */
 	public EnrollmentButtonListener(ProfessorGUI professorGUI, Client client,
 			EnrollmentPage enrollmentPage, Course course)
 	{

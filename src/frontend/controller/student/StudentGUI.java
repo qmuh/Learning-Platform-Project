@@ -5,6 +5,8 @@ import java.net.Socket;
 import java.util.Vector;
 
 import frontend.controller.listeners.AssignmentLabelMouseListener;
+import frontend.controller.listeners.SubmitSubmissionButtonListener;
+import frontend.controller.listeners.UploadSubmissionButtonListener;
 import frontend.controller.student.listeners.StudentSendButtonListener;
 import frontend.view.pages.assignment.AssignmentPageStudent;
 import frontend.view.pages.components.CourseNavigationBarStudent;

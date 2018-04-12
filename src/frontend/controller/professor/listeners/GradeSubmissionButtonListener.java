@@ -73,7 +73,7 @@ public class GradeSubmissionButtonListener
 				submission.getAssign_id(), course.getId());
 		try
 		{
-			client.sendMessage(
+			client.onlySendMessage(
 					new SendMessage<Grade>(myGrade, CMD_INSERT + INSERT_GRADE));
 		} catch (IOException e1)
 		{

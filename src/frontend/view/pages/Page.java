@@ -101,6 +101,7 @@ public abstract class Page<T extends Box, U> extends JPanel
 		this.itemDisplay.removeAll();
 		this.itemDisplay.revalidate();
 		this.itemDisplay.repaint();
+		System.out.println("Refreshing: " + this.getName());
 		this.function.refresh();
 	}
 	

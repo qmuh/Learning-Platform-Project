@@ -159,7 +159,27 @@ public class StudentSession extends ClientSession implements StudentCommands
 			Vector<Grade> myGrades = database.getGradeTable()
 					.studentGradesForCourse(((Course) getmessageObject).getId(),
 							student.getId());
-
+			
+			for (int i = 0; i < myGrades.size() -1; i++)
+			{
+				for (int j = i + 1 ; j < myGrades.size(); j++)
+				{
+					if(myGrades.get(i).getAssignID() == myGrades.get(j).getAssignID())
+					{
+						if (myGrades.get(i).getGrade() > myGrades.get(j).getGrade())
+						{
+							myGrades.remove(j);
+						}
+						else 
+						{
+							myGrades.remove(i);
+						}
+						
+					}
+				}
+			}
+			
+			
 			sendObject(myGrades);
 		} else if (interpreter.equals(RECEIVE_PROFESSOR))
 		{

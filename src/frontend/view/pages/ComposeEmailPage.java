@@ -1,6 +1,7 @@
 package frontend.view.pages;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -20,6 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
 import frontend.view.pages.components.customSwing.WButton;
+import frontend.view.pages.components.customSwing.WLabel;
 import frontend.view.pages.items.StudentItem;
 import shared.objects.Course;
 import shared.objects.EmailInfo;
@@ -110,49 +112,61 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 		JPanel composeEmailPanel = new JPanel(new BorderLayout());
 		composeEmailPanel
 				.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
-		composeEmailPanel.add(createEmailComponents(), BorderLayout.CENTER);
+		composeEmailPanel.add(createEmailComponents());
 		return composeEmailPanel;
 	}
 
 	private JPanel createEmailComponents()
 	{
-		JPanel emailComponentPanel = new JPanel(new BorderLayout());
-		emailComponentPanel.add(createEmailFields(), BorderLayout.NORTH);
-		JPanel centerPanel = new JPanel(new BorderLayout());
-		centerPanel.add(createEmailTextArea(), BorderLayout.CENTER);
-		centerPanel.add(createStudentList(), BorderLayout.EAST);
-		centerPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
-		emailComponentPanel.add(centerPanel, BorderLayout.CENTER);
-		return emailComponentPanel;
+		JPanel emailComponents = new JPanel(new BorderLayout());
+
+		JPanel emailComponentsLeft = new JPanel(new BorderLayout());
+
+		emailComponentsLeft.add(createEmailFields(), BorderLayout.NORTH);
+		emailComponentsLeft.add(createEmailTextArea(), BorderLayout.CENTER);
+
+		JPanel emailComponentsRight = new JPanel(new BorderLayout());
+		emailComponentsRight.add(createStudentListHeader(), BorderLayout.NORTH);
+		emailComponentsRight.add(createStudentList(), BorderLayout.CENTER);
+
+		emailComponents.add(emailComponentsLeft, BorderLayout.CENTER);
+		emailComponents.add(emailComponentsRight, BorderLayout.EAST);
+		return emailComponents;
+	}
+
+	private JPanel createStudentListHeader()
+	{
+		JPanel studentHeader = new JPanel();
+		studentHeader.add(new WLabel("Enrolled Students:", SUB_TITLE_FONT));
+		return studentHeader;
 	}
 
 	private JPanel createEmailFields()
 	{
-		JPanel emailFieldPanel = new JPanel(new BorderLayout());
-		JPanel textFields = new JPanel(new GridLayout(2, 1));
+		JPanel emailFieldPanel = new JPanel();
+
+		JPanel sendReceivePanel = new JPanel(new BorderLayout());
+
+		JPanel textFieldPanel = new JPanel(new GridLayout(2, 1));
 		toField = new JTextField(20);
 		subjectField = new JTextField(20);
 		toField.setFont(TEXT_FONT);
 		subjectField.setFont(TEXT_FONT);
-		textFields.add(createTextField("To: ", toField));
-		textFields.add(createTextField("Subject: ", subjectField));
-		emailFieldPanel.add(textFields, BorderLayout.WEST);
-		JPanel theLabel = new JPanel(new BorderLayout());
-		theLabel.add(createLabel("Enrolled Students", SUB_TITLE_FONT),
-				BorderLayout.SOUTH);
-		emailFieldPanel.add(theLabel, BorderLayout.EAST);
-		return emailFieldPanel;
-	}
 
-	private JPanel createTextField(String s, JTextField field)
-	{
-		JPanel textFieldPanel = new JPanel();
-		textFieldPanel.setBorder(BorderFactory.createEmptyBorder(3, 0, 3, 0));
-		textFieldPanel
-				.setLayout(new BoxLayout(textFieldPanel, BoxLayout.X_AXIS));
-		textFieldPanel.add(createLabel(s, SUB_TITLE_FONT));
-		textFieldPanel.add(field);
-		return textFieldPanel;
+		JPanel textFieldLabelPanel = new JPanel(new GridLayout(2, 1));
+		textFieldLabelPanel
+				.add(new WLabel("To:", SUB_TITLE_FONT, WLabel.RIGHT), 0);
+		textFieldLabelPanel
+				.add(new WLabel("Subject:", SUB_TITLE_FONT, WLabel.RIGHT), 1);
+
+		textFieldPanel.add(toField, 0);
+		textFieldPanel.add(subjectField, 1);
+
+		sendReceivePanel.add(textFieldLabelPanel, BorderLayout.WEST);
+		sendReceivePanel.add(textFieldPanel, BorderLayout.CENTER);
+
+		emailFieldPanel.add(sendReceivePanel);
+		return emailFieldPanel;
 	}
 
 	private JPanel createEmailTextArea()
@@ -208,13 +222,12 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 
 	public void appendEmail(String add)
 	{
-	
 		String head = toField.getText();
-	
+
 		if (head.equals(""))
 		{
 			toField.setText(add);
-			
+
 		} else
 		{
 			head = head + "," + add;

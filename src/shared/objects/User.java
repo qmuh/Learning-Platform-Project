@@ -82,7 +82,7 @@ public abstract class User implements Serializable, UserInfo
 	@Override
 	public String toString()
 	{
-		return "ID: " + id + " " + firstName + " " + lastName;
+		return id + " " + firstName + " " + lastName;
 	}
 
 }

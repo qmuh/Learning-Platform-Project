@@ -95,11 +95,10 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 			{
 				AssignItemStudent assignItemStudent = new AssignItemStudent(
 						assignments.elementAt(i));
-				assignmentPage.addToBoxList(assignItemStudent);
-
-
-			assignItemStudent.getAssignmentLabel().addMouseListener(new AssignmentLabelMouseListener(assignments.get(i), client));
+				
 			assignmentPage.addToBoxList(assignItemStudent);
+			assignItemStudent.getAssignmentLabel().
+				addMouseListener(new AssignmentLabelMouseListener(assignments.get(i), client));
 			}
 
 		} catch (IOException e)

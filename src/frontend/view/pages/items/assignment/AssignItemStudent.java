@@ -14,6 +14,7 @@ public class AssignItemStudent extends AssignItem
 {
 
 	private WButton upload;
+	private WButton submit;
 
 	public AssignItemStudent(Assignment assignment)
 	{
@@ -25,6 +26,11 @@ public class AssignItemStudent extends AssignItem
 		return upload;
 	}
 
+	public WButton getSubmit()
+	{
+		return submit;
+	}
+	
 	@Override
 	protected JPanel createTheAssignment()
 	{
@@ -34,9 +40,12 @@ public class AssignItemStudent extends AssignItem
 		dueDate.setHorizontalAlignment(WLabel.RIGHT);
 
 		upload = new WButton("Upload");
+		submit = new WButton("Submit");
 
-		JPanel uploadPanel = new JPanel();
-		uploadPanel.add(upload);
+		JPanel uploadPanel = new JPanel(new GridLayout(2, 1));
+		uploadPanel.add(upload, 0);
+		uploadPanel.add(submit, 1);
+		
 
 		theAssignment.add(assignmentName, BorderLayout.WEST);
 		theAssignment.add(dueDate, BorderLayout.CENTER);

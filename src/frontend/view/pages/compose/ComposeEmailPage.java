@@ -61,9 +61,9 @@ abstract public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 		super(course, user);
 		this.setName(COMPOSE_EMAIL_PAGE + course.getId());
 		this.setPageTitle("Compose Email");
-		bodyCenter.add(createComposeEmailCenter(), BorderLayout.CENTER);
-		toField.setText("");
-		toField.setEditable(false);
+		this.bodyCenter.add(createComposeEmailCenter(), BorderLayout.CENTER);
+		this.toField.setText("");
+		this.toField.setEditable(false);
 	}
 
 	public JTextField getToField()
@@ -104,7 +104,6 @@ abstract public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 
 	private JPanel createComposeEmailPanel()
 	{
-
 		JPanel emailComponents = new JPanel(new BorderLayout());
 		emailComponents.add(createEmailFields(), BorderLayout.NORTH);
 		emailComponents.add(createEmailTextArea(), BorderLayout.CENTER);
@@ -202,7 +201,6 @@ abstract public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 		composedEmail.setSubject(subjectField.getText());
 
 		return composedEmail;
-
 	}
 
 }

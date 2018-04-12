@@ -53,6 +53,7 @@ public class ProfessorSendButtonListener
 	public ProfessorSendButtonListener(Client client, Course course,
 			ComposeEmailPageProfessor email)
 	{
+		System.out.println("SEND BUTTON EMAIL PROF CONSTRUCTED");
 		this.client = client;
 		this.course = course;
 		this.emailPage = email;
@@ -100,6 +101,5 @@ public class ProfessorSendButtonListener
 				}
 			}
 		}
-
 	}
 }

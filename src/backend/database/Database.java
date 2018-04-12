@@ -84,7 +84,9 @@ public class Database implements DatabaseProperties, UserInfo
 		}
 	}
 
-	/** Returns the assignment table
+	/**
+	 * Returns the assignment table
+	 * 
 	 * @return The assignment table
 	 */
 	public AssignmentTable getAssignmentTable()
@@ -92,7 +94,9 @@ public class Database implements DatabaseProperties, UserInfo
 		return assignmentTable;
 	}
 
-	/** Returns the course table
+	/**
+	 * Returns the course table
+	 * 
 	 * @return the course table
 	 */
 	public CourseTable getCourseTable()
@@ -100,7 +104,9 @@ public class Database implements DatabaseProperties, UserInfo
 		return courseTable;
 	}
 
-	/** Returns the grade table
+	/**
+	 * Returns the grade table
+	 * 
 	 * @return The grade table
 	 */
 	public GradeTable getGradeTable()
@@ -108,7 +114,9 @@ public class Database implements DatabaseProperties, UserInfo
 		return gradeTable;
 	}
 
-	/** Returns the student enrollment table
+	/**
+	 * Returns the student enrollment table
+	 * 
 	 * @return The sudent enrollment table
 	 */
 	public StudentEnrollmentTable getStudentEnrollmentTable()
@@ -116,7 +124,9 @@ public class Database implements DatabaseProperties, UserInfo
 		return studentEnrollmentTable;
 	}
 
-	/** Returns the user table
+	/**
+	 * Returns the user table
+	 * 
 	 * @return The user table
 	 */
 	public UserTable getUserTable()
@@ -124,7 +134,9 @@ public class Database implements DatabaseProperties, UserInfo
 		return userTable;
 	}
 
-	/** Returns the submission table
+	/**
+	 * Returns the submission table
+	 * 
 	 * @return The submission table
 	 */
 	public SubmissionTable getSubmissionTable()
@@ -169,7 +181,7 @@ public class Database implements DatabaseProperties, UserInfo
 	}
 
 	/**
-	 *  Attaches all the tables to the database
+	 * Attaches all the tables to the database
 	 */
 	private void addAllTables()
 	{
@@ -208,8 +220,11 @@ public class Database implements DatabaseProperties, UserInfo
 		gradeTable.createTable();
 	}
 
-	/** Used to read users into the User table for initialization
-	 * @param fileName The textfile containing the users 
+	/**
+	 * Used to read users into the User table for initialization
+	 * 
+	 * @param fileName
+	 *            The textfile containing the users
 	 */
 	private void readUser(String fileName)
 	{
@@ -221,20 +236,24 @@ public class Database implements DatabaseProperties, UserInfo
 
 			while (line != null)
 			{
-				String toAdd[] = line.split(" ");
+				String toAdd[] = line.split(";");
+				int id = Integer.parseInt(toAdd[0]);
+				String firstName = toAdd[1];
+				String lastName = toAdd[2];
+				String email = toAdd[3];
+				String type = toAdd[4];
+				String password = toAdd[5];
 
-				if (toAdd[4].equals(IS_PROFESSOR))
+				if (type.equals(IS_PROFESSOR))
 				{
-					this.getUserTable()
-							.add(new Professor(Integer.parseInt(toAdd[0]),
-									toAdd[1], toAdd[2], toAdd[3], toAdd[5]));
-				}
+					this.getUserTable().add(new Professor(id, firstName,
+							lastName, email, password));
 
-				if (toAdd[4].equals(IS_STUDENT))
+				} else if (toAdd[4].equals(IS_STUDENT))
 				{
-					this.getUserTable()
-							.add(new Student(Integer.parseInt(toAdd[0]),
-									toAdd[1], toAdd[2], toAdd[3], toAdd[5]));
+					this.getUserTable().add(new Student(id, firstName, lastName,
+							email, password));
+
 				}
 				line = fileReader.readLine();
 			}
@@ -249,8 +268,11 @@ public class Database implements DatabaseProperties, UserInfo
 
 	}
 
-	/** Used to read users into the Course table for the professor
-	 * @param fileName The textfile containing the users
+	/**
+	 * Used to read users into the Course table for the professor
+	 * 
+	 * @param fileName
+	 *            The textfile containing the users
 	 */
 	private void readCourses(String fileName)
 	{
@@ -262,12 +284,15 @@ public class Database implements DatabaseProperties, UserInfo
 
 			while (line != null)
 			{
-				String toAdd[] = line.split(" ");
+				String toAdd[] = line.split(";");
+				int courseID = Integer.parseInt(toAdd[0]);
+				int profID = Integer.parseInt(toAdd[1]);
+				String courseName = toAdd[2];
+				boolean isActive = Boolean.parseBoolean(toAdd[3]);
 
-				this.getCourseTable()
-						.add(new Course(Integer.parseInt(toAdd[0]),
-								Integer.parseInt(toAdd[1]), toAdd[2],
-								Boolean.parseBoolean(toAdd[3])));
+				this.getCourseTable().add(
+						new Course(courseID, profID, courseName, isActive));
+				
 				line = fileReader.readLine();
 			}
 			fileReader.close();
@@ -283,7 +308,8 @@ public class Database implements DatabaseProperties, UserInfo
 	/**
 	 * Reset the database to a known state.
 	 * 
-	 * @param args unused
+	 * @param args
+	 *            unused
 	 */
 	public static void main(String[] args)
 	{

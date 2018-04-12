@@ -1,4 +1,4 @@
-package frontend.view.pages;
+package frontend.view.pages.submission;
 
 import java.util.Collection;
 import java.util.HashMap;

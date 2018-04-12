@@ -1,4 +1,4 @@
-package frontend.view.pages;
+package frontend.view.pages.grade;
 
 
 import java.awt.BorderLayout;
@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import frontend.view.pages.course.CoursePage;
 import frontend.view.pages.items.grade.GradeItem;
 import shared.objects.Course;
 import shared.objects.Grade;

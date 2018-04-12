@@ -1,4 +1,4 @@
-package frontend.view.pages;
+package frontend.view.pages.enrollment;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -21,6 +21,7 @@ import javax.swing.event.ListSelectionListener;
 import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.components.customSwing.WButton;
+import frontend.view.pages.course.CoursePage;
 import shared.objects.Course;
 import shared.objects.Student;
 

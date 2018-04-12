@@ -1,4 +1,4 @@
-package frontend.view.pages;
+package frontend.view.pages.discussion;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -21,6 +21,7 @@ import javax.swing.JTextField;
 import com.sun.prism.Image;
 
 import frontend.view.pages.components.customSwing.WButton;
+import frontend.view.pages.course.CoursePage;
 import frontend.view.pages.items.course.CourseItem;
 import shared.objects.Course;
 

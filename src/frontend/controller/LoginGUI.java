@@ -21,7 +21,7 @@ import frontend.controller.student.StudentGUI;
 import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
 import frontend.view.LoginPanel;
-import frontend.view.pages.GUIConstants;
+import frontend.view.pages.interfaces.GUIConstants;
 import shared.interfaces.ServerInfo;
 import shared.interfaces.UserCommands;
 import shared.interfaces.UserInfo;

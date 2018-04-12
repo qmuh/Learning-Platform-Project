@@ -1,4 +1,17 @@
-1000 Adam Smith qasim1000@hotmail.com P 1
-1001 Alex Smith qasim1000@hotmail.com S 1
-1002 Jimbo Smith qasim.muhammad@ucalgary.ca S 1
-1003 Qasim Muhammad qasim1000@hotmail.com S 1
+1000;Donna;Lightfoot;DonnaMLightfoot@rhyta.com;S;1
+1001;Mae;Henson;MaeMHenson@jourrapide.com;S;1
+1002;Kristi;Gould;KristiBGould@teleworm.us;S;1
+1003;Matthew;Gregory;MatthewLGregory@jourrapide.com;S;1
+1004;Julia;Harris;JuliaDHarris@rhyta.com;S;1
+1005;Alison;Stewart;AlisonJStewart@teleworm.us;S;1
+1006;Steve;Boettcher;SteveLBoettcher@teleworm.us;S;1
+1007;Candace;Rogers;CandaceJRogers@dayrep.com;S;1
+1008;Wilson;Grier;WilsonEGrier@dayrep.com;S;1
+1009;Steven;Luna;StevenSLuna@jourrapide.com;S;1
+2000;Jeff;Mashburn;JeffRMashburn@teleworm.us;P;1
+2001;Dannie;Bennett;DannieEBennett@jourrapide.com;P;1
+2002;Mary;Partridge;MaryTPartridge@teleworm.us;P;1
+2003;Cynthia;Smoak;CynthiaSSmoak@jourrapide.com;P;1
+2004;Jeremiah;Johnson;JeremiahCJohnson@teleworm.us;P;1
+3000;Adam;Smith;adam.smith@rhyta.com;P;1
+3001;Qasim;Muhammad;qasim1000@hotmail.com;S;1

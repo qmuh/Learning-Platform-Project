@@ -1,10 +1,11 @@
-package frontend.view.pages;
+package frontend.view.pages.home;
 
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
+import frontend.view.pages.Page;
 import frontend.view.pages.items.course.CourseItem;
 import shared.objects.Course;
 
@@ -18,13 +19,15 @@ import shared.objects.Course;
 public class HomePage extends Page<CourseItem, Course>
 {
 	private static final long serialVersionUID = 1L;
+	private HomePageCoursesTable homePageCoursesTable;
 
 	public HomePage()
 	{
 		super();
 		this.header.setTitle("Home");
 		this.setName(HOME_PAGE);
-		this.body = new HomePageCoursesTable();
+		homePageCoursesTable = new HomePageCoursesTable();
+		this.body = homePageCoursesTable;
 		this.add(body);
 	}
 
@@ -37,6 +40,11 @@ public class HomePage extends Page<CourseItem, Course>
 	public void setNewCourseListener(ActionListener listener)
 	{
 		((HomePageCoursesTable) body).setNewCourseListener(listener);
+	}
+	
+	public void enableActiveLabel()
+	{
+		homePageCoursesTable.enableActiveLabel();
 	}
 
 	public static void main(String[] args)

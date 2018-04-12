@@ -38,7 +38,7 @@ public abstract class User implements Serializable, UserInfo
 	 */
 	private String password;
 
-	public User(int userId, String fName, String lName, String mail,
+	protected User(int userId, String fName, String lName, String mail,
 			Character type, String pass)
 	{
 		id = userId;

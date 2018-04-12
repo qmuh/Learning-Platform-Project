@@ -1,4 +1,4 @@
-package frontend.view.pages;
+package frontend.view.pages.compose;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -22,6 +22,7 @@ import javax.swing.ScrollPaneConstants;
 
 import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.components.customSwing.WLabel;
+import frontend.view.pages.course.CoursePage;
 import frontend.view.pages.items.student.StudentItem;
 import shared.objects.Course;
 import shared.objects.EmailInfo;

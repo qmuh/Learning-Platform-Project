@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Vector;
 
 import frontend.controller.Client;
-import frontend.view.pages.ComposeEmailPage;
+import frontend.view.pages.compose.ComposeEmailPage;
 import shared.interfaces.ProfessorCommands;
 import shared.objects.Course;
 import shared.objects.SendMessage;

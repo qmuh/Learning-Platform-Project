@@ -14,7 +14,7 @@ import shared.objects.Course;
  * @version 1.01
  * @since April 6, 2018
  */
-public class CourseTable extends Table<Course> implements Activable
+public class CourseTable extends Table<Course> implements Activatable
 {
 
 	/** Constructor for the table

@@ -12,26 +12,26 @@ import javax.swing.event.ListSelectionListener;
 
 import frontend.controller.listeners.*;
 import frontend.controller.professor.listeners.*;
-import frontend.view.pages.AssignmentPage;
-import frontend.view.pages.AssignmentPageProfessor;
-import frontend.view.pages.ComposeEmailPage;
-import frontend.view.pages.ComposeEmailPageProfessor;
-import frontend.view.pages.CoursePage;
-import frontend.view.pages.DiscussionPage;
-import frontend.view.pages.EnrollmentPage;
-import frontend.view.pages.HomePage;
-import frontend.view.pages.SubmissionPage;
-import frontend.view.pages.SubmissionPageProfessor;
+import frontend.view.pages.assignment.AssignmentPage;
+import frontend.view.pages.assignment.AssignmentPageProfessor;
 import frontend.view.pages.components.CourseNavigationBarProfessor;
 import frontend.view.pages.components.CourseNavigationBarStudent;
 import frontend.view.pages.components.PageNavigator;
 import frontend.view.pages.components.PageNavigator.ViewCoursePageListener;
 import frontend.view.pages.components.customSwing.WButton;
+import frontend.view.pages.compose.ComposeEmailPage;
+import frontend.view.pages.compose.ComposeEmailPageProfessor;
+import frontend.view.pages.course.CoursePage;
+import frontend.view.pages.discussion.DiscussionPage;
+import frontend.view.pages.enrollment.EnrollmentPage;
+import frontend.view.pages.home.HomePage;
 import frontend.view.pages.items.assignment.AssignItem;
 import frontend.view.pages.items.assignment.AssignItemProfessor;
 import frontend.view.pages.items.course.CourseItem;
 import frontend.view.pages.items.course.CourseItemProfessor;
 import frontend.view.pages.items.submission.SubmitItem;
+import frontend.view.pages.submission.SubmissionPage;
+import frontend.view.pages.submission.SubmissionPageProfessor;
 import shared.interfaces.ProfessorCommands;
 import shared.objects.Assignment;
 import shared.objects.Course;
@@ -124,6 +124,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		HomePage homePage = super.createHomePage();
 		homePage.setNewCourseListener(
 				new NewCourseButtonListener(this, client, homePage));
+		homePage.enableActiveLabel();
 		return homePage;
 	}
 

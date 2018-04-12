@@ -1,4 +1,4 @@
-package frontend.view.pages;
+package frontend.view.pages.course;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import frontend.view.pages.Page;
 import frontend.view.pages.components.CourseNavigationBar;
 import frontend.view.pages.components.PageNavigator;
 import shared.objects.Course;

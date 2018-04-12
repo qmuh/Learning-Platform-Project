@@ -1,4 +1,4 @@
-package frontend.view.pages;
+package frontend.view.pages.compose;
 
 import java.awt.BorderLayout;
 import java.awt.image.BufferedImage;

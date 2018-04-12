@@ -14,7 +14,7 @@ import shared.objects.Assignment;
  * @version 1.01
  * @since April 6, 2018
  */
-public class AssignmentTable extends Table<Assignment> implements Activable
+public class AssignmentTable extends Table<Assignment> implements Activatable
 {
 	
 	/** Initializes the table using the super

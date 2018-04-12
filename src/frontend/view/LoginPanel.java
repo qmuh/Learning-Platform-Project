@@ -19,8 +19,8 @@ import javax.swing.border.MatteBorder;
 
 import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
-import frontend.view.pages.GUIConstants;
 import frontend.view.pages.components.customSwing.WButton;
+import frontend.view.pages.interfaces.GUIConstants;
 import shared.objects.LoginInfo;
 
 /**

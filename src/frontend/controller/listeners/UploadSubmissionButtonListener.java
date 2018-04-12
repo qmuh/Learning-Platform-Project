@@ -2,9 +2,13 @@ package frontend.controller.listeners;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+
+import javax.swing.JFileChooser;
 
 import frontend.controller.Client;
 import frontend.view.pages.AssignmentPageProfessor;
+import frontend.view.pages.AssignmentPageStudent;
 import shared.interfaces.StudentCommands;
 import shared.objects.Course;
 
@@ -20,22 +24,30 @@ public class UploadSubmissionButtonListener implements ActionListener, StudentCo
 	 * The specific course associated with this listener
 	 */
 	private Course course;
-
-	/** The upload button listener, uploads an assignment to the server
-	 * @param client The client
-	 * @param course The course
-	 * @param assignPage The Assignment page
-	 */
-	public UploadSubmissionButtonListener(Client client, Course course)
+	
+	private  AssignmentPageStudent assignPage;
+	
+	public UploadSubmissionButtonListener(Client client, Course course, AssignmentPageStudent studentPage)
 	{
 		this.client = client;
 		this.course = course;
+		assignPage = studentPage;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		// TODO Auto-generated method stub
+		File selectedFile;
+		JFileChooser fileBrowser = new JFileChooser();
+		if (fileBrowser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+		{
+			selectedFile = fileBrowser.getSelectedFile();
+			assignPage.setFile(selectedFile);
+
+		} else
+		{
+			assignPage.setFile(null);
+		}
 		
 	}
 

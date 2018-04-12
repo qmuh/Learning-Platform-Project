@@ -122,4 +122,13 @@ public class Assignment implements Serializable
 		
 	}
 
+	public String getDir()
+	{
+		String path ="";
+		for (int i = 0; i < path.length(); i++)
+		{
+			
+		}
+	}
+
 }

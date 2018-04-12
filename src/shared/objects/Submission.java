@@ -119,4 +119,18 @@ public class Submission implements Serializable
 		
 	}
 
+	public void setComment(String comment) 
+	{
+		this.comment = comment;
+	}
+	
+	public void setDate(String date)
+	{
+		timestamp = date;
+	}
+	
+	public void setTitle(String title) 
+	{
+		this.title = title;
+	}
 }

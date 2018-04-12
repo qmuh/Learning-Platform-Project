@@ -153,7 +153,9 @@ public class StudentSession extends ClientSession implements StudentCommands
 		}
 		else if (interpreter.equals(RECEIVE_SUBMISSIONS)) {
 			Vector<Submission> mySubmissions = database.getSubmissionTable().
-					searchByCourseAndStudentID(((Course)getmessageObject).getId(),student.getId());
+					searchByCourseAndStudentID(student.getId());
+			
+			System.out.println("My submissions have a size of: " + mySubmissions.size());
 			sendObject(mySubmissions);
 		} else if(interpreter.equals(RECEIVE_ASSIGNMENT))
 		{
@@ -173,15 +175,17 @@ public class StudentSession extends ClientSession implements StudentCommands
 		{
 			Submission mySubmission = (Submission) getmessageObject;
 			String toSplit[] = mySubmission.getPath().split("/");
-			mySubmission.setPath("/Users/qasimmuhammad/Desktop/Database" + "/"
-					+ (toSplit[toSplit.length - 1]));
+			Assignment toGet = database.getAssignmentTable().searchByAssignID(mySubmission.getAssign_id());
+			
+			mySubmission.setPath(toGet.getDir() + "/" + toSplit[toSplit.length -1]);
+			System.out.println("Inserting submission");
 			
 			database.getSubmissionTable().add(mySubmission);
 			byte[] file;
 			try
 			{
 				file = (byte[]) objectIn.readObject();
-				fileHelper.storeFile(file, ((Submission) getmessageObject));
+				fileHelper.storeFile(file, mySubmission);
 			} catch (ClassNotFoundException | IOException e)
 			{
 				e.printStackTrace();

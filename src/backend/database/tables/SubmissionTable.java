@@ -58,7 +58,7 @@ public class SubmissionTable extends Table<Submission>
 	{
 		String sql = "CREATE TABLE " + tableName + "(" + "ID INT(8) NOT NULL, "
 				+ "ASSIGNID INT(8) NOT NULL, " + "STUDENTID INT(8) NOT NULL, "
-				+ "PATH VARCHAR(100) NOT NULL, "
+				+ "PATH VARCHAR(255) NOT NULL, "
 				+ "TITLE VARCHAR(50) NOT NULL, "
 				+ "SUBMISSION_GRADE INT(3) NOT NULL,"
 				+ "COMMENT VARCHAR(140) NOT NULL, "
@@ -187,16 +187,15 @@ public class SubmissionTable extends Table<Submission>
 		return assignSubmissons;
 	}
 
-	public Vector<Submission> searchByCourseAndStudentID(int courseID, int studentID)
+	public Vector<Submission> searchByCourseAndStudentID(int studentID)
 	{
 		Vector<Submission> assignSubmissons = new Vector<Submission>();
-		String sql = "SELECT * FROM " + tableName + " WHERE COURSEID= ? AND STUDENTID= ? ";
+		String sql = "SELECT * FROM " + tableName + " WHERE STUDENTID= ? ";
 		ResultSet submission;
 		try
 		{
 			preparedStatement = dbConnection.prepareStatement(sql);
-			preparedStatement.setInt(1, courseID);
-			preparedStatement.setInt(2, studentID);
+			preparedStatement.setInt(1, studentID);
 			submission = preparedStatement.executeQuery();
 			while (submission.next())
 			{

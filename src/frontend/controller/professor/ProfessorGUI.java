@@ -383,11 +383,16 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		{
 			SendMessage<Course> requestAssignments = new SendMessage<Course>(
 					course, CMD_RECEIVE + RECEIVE_ALL_ASSIGNMENTS);
+			
+			
 			SendMessage<Course> requestStudents = new SendMessage<Course>(
 					course, CMD_RECEIVE + RECEIVE_ALL_ENROLLED_STUDENTS);
+			
+			
 			SendMessage<Course> requestSubmissions = new SendMessage<Course>(
 					course, CMD_RECEIVE + RECEIVE_ALL_SUBMISSIONS);
 
+			
 			try
 			{
 				Vector<Assignment> assignments = (Vector<Assignment>) this.client

@@ -162,7 +162,7 @@ public class SubmissionTable extends Table<Submission>
 	 *            The course ID to search for
 	 * @return The vector containing all the submissions for a course ID
 	 */
-	public Vector<Submission> searchByCourse(int courseID)
+	public Vector<Submission> searchByAssign(int assignID)
 	{
 		Vector<Submission> assignSubmissons = new Vector<Submission>();
 		String sql = "SELECT * FROM " + tableName + " WHERE ASSIGNID= ? ";
@@ -170,7 +170,7 @@ public class SubmissionTable extends Table<Submission>
 		try
 		{
 			preparedStatement = dbConnection.prepareStatement(sql);
-			preparedStatement.setInt(1, courseID);
+			preparedStatement.setInt(1, assignID);
 			submission = preparedStatement.executeQuery();
 			while (submission.next())
 			{

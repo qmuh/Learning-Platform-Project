@@ -39,22 +39,24 @@ public abstract class PageNavigator extends JPanel
 	public PageNavigator(Socket socket)
 	{
 		this.cardLayout = new CardLayout();
-		this.setLayout(cardLayout);
-		client = new Client();
-		client.connectToServer(socket);
+		
+		this.client = new Client();
+		this.client.connectToServer(socket);
+		
 		this.pageStack = new Stack<Page<?, ?>>();
 
 		this.currentPage = new HomePage();
-		currentPage.setBackButtonEnabled(false);
+		this.currentPage.setBackButtonEnabled(false);
 
+		this.setLayout(cardLayout);
 		this.addPage(currentPage);
-		cardLayout.show(this, HOME_PAGE);
+		// Show the current home page without adding it to the stack
+		// to preserve the state of the back button.
+		this.cardLayout.show(this, HOME_PAGE);
 	}
 
 	public void showPage(String pageName)
 	{
-		System.out.println(currentPage.getName());
-
 		// If the page to show is not the current page
 		if (!currentPage.getName().equals(pageName))
 		{

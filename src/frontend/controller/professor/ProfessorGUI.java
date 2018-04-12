@@ -238,7 +238,6 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 			composeEmailPage.setStudentList(enrollList);
 		} catch (IOException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		completeCoursePage(composeEmailPage, course);
@@ -399,7 +398,6 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 					}
 				} catch (IOException e1)
 				{
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 
@@ -412,7 +410,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	 * Sets a course page and its content
 	 * 
 	 * @param genericCoursePage
-	 *            The hashmap used
+	 *            The generic course 
 	 * @param course
 	 *            The associated course
 	 */
@@ -428,7 +426,8 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	@Override
 	protected void createCoursePage(Course course)
 	{
-		CoursePage coursePage = new CoursePage<>(course);
+		@SuppressWarnings("rawtypes")
+		CoursePage coursePage = new CoursePage(course);
 		completeCoursePage(coursePage, course);
 	}
 

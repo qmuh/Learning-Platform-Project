@@ -127,7 +127,7 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 	protected void createComposeEmailPage(Course course)
 	{
 		ComposeEmailPageStudent composeEmailPage = new ComposeEmailPageStudent(course);
-		composeEmailPage.getSendButton().addActionListener(new StudentSendButtonListener());
+		composeEmailPage.getSendButton().addActionListener(new StudentSendButtonListener(course ,composeEmailPage ,client));
 		
 		SendMessage<Course> requestProfessor = new SendMessage<Course>(course, CMD_RECEIVE + RECEIVE_PROFESSOR);
 		Professor professor = null;

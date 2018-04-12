@@ -135,10 +135,21 @@ public class UserTable extends Table<User> implements UserInfo
 			user = preparedStatement.executeQuery();
 			if (user.next())
 			{
-
+				if(user.getString("TYPE").equals("S"))
+				{
 				return new Student(user.getInt("ID"),
 						user.getString("FIRSTNAME"), user.getString("LASTNAME"),
 						user.getString("EMAIL"), user.getString("PASSWORD"));
+				}
+			
+				else {
+					return new Professor(user.getInt("ID"),
+							user.getString("FIRSTNAME"), user.getString("LASTNAME"),
+							user.getString("EMAIL"), user.getString("PASSWORD"));
+					
+				}
+				
+			
 			}
 
 		} catch (SQLException e)

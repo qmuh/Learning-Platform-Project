@@ -15,13 +15,37 @@ import shared.objects.Course;
 import shared.objects.Professor;
 import shared.objects.SendMessage;
 
+/**
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 6, 2018
+ * Used for creating the new course
+ */
 public class NewCourseButtonListener
 		implements ActionListener, ProfessorCommands
 {
+	/**
+	 * The client used for communication
+	 */
 	private Client client;
+	
+	/**
+	 * The GUI this listener is associated with
+	 */
 	private ProfessorGUI professorGUI;
+	
+	/**
+	 * The homepage which would hold this
+	 */
 	private HomePage homePage;
 
+	/** The constructor for this listener class
+	 * @param professorGUI The ProfessorGUI 
+	 * @param client The client used to connect
+	 * @param page The page this uses
+	 */
 	public NewCourseButtonListener(ProfessorGUI professorGUI, Client client,
 			HomePage page)
 	{

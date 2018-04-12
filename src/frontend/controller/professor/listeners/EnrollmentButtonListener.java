@@ -19,6 +19,7 @@ import shared.objects.StudentEnrollment;
  *         (30017293)
  * @version 1.0
  * @since April 6, 2018
+ * Used to enroll students
  */
 public class EnrollmentButtonListener
 		implements ActionListener, ProfessorCommands

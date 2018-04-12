@@ -29,29 +29,60 @@ import shared.objects.LoginInfo;
  *         (30017293)
  * @version 1.1
  * @since April 6, 2018
+ * The login panel holds the JPanel for the login
  */
 public class LoginPanel extends JPanel
 		implements ColourPalette, GUIConstants, WondrisInfo
 {
 
+	/**
+	 * Sets the serialVersionUID
+	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * The username label
+	 */
 	private static final String USERNAME_LABEL = "Username";
 
+	/**
+	 * The password label
+	 */
 	private static final String PASSWORD_LABEL = "Password";
 
+	/**
+	 * The text for the sign in
+	 */
 	private static final String BUTTON_SIGN_IN_TEXT = "Sign In";
 
+	/**
+	 * Used to make sure password is not seen
+	 */
 	private static final Character PASSWORD_ECHO_CHAR = '\u2022';
 
+	/**
+	 * Sets the default field size
+	 */
 	private static final int FIELD_SIZE = 8;
 
+	/**
+	 * The JTextField for the username
+	 */
 	private JTextField usernameField;
 
+	/**
+	 * The JTextField for the password
+	 */
 	private JPasswordField passwordField;
 
+	/**
+	 * The login button
+	 */
 	private WButton loginButton;
 
+	/**
+	 * The login panel constructor
+	 */
 	public LoginPanel()
 	{
 		super(new GridLayout(1, 1, 0, 0));
@@ -65,11 +96,17 @@ public class LoginPanel extends JPanel
 		this.add(createLoginArea());
 	}
 
+	/** Returns the login button
+	 * @return The login button
+	 */
 	public WButton getLoginButton()
 	{
 		return loginButton;
 	}
 
+	/** Returns the login info
+	 * @return The login info entered
+	 */
 	public LoginInfo getLoginInfo()
 	{
 
@@ -87,11 +124,17 @@ public class LoginPanel extends JPanel
 		return loginInfo;
 	}
 
+	/** Sets up the listener for logging in
+	 * @param listener The listener associated with the WButton to be set
+	 */
 	public void setLoginListener(ActionListener listener)
 	{
 		loginButton.addActionListener(listener);
 	}
 
+	/** Creates the login area 
+	 * @return The JPanel login area
+	 */
 	private JPanel createLoginArea()
 	{
 		JPanel thePanel = new JPanel(new GridLayout(1, 2, 0, 0));
@@ -101,6 +144,10 @@ public class LoginPanel extends JPanel
 		return thePanel;
 	}
 
+	/** Creates the title half for the login panel
+	 * @param name The name of the Title half
+	 * @return The panel portion for the title half
+	 */
 	private JPanel createTitleHalf(String name)
 	{
 		JPanel titlePanel = new JPanel(new GridLayout(1, 1, 0, 0));
@@ -115,6 +162,9 @@ public class LoginPanel extends JPanel
 		return titlePanel;
 	}
 
+	/** Creates the login half
+	 * @return The panel with the login half
+	 */
 	private JPanel createLoginHalf()
 	{
 		JPanel thePanel = new JPanel(new GridLayout(3, 1, 0, 0));
@@ -139,6 +189,9 @@ public class LoginPanel extends JPanel
 		return thePanel;
 	}
 
+	/** Creates the button panel for the login panel
+	 * @return The panel for the buttons
+	 */
 	private JPanel createButtonPanel()
 	{
 		JPanel buttonPanel = new JPanel();
@@ -148,6 +201,9 @@ public class LoginPanel extends JPanel
 		return buttonPanel;
 	}
 
+	/** Creates the empty panel
+	 * @return The created empty panel
+	 */
 	private JPanel createEmptyPanel()
 	{
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -155,6 +211,11 @@ public class LoginPanel extends JPanel
 		return panel;
 	}
 
+	/** Creates the panel with the text field
+	 * @param s The string for the label
+	 * @param field Adds the JTextField
+	 * @return The panel for the text field
+	 */
 	private JPanel createTextField(String s, JTextField field)
 	{
 		JPanel textFieldPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -167,6 +228,9 @@ public class LoginPanel extends JPanel
 		return textFieldPanel;
 	}
 
+	/** Used for testing
+	 * @param args not used
+	 */
 	public static void main(String[] args)
 	{
 		JFrame frame = new JFrame("Login Panel Test");

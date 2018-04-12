@@ -30,12 +30,19 @@ import shared.objects.Student;
  *         (30017293)
  * @version 1.0
  * @since April 6, 2018
+ * Holds all information for the STUDENT GUI and how it is set up
  */
 public class StudentGUI extends PageNavigator implements StudentCommands
 {
+	/**
+	 * The user associated with this client-side GUI
+	 */
 	private Student student;
 
-
+	/** Used to initialize the StudentGUI and the all its pages
+	 * @param socket Used to communicate between server and client
+	 * @param user The user who is running this client
+	 */
 	public StudentGUI(Socket socket, Student user)
 	{
 		super(socket);
@@ -79,6 +86,9 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 		completeCoursePage(composeEmailPage, course);
 	}
 
+	/** Used to create the grades page
+	 * @param course The course which is associated with this page
+	 */
 	@SuppressWarnings("unchecked")
 	private void createGradesPage(Course course)
 	{
@@ -122,6 +132,10 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 		completeCoursePage(gradePage, course);
 	}
 
+	/** Used to complete the course page
+	 * @param genericCoursePage Hashmap...?
+	 * @param course The course which this is associated with
+	 */
 	private void completeCoursePage(CoursePage<?, ?> genericCoursePage,
 			Course course)
 	{

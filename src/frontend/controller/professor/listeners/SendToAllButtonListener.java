@@ -18,6 +18,7 @@ import shared.objects.Student;
  *         (30017293)
  * @version 1.0
  * @since April 6, 2018
+ * Used to select all student for sending the email
  */
 public class SendToAllButtonListener
 		implements ActionListener, ProfessorCommands
@@ -37,10 +38,10 @@ public class SendToAllButtonListener
 	 */
 	private ComposeEmailPage composePage;
 
-	/**
-	 * @param client
-	 * @param course
-	 * @param composeEmailPage
+	/** Constructor for this listener class
+	 * @param client The client which is used for communication
+	 * @param course The specific course
+	 * @param composeEmailPage The page which contains information needed
 	 */
 	public SendToAllButtonListener(Client client, Course course,
 			ComposeEmailPage composeEmailPage)

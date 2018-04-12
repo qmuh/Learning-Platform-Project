@@ -17,6 +17,7 @@ import shared.objects.Student;
  *         (30017293)
  * @version 1.0
  * @since April 6, 2018
+ * Used for searching for the enrollment page
  */
 public class EnrollmentPageSearchButtonListener
 		implements ActionListener, ProfessorCommands

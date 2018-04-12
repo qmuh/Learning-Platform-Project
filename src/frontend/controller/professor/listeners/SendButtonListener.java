@@ -26,14 +26,25 @@ import shared.objects.SendMessage;
 public class SendButtonListener implements ActionListener, ProfessorCommands
 {
 	/**
-	 * A course 
+	 * The course this is associated
 	 */
 	private Course course;
 
+	/**
+	 * The client which is used for communication
+	 */
 	private Client client;
 
+	/**
+	 * The composed email page which holds this button
+	 */
 	private ComposeEmailPage emailPage;
 
+	/** The constructor for this 
+	 * @param client Used for communication
+	 * @param course The course this is used for
+	 * @param email The emailpage which holds the email information
+	 */
 	public SendButtonListener(Client client, Course course,
 			ComposeEmailPage email)
 	{

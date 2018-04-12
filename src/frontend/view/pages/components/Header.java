@@ -3,13 +3,18 @@ package frontend.view.pages.components;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import frontend.interfaces.ColourPalette;
+import frontend.interfaces.WondrisDirectories;
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.components.customSwing.WButton;
+import frontend.view.pages.components.customSwing.WLabel;
 import frontend.view.pages.interfaces.GUIConstants;
 import shared.objects.User;
 
@@ -21,7 +26,7 @@ import shared.objects.User;
  * @since April 6, 2018
  */
 public class Header extends JPanel
-		implements GUIConstants, ColourPalette, WondrisInfo
+		implements GUIConstants, ColourPalette, WondrisInfo, WondrisDirectories
 {
 	/**
 	 * 
@@ -44,9 +49,19 @@ public class Header extends JPanel
 	{
 		headerTitle = new JPanel(new GridLayout(1, 2));
 		headerTitle.setBackground(ACCENT_COLOR);
-		headerTitle.add(createTitle(NAME), 0);
+		headerTitle.add(createTheLogo(), 0);
 		headerTitle.add(createTitle(""), 1);
 		return headerTitle;
+	}
+	
+	private WLabel createTheLogo()
+	{
+		try {
+			return new WLabel(ImageIO.read(new File(DIR_GRAPHICS + "wondrisLogoWhiteSmall.png")));
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public JLabel createTitle(String title)

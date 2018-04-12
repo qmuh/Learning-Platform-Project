@@ -5,7 +5,10 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,8 +21,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
 import frontend.interfaces.ColourPalette;
+import frontend.interfaces.WondrisDirectories;
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.components.customSwing.WButton;
+import frontend.view.pages.components.customSwing.WLabel;
 import frontend.view.pages.interfaces.GUIConstants;
 import shared.objects.LoginInfo;
 
@@ -31,7 +36,7 @@ import shared.objects.LoginInfo;
  * @since April 6, 2018 The login panel holds the JPanel for the login
  */
 public class LoginPanel extends JPanel
-		implements ColourPalette, GUIConstants, WondrisInfo
+		implements ColourPalette, GUIConstants, WondrisInfo, WondrisDirectories
 {
 
 	/**
@@ -162,14 +167,25 @@ public class LoginPanel extends JPanel
 	private JPanel createTitleHalf(String name)
 	{
 		JPanel titlePanel = new JPanel(new GridLayout(1, 1, 0, 0));
-		JLabel title = new JLabel(name);
+		
+		try
+		{
+			WLabel title;
+			title = new WLabel(ImageIO.read(new File(DIR_GRAPHICS + "wondrisLogoBW.png")));
+			
+			title.setFont(TITLE_FONT);
+			title.setForeground(Color.WHITE);
+			title.setHorizontalAlignment(SwingConstants.CENTER);
 
-		title.setFont(TITLE_FONT);
-		title.setForeground(Color.WHITE);
-		title.setHorizontalAlignment(SwingConstants.CENTER);
+			titlePanel.setBackground(BACKGROUND_COLOUR);
+			titlePanel.add(title);
+		} catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-		titlePanel.setBackground(BACKGROUND_COLOUR);
-		titlePanel.add(title);
+		
 		return titlePanel;
 	}
 

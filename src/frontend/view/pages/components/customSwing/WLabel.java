@@ -2,7 +2,9 @@ package frontend.view.pages.components.customSwing;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.image.BufferedImage;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import frontend.interfaces.WondrisInfo;
@@ -48,5 +50,12 @@ public class WLabel extends JLabel implements WondrisInfo
 	public WLabel(String text, Font font, int right)
 	{
 		this(text, font, Color.BLACK, right);
+	}
+	
+	public WLabel(BufferedImage read)
+	{
+		this();
+		ImageIcon icon = new ImageIcon(read);
+		this.setIcon(icon);
 	}
 }

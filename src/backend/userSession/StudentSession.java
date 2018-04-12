@@ -152,7 +152,7 @@ public class StudentSession extends ClientSession implements StudentCommands
 			sendObject(myGrades);
 			
 		}
-	
+		
 	}
 
 	/** Handles client commands having to do with keeping database updated

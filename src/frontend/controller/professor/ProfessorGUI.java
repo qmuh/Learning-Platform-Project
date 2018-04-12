@@ -201,7 +201,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 				new UploadButtonListener(client, course, assignmentPage));
 		assignmentPage.setBrowseButtonListener(
 				new BrowseButtonListener(assignmentPage));
-
+		
 		showAllAssignments(course, assignmentPage);
 		completeCoursePage(assignmentPage, course);
 	}
@@ -263,6 +263,8 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 
 				assignItem.getActiveButton().addActionListener(
 						new AssignmentActiveButtonListener(client, assignment));
+				
+				assignItem.getAssignmentLabel().addMouseListener(new AssignmentLabelMouseListener(assignment, client));
 				assignmentPage.addToBoxList(assignItem);
 			}
 

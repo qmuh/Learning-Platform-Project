@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import javax.swing.JPanel;
 
+import frontend.controller.listeners.AssignmentLabelMouseListener;
 import frontend.view.pages.AssignmentPage;
 import frontend.view.pages.AssignmentPageStudent;
 import frontend.view.pages.ComposeEmailPage;
@@ -47,7 +48,7 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 
 	/**
 	 * Used to initialize the StudentGUI and the all its pages
-	 * 
+	 *
 	 * @param socket
 	 *            Used to communicate between server and client
 	 * @param user
@@ -90,15 +91,15 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 			Vector<Assignment> assignments = (Vector<Assignment>) client
 					.sendMessage(receiveAssignments);
 
-			for (Assignment assignment : assignments)
+			for (int i = 0; i < assignments.size(); i++)
 			{
 				AssignItemStudent assignItemStudent = new AssignItemStudent(
-						assignment);
+						assignments.elementAt(i));
 				assignmentPage.addToBoxList(assignItemStudent);
 
-				// assignItemStudent.getAssignmentLabel().addMouseListener(new
-				// Su);
 
+			assignItemStudent.getAssignmentLabel().addMouseListener(new AssignmentLabelMouseListener(assignments.get(i), client));
+			assignmentPage.addToBoxList(assignItemStudent);
 			}
 
 		} catch (IOException e)
@@ -131,7 +132,7 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 
 	/**
 	 * Used to create the grades page
-	 * 
+	 *
 	 * @param course
 	 *            The course which is associated with this page
 	 */
@@ -180,7 +181,7 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 
 	/**
 	 * Used to complete the course page
-	 * 
+	 *
 	 * @param genericCoursePage
 	 *            Hashmap...?
 	 * @param course

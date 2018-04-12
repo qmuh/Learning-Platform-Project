@@ -42,9 +42,10 @@ public class AssignmentLabelMouseListener implements MouseListener, UserCommands
 	{
 		try
 		{
+			System.out.println("Make it here");
 			byte[] file = (byte[]) client
 					.sendMessage(new SendMessage<Assignment>(assignment,
-							CMD_RECEIVE + RECEIVE_FILE_ASSIGNMENT));
+							CMD_RECEIVE + RECEIVE_ASSIGNMENT));
 			String home = System.getProperty("user.home");
 
 			String[] fileName = assignment.getPath().split("/");

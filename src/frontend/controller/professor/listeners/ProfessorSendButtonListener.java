@@ -9,6 +9,7 @@ import javax.swing.JTextField;
 
 import frontend.controller.Client;
 import frontend.view.pages.compose.ComposeEmailPage;
+import frontend.view.pages.compose.ComposeEmailPageProfessor;
 import shared.interfaces.ProfessorCommands;
 import shared.objects.Course;
 import shared.objects.EmailInfo;
@@ -37,7 +38,7 @@ public class ProfessorSendButtonListener
 	/**
 	 * The composed email page which holds this button
 	 */
-	private ComposeEmailPage emailPage;
+	private ComposeEmailPageProfessor emailPage;
 
 	/**
 	 * The constructor for this
@@ -50,8 +51,9 @@ public class ProfessorSendButtonListener
 	 *            The email page which holds the email information
 	 */
 	public ProfessorSendButtonListener(Client client, Course course,
-			ComposeEmailPage email)
+			ComposeEmailPageProfessor email)
 	{
+		System.out.println("SEND BUTTON EMAIL PROF CONSTRUCTED");
 		this.client = client;
 		this.course = course;
 		this.emailPage = email;
@@ -99,6 +101,5 @@ public class ProfessorSendButtonListener
 				}
 			}
 		}
-
 	}
 }

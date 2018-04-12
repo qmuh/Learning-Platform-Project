@@ -7,6 +7,7 @@ import java.util.Vector;
 import javax.swing.JPanel;
 
 import frontend.controller.listeners.AssignmentLabelMouseListener;
+import frontend.controller.student.listeners.StudentSendButtonListener;
 import frontend.view.pages.AssignmentPage;
 import frontend.view.pages.AssignmentPageStudent;
 import frontend.view.pages.ComposeEmailPage;
@@ -30,6 +31,7 @@ import shared.interfaces.StudentCommands;
 import shared.objects.Assignment;
 import shared.objects.Course;
 import shared.objects.Grade;
+import shared.objects.Professor;
 import shared.objects.SendMessage;
 import shared.objects.Student;
 import shared.objects.Submission;
@@ -133,12 +135,12 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 					.sendMessage(requestSubmissions);
 			Vector<Assignment> assignments = (Vector<Assignment>) client
 					.sendMessage(requestAssignments);
-			
+
 			for (int i = 0; i < assignments.size(); i++)
 			{
 				submissionPageStudent.addAssignment(assignments.elementAt(i));
 			}
-			
+
 			for (int i = 0; i < submissions.size(); i++)
 			{
 				SubmitItem submitItem = new SubmitItem(
@@ -158,10 +160,19 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 	@Override
 	protected void createComposeEmailPage(Course course)
 	{
-		ComposeEmailPageStudent composeEmailPage = new ComposeEmailPageStudent(
-				course);
-		SendMessage<Course> requestProfessor = new SendMessage<>(
-				CMD_RECEIVE + RECEIVE_PROFESSOR);
+		ComposeEmailPageStudent composeEmailPage = new ComposeEmailPageStudent(course);
+		composeEmailPage.getSendButton().addActionListener(new StudentSendButtonListener(course ,composeEmailPage ,client));
+
+		SendMessage<Course> requestProfessor = new SendMessage<Course>(course, CMD_RECEIVE + RECEIVE_PROFESSOR);
+		Professor professor = null;
+		try
+		{
+			professor = (Professor) client.sendMessage(requestProfessor);
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		composeEmailPage.getToField().setText(professor.getEmail());
 		completeCoursePage(composeEmailPage, course);
 	}
 

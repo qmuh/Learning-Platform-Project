@@ -24,7 +24,7 @@ import frontend.view.pages.PageNames;
 import frontend.view.pages.SubmissionPage;
 import frontend.view.pages.components.PageNavigator.ViewCoursePageListener;
 import frontend.view.pages.components.customSwing.WButton;
-import frontend.view.pages.items.CourseItem;
+import frontend.view.pages.items.course.CourseItem;
 import shared.interfaces.UserCommands;
 import shared.objects.Course;
 import shared.objects.SendMessage;

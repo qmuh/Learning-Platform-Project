@@ -1,4 +1,4 @@
-package frontend.view.pages.items;
+package frontend.view.pages.items.submission;
 
 import java.awt.Color;
 import java.awt.event.ActionListener;
@@ -10,6 +10,7 @@ import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 
 import frontend.view.pages.components.BoxList;
+import frontend.view.pages.items.GeneralItem;
 import shared.objects.Assignment;
 import shared.objects.Student;
 import shared.objects.Submission;

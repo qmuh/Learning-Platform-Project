@@ -27,15 +27,15 @@ final public class SubmissionPageStudent extends SubmissionPage
 	/**
 	 * Adds a new assignment submission area into the assignment map for the
 	 * student for later submission adding.
-	 * 
+	 *
 	 * @param assignment
 	 */
-	
+
 	public BoxList<AssignSubItem> getBoxList()
 	{
 		return itemDisplay;
 	}
-	
+
 	public void addAssignment(Assignment assignment)
 	{
 		AssignSubItemStudent assignmentItemStudent = new AssignSubItemStudent(
@@ -47,5 +47,5 @@ final public class SubmissionPageStudent extends SubmissionPage
 		this.itemDisplay.repaint();
 	}
 
-	
+
 }

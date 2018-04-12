@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
-import frontend.view.pages.items.CourseItem;
+import frontend.view.pages.items.course.CourseItem;
 import shared.objects.Course;
 
 /**

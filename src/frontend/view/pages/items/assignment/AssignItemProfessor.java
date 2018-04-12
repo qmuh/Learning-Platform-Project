@@ -1,4 +1,4 @@
-package frontend.view.pages.items;
+package frontend.view.pages.items.assignment;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

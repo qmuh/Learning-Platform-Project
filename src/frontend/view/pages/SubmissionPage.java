@@ -16,7 +16,9 @@ import frontend.view.pages.items.AssignSubItemProfessor;
 import frontend.view.pages.items.AssignSubItemStudent;
 import frontend.view.pages.items.CourseItem;
 import frontend.view.pages.items.GeneralItem;
-import frontend.view.pages.items.SubmitItem;
+import frontend.view.pages.items.course.CourseItem;
+import frontend.view.pages.items.submission.AssignSubItem;
+import frontend.view.pages.items.submission.SubmitItem;
 import shared.objects.Assignment;
 import shared.objects.Course;
 import shared.objects.Student;
@@ -91,23 +93,23 @@ abstract public class SubmissionPage
 //		 Submission qasimSubmission = new Submission(3322, 1003, "PATH", 2,
 //		 "COMMENT", "TITLE", "TIME");
 //		 SubmitItem qasimSubmitItem = new SubmitItem(qasimSubmission);
-		
+
 		// submissionPage.addSubmission(qasimSubmitItem);
 
 		SubmissionPageStudent studentPage = new SubmissionPageStudent(engg201,
 				qasim);
-		
+
 		studentPage.addAssignment(assignment);
-		
+
 		 Submission qasimSubmission = new Submission(3322, 1003, "PATH", 2,
 				 "COMMENT", "TITLE", "TIME");
-		
+
 		 SubmitItem qasimItem = new SubmitItem(qasimSubmission);
-		 
-		 
-		 
+
+
+
 //		studentPage.addSubmission(qasimItem);
-		
+
 		frame.add(studentPage);
 		frame.setSize(1600, 1000);
 		frame.setVisible(true);

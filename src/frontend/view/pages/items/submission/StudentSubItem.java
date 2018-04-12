@@ -1,4 +1,4 @@
-package frontend.view.pages.items;
+package frontend.view.pages.items.submission;
 
 import java.awt.FlowLayout;
 
@@ -6,6 +6,7 @@ import javax.swing.BoxLayout;import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import frontend.view.pages.components.BoxList;
+import frontend.view.pages.items.GeneralItem;
 import shared.objects.Student;
 import shared.objects.Submission;
 

@@ -159,7 +159,7 @@ public class SubmissionTable extends Table<Submission>
 	public Vector<Submission> searchByCourse(int courseID)
 	{
 		Vector<Submission> assignSubmissons = new Vector<Submission>();
-		String sql = "SELECT * FROM " + tableName + " WHERE COURSEID= ? ";
+		String sql = "SELECT * FROM " + tableName + " WHERE ASSIGNID= ? ";
 		ResultSet submission;
 		try
 		{

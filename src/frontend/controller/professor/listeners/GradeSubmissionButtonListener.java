@@ -7,7 +7,7 @@ import java.io.IOException;
 import javax.swing.JTextField;
 
 import frontend.controller.Client;
-import frontend.view.pages.items.SubmitItem;
+import frontend.view.pages.items.submission.SubmitItem;
 import shared.interfaces.ProfessorCommands;
 import shared.objects.Course;
 import shared.objects.Grade;

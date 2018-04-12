@@ -162,7 +162,11 @@ public class StudentSession extends ClientSession implements StudentCommands
 			Vector<Submission> mySubmissions = database.getSubmissionTable().
 					searchByCourseAndStudentID(((Course)getmessageObject).getId(),user.getId());
 			sendObject(mySubmissions);
-		}
+		} else if(interpreter.equals(RECEIVE_ASSIGNMENT))
+		{
+			super.sendBackFile(((Assignment)getmessageObject).getPath());
+		
+		} 
 		
 	}
 

@@ -1,4 +1,4 @@
-package frontend.view.pages.items;
+package frontend.view.pages.items.submission;
 
 import shared.objects.Assignment;
 import shared.objects.Student;

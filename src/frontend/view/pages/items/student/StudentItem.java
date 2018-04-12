@@ -1,7 +1,8 @@
-package frontend.view.pages.items;
+package frontend.view.pages.items.student;
 
 import javax.swing.BoxLayout;
 
+import frontend.view.pages.items.GeneralItem;
 import shared.objects.Student;
 
 /**

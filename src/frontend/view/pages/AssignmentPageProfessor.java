@@ -16,7 +16,7 @@ import javax.swing.border.EmptyBorder;
 
 import frontend.view.pages.components.BoxList;
 import frontend.view.pages.components.customSwing.WButton;
-import frontend.view.pages.items.AssignItem;
+import frontend.view.pages.items.assignment.AssignItem;
 import shared.objects.Course;
 
 /**

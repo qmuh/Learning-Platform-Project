@@ -11,11 +11,11 @@ import shared.objects.Student;
 
 final public class SubmissionPageProfessor extends SubmissionPage
 {
-	
-	
+
+
 	private static final long serialVersionUID = 1L;
-	
-	
+
+
 	public SubmissionPageProfessor(Course course)
 	{
 		super(course);
@@ -35,7 +35,7 @@ final public class SubmissionPageProfessor extends SubmissionPage
 //		Submission submission = submitItem.getSubmission();
 //		AssignSubItemProfessor assignSubItemProfessor = this.assignmentMap
 //				.get(submission.getAssign_id());
-//		
+//
 //		assignSubItemProfessor.addSubmission(submitItem);
 //	}
 }

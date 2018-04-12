@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Vector;
 
-import frontend.view.pages.items.AssignSubItemProfessor;
+import frontend.view.pages.items.submission.AssignSubItemProfessor;
 import shared.objects.Assignment;
 import shared.objects.Course;
 import shared.objects.Student;

@@ -11,10 +11,6 @@ import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
 import frontend.view.pages.components.BoxList;
-import frontend.view.pages.items.AssignSubItem;
-import frontend.view.pages.items.AssignSubItemProfessor;
-import frontend.view.pages.items.AssignSubItemStudent;
-import frontend.view.pages.items.CourseItem;
 import frontend.view.pages.items.GeneralItem;
 import frontend.view.pages.items.course.CourseItem;
 import frontend.view.pages.items.submission.AssignSubItem;

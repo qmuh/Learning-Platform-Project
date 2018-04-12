@@ -3,10 +3,8 @@ package frontend.view.pages;
 import java.util.HashMap;
 
 import frontend.view.pages.components.BoxList;
-import frontend.view.pages.items.AssignSubItem;
-import frontend.view.pages.items.AssignSubItemProfessor;
-import frontend.view.pages.items.AssignSubItemStudent;
-import frontend.view.pages.items.SubmitItem;
+import frontend.view.pages.items.submission.AssignSubItem;
+import frontend.view.pages.items.submission.AssignSubItemStudent;
 import shared.objects.Assignment;
 import shared.objects.Course;
 import shared.objects.Student;

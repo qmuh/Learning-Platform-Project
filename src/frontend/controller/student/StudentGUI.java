@@ -20,13 +20,10 @@ import frontend.view.pages.SubmissionPage;
 import frontend.view.pages.SubmissionPageStudent;
 import frontend.view.pages.components.CourseNavigationBarStudent;
 import frontend.view.pages.components.PageNavigator;
-import frontend.view.pages.items.AssignItem;
-import frontend.view.pages.items.AssignItemStudent;
-import frontend.view.pages.items.CourseItem;
-import frontend.view.pages.items.CourseItemStudent;
-import frontend.view.pages.items.GradeItem;
-import frontend.view.pages.items.StudentSubItem;
-import frontend.view.pages.items.SubmitItem;
+import frontend.view.pages.items.assignment.AssignItemStudent;
+import frontend.view.pages.items.course.CourseItemStudent;
+import frontend.view.pages.items.grade.GradeItem;
+import frontend.view.pages.items.submission.SubmitItem;
 import shared.interfaces.StudentCommands;
 import shared.objects.Assignment;
 import shared.objects.Course;
@@ -160,10 +157,14 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 	@Override
 	protected void createComposeEmailPage(Course course)
 	{
-		ComposeEmailPageStudent composeEmailPage = new ComposeEmailPageStudent(course);
-		composeEmailPage.getSendButton().addActionListener(new StudentSendButtonListener(course ,composeEmailPage ,client));
+		ComposeEmailPageStudent composeEmailPage = new ComposeEmailPageStudent(
+				course);
+		composeEmailPage.getSendButton()
+				.addActionListener(new StudentSendButtonListener(course,
+						composeEmailPage, client));
 
-		SendMessage<Course> requestProfessor = new SendMessage<Course>(course, CMD_RECEIVE + RECEIVE_PROFESSOR);
+		SendMessage<Course> requestProfessor = new SendMessage<Course>(course,
+				CMD_RECEIVE + RECEIVE_PROFESSOR);
 		Professor professor = null;
 		try
 		{

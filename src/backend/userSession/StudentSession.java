@@ -195,6 +195,8 @@ public class StudentSession extends ClientSession implements StudentCommands
 		if (interpreter.equals(INSERT_SUBMISSION))
 		{
 			Submission mySubmission = (Submission) getmessageObject;
+			String path = mySubmission.getPath().replaceAll("\\\\", "/");
+			
 			String toSplit[] = mySubmission.getPath().split("/");
 			Assignment toGet = database.getAssignmentTable().searchByAssignID(mySubmission.getAssign_id());
 

@@ -306,15 +306,6 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 	}
 
 	@Override
-	protected void createCourseItem(Course course, HomePage homePage)
-	{
-		CourseItemStudent courseItem = new CourseItemStudent(course);
-		courseItem.getViewButton()
-				.addActionListener(new ViewCoursePageListener(course));
-		homePage.addToBoxList(courseItem);
-	}
-
-	@Override
 	protected void createHomePage()
 	{
 		HomePage homePage = (HomePage) this.searchPage(HOME_PAGE);

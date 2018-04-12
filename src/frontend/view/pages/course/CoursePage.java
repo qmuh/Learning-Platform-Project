@@ -41,7 +41,6 @@ public class CoursePage<T extends Box, U> extends Page<T, U>
 	{
 		this.courseNavigationBar = courseNavigationBar;
 		body.add(courseNavigationBar, BorderLayout.EAST);
-		System.out.println("STUFF");
 	}
 
 	protected void setPageTitle(String s)

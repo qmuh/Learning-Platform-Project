@@ -355,9 +355,6 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 								new ViewCoursePageListener(course));
 
 						createNewCourse(course, homePage);
-
-						System.out.println("Course name is: "
-								+ coursesList.get(i).getName());
 					}
 				}
 
@@ -431,21 +428,6 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		submissionPage.setRefreshBehaviour(function);
 
 		completeCoursePage(submissionPage, course);
-	}
-
-	/**
-	 * @param course
-	 * @param homePage
-	 */
-	@Override
-	protected void createCourseItem(Course course, HomePage homePage)
-	{
-		CourseItemProfessor courseItem = new CourseItemProfessor(course);
-		courseItem.getActiveButton().addActionListener(
-				new CourseActiveButtonListener(client, course));
-		courseItem.getViewButton()
-				.addActionListener(new ViewCoursePageListener(course));
-		homePage.addToBoxList(courseItem);
 	}
 
 	@SuppressWarnings("unchecked")

@@ -112,7 +112,6 @@ public abstract class PageNavigator extends JPanel
 
 	protected void createNewCourse(Course course, HomePage homePage)
 	{
-		createCourseItem(course, homePage);
 		createCoursePage(course);
 		createAssignmentPage(course);
 		createSubmissionPage(course);
@@ -131,8 +130,6 @@ public abstract class PageNavigator extends JPanel
 	abstract protected void createDiscussionPage(Course course);
 
 	abstract protected void createHomePage();
-
-	abstract protected void createCourseItem(Course course, HomePage homePage);
 
 	private class BackButtonListener implements ActionListener
 	{

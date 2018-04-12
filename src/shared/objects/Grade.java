@@ -47,7 +47,6 @@ public class Grade implements Serializable
 		courseID = course;
 	}
 
-	
 	public int getId()
 	{
 		return id;

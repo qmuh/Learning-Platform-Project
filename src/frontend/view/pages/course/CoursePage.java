@@ -42,6 +42,7 @@ public class CoursePage<T extends Box, U> extends Page<T, U>
 		body.add(courseNavigationBar, BorderLayout.EAST);
 		System.out.println("STUFF");
 	}
+
 	protected void setPageTitle(String s)
 	{
 		bodyCenter = new JPanel(new BorderLayout());

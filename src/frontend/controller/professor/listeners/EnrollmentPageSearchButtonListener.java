@@ -16,8 +16,7 @@ import shared.objects.Student;
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
- * @since April 6, 2018
- * Used for searching for the enrollment page
+ * @since April 6, 2018 Used for searching for the enrollment page
  */
 public class EnrollmentPageSearchButtonListener
 		implements ActionListener, ProfessorCommands
@@ -32,9 +31,13 @@ public class EnrollmentPageSearchButtonListener
 	 */
 	private EnrollmentPage enrollmentPage;
 
-	/** The enrollment page listener constructor
-	 * @param enrollmentPage The page to add
-	 * @param client The client connection
+	/**
+	 * The enrollment page listener constructor
+	 * 
+	 * @param enrollmentPage
+	 *            The page to add
+	 * @param client
+	 *            The client connection
 	 */
 	public EnrollmentPageSearchButtonListener(EnrollmentPage enrollmentPage,
 			Client client)
@@ -60,7 +63,7 @@ public class EnrollmentPageSearchButtonListener
 				Student myResult = (Student) client.sendMessage(sendMessage);
 
 				searchResult.add(myResult);
-				
+
 			} else if (enrollmentPage.isSearchByLastName())
 			{
 				SendMessage<String> sendMessage = new SendMessage<String>(
@@ -68,7 +71,7 @@ public class EnrollmentPageSearchButtonListener
 
 				searchResult = (Vector<Student>) client
 						.sendMessage(sendMessage);
-				
+
 			}
 
 			enrollmentPage.setStudentList(searchResult);

@@ -1,15 +1,9 @@
 package frontend.view.pages.compose;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.Vector;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -22,21 +16,21 @@ import shared.objects.Student;
 
 public class ComposeEmailPageProfessor extends ComposeEmailPage
 {
-	
+
 	private static final long serialVersionUID = 1L;
 	private WButton sendToAllButton, addToEmailButton;
 	private JList<Student> studentList;
-	
+
 	public ComposeEmailPageProfessor(Course course)
 	{
 		super(course);
 		sendToAllButton = new WButton("Add All Enrolled Students");
-		
+
 		createButtonPanel();
 		bodyCenter.add(createEnrolledStudentPanel(), BorderLayout.WEST);
 
 	}
-	
+
 	private JPanel createEnrolledStudentPanel()
 	{
 		JPanel enrolledStudentPanel = new JPanel(new BorderLayout());
@@ -44,14 +38,14 @@ public class ComposeEmailPageProfessor extends ComposeEmailPage
 		enrolledStudentPanel.add(createStudentList(), BorderLayout.CENTER);
 		return enrolledStudentPanel;
 	}
-	
+
 	private JPanel createStudentListHeader()
 	{
 		JPanel studentHeader = new JPanel();
 		studentHeader.add(new WLabel("Enrolled Students:", SUB_TITLE_FONT));
 		return studentHeader;
 	}
-	
+
 	private JPanel createStudentList()
 	{
 		JPanel studentListPanel = new JPanel(new BorderLayout());
@@ -80,28 +74,28 @@ public class ComposeEmailPageProfessor extends ComposeEmailPage
 		sendButtonPanel.add(sendToAllButton, BorderLayout.WEST);
 		return sendButtonPanel;
 	}
-	
+
 	public WButton getSendToAllButton()
 	{
 		return sendToAllButton;
 	}
-	
+
 	public WButton getAddToEmailButton()
 	{
 		return addToEmailButton;
 	}
-	
+
 	public JList<Student> getStudentList()
 	{
 		return studentList;
 	}
-	
+
 	public String getSelected()
 	{
 		Student selected = getStudentList().getSelectedValue();
 		return selected.getEmail();
 	}
-	
+
 	public void setStudentList(Vector<Student> enrollList)
 	{
 		studentList.clearSelection();

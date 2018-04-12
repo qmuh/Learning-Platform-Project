@@ -10,27 +10,30 @@ import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import frontend.controller.listeners.*;
-import frontend.controller.professor.listeners.*;
-import frontend.view.pages.assignment.AssignmentPage;
+import frontend.controller.listeners.AssignmentLabelMouseListener;
+import frontend.controller.listeners.BrowseButtonListener;
+import frontend.controller.listeners.SubmissionLabelMouseListener;
+import frontend.controller.listeners.UploadAssignmentButtonListener;
+import frontend.controller.professor.listeners.AddToEmailButtonListener;
+import frontend.controller.professor.listeners.AssignmentActiveButtonListener;
+import frontend.controller.professor.listeners.CourseActiveButtonListener;
+import frontend.controller.professor.listeners.EnrollmentButtonListener;
+import frontend.controller.professor.listeners.GradeSubmissionButtonListener;
+import frontend.controller.professor.listeners.NewCourseButtonListener;
+import frontend.controller.professor.listeners.ProfessorSendButtonListener;
+import frontend.controller.professor.listeners.SendToAllButtonListener;
 import frontend.view.pages.assignment.AssignmentPageProfessor;
 import frontend.view.pages.components.CourseNavigationBarProfessor;
-import frontend.view.pages.components.CourseNavigationBarStudent;
 import frontend.view.pages.components.PageNavigator;
-import frontend.view.pages.components.PageNavigator.ViewCoursePageListener;
 import frontend.view.pages.components.customSwing.WButton;
-import frontend.view.pages.compose.ComposeEmailPage;
 import frontend.view.pages.compose.ComposeEmailPageProfessor;
 import frontend.view.pages.course.CoursePage;
 import frontend.view.pages.discussion.DiscussionPage;
 import frontend.view.pages.enrollment.EnrollmentPage;
 import frontend.view.pages.home.HomePage;
-import frontend.view.pages.items.assignment.AssignItem;
 import frontend.view.pages.items.assignment.AssignItemProfessor;
-import frontend.view.pages.items.course.CourseItem;
 import frontend.view.pages.items.course.CourseItemProfessor;
 import frontend.view.pages.items.submission.SubmitItem;
-import frontend.view.pages.submission.SubmissionPage;
 import frontend.view.pages.submission.SubmissionPageProfessor;
 import shared.interfaces.ProfessorCommands;
 import shared.objects.Assignment;
@@ -132,7 +135,8 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	@Override
 	protected void createSubmissionPage(Course course)
 	{
-		SubmissionPageProfessor submissionPage = new SubmissionPageProfessor(course);
+		SubmissionPageProfessor submissionPage = new SubmissionPageProfessor(
+				course);
 
 		SendMessage<Course> requestAssignments = new SendMessage<Course>(course,
 				CMD_RECEIVE + RECEIVE_ALL_ASSIGNMENTS);
@@ -200,10 +204,11 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 				course);
 
 		assignmentPage.setUploadButtonListener(
-				new UploadAssignmentButtonListener(client, course, assignmentPage));
+				new UploadAssignmentButtonListener(client, course,
+						assignmentPage));
 		assignmentPage.setBrowseButtonListener(
 				new BrowseButtonListener(assignmentPage));
-		
+
 		showAllAssignments(course, assignmentPage);
 		completeCoursePage(assignmentPage, course);
 	}
@@ -212,14 +217,15 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	@Override
 	protected void createComposeEmailPage(Course course)
 	{
-		ComposeEmailPageProfessor composeEmailPage = new ComposeEmailPageProfessor(course);
+		ComposeEmailPageProfessor composeEmailPage = new ComposeEmailPageProfessor(
+				course);
 		// composeEmailPage
 		// .setMyEmailButtonListener(new MyEmailsButtonListener(course));
 
 		composeEmailPage.getSendToAllButton().addActionListener(
 				new SendToAllButtonListener(client, course, composeEmailPage));
-		composeEmailPage.setSendButtonListener(
-				new ProfessorSendButtonListener(client, course, composeEmailPage));
+		composeEmailPage.setSendButtonListener(new ProfessorSendButtonListener(
+				client, course, composeEmailPage));
 		composeEmailPage.getAddToEmailButton().addActionListener(
 				new AddToEmailButtonListener(client, course, composeEmailPage));
 
@@ -256,7 +262,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 					course, CMD_RECEIVE + RECEIVE_ALL_ASSIGNMENTS);
 			Vector<Assignment> myList = (Vector<Assignment>) client
 					.sendMessage(requestAssignments);
-			
+
 			for (Assignment assignment : myList)
 			{
 				AssignItemProfessor assignItem = new AssignItemProfessor(
@@ -264,8 +270,9 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 
 				assignItem.getActiveButton().addActionListener(
 						new AssignmentActiveButtonListener(client, assignment));
-				
-				assignItem.getAssignmentLabel().addMouseListener(new AssignmentLabelMouseListener(assignment, client));
+
+				assignItem.getAssignmentLabel().addMouseListener(
+						new AssignmentLabelMouseListener(assignment, client));
 				assignmentPage.addToBoxList(assignItem);
 			}
 

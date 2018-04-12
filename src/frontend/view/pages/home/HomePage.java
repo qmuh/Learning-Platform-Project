@@ -41,7 +41,7 @@ public class HomePage extends Page<CourseItem, Course>
 	{
 		((HomePageCoursesTable) body).setNewCourseListener(listener);
 	}
-	
+
 	public void enableActiveLabel()
 	{
 		homePageCoursesTable.enableActiveLabel();

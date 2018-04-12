@@ -8,7 +8,7 @@ import java.util.Vector;
 import shared.objects.StudentEnrollment;
 
 /**
- * Provides a class 
+ * Provides a class
  *
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)

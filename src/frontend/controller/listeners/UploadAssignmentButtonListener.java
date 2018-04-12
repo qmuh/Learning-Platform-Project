@@ -3,13 +3,11 @@ package frontend.controller.listeners;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
 import frontend.controller.Client;
 import frontend.controller.professor.listeners.AssignmentActiveButtonListener;
-import frontend.view.pages.assignment.AssignmentPage;
 import frontend.view.pages.assignment.AssignmentPageProfessor;
 import frontend.view.pages.items.assignment.AssignItemProfessor;
 import shared.interfaces.ProfessorCommands;
@@ -24,7 +22,8 @@ import shared.objects.SendMessage;
  * @version 1.0
  * @since April 6, 2018
  */
-public class UploadAssignmentButtonListener implements ActionListener, ProfessorCommands
+public class UploadAssignmentButtonListener
+		implements ActionListener, ProfessorCommands
 {
 	/**
 	 * The client
@@ -41,10 +40,15 @@ public class UploadAssignmentButtonListener implements ActionListener, Professor
 	 */
 	private AssignmentPageProfessor assignmentPage;
 
-	/** The upload button listener, uploads an assignment to the server
-	 * @param client The client
-	 * @param course The course
-	 * @param assignPage The Assignment page
+	/**
+	 * The upload button listener, uploads an assignment to the server
+	 * 
+	 * @param client
+	 *            The client
+	 * @param course
+	 *            The course
+	 * @param assignPage
+	 *            The Assignment page
 	 */
 	public UploadAssignmentButtonListener(Client client, Course course,
 			AssignmentPageProfessor assignPage)
@@ -59,10 +63,10 @@ public class UploadAssignmentButtonListener implements ActionListener, Professor
 	{
 		// https://stackoverflow.com/questions/28629990/split-string-by
 		// by Avinash Raj
-		
+
 		String fileName = assignmentPage.getFile().getAbsolutePath();
 		fileName.replaceAll("\\\\", "/");
-		
+
 		System.out.println(fileName);
 		String append[] = assignmentPage.getFile().getPath().split("/");
 		System.out.println("TITLE.JPG: " + append[append.length - 1]);

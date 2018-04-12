@@ -8,8 +8,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import shared.objects.Submission;
 import shared.objects.Assignment;
+import shared.objects.Submission;
 
 /**
  * 
@@ -22,9 +22,13 @@ import shared.objects.Assignment;
 public class FileHelper
 {
 
-	/** Stores file into a directory
-	 * @param file The byte[] data from the file
-	 * @param data The assignment that is being stored
+	/**
+	 * Stores file into a directory
+	 * 
+	 * @param file
+	 *            The byte[] data from the file
+	 * @param data
+	 *            The assignment that is being stored
 	 */
 	public void storeFile(byte[] file, Assignment data)
 	{
@@ -45,9 +49,13 @@ public class FileHelper
 
 	}
 
-	/** Stores files into a directory
-	 * @param file The byte[] data form the file
-	 * @param submission The assignment that is being stored
+	/**
+	 * Stores files into a directory
+	 * 
+	 * @param file
+	 *            The byte[] data form the file
+	 * @param submission
+	 *            The assignment that is being stored
 	 */
 	public void storeFile(byte[] file, Submission submission)
 	{
@@ -64,37 +72,42 @@ public class FileHelper
 		{
 			e.printStackTrace();
 		}
-		
+
 	}
 
-	/** For sending a file to the client
-	 * @param path The path to bring the file back from
+	/**
+	 * For sending a file to the client
+	 * 
+	 * @param path
+	 *            The path to bring the file back from
 	 * @return The byte data for the file
 	 */
 	public byte[] receiveFile(String path)
 	{
 		File selectedFile = new File(path);
-		
+
 		long length = selectedFile.length();
 		byte[] content = new byte[(int) length];
-		try {
+		try
+		{
 			FileInputStream fis = new FileInputStream(selectedFile);
 			BufferedInputStream bos = new BufferedInputStream(fis);
-			bos.read(content, 0, (int)length);
-			} catch (FileNotFoundException e) {
+			bos.read(content, 0, (int) length);
+		} catch (FileNotFoundException e)
+		{
 			e.printStackTrace();
-			} catch(IOException e){
+		} catch (IOException e)
+		{
 			e.printStackTrace();
-		
-			}
+
+		}
 		return content;
-		
+
 	}
 
-	
 	public void checkDir(String directory)
 	{
 		new File(directory).mkdirs();
-		
+
 	}
 }

@@ -17,8 +17,11 @@ import shared.objects.Submission;
 public class SubmissionTable extends Table<Submission>
 {
 
-	/** Constructor for the submission table
-	 * @param connectionToDB Connection with SQL server
+	/**
+	 * Constructor for the submission table
+	 * 
+	 * @param connectionToDB
+	 *            Connection with SQL server
 	 * @param tableName
 	 */
 	public SubmissionTable(Connection connectionToDB, String tableName)
@@ -152,8 +155,11 @@ public class SubmissionTable extends Table<Submission>
 
 	}
 
-	/** Searches the table by course ID''s
-	 * @param courseID The course ID to search for
+	/**
+	 * Searches the table by course ID''s
+	 * 
+	 * @param courseID
+	 *            The course ID to search for
 	 * @return The vector containing all the submissions for a course ID
 	 */
 	public Vector<Submission> searchByCourse(int courseID)
@@ -187,10 +193,12 @@ public class SubmissionTable extends Table<Submission>
 		return assignSubmissons;
 	}
 
-	public Vector<Submission> searchByCourseAndStudentID(int courseID, int studentID)
+	public Vector<Submission> searchByCourseAndStudentID(int courseID,
+			int studentID)
 	{
 		Vector<Submission> assignSubmissons = new Vector<Submission>();
-		String sql = "SELECT * FROM " + tableName + " WHERE COURSEID= ? AND STUDENTID= ? ";
+		String sql = "SELECT * FROM " + tableName
+				+ " WHERE COURSEID= ? AND STUDENTID= ? ";
 		ResultSet submission;
 		try
 		{

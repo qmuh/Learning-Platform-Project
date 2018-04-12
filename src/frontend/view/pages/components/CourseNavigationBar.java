@@ -1,8 +1,5 @@
 package frontend.view.pages.components;
 
-import java.awt.GridLayout;
-import java.awt.event.ActionListener;
-
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
@@ -17,8 +14,8 @@ public abstract class CourseNavigationBar extends JPanel
 {
 	private static final long serialVersionUID = 1L;
 
-	protected WButton assignmentButton, submissionButton,
-			discussionButton, composeEmailButton;
+	protected WButton assignmentButton, submissionButton, discussionButton,
+			composeEmailButton;
 
 	public CourseNavigationBar()
 	{

@@ -20,9 +20,13 @@ import shared.objects.User;
 public class UserTable extends Table<User> implements UserInfo
 {
 
-	/** Initializes the table using the super
-	 * @param connectionToDB The connection to connect with
-	 * @param tableName The name of the table
+	/**
+	 * Initializes the table using the super
+	 * 
+	 * @param connectionToDB
+	 *            The connection to connect with
+	 * @param tableName
+	 *            The name of the table
 	 */
 	public UserTable(Connection connectionToDB, String tableName)
 	{
@@ -117,8 +121,11 @@ public class UserTable extends Table<User> implements UserInfo
 		return null;
 	}
 
-	/** Searches for a user given their ID and then returns said user
-	 * @param userID The user which is being searched for
+	/**
+	 * Searches for a user given their ID and then returns said user
+	 * 
+	 * @param userID
+	 *            The user which is being searched for
 	 * @return The User object, contains null if none are found
 	 */
 	public User getUserByID(int userID)
@@ -135,17 +142,20 @@ public class UserTable extends Table<User> implements UserInfo
 			user = preparedStatement.executeQuery();
 			if (user.next())
 			{
-				if(user.getString("TYPE").equals("S"))
+				if (user.getString("TYPE").equals("S"))
 				{
-				return new Student(user.getInt("ID"),
-						user.getString("FIRSTNAME"), user.getString("LASTNAME"),
-						user.getString("EMAIL"), user.getString("PASSWORD"));
+					return new Student(user.getInt("ID"),
+							user.getString("FIRSTNAME"),
+							user.getString("LASTNAME"), user.getString("EMAIL"),
+							user.getString("PASSWORD"));
 				}
-			
-				else {
+
+				else
+				{
 					return new Professor(user.getInt("ID"),
-							user.getString("FIRSTNAME"), user.getString("LASTNAME"),
-							user.getString("EMAIL"), user.getString("PASSWORD"));
+							user.getString("FIRSTNAME"),
+							user.getString("LASTNAME"), user.getString("EMAIL"),
+							user.getString("PASSWORD"));
 				}
 			}
 
@@ -157,9 +167,12 @@ public class UserTable extends Table<User> implements UserInfo
 		return null;
 	}
 
-	/** Searches for users given their last name for the query key
-	 * @param string The last name that off being searched for 
-	 * @return Vector of student object 
+	/**
+	 * Searches for users given their last name for the query key
+	 * 
+	 * @param string
+	 *            The last name that off being searched for
+	 * @return Vector of student object
 	 */
 	public Vector<Student> searchLastName(String string)
 	{

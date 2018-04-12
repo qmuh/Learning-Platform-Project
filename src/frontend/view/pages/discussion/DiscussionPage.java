@@ -1,24 +1,14 @@
 package frontend.view.pages.discussion;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.GridLayout;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JList;
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
-import com.sun.prism.Image;
 
 import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.course.CoursePage;
@@ -56,7 +46,8 @@ public class DiscussionPage extends CoursePage<CourseItem, Course>
 		sendArea.setBorder(new JTextField().getBorder());
 		try
 		{
-			sendButton = new WButton(ImageIO.read(new File(DIR_GRAPHICS + "send.png")));
+			sendButton = new WButton(
+					ImageIO.read(new File(DIR_GRAPHICS + "send.png")));
 		} catch (IOException e)
 		{
 			e.printStackTrace();

@@ -6,9 +6,9 @@ import shared.objects.Student;
 public class AssignSubItemStudent extends AssignSubItem
 {
 	private static final long serialVersionUID = 1L;
-	
+
 	private StudentSubItem studentSubItem;
-	
+
 	public AssignSubItemStudent(Assignment assignment, Student student)
 	{
 		super(assignment);

@@ -28,8 +28,7 @@ import shared.objects.LoginInfo;
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.1
- * @since April 6, 2018
- * The login panel holds the JPanel for the login
+ * @since April 6, 2018 The login panel holds the JPanel for the login
  */
 public class LoginPanel extends JPanel
 		implements ColourPalette, GUIConstants, WondrisInfo
@@ -96,7 +95,9 @@ public class LoginPanel extends JPanel
 		this.add(createLoginArea());
 	}
 
-	/** Returns the login button
+	/**
+	 * Returns the login button
+	 * 
 	 * @return The login button
 	 */
 	public WButton getLoginButton()
@@ -104,7 +105,9 @@ public class LoginPanel extends JPanel
 		return loginButton;
 	}
 
-	/** Returns the login info
+	/**
+	 * Returns the login info
+	 * 
 	 * @return The login info entered
 	 */
 	public LoginInfo getLoginInfo()
@@ -124,15 +127,20 @@ public class LoginPanel extends JPanel
 		return loginInfo;
 	}
 
-	/** Sets up the listener for logging in
-	 * @param listener The listener associated with the WButton to be set
+	/**
+	 * Sets up the listener for logging in
+	 * 
+	 * @param listener
+	 *            The listener associated with the WButton to be set
 	 */
 	public void setLoginListener(ActionListener listener)
 	{
 		loginButton.addActionListener(listener);
 	}
 
-	/** Creates the login area 
+	/**
+	 * Creates the login area
+	 * 
 	 * @return The JPanel login area
 	 */
 	private JPanel createLoginArea()
@@ -144,8 +152,11 @@ public class LoginPanel extends JPanel
 		return thePanel;
 	}
 
-	/** Creates the title half for the login panel
-	 * @param name The name of the Title half
+	/**
+	 * Creates the title half for the login panel
+	 * 
+	 * @param name
+	 *            The name of the Title half
 	 * @return The panel portion for the title half
 	 */
 	private JPanel createTitleHalf(String name)
@@ -162,7 +173,9 @@ public class LoginPanel extends JPanel
 		return titlePanel;
 	}
 
-	/** Creates the login half
+	/**
+	 * Creates the login half
+	 * 
 	 * @return The panel with the login half
 	 */
 	private JPanel createLoginHalf()
@@ -189,7 +202,9 @@ public class LoginPanel extends JPanel
 		return thePanel;
 	}
 
-	/** Creates the button panel for the login panel
+	/**
+	 * Creates the button panel for the login panel
+	 * 
 	 * @return The panel for the buttons
 	 */
 	private JPanel createButtonPanel()
@@ -201,7 +216,9 @@ public class LoginPanel extends JPanel
 		return buttonPanel;
 	}
 
-	/** Creates the empty panel
+	/**
+	 * Creates the empty panel
+	 * 
 	 * @return The created empty panel
 	 */
 	private JPanel createEmptyPanel()
@@ -211,9 +228,13 @@ public class LoginPanel extends JPanel
 		return panel;
 	}
 
-	/** Creates the panel with the text field
-	 * @param s The string for the label
-	 * @param field Adds the JTextField
+	/**
+	 * Creates the panel with the text field
+	 * 
+	 * @param s
+	 *            The string for the label
+	 * @param field
+	 *            Adds the JTextField
 	 * @return The panel for the text field
 	 */
 	private JPanel createTextField(String s, JTextField field)
@@ -228,8 +249,11 @@ public class LoginPanel extends JPanel
 		return textFieldPanel;
 	}
 
-	/** Used for testing
-	 * @param args not used
+	/**
+	 * Used for testing
+	 * 
+	 * @param args
+	 *            not used
 	 */
 	public static void main(String[] args)
 	{

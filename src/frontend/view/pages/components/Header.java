@@ -3,7 +3,6 @@ package frontend.view.pages.components;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -59,12 +58,12 @@ public class Header extends JPanel
 	{
 		return navigationBar.getHomeButton();
 	}
-	
+
 	public WButton getBackButton()
 	{
 		return navigationBar.getBackButton();
 	}
-	
+
 	public WButton getGearButton()
 	{
 		return navigationBar.getGearButton();

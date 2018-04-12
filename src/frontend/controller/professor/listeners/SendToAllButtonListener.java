@@ -17,8 +17,7 @@ import shared.objects.Student;
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
- * @since April 6, 2018
- * Used to select all student for sending the email
+ * @since April 6, 2018 Used to select all student for sending the email
  */
 public class SendToAllButtonListener
 		implements ActionListener, ProfessorCommands
@@ -27,21 +26,26 @@ public class SendToAllButtonListener
 	 * client to connect
 	 */
 	private Client client;
-	
+
 	/**
 	 * The course itself
 	 */
 	private Course course;
-	
+
 	/**
 	 * The ComposeEmailPage where the button is located
 	 */
 	private ComposeEmailPage composePage;
 
-	/** Constructor for this listener class
-	 * @param client The client which is used for communication
-	 * @param course The specific course
-	 * @param composeEmailPage The page which contains information needed
+	/**
+	 * Constructor for this listener class
+	 * 
+	 * @param client
+	 *            The client which is used for communication
+	 * @param course
+	 *            The specific course
+	 * @param composeEmailPage
+	 *            The page which contains information needed
 	 */
 	public SendToAllButtonListener(Client client, Course course,
 			ComposeEmailPage composeEmailPage)

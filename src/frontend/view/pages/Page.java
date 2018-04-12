@@ -2,7 +2,6 @@ package frontend.view.pages;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -72,17 +71,17 @@ public abstract class Page<T extends Box, U> extends JPanel
 	{
 		return header.getHomeButton();
 	}
-	
+
 	public WButton getBackButton()
 	{
 		return header.getBackButton();
 	}
-	
+
 	public WButton getGearButton()
 	{
 		return header.getGearButton();
 	}
-	
+
 	public void setBackButtonEnabled(boolean b)
 	{
 		header.getBackButton().setEnabled(b);

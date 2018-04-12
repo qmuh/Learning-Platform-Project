@@ -3,7 +3,6 @@ package frontend.view.pages.items.assignment;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
-import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 import frontend.view.pages.components.customSwing.WButton;
@@ -30,7 +29,7 @@ public class AssignItemStudent extends AssignItem
 	{
 		return submit;
 	}
-	
+
 	@Override
 	protected JPanel createTheAssignment()
 	{
@@ -45,7 +44,6 @@ public class AssignItemStudent extends AssignItem
 		JPanel uploadPanel = new JPanel(new GridLayout(2, 1));
 		uploadPanel.add(upload, 0);
 		uploadPanel.add(submit, 1);
-		
 
 		theAssignment.add(assignmentName, BorderLayout.WEST);
 		theAssignment.add(dueDate, BorderLayout.CENTER);

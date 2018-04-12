@@ -22,11 +22,13 @@ public class BrowseButtonListener implements ActionListener
 	 */
 	private AssignmentPageProfessor assignPage;
 
-	/** The listener for this, is it used to browse files in a computer
-	 * @param assignPage The page where the button is located
+	/**
+	 * The listener for this, is it used to browse files in a computer
+	 * 
+	 * @param assignPage
+	 *            The page where the button is located
 	 */
-	 public BrowseButtonListener(
- 			AssignmentPageProfessor assignPage)
+	public BrowseButtonListener(AssignmentPageProfessor assignPage)
 	{
 		this.assignPage = assignPage;
 	}

@@ -1,7 +1,5 @@
 package frontend.view.pages.submission;
 
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.Vector;
 
 import frontend.view.pages.items.submission.AssignSubItemProfessor;
@@ -12,9 +10,7 @@ import shared.objects.Student;
 final public class SubmissionPageProfessor extends SubmissionPage
 {
 
-
 	private static final long serialVersionUID = 1L;
-
 
 	public SubmissionPageProfessor(Course course)
 	{
@@ -29,13 +25,13 @@ final public class SubmissionPageProfessor extends SubmissionPage
 		this.itemDisplay.add(assignmentSubItemProfessor);
 	}
 
-//	@Override
-//	public void addSubmission(SubmitItem submitItem)
-//	{
-//		Submission submission = submitItem.getSubmission();
-//		AssignSubItemProfessor assignSubItemProfessor = this.assignmentMap
-//				.get(submission.getAssign_id());
-//
-//		assignSubItemProfessor.addSubmission(submitItem);
-//	}
+	// @Override
+	// public void addSubmission(SubmitItem submitItem)
+	// {
+	// Submission submission = submitItem.getSubmission();
+	// AssignSubItemProfessor assignSubItemProfessor = this.assignmentMap
+	// .get(submission.getAssign_id());
+	//
+	// assignSubItemProfessor.addSubmission(submitItem);
+	// }
 }

@@ -2,16 +2,11 @@ package frontend.view.pages.components;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-
 
 import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisDirectories;
@@ -25,7 +20,8 @@ import frontend.view.pages.components.customSwing.WButton;
  * @version 1.0
  * @since April 6, 2018
  */
-public class NavigationBar extends JPanel implements WondrisInfo, ColourPalette, WondrisDirectories
+public class NavigationBar extends JPanel
+		implements WondrisInfo, ColourPalette, WondrisDirectories
 {
 	/**
 	 * 
@@ -40,9 +36,12 @@ public class NavigationBar extends JPanel implements WondrisInfo, ColourPalette,
 	{
 		try
 		{
-			homeButton = new WButton(ImageIO.read(new File(DIR_GRAPHICS + "home.png")));
-			backButton = new WButton(ImageIO.read(new File(DIR_GRAPHICS + "back.png")));
-			gearButton = new WButton(ImageIO.read(new File(DIR_GRAPHICS + "gear.png")));
+			homeButton = new WButton(
+					ImageIO.read(new File(DIR_GRAPHICS + "home.png")));
+			backButton = new WButton(
+					ImageIO.read(new File(DIR_GRAPHICS + "back.png")));
+			gearButton = new WButton(
+					ImageIO.read(new File(DIR_GRAPHICS + "gear.png")));
 		} catch (IOException e)
 		{
 			e.printStackTrace();

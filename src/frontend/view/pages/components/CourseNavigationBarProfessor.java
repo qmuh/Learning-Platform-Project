@@ -26,7 +26,7 @@ public class CourseNavigationBarProfessor extends CourseNavigationBar
 	{
 		super.createListeners(course, pageNavigator);
 		enrollmentButton.addActionListener(
-				new CoursePageNavigationButtonListener(course,
-						ENROLLMENT_PAGE, pageNavigator));
+				new CoursePageNavigationButtonListener(course, ENROLLMENT_PAGE,
+						pageNavigator));
 	}
 }

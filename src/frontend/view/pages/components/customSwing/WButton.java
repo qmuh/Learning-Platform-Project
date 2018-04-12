@@ -1,12 +1,10 @@
 package frontend.view.pages.components.customSwing;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+
 import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
 

@@ -6,7 +6,6 @@ import java.io.IOException;
 
 import frontend.controller.Client;
 import frontend.interfaces.ColourPalette;
-import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.components.customSwing.WButtonActivatable;
 import shared.interfaces.ProfessorCommands;
 import shared.objects.Assignment;
@@ -17,8 +16,7 @@ import shared.objects.SendMessage;
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
- * @since April 6, 2018
- *  Used to activate/deactivate an assignment
+ * @since April 6, 2018 Used to activate/deactivate an assignment
  */
 public class AssignmentActiveButtonListener
 		implements ActionListener, ProfessorCommands, ColourPalette
@@ -27,15 +25,19 @@ public class AssignmentActiveButtonListener
 	 * The client where the associated client it
 	 */
 	private Client client;
-	
+
 	/**
 	 * The assignment where this button would be
 	 */
 	private Assignment assignment;
 
-	/** Constructor for the inner class
-	 * @param client The client 
-	 * @param course The specific course
+	/**
+	 * Constructor for the inner class
+	 * 
+	 * @param client
+	 *            The client
+	 * @param course
+	 *            The specific course
 	 */
 	public AssignmentActiveButtonListener(Client client, Assignment course)
 	{
@@ -48,7 +50,8 @@ public class AssignmentActiveButtonListener
 	{
 		try
 		{
-			WButtonActivatable activeButton = (WButtonActivatable) e.getSource();
+			WButtonActivatable activeButton = (WButtonActivatable) e
+					.getSource();
 			if (assignment.getActive())
 			{
 				client.onlySendMessage(new SendMessage<Assignment>(assignment,

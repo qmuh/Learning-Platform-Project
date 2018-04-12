@@ -45,8 +45,8 @@ public class Submission implements Serializable
 	 */
 	private String timestamp;
 
-	public Submission( int assignID, int stuID, String filePath,
-			int subGrade, String subComment, String subTitle, String time)
+	public Submission(int assignID, int stuID, String filePath, int subGrade,
+			String subComment, String subTitle, String time)
 	{
 		Random random = new Random();
 		id = random.nextInt(6000) + 4000;
@@ -58,11 +58,11 @@ public class Submission implements Serializable
 		title = subTitle;
 		timestamp = time;
 	}
-	
-	public Submission( int subId, int assignID, int stuID, String filePath,
+
+	public Submission(int subId, int assignID, int stuID, String filePath,
 			int subGrade, String subComment, String subTitle, String time)
 	{
-		
+
 		id = subId;
 		assign_id = assignID;
 		student_id = stuID;
@@ -116,7 +116,7 @@ public class Submission implements Serializable
 	public void setPath(String string)
 	{
 		path = string;
-		
+
 	}
 
 }

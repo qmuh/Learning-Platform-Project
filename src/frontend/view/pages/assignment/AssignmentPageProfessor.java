@@ -31,9 +31,9 @@ public class AssignmentPageProfessor extends AssignmentPage
 	private WButton uploadButton, browseButton;
 
 	private JTextField uploadField, month, day, year;
-	
+
 	private File selectedFile;
-	
+
 	public AssignmentPageProfessor(Course course)
 	{
 		super(course);
@@ -42,7 +42,7 @@ public class AssignmentPageProfessor extends AssignmentPage
 	public File getFile()
 	{
 		return selectedFile;
-	
+
 	}
 
 	public void setFile(File toSet)
@@ -89,6 +89,7 @@ public class AssignmentPageProfessor extends AssignmentPage
 		upload.add(browse, BorderLayout.CENTER);
 		return upload;
 	}
+
 	private JPanel createDatePanel()
 	{
 		JPanel datePanel = new JPanel(new GridLayout(3, 1));
@@ -106,7 +107,7 @@ public class AssignmentPageProfessor extends AssignmentPage
 		datePanel.add(uploadContainer, 2);
 		return datePanel;
 	}
-	
+
 	private JPanel createTheDate()
 	{
 		JPanel date = new JPanel();
@@ -148,7 +149,7 @@ public class AssignmentPageProfessor extends AssignmentPage
 		theHeader.add(createLabel("Due Date", SUB_TITLE_FONT));
 		return theHeader;
 	}
-	
+
 	private JPanel createUploadPanel()
 	{
 		JPanel uploadPanel = new JPanel(new GridLayout(1, 2));

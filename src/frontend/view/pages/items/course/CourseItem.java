@@ -1,9 +1,6 @@
 package frontend.view.pages.items.course;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -64,7 +61,7 @@ abstract public class CourseItem extends GeneralItem
 		theButton.add(viewButton);
 		return theButton;
 	}
-	
+
 	public WButton getViewButton()
 	{
 		return viewButton;

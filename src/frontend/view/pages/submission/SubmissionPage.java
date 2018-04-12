@@ -2,18 +2,12 @@ package frontend.view.pages.submission;
 
 import java.awt.BorderLayout;
 import java.util.HashMap;
-import java.util.Vector;
 
-import javax.swing.BoxLayout;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
-import frontend.view.pages.components.BoxList;
 import frontend.view.pages.course.CoursePage;
-import frontend.view.pages.items.GeneralItem;
-import frontend.view.pages.items.course.CourseItem;
 import frontend.view.pages.items.submission.AssignSubItem;
 import frontend.view.pages.items.submission.SubmitItem;
 import shared.objects.Assignment;
@@ -74,8 +68,8 @@ abstract public class SubmissionPage
 		// SubmissionPageProfessor submissionPage = new SubmissionPageProfessor(
 		Course engg201 = new Course(1010101, "ENGG 201", true);
 		//
-		 Assignment assignment = new Assignment(3322, 1010101, "ASSIGNMENT ",
-		 "PATH", true, "DATE");
+		Assignment assignment = new Assignment(3322, 1010101, "ASSIGNMENT ",
+				"PATH", true, "DATE");
 		//
 		// Vector<Student> students = new Vector<Student>();
 		//
@@ -87,9 +81,9 @@ abstract public class SubmissionPage
 		//
 		// submissionPage.addAssignment(assignment, students);
 		//
-//		 Submission qasimSubmission = new Submission(3322, 1003, "PATH", 2,
-//		 "COMMENT", "TITLE", "TIME");
-//		 SubmitItem qasimSubmitItem = new SubmitItem(qasimSubmission);
+		// Submission qasimSubmission = new Submission(3322, 1003, "PATH", 2,
+		// "COMMENT", "TITLE", "TIME");
+		// SubmitItem qasimSubmitItem = new SubmitItem(qasimSubmission);
 
 		// submissionPage.addSubmission(qasimSubmitItem);
 
@@ -98,14 +92,12 @@ abstract public class SubmissionPage
 
 		studentPage.addAssignment(assignment);
 
-		 Submission qasimSubmission = new Submission(3322, 1003, "PATH", 2,
-				 "COMMENT", "TITLE", "TIME");
+		Submission qasimSubmission = new Submission(3322, 1003, "PATH", 2,
+				"COMMENT", "TITLE", "TIME");
 
-		 SubmitItem qasimItem = new SubmitItem(qasimSubmission);
+		SubmitItem qasimItem = new SubmitItem(qasimSubmission);
 
-
-
-//		studentPage.addSubmission(qasimItem);
+		// studentPage.addSubmission(qasimItem);
 
 		frame.add(studentPage);
 		frame.setSize(1600, 1000);

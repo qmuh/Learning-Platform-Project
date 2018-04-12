@@ -132,7 +132,8 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 				BorderLayout.NORTH);
 		studentSearchResults = new JList<Student>();
 		studentSearchResults.setFont(TEXT_FONT);
-		studentSearchResults.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		studentSearchResults
+				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		searchResults.add(studentSearchResults, BorderLayout.CENTER);
 		return searchResults;
 	}

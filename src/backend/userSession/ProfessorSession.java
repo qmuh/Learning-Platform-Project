@@ -30,8 +30,11 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 	 */
 	private Professor professor;
 
-	/** Constructor for the ProfessorSession
-	 * @param socket The socket used to connect the server with the client
+	/**
+	 * Constructor for the ProfessorSession
+	 * 
+	 * @param socket
+	 *            The socket used to connect the server with the client
 	 */
 	public ProfessorSession(Socket socket)
 	{
@@ -98,9 +101,13 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 		return true;
 	}
 
-	/** Handles client commands having to do with them modifying data
-	 * @param modify The specific command from an interface
-	 * @param getmessageObject The object that is used to help modify
+	/**
+	 * Handles client commands having to do with them modifying data
+	 * 
+	 * @param modify
+	 *            The specific command from an interface
+	 * @param getmessageObject
+	 *            The object that is used to help modify
 	 */
 	private void handleModify(String modify, Object getmessageObject)
 	{
@@ -133,9 +140,13 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 		}
 	}
 
-	/** Handles client commands having to do with them receiving data
-	 * @param type The specific command from an interface
-	 * @param getmessageObject The object that is used for some commands
+	/**
+	 * Handles client commands having to do with them receiving data
+	 * 
+	 * @param type
+	 *            The specific command from an interface
+	 * @param getmessageObject
+	 *            The object that is used for some commands
 	 */
 	private void handleRecieve(String type, Object getMessage)
 	{
@@ -189,26 +200,25 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 			Boolean isEnrolled = database.getStudentEnrollmentTable()
 					.isStudentEnrolled(studentID, courseID);
 			sendObject(isEnrolled);
-		
-		} else if(type.equals(RECEIVE_STUDENT_SUBMISSION))
+
+		} else if (type.equals(RECEIVE_STUDENT_SUBMISSION))
 		{
-			super.sendBackFile(((Submission)getMessage).getPath());
-		
-		} else if(type.equals(RECEIVE_ASSIGNMENT))
+			super.sendBackFile(((Submission) getMessage).getPath());
+
+		} else if (type.equals(RECEIVE_ASSIGNMENT))
 		{
-			super.sendBackFile(((Assignment)getMessage).getPath());
-		
-		} 
-		
-		
-		else if(type.equals(RECEIVE_ALL_SUBMISSIONS))
-		{
-			Vector<Submission> allSubmission = database.getSubmissionTable().
-					searchByCourse(((Course)getMessage).getId());
-			sendObject(allSubmission);
-			
+			super.sendBackFile(((Assignment) getMessage).getPath());
+
 		}
-		
+
+		else if (type.equals(RECEIVE_ALL_SUBMISSIONS))
+		{
+			Vector<Submission> allSubmission = database.getSubmissionTable()
+					.searchByCourse(((Course) getMessage).getId());
+			sendObject(allSubmission);
+
+		}
+
 		else
 		{
 
@@ -219,9 +229,13 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 		}
 	}
 
-	/** Handles client commands having to do with keeping database updated
-	 * @param interpreter The specific command from an interface
-	 * @param getmessageObject The object that is being inserted
+	/**
+	 * Handles client commands having to do with keeping database updated
+	 * 
+	 * @param interpreter
+	 *            The specific command from an interface
+	 * @param getmessageObject
+	 *            The object that is being inserted
 	 */
 	private void handleInsert(String type, Object getmessageObject)
 	{
@@ -242,14 +256,14 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 		} else if (type.equals(INSERT_ASSIGNMENT))
 		{
 
-			Assignment profAssign = (Assignment)getmessageObject;
-			
+			Assignment profAssign = (Assignment) getmessageObject;
+
 			String fileName = profAssign.getPath();
 			fileName.replaceAll("\\\\", "/");
-			
+
 			String toSplit[] = profAssign.getPath().split("/");
-			profAssign.setPath(DATABASE_STORAGE + profAssign.getTitle() +
-					"/" + (toSplit[toSplit.length - 1]));
+			profAssign.setPath(DATABASE_STORAGE + profAssign.getTitle() + "/"
+					+ (toSplit[toSplit.length - 1]));
 
 			database.getAssignmentTable().add(profAssign);
 			byte[] file;
@@ -263,10 +277,10 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 				e.printStackTrace();
 			}
 
-		} else if(type.equals(INSERT_GRADE))
+		} else if (type.equals(INSERT_GRADE))
 		{
-			database.getGradeTable().add((Grade)getmessageObject);
-		}else
+			database.getGradeTable().add((Grade) getmessageObject);
+		} else
 		{
 			System.err.println("!---------------------------------------!");
 			System.err.println("An unknown type was received. It was: ");

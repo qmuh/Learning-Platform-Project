@@ -12,19 +12,10 @@ import java.util.Vector;
 import javax.swing.JPanel;
 
 import frontend.controller.Client;
-import frontend.controller.professor.listeners.NewCourseButtonListener;
 import frontend.interfaces.ColourPalette;
 import frontend.view.pages.Page;
-import frontend.view.pages.assignment.AssignmentPage;
-import frontend.view.pages.components.PageNavigator.ViewCoursePageListener;
-import frontend.view.pages.components.customSwing.WButton;
-import frontend.view.pages.compose.ComposeEmailPage;
-import frontend.view.pages.course.CoursePage;
-import frontend.view.pages.discussion.DiscussionPage;
 import frontend.view.pages.home.HomePage;
 import frontend.view.pages.interfaces.PageNames;
-import frontend.view.pages.items.course.CourseItem;
-import frontend.view.pages.submission.SubmissionPage;
 import shared.interfaces.UserCommands;
 import shared.objects.Course;
 import shared.objects.SendMessage;
@@ -36,7 +27,8 @@ import shared.objects.SendMessage;
  * @version 1.0
  * @since April 6, 2018
  */
-public abstract class PageNavigator extends JPanel implements PageNames, ColourPalette, UserCommands
+public abstract class PageNavigator extends JPanel
+		implements PageNames, ColourPalette, UserCommands
 {
 	private static final long serialVersionUID = 1L;
 	private CardLayout cardLayout;
@@ -62,7 +54,7 @@ public abstract class PageNavigator extends JPanel implements PageNames, ColourP
 	public void showPage(String pageName)
 	{
 		System.out.println(currentPage.getName());
-		
+
 		// If the page to show is not the current page
 		if (!currentPage.getName().equals(pageName))
 		{
@@ -102,18 +94,18 @@ public abstract class PageNavigator extends JPanel implements PageNames, ColourP
 			String pageName = pageStack.pop().getName();
 			cardLayout.show(this, pageName);
 			currentPage = searchPage(pageName);
-			
+
 			// If the stack is empty after hitting the back button
 			if (pageStack.isEmpty())
 			{
 				currentPage.setBackButtonEnabled(false);
 			}
-		} 
+		}
 	}
 
 	protected void createNewCourse(Course course, HomePage homePage)
 	{
-		createCourseItem(course, homePage); 
+		createCourseItem(course, homePage);
 		createCoursePage(course);
 		createAssignmentPage(course);
 		createSubmissionPage(course);
@@ -122,24 +114,26 @@ public abstract class PageNavigator extends JPanel implements PageNames, ColourP
 	}
 
 	abstract protected void createCoursePage(Course course);
-	
+
 	abstract protected void createAssignmentPage(Course course);
-	
+
 	abstract protected void createSubmissionPage(Course course);
 
-	abstract protected void createComposeEmailPage(Course course);		
+	abstract protected void createComposeEmailPage(Course course);
 
-	abstract protected void createDiscussionPage(Course course); 	
+	abstract protected void createDiscussionPage(Course course);
 
 	@SuppressWarnings("unchecked")
 	protected HomePage createHomePage()
 	{
 		HomePage homePage = (HomePage) this.searchPage(HOME_PAGE);
 
-		SendMessage<Course> message = new SendMessage<Course>(CMD_RECEIVE + RECEIVE_COURSES);
+		SendMessage<Course> message = new SendMessage<Course>(
+				CMD_RECEIVE + RECEIVE_COURSES);
 		try
 		{
-			Vector<Course> coursesList = (Vector<Course>) this.client.sendMessage(message);
+			Vector<Course> coursesList = (Vector<Course>) this.client
+					.sendMessage(message);
 
 			if (coursesList != null)
 			{
@@ -149,7 +143,8 @@ public abstract class PageNavigator extends JPanel implements PageNames, ColourP
 
 					createNewCourse(course, homePage);
 
-					System.out.println("Course name is: " + coursesList.get(i).getName());
+					System.out.println(
+							"Course name is: " + coursesList.get(i).getName());
 				}
 			}
 

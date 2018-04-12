@@ -31,8 +31,11 @@ public class StudentSession extends ClientSession implements StudentCommands
 	 */
 	private Student student;
 
-	/** Initializes this session with a socket and calls super
-	 * @param socket The socket given to the super
+	/**
+	 * Initializes this session with a socket and calls super
+	 * 
+	 * @param socket
+	 *            The socket given to the super
 	 */
 	public StudentSession(Socket socket)
 	{
@@ -72,11 +75,12 @@ public class StudentSession extends ClientSession implements StudentCommands
 		{
 			handleModify(interpreter[1], command.getContents());
 
-		} else if(commandType.equals(CMD_EMAIL)) { 
-		
-			super.handleEmail((EmailInfo)command.getContents());
-		
-		}else if (commandType.equals(CMD_LOGOUT))
+		} else if (commandType.equals(CMD_EMAIL))
+		{
+
+			super.handleEmail((EmailInfo) command.getContents());
+
+		} else if (commandType.equals(CMD_LOGOUT))
 		{
 			return false;
 
@@ -97,85 +101,104 @@ public class StudentSession extends ClientSession implements StudentCommands
 		return true;
 
 	}
-	
-	/** Handles client commands having to do with them modifying data
-	 * @param interpreter The specific command from an interface
-	 * @param getmessageObject The object that is used to help modify
+
+	/**
+	 * Handles client commands having to do with them modifying data
+	 * 
+	 * @param interpreter
+	 *            The specific command from an interface
+	 * @param getmessageObject
+	 *            The object that is used to help modify
 	 */
 	private void handleModify(String interpreter, Object getmessageObject)
 	{
-	
+
 	}
 
-	/** Handles client commands having to do with them receiving data
-	 * @param interpreter The specific command from an interface
-	 * @param getmessageObject The object that is used for some commands
+	/**
+	 * Handles client commands having to do with them receiving data
+	 * 
+	 * @param interpreter
+	 *            The specific command from an interface
+	 * @param getmessageObject
+	 *            The object that is used for some commands
 	 */
 	private void handleRecieve(String interpreter, Object getmessageObject)
 	{
-		//Returns the students courses
-		if(interpreter.equals(RECEIVE_COURSES))
+		// Returns the students courses
+		if (interpreter.equals(RECEIVE_COURSES))
 		{
-			Vector<Integer> studentCoursesIds = database.getStudentEnrollmentTable().getCourseIDs(student.getId());
+			Vector<Integer> studentCoursesIds = database
+					.getStudentEnrollmentTable().getCourseIDs(student.getId());
 			Vector<Course> studentCourses = new Vector<Course>();
-			
+
 			for (int i = 0; i < studentCoursesIds.size(); i++)
-			{	Course myCourse = database.getCourseTable().searchActiveCourseID(studentCoursesIds.get(i));
-				if(myCourse != null)
+			{
+				Course myCourse = database.getCourseTable()
+						.searchActiveCourseID(studentCoursesIds.get(i));
+				if (myCourse != null)
 				{
 					studentCourses.add(myCourse);
 				}
 			}
 			sendObject(studentCourses);
-		} 
+		}
 		// Returns the students assignments for each course
 		else if (interpreter.equals(RECEIVE_ASSIGNMENTS))
 		{
-			Vector<Assignment> courseAssignments = database.getAssignmentTable().
-					getAllStudentAssignments(((Course)getmessageObject).getId());
-			
+			Vector<Assignment> courseAssignments = database.getAssignmentTable()
+					.getAllStudentAssignments(
+							((Course) getmessageObject).getId());
+
 			sendObject(courseAssignments);
 		}
-		
+
 		// Returns the students grades
-		else if(interpreter.equals(RECEIVE_GRADES))
+		else if (interpreter.equals(RECEIVE_GRADES))
 		{
-			Vector<Grade> myGrades = database.getGradeTable().
-					studentGradesForCourse(((Course)getmessageObject).getId(),student.getId());
-			
+			Vector<Grade> myGrades = database.getGradeTable()
+					.studentGradesForCourse(((Course) getmessageObject).getId(),
+							student.getId());
+
 			sendObject(myGrades);
-		}
-		else if (interpreter.equals(RECEIVE_PROFESSOR))
+		} else if (interpreter.equals(RECEIVE_PROFESSOR))
 		{
-			Professor myProf = (Professor) database.getUserTable().getUserByID(((Course)getmessageObject).getProf_id());
+			Professor myProf = (Professor) database.getUserTable()
+					.getUserByID(((Course) getmessageObject).getProf_id());
 			sendObject(myProf);
-			
-		}
-		else if (interpreter.equals(RECEIVE_SUBMISSIONS)) {
-			Vector<Submission> mySubmissions = database.getSubmissionTable().
-					searchByCourseAndStudentID(((Course)getmessageObject).getId(),student.getId());
-			sendObject(mySubmissions);
-		} else if(interpreter.equals(RECEIVE_ASSIGNMENT))
+
+		} else if (interpreter.equals(RECEIVE_SUBMISSIONS))
 		{
-			super.sendBackFile(((Assignment)getmessageObject).getPath());
-		
-		} 
-		
+			Vector<Submission> mySubmissions = database.getSubmissionTable()
+					.searchByCourseAndStudentID(
+							((Course) getmessageObject).getId(),
+							student.getId());
+			sendObject(mySubmissions);
+		} else if (interpreter.equals(RECEIVE_ASSIGNMENT))
+		{
+			super.sendBackFile(((Assignment) getmessageObject).getPath());
+
+		}
+
 	}
 
-	/** Handles client commands having to do with keeping database updated
-	 * @param interpreter The specific command from an interface
-	 * @param getmessageObject The object that is being inserted
+	/**
+	 * Handles client commands having to do with keeping database updated
+	 * 
+	 * @param interpreter
+	 *            The specific command from an interface
+	 * @param getmessageObject
+	 *            The object that is being inserted
 	 */
 	private void handleInsert(String interpreter, Object getmessageObject)
 	{
-		if(interpreter.equals(INSERT_SUBMISSION))
+		if (interpreter.equals(INSERT_SUBMISSION))
 		{
 			Submission mySubmission = (Submission) getmessageObject;
 			String toSplit[] = mySubmission.getPath().split("/");
 			mySubmission.setPath("/Users/qasimmuhammad/Desktop/Database" + "/"
 					+ (toSplit[toSplit.length - 1]));
-			
+
 			database.getSubmissionTable().add(mySubmission);
 			byte[] file;
 			try

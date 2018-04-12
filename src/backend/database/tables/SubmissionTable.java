@@ -159,12 +159,44 @@ public class SubmissionTable extends Table<Submission>
 	public Vector<Submission> searchByCourse(int courseID)
 	{
 		Vector<Submission> assignSubmissons = new Vector<Submission>();
-		String sql = "SELECT * FROM " + tableName + " WHERE ASSIGNID= ? ";
+		String sql = "SELECT * FROM " + tableName + " WHERE COURSEID= ? ";
 		ResultSet submission;
 		try
 		{
 			preparedStatement = dbConnection.prepareStatement(sql);
 			preparedStatement.setInt(1, courseID);
+			submission = preparedStatement.executeQuery();
+			while (submission.next())
+			{
+
+				assignSubmissons.add(new Submission(submission.getInt("ID"),
+						submission.getInt("ASSIGNID"),
+						submission.getInt("STUDENTID"),
+						submission.getString("PATH"),
+						submission.getInt("SUBMISSION_GRADE"),
+						submission.getString("COMMENT"),
+						submission.getString("TITLE"),
+						submission.getString("TIMESTAMP")));
+			}
+
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+
+		return assignSubmissons;
+	}
+
+	public Vector<Submission> searchByCourseAndStudentID(int courseID, int studentID)
+	{
+		Vector<Submission> assignSubmissons = new Vector<Submission>();
+		String sql = "SELECT * FROM " + tableName + " WHERE COURSEID= ? AND STUDENTID= ? ";
+		ResultSet submission;
+		try
+		{
+			preparedStatement = dbConnection.prepareStatement(sql);
+			preparedStatement.setInt(1, courseID);
+			preparedStatement.setInt(2, studentID);
 			submission = preparedStatement.executeQuery();
 			while (submission.next())
 			{

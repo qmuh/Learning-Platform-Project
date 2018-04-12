@@ -18,7 +18,11 @@ public interface StudentCommands extends UserCommands
 	
 	public static final String RECEIVE_GRADES = "GRADES";
 	
+	public static final String RECEIVE_SUBMISSIONS = "SUBMISSIONS";
+	
 	public static final String INSERT_SUBMISSION = "SUBMISSION";
+	
+	
 	
 	
 }

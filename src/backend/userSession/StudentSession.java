@@ -9,6 +9,7 @@ import shared.objects.Assignment;
 import shared.objects.Course;
 import shared.objects.EmailInfo;
 import shared.objects.Grade;
+import shared.objects.Professor;
 import shared.objects.SendMessage;
 import shared.objects.Student;
 import shared.objects.Submission;
@@ -150,7 +151,17 @@ public class StudentSession extends ClientSession implements StudentCommands
 					studentGradesForCourse(((Course)getmessageObject).getId(),user.getId());
 			
 			sendObject(myGrades);
+		}
+		else if (interpreter.equals(RECEIVE_PROFESSOR))
+		{
+			Professor myProf = (Professor) database.getUserTable().getUserByID(((Course)getmessageObject).getProf_id());
+			sendObject(myProf);
 			
+		}
+		else if (interpreter.equals(RECEIVE_SUBMISSIONS)) {
+			Vector<Submission> mySubmissions = database.getSubmissionTable().
+					searchByCourseAndStudentID(((Course)getmessageObject).getId(),user.getId());
+			sendObject(mySubmissions);
 		}
 		
 	}

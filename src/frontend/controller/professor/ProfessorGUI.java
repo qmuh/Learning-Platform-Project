@@ -269,7 +269,6 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 				assignmentPage.addToBoxList(assignItem);
 			}
 
-			// assignmentPage.setAssignmentVector(myList);
 		} catch (IOException e)
 		{
 			e.printStackTrace();

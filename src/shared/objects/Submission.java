@@ -55,6 +55,15 @@ public class Submission implements Serializable
 		path = filePath;
 		grade = subGrade;
 		comment = subComment;
+		for (int i = 0; i < subTitle.length(); i++)
+		{
+			if(subTitle.charAt(i) == '.')
+			{
+				subTitle = subTitle.substring(0, i);
+				break;
+			}
+		}
+		
 		title = subTitle;
 		timestamp = time;
 	}
@@ -119,4 +128,18 @@ public class Submission implements Serializable
 
 	}
 
+	public void setComment(String comment) 
+	{
+		this.comment = comment;
+	}
+	
+	public void setDate(String date)
+	{
+		timestamp = date;
+	}
+	
+	public void setTitle(String title) 
+	{
+		this.title = title;
+	}
 }

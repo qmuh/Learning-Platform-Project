@@ -31,7 +31,7 @@ import shared.objects.Submission;
 
 /**
  * Holds all information for the STUDENT GUI and how it is set up.
- * 
+ *
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
@@ -113,7 +113,7 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 	 *
 	 * @param genericCoursePage
 	 *            the course page to complete
-	 * 
+	 *
 	 * @param course
 	 *            the course that the page is associated with
 	 */
@@ -165,9 +165,14 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 				assignItemStudent.getAssignmentLabel().addMouseListener(
 						new AssignmentLabelMouseListener(assignments.get(i),
 								client));
-				// assignItemStudent.getUpload()
-				// .addActionListener(new UploadAssignmentButtonListener(client,
-				// course, assignmentPage));
+				 assignItemStudent.getUpload()
+				.addActionListener(new UploadSubmissionButtonListener(client,
+				 course, assignmentPage));
+
+				 Submission toGive = new Submission(assignments.elementAt(i).getId(), student.getId(), null, 0, null, null, null);
+
+				 assignItemStudent.getSubmit().addActionListener(new SubmitSubmissionButtonListener(client,
+				 course, assignmentPage, toGive));
 
 				assignmentPage.addToBoxList(assignItemStudent);
 			}

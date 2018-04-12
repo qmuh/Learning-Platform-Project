@@ -199,7 +199,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 				course);
 
 		assignmentPage.setUploadButtonListener(
-				new UploadButtonListener(client, course, assignmentPage));
+				new UploadAssignmentButtonListener(client, course, assignmentPage));
 		assignmentPage.setBrowseButtonListener(
 				new BrowseButtonListener(assignmentPage));
 		

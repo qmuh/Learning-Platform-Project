@@ -24,7 +24,7 @@ import shared.objects.SendMessage;
  * @version 1.0
  * @since April 6, 2018
  */
-public class UploadButtonListener implements ActionListener, ProfessorCommands
+public class UploadAssignmentButtonListener implements ActionListener, ProfessorCommands
 {
 	/**
 	 * The client
@@ -46,7 +46,7 @@ public class UploadButtonListener implements ActionListener, ProfessorCommands
 	 * @param course The course
 	 * @param assignPage The Assignment page
 	 */
-	public UploadButtonListener(Client client, Course course,
+	public UploadAssignmentButtonListener(Client client, Course course,
 			AssignmentPageProfessor assignPage)
 	{
 		this.client = client;

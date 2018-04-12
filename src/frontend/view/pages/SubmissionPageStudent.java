@@ -1,8 +1,20 @@
 package frontend.view.pages;
 
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.util.HashMap;
 
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
 import frontend.view.pages.components.BoxList;
+import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.items.submission.AssignSubItem;
 import frontend.view.pages.items.submission.AssignSubItemStudent;
 import shared.objects.Assignment;
@@ -14,7 +26,13 @@ final public class SubmissionPageStudent extends SubmissionPage
 
 	private static final long serialVersionUID = 1L;
 
+	private JTextField uploadField;
+
 	private Student student;
+
+	private WButton browseButton;
+
+	private JTextArea commentsArea;
 
 	public SubmissionPageStudent(Course course, Student student)
 	{
@@ -40,10 +58,6 @@ final public class SubmissionPageStudent extends SubmissionPage
 				assignment, student);
 		this.assignmentMap.put(assignment.getId(), assignmentItemStudent);
 		this.itemDisplay.add(assignmentItemStudent);
-		this.itemDisplay.repaint();
-		this.itemDisplay.revalidate();
-		this.itemDisplay.repaint();
 	}
-
 
 }

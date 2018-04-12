@@ -7,6 +7,7 @@ import java.util.Vector;
 import javax.swing.JPanel;
 
 import frontend.controller.listeners.AssignmentLabelMouseListener;
+import frontend.controller.listeners.UploadAssignmentButtonListener;
 import frontend.controller.student.listeners.StudentSendButtonListener;
 import frontend.view.pages.AssignmentPage;
 import frontend.view.pages.AssignmentPageStudent;
@@ -102,6 +103,10 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 				assignItemStudent.getAssignmentLabel().addMouseListener(
 						new AssignmentLabelMouseListener(assignments.get(i),
 								client));
+//				assignItemStudent.getUpload()
+//						.addActionListener(new UploadAssignmentButtonListener(client,
+//								course, assignmentPage));
+
 				assignmentPage.addToBoxList(assignItemStudent);
 			}
 

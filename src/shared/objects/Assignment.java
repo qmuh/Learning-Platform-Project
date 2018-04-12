@@ -123,4 +123,20 @@ public class Assignment implements Serializable
 		
 	}
 
+	public String getDir()
+	{
+		String tosend = "";
+		for (int i = path
+				.length() - 1; i >= 0; i--)
+		{
+			if(path.charAt(i) == '/')
+			{
+				tosend = path.substring(0, i);
+				break;
+			}
+		}
+	
+		return tosend;
+	}
+
 }

@@ -55,15 +55,18 @@ public class Submission implements Serializable
 		path = filePath;
 		grade = subGrade;
 		comment = subComment;
+		if(subTitle != null)
+		{
 		for (int i = 0; i < subTitle.length(); i++)
+		
 		{
 			if(subTitle.charAt(i) == '.')
 			{
-				subTitle = subTitle.substring(0, i);
+				subTitle = subTitle.substring(i, subTitle.length());
 				break;
 			}
 		}
-		
+		}
 		title = subTitle;
 		timestamp = time;
 	}
@@ -140,6 +143,18 @@ public class Submission implements Serializable
 	
 	public void setTitle(String title) 
 	{
+		if(title != null)
+		{
+		for (int i = 0; i < title.length(); i++)
+		
+		{
+			if(title.charAt(i) == '/')
+			{
+				title = title.substring(i, title.length());
+				break;
+			}
+		}
+		}
 		this.title = title;
 	}
 }

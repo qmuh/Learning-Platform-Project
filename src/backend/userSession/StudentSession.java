@@ -177,8 +177,8 @@ public class StudentSession extends ClientSession implements StudentCommands
 			String toSplit[] = mySubmission.getPath().split("/");
 			Assignment toGet = database.getAssignmentTable().searchByAssignID(mySubmission.getAssign_id());
 			
-			mySubmission.setPath(toGet.getPath());
-			System.out.println("Inserting submission at " + toGet.getPath());
+			mySubmission.setPath(toGet.getDir() + "/" + mySubmission.getTitle());
+			System.out.println("Inserting submission at " + mySubmission.getPath());
 			System.out.println("My submission title is" + mySubmission.getTitle());
 			database.getSubmissionTable().add(mySubmission);
 			byte[] file;

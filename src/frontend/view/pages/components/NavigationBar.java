@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -13,7 +14,9 @@ import javax.swing.JPanel;
 
 import com.mysql.jdbc.Buffer;
 
+import frontend.fileFinder.FileFinder;
 import frontend.interfaces.ColourPalette;
+import frontend.interfaces.WondrisDirectories;
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.components.customSwing.WButton;
 
@@ -24,7 +27,7 @@ import frontend.view.pages.components.customSwing.WButton;
  * @version 1.0
  * @since April 6, 2018
  */
-public class NavigationBar extends JPanel implements WondrisInfo, ColourPalette
+public class NavigationBar extends JPanel implements WondrisInfo, ColourPalette, WondrisDirectories
 {
 	/**
 	 * 
@@ -37,20 +40,11 @@ public class NavigationBar extends JPanel implements WondrisInfo, ColourPalette
 
 	public NavigationBar()
 	{
-		homeButton = new WButton();
-		backButton = new WButton();
-		gearButton = new WButton();
 		try
 		{
-			BufferedImage image = ImageIO.read(new File("home.png"));
-			ImageIcon icon = new ImageIcon(image);
-			homeButton.setIcon(icon);
-			image = ImageIO.read(new File("back.png"));
-			icon = new ImageIcon(image);
-			backButton.setIcon(icon);
-			image = ImageIO.read(new File("gear.png"));
-			icon = new ImageIcon(image);
-			gearButton.setIcon(icon);
+			homeButton = new WButton(ImageIO.read(new File(DIR_GRAPHICS + "home.png")));
+			backButton = new WButton(ImageIO.read(new File(DIR_GRAPHICS + "back.png")));
+			gearButton = new WButton(ImageIO.read(new File(DIR_GRAPHICS + "gear.png")));
 		} catch (IOException e)
 		{
 			e.printStackTrace();
@@ -64,7 +58,7 @@ public class NavigationBar extends JPanel implements WondrisInfo, ColourPalette
 		this.add(createHomeBackPanel());
 		this.add(createGearPanel());
 	}
-	
+
 	private JPanel createHomeBackPanel()
 	{
 		JPanel thePanel = new JPanel();
@@ -84,17 +78,17 @@ public class NavigationBar extends JPanel implements WondrisInfo, ColourPalette
 		thePanel.add(gearPanel, BorderLayout.EAST);
 		return thePanel;
 	}
-	
+
 	public WButton getHomeButton()
 	{
 		return homeButton;
 	}
-	
+
 	public WButton getBackButton()
 	{
 		return backButton;
 	}
-	
+
 	public WButton getGearButton()
 	{
 		return gearButton;

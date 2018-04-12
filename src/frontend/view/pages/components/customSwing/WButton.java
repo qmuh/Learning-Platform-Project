@@ -1,5 +1,11 @@
 package frontend.view.pages.components.customSwing;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
@@ -29,7 +35,14 @@ public class WButton extends JButton implements WondrisInfo, ColourPalette
 		super(text);
 		defaultSettings();
 	}
-	
+
+	public WButton(BufferedImage read)
+	{
+		this();
+		ImageIcon icon = new ImageIcon(read);
+		this.setIcon(icon);
+	}
+
 	private void defaultSettings()
 	{
 		this.setFont(TEXT_FONT);
@@ -44,4 +57,5 @@ public class WButton extends JButton implements WondrisInfo, ColourPalette
 		super.setEnabled(b);
 		this.setContentAreaFilled(b);
 	}
+
 }

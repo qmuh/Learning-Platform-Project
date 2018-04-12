@@ -20,6 +20,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
+import frontend.fileFinder.FileFinder;
 import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.components.customSwing.WLabel;
 import frontend.view.pages.items.StudentItem;
@@ -27,20 +28,20 @@ import shared.objects.Course;
 import shared.objects.EmailInfo;
 import shared.objects.Student;
 
-public class ComposeEmailPage extends CoursePage<StudentItem, Student>
+abstract public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 {
 	private static final long serialVersionUID = 1L;
 	private JTextField toField, subjectField;
 	private JTextArea emailArea;
-	private WButton sendToAllButton, sendButton, addToEmailButton;
-	private JList<Student> studentList;
+	protected WButton sendButton;
+	protected JPanel sendButtonPanel;
 
 	public ComposeEmailPage(Course course)
 	{
 		super(course);
 		this.setName(COMPOSE_EMAIL_PAGE + course.getId());
 		this.setPageTitle("Compose Email");
-		bodyCenter.add(createComposeEmailPanel(), BorderLayout.CENTER);
+		bodyCenter.add(createComposeEmailCenter(), BorderLayout.CENTER);
 		toField.setText("");
 		toField.setEditable(false);
 	}
@@ -60,35 +61,9 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 		return emailArea;
 	}
 
-	public WButton getSendToAllButton()
-	{
-		return sendToAllButton;
-	}
-
 	public WButton getSendButton()
 	{
 		return sendButton;
-	}
-
-	public WButton getAddToEmailButton()
-	{
-		return addToEmailButton;
-	}
-
-	public JList<Student> getStudentList()
-	{
-		return studentList;
-	}
-
-	public String getSelected()
-	{
-		Student selected = getStudentList().getSelectedValue();
-		return selected.getEmail();
-	}
-
-	public void setSendToAllButtonListener(ActionListener listener)
-	{
-		sendToAllButton.addActionListener(listener);
 	}
 
 	public void setSendButtonListener(ActionListener listener)
@@ -96,18 +71,7 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 		sendButton.addActionListener(listener);
 	}
 
-	public void setAddToEmailButtonListener(ActionListener listener)
-	{
-		addToEmailButton.addActionListener(listener);
-	}
-
-	public void setStudentList(Vector<Student> enrollList)
-	{
-		studentList.clearSelection();
-		studentList.setListData(enrollList);
-	}
-
-	private JPanel createComposeEmailPanel()
+	private JPanel createComposeEmailCenter()
 	{
 		JPanel composeEmailPanel = new JPanel(new BorderLayout());
 		composeEmailPanel
@@ -119,26 +83,17 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 	private JPanel createEmailComponents()
 	{
 		JPanel emailComponents = new JPanel(new BorderLayout());
-
-		JPanel emailComponentsLeft = new JPanel(new BorderLayout());
-
-		emailComponentsLeft.add(createEmailFields(), BorderLayout.NORTH);
-		emailComponentsLeft.add(createEmailTextArea(), BorderLayout.CENTER);
-
-		JPanel emailComponentsRight = new JPanel(new BorderLayout());
-		emailComponentsRight.add(createStudentListHeader(), BorderLayout.NORTH);
-		emailComponentsRight.add(createStudentList(), BorderLayout.CENTER);
-
-		emailComponents.add(emailComponentsLeft, BorderLayout.CENTER);
-		emailComponents.add(emailComponentsRight, BorderLayout.EAST);
+		emailComponents.add(createComposeEmailPanel(), BorderLayout.CENTER);
 		return emailComponents;
 	}
-
-	private JPanel createStudentListHeader()
+	
+	private JPanel createComposeEmailPanel()
 	{
-		JPanel studentHeader = new JPanel();
-		studentHeader.add(new WLabel("Enrolled Students:", SUB_TITLE_FONT));
-		return studentHeader;
+
+		JPanel emailComponents = new JPanel(new BorderLayout());
+		emailComponents.add(createEmailFields(), BorderLayout.NORTH);
+		emailComponents.add(createEmailTextArea(), BorderLayout.CENTER);
+		return emailComponents;
 	}
 
 	private JPanel createEmailFields()
@@ -180,44 +135,19 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 		return emailTextPanel;
 	}
 
-	private JPanel createButtonPanel()
+	protected JPanel createButtonPanel()
 	{
-		JPanel buttonPanel = new JPanel(new BorderLayout());
-		buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
-		sendToAllButton = new WButton("Add All Enrolled Students");
-		sendButton = new WButton();
+		sendButtonPanel = new JPanel(new BorderLayout());
+		sendButtonPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
 		try
 		{
-			BufferedImage image = ImageIO.read(new File("send.png"));
-			ImageIcon icon = new ImageIcon(image);
-			sendButton.setIcon(icon);
-		} catch (IOException e)
+			sendButton = new WButton(ImageIO.read(new File(DIR_GRAPHICS + "send.png")));
+		} catch (IOException e1)
 		{
-			e.printStackTrace();
+			e1.printStackTrace();
 		}
-		buttonPanel.add(sendToAllButton, BorderLayout.WEST);
-		buttonPanel.add(sendButton, BorderLayout.EAST);
-		return buttonPanel;
-	}
-
-	private JPanel createStudentList()
-	{
-		JPanel studentListPanel = new JPanel(new BorderLayout());
-		studentListPanel
-				.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
-		studentList = new JList<Student>();
-		studentList.setFont(TEXT_FONT);
-		studentList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-		JScrollPane scrollPane = new JScrollPane(studentList);
-		scrollPane.setVerticalScrollBarPolicy(
-				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		studentListPanel.add(scrollPane, BorderLayout.CENTER);
-		JPanel theButton = new JPanel(new BorderLayout());
-		theButton.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
-		addToEmailButton = new WButton("Add to Email");
-		theButton.add(addToEmailButton, BorderLayout.EAST);
-		studentListPanel.add(theButton, BorderLayout.SOUTH);
-		return studentListPanel;
+		sendButtonPanel.add(sendButton, BorderLayout.EAST);
+		return sendButtonPanel;
 	}
 
 	public void appendEmail(String add)
@@ -238,7 +168,6 @@ public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 	public void clearEmail()
 	{
 		toField.setText("");
-
 	}
 
 	public EmailInfo getEmailInfo()

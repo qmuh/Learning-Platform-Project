@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import frontend.view.pages.AssignmentPage;
 import frontend.view.pages.AssignmentPageStudent;
 import frontend.view.pages.ComposeEmailPage;
+import frontend.view.pages.ComposeEmailPageStudent;
 import frontend.view.pages.CoursePage;
 import frontend.view.pages.DiscussionPage;
 import frontend.view.pages.GradePage;
@@ -123,7 +124,8 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 	@Override
 	protected void createComposeEmailPage(Course course)
 	{
-		ComposeEmailPage composeEmailPage = new ComposeEmailPage(course);
+		ComposeEmailPageStudent composeEmailPage = new ComposeEmailPageStudent(course);
+		SendMessage<Course> requestProfessor = new SendMessage<>(CMD_RECEIVE + RECEIVE_PROFESSOR);
 		completeCoursePage(composeEmailPage, course);
 	}
 

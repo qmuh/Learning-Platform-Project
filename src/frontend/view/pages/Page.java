@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import frontend.interfaces.ColourPalette;
+import frontend.interfaces.WondrisDirectories;
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.components.BoxList;
 import frontend.view.pages.components.Footer;
@@ -25,7 +26,7 @@ import frontend.view.pages.components.customSwing.WButton;
  * @since April 6, 2018
  */
 public abstract class Page<T extends Box, U> extends JPanel
-		implements PageNames, WondrisInfo, ColourPalette
+		implements PageNames, WondrisInfo, ColourPalette, WondrisDirectories
 {
 
 	private static final long serialVersionUID = 1L;

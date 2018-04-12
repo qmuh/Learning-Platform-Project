@@ -200,7 +200,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 				course);
 
 		assignmentPage.setUploadButtonListener(
-				new UploadButtonListener(client, course, assignmentPage));
+				new UploadAssignmentButtonListener(client, course, assignmentPage));
 		assignmentPage.setBrowseButtonListener(
 				new BrowseButtonListener(assignmentPage));
 		
@@ -252,7 +252,6 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	{
 		try
 		{
-
 			SendMessage<Course> requestAssignments = new SendMessage<Course>(
 					course, CMD_RECEIVE + RECEIVE_ALL_ASSIGNMENTS);
 			Vector<Assignment> myList = (Vector<Assignment>) client
@@ -341,7 +340,6 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 			{
 				e1.printStackTrace();
 			}
-
 		}
 	}
 

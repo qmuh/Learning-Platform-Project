@@ -1,7 +1,7 @@
 package backend.database.tables;
 
 /**
- * Provides an interface to denote whether a table has an activable method.
+ * Provides an interface to denote whether a table can set things active.
  * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)

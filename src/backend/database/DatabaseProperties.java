@@ -1,6 +1,7 @@
 package backend.database;
 
 /**
+ * An interface that stores all the database properties.
  * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)

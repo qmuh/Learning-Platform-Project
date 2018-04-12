@@ -10,6 +10,7 @@ import backend.userSession.helpers.EmailHelper;
 import backend.userSession.helpers.FileHelper;
 import shared.objects.EmailInfo;
 import shared.objects.SendMessage;
+import shared.objects.User;
 
 /**
  *
@@ -78,6 +79,7 @@ public abstract class ClientSession implements Runnable
 				SendMessage<?> newMessage = (SendMessage<?>) objectIn
 						.readObject();
 				isRunning = interpretMessage(newMessage);
+				
 			} catch (IOException | ClassNotFoundException e)
 			{
 				e.printStackTrace();
@@ -139,7 +141,9 @@ public abstract class ClientSession implements Runnable
 			e.printStackTrace();
 		}
 	}
-
+	
+	public abstract void setUser(User user);
+	
 	/**
 	 * Interprets the message sent by the client. Returns a boolean to denote
 	 * whether the session is still active.
@@ -148,7 +152,7 @@ public abstract class ClientSession implements Runnable
 	 *            the command to execute
 	 * @return true until the client logs off
 	 */
-	abstract boolean interpretMessage(SendMessage<?> command);
+	protected abstract boolean interpretMessage(SendMessage<?> command);
 
 	/**
 	 * Used for writing data

@@ -7,6 +7,7 @@ import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.ConnectException;
 import java.net.Socket;
 
 import javax.swing.JFrame;
@@ -51,8 +52,11 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColourPalette,
 	 */
 	private JPanel currentPanel;
 
-	/** Constructs the LoginGUI
-	 * @param windowName Name of the Window
+	/**
+	 * Constructs the LoginGUI
+	 * 
+	 * @param windowName
+	 *            Name of the Window
 	 */
 	public LoginGUI(String windowName)
 	{
@@ -76,9 +80,9 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColourPalette,
 		try
 		{
 			UIManager.setLookAndFeel(
-			        UIManager.getCrossPlatformLookAndFeelClassName());
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-				| UnsupportedLookAndFeelException e)
+					UIManager.getCrossPlatformLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException
+				| IllegalAccessException | UnsupportedLookAndFeelException e)
 		{
 			e.printStackTrace();
 		}
@@ -124,6 +128,13 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColourPalette,
 
 				user = (User) fromServer.readObject();
 				checkUser(user, socket, toServer);
+
+			} catch (ConnectException e)
+			{
+				JOptionPane.showMessageDialog(loginPanel,
+						"Unable to connect to the server.", "Connection Error",
+						JOptionPane.ERROR_MESSAGE);
+
 			} catch (IOException e)
 			{
 				e.printStackTrace();

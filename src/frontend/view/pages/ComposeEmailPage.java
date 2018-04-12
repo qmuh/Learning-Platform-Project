@@ -22,7 +22,7 @@ import javax.swing.ScrollPaneConstants;
 
 import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.components.customSwing.WLabel;
-import frontend.view.pages.items.StudentItem;
+import frontend.view.pages.items.student.StudentItem;
 import shared.objects.Course;
 import shared.objects.EmailInfo;
 import shared.objects.Student;

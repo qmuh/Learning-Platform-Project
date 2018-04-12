@@ -1,4 +1,4 @@
-package frontend.view.pages.items;
+package frontend.view.pages.items.grade;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -13,6 +13,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
 import frontend.view.pages.components.customSwing.WLabel;
+import frontend.view.pages.items.GeneralItem;
 import javafx.scene.layout.Border;
 import shared.objects.Grade;
 

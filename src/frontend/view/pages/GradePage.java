@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import frontend.view.pages.items.GradeItem;
+import frontend.view.pages.items.grade.GradeItem;
 import shared.objects.Course;
 import shared.objects.Grade;
 

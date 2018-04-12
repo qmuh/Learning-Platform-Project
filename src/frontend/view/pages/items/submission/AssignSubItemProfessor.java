@@ -1,4 +1,4 @@
-package frontend.view.pages.items;
+package frontend.view.pages.items.submission;
 
 import java.util.HashMap;
 import java.util.Vector;

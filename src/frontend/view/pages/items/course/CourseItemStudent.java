@@ -1,4 +1,4 @@
-package frontend.view.pages.items;
+package frontend.view.pages.items.course;
 
 import java.awt.GridLayout;
 

@@ -1,4 +1,4 @@
-package frontend.view.pages.items;
+package frontend.view.pages.items.assignment;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -14,6 +14,7 @@ import javax.swing.SwingConstants;
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.components.customSwing.WLabel;
+import frontend.view.pages.items.GeneralItem;
 import shared.objects.Assignment;
 
 /**

@@ -12,7 +12,6 @@ import shared.interfaces.ProfessorCommands;
 import shared.interfaces.UserCommands;
 import shared.objects.Assignment;
 import shared.objects.SendMessage;
-import shared.objects.Submission;
 
 public class AssignmentLabelMouseListener implements MouseListener, UserCommands
 {

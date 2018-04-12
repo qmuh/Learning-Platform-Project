@@ -14,6 +14,7 @@ import frontend.view.pages.DiscussionPage;
 import frontend.view.pages.GradePage;
 import frontend.view.pages.HomePage;
 import frontend.view.pages.SubmissionPage;
+import frontend.view.pages.SubmissionPageStudent;
 import frontend.view.pages.components.CourseNavigationBarStudent;
 import frontend.view.pages.components.PageNavigator;
 import frontend.view.pages.items.AssignItem;
@@ -33,8 +34,8 @@ import shared.objects.Student;
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
- * @since April 6, 2018
- * Holds all information for the STUDENT GUI and how it is set up
+ * @since April 6, 2018 Holds all information for the STUDENT GUI and how it is
+ *        set up
  */
 public class StudentGUI extends PageNavigator implements StudentCommands
 {
@@ -43,9 +44,13 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 	 */
 	private Student student;
 
-	/** Used to initialize the StudentGUI and the all its pages
-	 * @param socket Used to communicate between server and client
-	 * @param user The user who is running this client
+	/**
+	 * Used to initialize the StudentGUI and the all its pages
+	 * 
+	 * @param socket
+	 *            Used to communicate between server and client
+	 * @param user
+	 *            The user who is running this client
 	 */
 	public StudentGUI(Socket socket, Student user)
 	{
@@ -90,7 +95,8 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 						assignment);
 				assignmentPage.addToBoxList(assignItemStudent);
 
-//				assignItemStudent.getAssignmentLabel().addMouseListener(new Su);
+				// assignItemStudent.getAssignmentLabel().addMouseListener(new
+				// Su);
 
 			}
 
@@ -105,8 +111,13 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 	@Override
 	protected void createSubmissionPage(Course course)
 	{
-		SubmissionPage submissionPage = new SubmissionPage(course);
-		completeCoursePage(submissionPage, course);
+		SubmissionPageStudent submissionPageStudent = new SubmissionPageStudent(
+				course, student);
+
+		// SendMessage<Course> requestSubmissions = new
+		// SendMessage<Course>(course, commands);
+
+		completeCoursePage(submissionPageStudent, course);
 	}
 
 	@Override
@@ -116,8 +127,11 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 		completeCoursePage(composeEmailPage, course);
 	}
 
-	/** Used to create the grades page
-	 * @param course The course which is associated with this page
+	/**
+	 * Used to create the grades page
+	 * 
+	 * @param course
+	 *            The course which is associated with this page
 	 */
 	@SuppressWarnings("unchecked")
 	private void createGradesPage(Course course)
@@ -131,7 +145,6 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 
 		try
 		{
-
 			Vector<Grade> receivedGrades = (Vector<Grade>) client
 					.sendMessage(gradesRequest);
 
@@ -163,9 +176,13 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 		completeCoursePage(gradePage, course);
 	}
 
-	/** Used to complete the course page
-	 * @param genericCoursePage Hashmap...?
-	 * @param course The course which this is associated with
+	/**
+	 * Used to complete the course page
+	 * 
+	 * @param genericCoursePage
+	 *            Hashmap...?
+	 * @param course
+	 *            The course which this is associated with
 	 */
 	private void completeCoursePage(CoursePage<?, ?> genericCoursePage,
 			Course course)

@@ -11,7 +11,7 @@ import frontend.controller.Client;
 import frontend.controller.professor.listeners.AssignmentActiveButtonListener;
 import frontend.view.pages.AssignmentPage;
 import frontend.view.pages.AssignmentPageProfessor;
-import frontend.view.pages.items.AssignItemProfessor;
+import frontend.view.pages.items.assignment.AssignItemProfessor;
 import shared.interfaces.ProfessorCommands;
 import shared.objects.Assignment;
 import shared.objects.Course;

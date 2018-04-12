@@ -1,4 +1,4 @@
-package frontend.view.pages.items;
+package frontend.view.pages.items.submission;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import frontend.view.pages.components.customSwing.WButton;
+import frontend.view.pages.items.GeneralItem;
 import shared.objects.Submission;
 
 /**

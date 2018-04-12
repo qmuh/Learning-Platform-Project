@@ -1,4 +1,4 @@
-package frontend.view.pages.items;
+package frontend.view.pages.items.course;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -14,6 +14,7 @@ import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.GUIConstants;
 import frontend.view.pages.components.customSwing.WButton;
+import frontend.view.pages.items.GeneralItem;
 import shared.objects.Course;
 
 /**

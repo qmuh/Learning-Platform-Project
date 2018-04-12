@@ -2,8 +2,8 @@ package frontend.view.pages;
 
 import java.util.Vector;
 
-import frontend.view.pages.items.AssignSubItem;
-import frontend.view.pages.items.AssignSubItemProfessor;
+import frontend.view.pages.items.submission.AssignSubItem;
+import frontend.view.pages.items.submission.AssignSubItemProfessor;
 import shared.objects.Assignment;
 import shared.objects.Course;
 import shared.objects.Student;

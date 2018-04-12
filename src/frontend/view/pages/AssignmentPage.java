@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 
 import frontend.interfaces.WondrisInfo;
-import frontend.view.pages.items.AssignItem;
+import frontend.view.pages.items.assignment.AssignItem;
 import shared.objects.Assignment;
 import shared.objects.Course;
 

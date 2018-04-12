@@ -21,7 +21,7 @@ import javax.swing.JTextField;
 import com.sun.prism.Image;
 
 import frontend.view.pages.components.customSwing.WButton;
-import frontend.view.pages.items.CourseItem;
+import frontend.view.pages.items.course.CourseItem;
 import shared.objects.Course;
 
 public class DiscussionPage extends CoursePage<CourseItem, Course>

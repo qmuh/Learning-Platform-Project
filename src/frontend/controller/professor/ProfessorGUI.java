@@ -27,11 +27,11 @@ import frontend.view.pages.components.CourseNavigationBarStudent;
 import frontend.view.pages.components.PageNavigator;
 import frontend.view.pages.components.PageNavigator.ViewCoursePageListener;
 import frontend.view.pages.components.customSwing.WButton;
-import frontend.view.pages.items.AssignItem;
-import frontend.view.pages.items.AssignItemProfessor;
-import frontend.view.pages.items.CourseItem;
-import frontend.view.pages.items.CourseItemProfessor;
-import frontend.view.pages.items.SubmitItem;
+import frontend.view.pages.items.assignment.AssignItem;
+import frontend.view.pages.items.assignment.AssignItemProfessor;
+import frontend.view.pages.items.course.CourseItem;
+import frontend.view.pages.items.course.CourseItemProfessor;
+import frontend.view.pages.items.submission.SubmitItem;
 import shared.interfaces.ProfessorCommands;
 import shared.objects.Assignment;
 import shared.objects.Course;
@@ -218,7 +218,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		composeEmailPage.getSendToAllButton().addActionListener(
 				new SendToAllButtonListener(client, course, composeEmailPage));
 		composeEmailPage.setSendButtonListener(
-				new SendButtonListener(client, course, composeEmailPage));
+				new ProfessorSendButtonListener(client, course, composeEmailPage));
 		composeEmailPage.getAddToEmailButton().addActionListener(
 				new AddToEmailButtonListener(client, course, composeEmailPage));
 

@@ -18,7 +18,7 @@ import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.components.BoxList;
 import frontend.view.pages.components.customSwing.WButton;
-import frontend.view.pages.items.CourseItem;
+import frontend.view.pages.items.course.CourseItem;
 
 public class HomePageCoursesTable extends JPanel
 		implements WondrisInfo, ColourPalette, GUIConstants

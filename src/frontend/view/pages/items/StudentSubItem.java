@@ -11,6 +11,7 @@ import shared.objects.Submission;
 
 public class StudentSubItem extends GeneralItem
 {
+	private static final long serialVersionUID = 1L;
 	private Student student;
 	private BoxList<SubmitItem> submissionItems;
 	
@@ -53,7 +54,7 @@ public class StudentSubItem extends GeneralItem
 
 	public void addSubmissionItem(SubmitItem submitItem)
 	{
-		submissionItems.add(submitItem);
+		this.submissionItems.add(submitItem);
 	}
 
 }

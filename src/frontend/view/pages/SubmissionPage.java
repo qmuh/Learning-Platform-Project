@@ -1,20 +1,12 @@
 package frontend.view.pages;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
-import java.util.Vector;
 
-import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.border.MatteBorder;
-import javax.swing.border.TitledBorder;
 import javax.swing.WindowConstants;
 
 import frontend.view.pages.components.BoxList;
@@ -34,9 +26,11 @@ import shared.objects.Submission;
  * @version 1.0
  * @since April 6, 2018
  */
-public class SubmissionPage extends CoursePage<AssignSubItem, Submission>
+abstract public class SubmissionPage
+		extends CoursePage<AssignSubItem, Submission>
 {
-	private HashMap<Integer, AssignSubItem> assignmentMap;
+	private static final long serialVersionUID = 1L;
+	protected HashMap<Integer, AssignSubItem> assignmentMap;
 
 	public SubmissionPage(Course course)
 	{
@@ -54,21 +48,16 @@ public class SubmissionPage extends CoursePage<AssignSubItem, Submission>
 		view.setLayout(new BoxLayout(view, BoxLayout.Y_AXIS));
 
 		JScrollPane submissionScrollPane = new JScrollPane(view);
-		submissionScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		submissionScrollPane.setVerticalScrollBarPolicy(
+				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		return submissionScrollPane;
-	}
-
-	public void addAssignment(Assignment assignment, Vector<Student> classList)
-	{
-		AssignSubItem assignmentItem = new AssignSubItem(assignment, classList);
-		this.assignmentMap.put(assignment.getId(), assignmentItem);
-		this.itemDisplay.add(assignmentItem);
 	}
 
 	public void addSubmission(SubmitItem submitItem)
 	{
 		Submission submission = submitItem.getSubmission();
-		AssignSubItem assignSubItem = this.assignmentMap.get(submission.getAssign_id());
+		AssignSubItem assignSubItem = this.assignmentMap
+				.get(submission.getAssign_id());
 		assignSubItem.addSubmission(submitItem);
 	}
 
@@ -82,7 +71,8 @@ public class SubmissionPage extends CoursePage<AssignSubItem, Submission>
 	public static void main(String[] args)
 	{
 		JFrame frame = new JFrame();
-		SubmissionPage submissionPage = new SubmissionPage(new Course(1010101, "ENGG 201", true));
+		SubmissionPageProfessor submissionPage = new SubmissionPageProfessor(
+				new Course(1010101, "ENGG 201", true));
 
 		frame.add(submissionPage);
 		frame.setSize(1600, 1000);

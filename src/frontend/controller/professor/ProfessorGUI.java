@@ -22,9 +22,11 @@ import frontend.controller.professor.listeners.GradeSubmissionButtonListener;
 import frontend.controller.professor.listeners.NewCourseButtonListener;
 import frontend.controller.professor.listeners.ProfessorSendButtonListener;
 import frontend.controller.professor.listeners.SendToAllButtonListener;
+import frontend.view.pages.Refresh;
 import frontend.view.pages.assignment.AssignmentPageProfessor;
 import frontend.view.pages.components.CourseNavigationBarProfessor;
 import frontend.view.pages.components.PageNavigator;
+import frontend.view.pages.components.PageNavigator.ViewCoursePageListener;
 import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.compose.ComposeEmailPageProfessor;
 import frontend.view.pages.course.CoursePage;
@@ -77,32 +79,32 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		createHomePage();
 	}
 
-	/**
-	 * Shows all students overall, and all enrolled student
-	 * 
-	 * @param course
-	 *            The course where this is shown
-	 * @param enrollmentPage
-	 *            The page for this
-	 */
-	@SuppressWarnings("unchecked")
-	public void showAllStudents(Course course, EnrollmentPage enrollmentPage)
-	{
-		try
-		{
-			Vector<Student> myList = (Vector<Student>) client.sendMessage(
-					new SendMessage<>(CMD_RECEIVE + RECEIVE_ALL_STUDENTS));
-			enrollmentPage.setStudentList(myList);
-
-			Vector<Student> enrollList = (Vector<Student>) client
-					.sendMessage(new SendMessage<Course>(course,
-							CMD_RECEIVE + RECEIVE_ALL_ENROLLED_STUDENTS));
-			enrollmentPage.setEnrolledList(enrollList);
-		} catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-	}
+	// /**
+	// * Shows all students overall, and all enrolled student
+	// *
+	// * @param course
+	// * The course where this is shown
+	// * @param enrollmentPage
+	// * The page for this
+	// */
+	// @SuppressWarnings("unchecked")
+	// public void showAllStudents(Course course, EnrollmentPage enrollmentPage)
+	// {
+	// try
+	// {
+	// Vector<Student> myList = (Vector<Student>) client.sendMessage(
+	// new SendMessage<>(CMD_RECEIVE + RECEIVE_ALL_STUDENTS));
+	// enrollmentPage.setStudentList(myList);
+	//
+	// Vector<Student> enrollList = (Vector<Student>) client
+	// .sendMessage(new SendMessage<Course>(course,
+	// CMD_RECEIVE + RECEIVE_ALL_ENROLLED_STUDENTS));
+	// enrollmentPage.setEnrolledList(enrollList);
+	// } catch (IOException e)
+	// {
+	// e.printStackTrace();
+	// }
+	// }
 
 	/**
 	 * Getter method for the professor
@@ -121,43 +123,43 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		createEnrollmentPage(course);
 	}
 
-	/**
-	 * Shows all assignments for a course
-	 * 
-	 * @param course
-	 *            The course
-	 * @param assignmentPage
-	 *            The page where the assignmnets would be shown
-	 */
-	@SuppressWarnings("unchecked")
-	private void showAllAssignments(Course course,
-			AssignmentPageProfessor assignmentPage)
-	{
-		try
-		{
-			SendMessage<Course> requestAssignments = new SendMessage<Course>(
-					course, CMD_RECEIVE + RECEIVE_ALL_ASSIGNMENTS);
-			Vector<Assignment> myList = (Vector<Assignment>) client
-					.sendMessage(requestAssignments);
-
-			for (Assignment assignment : myList)
-			{
-				AssignItemProfessor assignItem = new AssignItemProfessor(
-						assignment);
-
-				assignItem.getActiveButton().addActionListener(
-						new AssignmentActiveButtonListener(client, assignment));
-
-				assignItem.getAssignmentLabel().addMouseListener(
-						new AssignmentLabelMouseListener(assignment, client));
-				assignmentPage.addToBoxList(assignItem);
-			}
-
-		} catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-	}
+	// /**
+	// * Shows all assignments for a course
+	// *
+	// * @param course
+	// * The course
+	// * @param assignmentPage
+	// * The page where the assignmnets would be shown
+	// */
+	// @SuppressWarnings("unchecked")
+	// private void showAllAssignments(Course course,
+	// AssignmentPageProfessor assignmentPage)
+	// {
+	// try
+	// {
+	// SendMessage<Course> requestAssignments = new SendMessage<Course>(
+	// course, CMD_RECEIVE + RECEIVE_ALL_ASSIGNMENTS);
+	// Vector<Assignment> myList = (Vector<Assignment>) client
+	// .sendMessage(requestAssignments);
+	//
+	// for (Assignment assignment : myList)
+	// {
+	// AssignItemProfessor assignItem = new AssignItemProfessor(
+	// assignment);
+	//
+	// assignItem.getActiveButton().addActionListener(
+	// new AssignmentActiveButtonListener(client, assignment));
+	//
+	// assignItem.getAssignmentLabel().addMouseListener(
+	// new AssignmentLabelMouseListener(assignment, client));
+	// assignmentPage.addToBoxList(assignItem);
+	// }
+	//
+	// } catch (IOException e)
+	// {
+	// e.printStackTrace();
+	// }
+	// }
 
 	/**
 	 * Creates the enrollment page and sets up it's listeners by calling them
@@ -165,9 +167,30 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	 * @param course
 	 *            The course
 	 */
+	@SuppressWarnings("unchecked")
 	private void createEnrollmentPage(Course course)
 	{
 		EnrollmentPage enrollmentPage = new EnrollmentPage(course, professor);
+
+		Refresh function = () ->
+		{
+			try
+			{
+				Vector<Student> myList = (Vector<Student>) client.sendMessage(
+						new SendMessage<>(CMD_RECEIVE + RECEIVE_ALL_STUDENTS));
+				enrollmentPage.setStudentList(myList);
+
+				Vector<Student> enrollList = (Vector<Student>) client
+						.sendMessage(new SendMessage<Course>(course,
+								CMD_RECEIVE + RECEIVE_ALL_ENROLLED_STUDENTS));
+				enrollmentPage.setEnrolledList(enrollList);
+			} catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		};
+
+		enrollmentPage.setRefreshBehaviour(function);
 
 		enrollmentPage.setSearchButtonListener(
 				new EnrollmentPageSearchButtonListener(enrollmentPage));
@@ -178,7 +201,6 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 				.setEnrollmentListListener(new EnrollmentListSelectionListener(
 						enrollmentPage.getEnrollmentButton(), course));
 
-		showAllStudents(course, enrollmentPage);
 		completeCoursePage(enrollmentPage, course);
 	}
 
@@ -302,13 +324,54 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	}
 
 	@Override
-	protected HomePage createHomePage()
+	protected void createHomePage()
 	{
-		HomePage homePage = super.createHomePage();
+		HomePage homePage = (HomePage) this.searchPage(HOME_PAGE);
+
+		Refresh function = () ->
+		{
+			SendMessage<Course> message = new SendMessage<Course>(
+					CMD_RECEIVE + RECEIVE_COURSES);
+			try
+			{
+				@SuppressWarnings("unchecked")
+				Vector<Course> coursesList = (Vector<Course>) this.client
+						.sendMessage(message);
+
+				if (coursesList != null)
+				{
+					for (int i = 0; i < coursesList.size(); i++)
+					{
+						Course course = coursesList.elementAt(i);
+						CourseItemProfessor courseItemProfessor = new CourseItemProfessor(
+								course);
+
+						homePage.addToBoxList(courseItemProfessor);
+
+						courseItemProfessor.getActiveButton().addActionListener(
+								new CourseActiveButtonListener(client, course));
+						courseItemProfessor.getViewButton().addActionListener(
+								new ViewCoursePageListener(course));
+
+						createNewCourse(course, homePage);
+
+						System.out.println("Course name is: "
+								+ coursesList.get(i).getName());
+					}
+				}
+
+			} catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		};
+
+		homePage.setRefreshBehaviour(function);
+		homePage.refresh();
+
 		homePage.setNewCourseListener(
 				new NewCourseButtonListener(this, client, homePage));
 		homePage.enableActiveLabel();
-		return homePage;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -317,48 +380,55 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	{
 		SubmissionPageProfessor submissionPage = new SubmissionPageProfessor(
 				course, professor);
-	
-		SendMessage<Course> requestAssignments = new SendMessage<Course>(course,
-				CMD_RECEIVE + RECEIVE_ALL_ASSIGNMENTS);
-		SendMessage<Course> requestStudents = new SendMessage<Course>(course,
-				CMD_RECEIVE + RECEIVE_ALL_ENROLLED_STUDENTS);
-		SendMessage<Course> requestSubmissions = new SendMessage<Course>(course,
-				CMD_RECEIVE + RECEIVE_ALL_SUBMISSIONS);
-	
-		try
+
+		Refresh function = () ->
 		{
-			Vector<Assignment> assignments = (Vector<Assignment>) this.client
-					.sendMessage(requestAssignments);
-			Vector<Student> students = (Vector<Student>) this.client
-					.sendMessage(requestStudents);
-			Vector<Submission> submissions = (Vector<Submission>) this.client
-					.sendMessage(requestSubmissions);
-	
-			if (assignments != null)
+			SendMessage<Course> requestAssignments = new SendMessage<Course>(
+					course, CMD_RECEIVE + RECEIVE_ALL_ASSIGNMENTS);
+			SendMessage<Course> requestStudents = new SendMessage<Course>(
+					course, CMD_RECEIVE + RECEIVE_ALL_ENROLLED_STUDENTS);
+			SendMessage<Course> requestSubmissions = new SendMessage<Course>(
+					course, CMD_RECEIVE + RECEIVE_ALL_SUBMISSIONS);
+
+			try
 			{
-				for (int i = 0; i < assignments.size(); i++)
+				Vector<Assignment> assignments = (Vector<Assignment>) this.client
+						.sendMessage(requestAssignments);
+				Vector<Student> students = (Vector<Student>) this.client
+						.sendMessage(requestStudents);
+				Vector<Submission> submissions = (Vector<Submission>) this.client
+						.sendMessage(requestSubmissions);
+
+				if (assignments != null)
 				{
-					Assignment assignment = assignments.elementAt(i);
-					submissionPage.addAssignment(assignment, students);
+					for (int i = 0; i < assignments.size(); i++)
+					{
+						Assignment assignment = assignments.elementAt(i);
+						submissionPage.addAssignment(assignment, students);
+					}
 				}
-			}
-	
-			for (int i = 0; i < submissions.size(); i++)
+
+				for (int i = 0; i < submissions.size(); i++)
+				{
+					Submission submission = submissions.elementAt(i);
+					SubmitItem submitItem = new SubmitItem(submission);
+					submitItem.getGradeButton().addActionListener(
+							new GradeSubmissionButtonListener(client, course,
+									submitItem));
+					submitItem.getAssignmentLink().addMouseListener(
+							new SubmissionLabelMouseListener(submission,
+									client));
+
+					submissionPage.addSubmission(submitItem);
+				}
+			} catch (IOException e)
 			{
-				Submission submission = submissions.elementAt(i);
-				SubmitItem submitItem = new SubmitItem(submission);
-				submitItem.getGradeButton().addActionListener(
-						new GradeSubmissionButtonListener(client, course,
-								submitItem));
-				submitItem.getAssignmentLink().addMouseListener(
-						new SubmissionLabelMouseListener(submission, client));
-	
-				submissionPage.addSubmission(submitItem);
+				e.printStackTrace();
 			}
-		} catch (IOException e)
-		{
-			e.printStackTrace();
-		}
+		};
+
+		submissionPage.setRefreshBehaviour(function);
+
 		completeCoursePage(submissionPage, course);
 	}
 
@@ -377,19 +447,51 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		homePage.addToBoxList(courseItem);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void createAssignmentPage(Course course)
 	{
 		AssignmentPageProfessor assignmentPage = new AssignmentPageProfessor(
 				course, professor);
-	
+
+		Refresh function = () ->
+		{
+			try
+			{
+				SendMessage<Course> requestAssignments = new SendMessage<Course>(
+						course, CMD_RECEIVE + RECEIVE_ALL_ASSIGNMENTS);
+				Vector<Assignment> myList = (Vector<Assignment>) client
+						.sendMessage(requestAssignments);
+
+				for (Assignment assignment : myList)
+				{
+					AssignItemProfessor assignItem = new AssignItemProfessor(
+							assignment);
+
+					assignItem.getActiveButton().addActionListener(
+							new AssignmentActiveButtonListener(client,
+									assignment));
+
+					assignItem.getAssignmentLabel().addMouseListener(
+							new AssignmentLabelMouseListener(assignment,
+									client));
+					assignmentPage.addToBoxList(assignItem);
+				}
+
+			} catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		};
+
+		assignmentPage.setRefreshBehaviour(function);
+
 		assignmentPage.setUploadButtonListener(
 				new UploadAssignmentButtonListener(client, course,
 						assignmentPage));
 		assignmentPage.setBrowseButtonListener(
 				new BrowseButtonListener(assignmentPage));
-	
-		showAllAssignments(course, assignmentPage);
+
 		completeCoursePage(assignmentPage, course);
 	}
 
@@ -401,25 +503,31 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 				course, professor);
 		// composeEmailPage
 		// .setMyEmailButtonListener(new MyEmailsButtonListener(course));
-	
+
+		// Sets the enrolled J-List to help email choosing
+		Refresh function = () -> 
+		{
+			try
+			{
+				Vector<Student> enrollList = (Vector<Student>) client
+						.sendMessage(new SendMessage<Course>(course,
+								CMD_RECEIVE + RECEIVE_ALL_ENROLLED_STUDENTS));
+				composeEmailPage.setStudentList(enrollList);
+			} catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		};
+		composeEmailPage.setRefreshBehaviour(function);
+		
+
 		composeEmailPage.getSendToAllButton().addActionListener(
 				new SendToAllButtonListener(client, course, composeEmailPage));
 		composeEmailPage.setSendButtonListener(new ProfessorSendButtonListener(
 				client, course, composeEmailPage));
 		composeEmailPage.getAddToEmailButton().addActionListener(
 				new AddToEmailButtonListener(client, course, composeEmailPage));
-	
-		// Sets the enrolled J-List to help email choosing
-		try
-		{
-			Vector<Student> enrollList = (Vector<Student>) client
-					.sendMessage(new SendMessage<Course>(course,
-							CMD_RECEIVE + RECEIVE_ALL_ENROLLED_STUDENTS));
-			composeEmailPage.setStudentList(enrollList);
-		} catch (IOException e)
-		{
-			e.printStackTrace();
-		}
+
 		completeCoursePage(composeEmailPage, course);
 	}
 
@@ -428,6 +536,16 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	{
 		@SuppressWarnings("rawtypes")
 		CoursePage coursePage = new CoursePage(course, professor);
+
+		coursePage.setRefreshBehaviour(new Refresh()
+		{
+			// Do nothing to refresh an empty course page.
+			@Override
+			public void refresh()
+			{
+			}
+		});
+
 		completeCoursePage(coursePage, course);
 	}
 
@@ -435,6 +553,13 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	protected void createDiscussionPage(Course course)
 	{
 		DiscussionPage discussionPage = new DiscussionPage(course, professor);
+		
+		Refresh function = () -> {
+			// TODO:
+		};
+		
+		discussionPage.setRefreshBehaviour(function);
+		
 		completeCoursePage(discussionPage, course);
 	}
 }

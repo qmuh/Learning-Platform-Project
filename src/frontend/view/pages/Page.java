@@ -39,6 +39,8 @@ public abstract class Page<T extends Box, U> extends JPanel
 	// protected StudentGUI studentGUI;
 	// protected ProfessorGUI professorGUI;
 
+	protected Refresh function;
+	
 	public Page(User user)
 	{
 		this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -53,7 +55,7 @@ public abstract class Page<T extends Box, U> extends JPanel
 		this.add(body, BorderLayout.CENTER);
 	}
 
-	public abstract void displayPage();
+//	public abstract void displayPage();
 
 	protected JPanel createLabel(String label, Font f)
 	{
@@ -88,7 +90,20 @@ public abstract class Page<T extends Box, U> extends JPanel
 	{
 		header.getBackButton().setEnabled(b);
 	}
-
+	
+	public void setRefreshBehaviour(Refresh function)
+	{
+		this.function = function;
+	}
+	
+	public void refresh()
+	{
+		this.itemDisplay.removeAll();
+		this.itemDisplay.revalidate();
+		this.itemDisplay.repaint();
+		this.function.refresh();
+	}
+	
 	public void addToBoxList(T item)
 	{
 		itemDisplay.add(item);

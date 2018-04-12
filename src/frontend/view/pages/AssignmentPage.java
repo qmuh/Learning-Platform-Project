@@ -2,6 +2,7 @@ package frontend.view.pages;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.io.File;
 
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.items.assignment.AssignItem;
@@ -38,6 +39,8 @@ abstract public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 		itemDisplay.revalidate();
 		itemDisplay.repaint();
 	}
+	
+	
 
 //	public void setAssignmentVector(Vector<Assignment> myList)
 //	{

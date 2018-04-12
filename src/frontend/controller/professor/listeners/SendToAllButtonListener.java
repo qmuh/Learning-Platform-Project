@@ -7,6 +7,7 @@ import java.util.Vector;
 
 import frontend.controller.Client;
 import frontend.view.pages.compose.ComposeEmailPage;
+import frontend.view.pages.compose.ComposeEmailPageProfessor;
 import shared.interfaces.ProfessorCommands;
 import shared.objects.Course;
 import shared.objects.SendMessage;
@@ -35,7 +36,7 @@ public class SendToAllButtonListener
 	/**
 	 * The ComposeEmailPage where the button is located
 	 */
-	private ComposeEmailPage composePage;
+	private ComposeEmailPageProfessor composePage;
 
 	/**
 	 * Constructor for this listener class
@@ -48,7 +49,7 @@ public class SendToAllButtonListener
 	 *            The page which contains information needed
 	 */
 	public SendToAllButtonListener(Client client, Course course,
-			ComposeEmailPage composeEmailPage)
+			ComposeEmailPageProfessor composeEmailPage)
 	{
 		this.client = client;
 		this.course = course;
@@ -60,6 +61,7 @@ public class SendToAllButtonListener
 	{
 		try
 		{
+			System.out.println("SEND TO ALL LISTENER");
 			composePage.clearEmail();
 			@SuppressWarnings("unchecked")
 			Vector<Student> enrollList = (Vector<Student>) client

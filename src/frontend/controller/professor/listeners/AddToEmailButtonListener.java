@@ -52,6 +52,7 @@ public class AddToEmailButtonListener implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
+		System.out.println("ADD TO ALL LISTENER");
 		String add = myEmailPage.getSelected();
 		if (add != null)
 		{

@@ -103,4 +103,5 @@ public class ComposeEmailPageProfessor extends ComposeEmailPage
 		studentList.clearSelection();
 		studentList.setListData(enrollList);
 	}
+	
 }

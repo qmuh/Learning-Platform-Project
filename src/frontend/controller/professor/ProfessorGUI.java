@@ -416,9 +416,9 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 					submitItem.getGradeButton().addActionListener(
 							new GradeSubmissionButtonListener(client, course,
 									submitItem));
-					//submitItem.getAssignmentLink().addMouseListener(
-					//		new SubmissionLabelMouseListener(submission,
-					//				client));
+					submitItem.getAssignmentLink().addMouseListener(
+							new SubmissionLabelMouseListener(submission,
+									client));
 
 					submissionPage.addSubmission(submitItem);
 				}
@@ -508,9 +508,11 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 
 		composeEmailPage.getSendToAllButton().addActionListener(
 				new SendToAllButtonListener(client, course, composeEmailPage));
+		
 		composeEmailPage.getSendButton()
 				.addActionListener(new ProfessorSendButtonListener(client,
 						course, composeEmailPage));
+		
 		composeEmailPage.getAddToEmailButton().addActionListener(
 				new AddToEmailButtonListener(client, course, composeEmailPage));
 

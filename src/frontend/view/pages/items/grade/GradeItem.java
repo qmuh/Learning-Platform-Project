@@ -39,8 +39,7 @@ public class GradeItem extends GeneralItem
 		JPanel inner = new JPanel(new GridLayout(1, 2));
 		inner.add(new WLabel(assignmentName), 0);
 
-		inner.add(new WLabel(Integer.toString(grade.getGrade()) + "%",
-				WLabel.CENTER), 1);
+		inner.add(new WLabel(Integer.toString(grade.getGrade()) + "%"), 1);
 
 		this.add(inner);
 	}

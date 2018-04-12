@@ -95,7 +95,8 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 						.sendMessage(assignmentsRequest);
 
 				for (int j = 0; j < receivedGrades.size(); j++)
-				{
+				{	
+					System.out.println("GRADE VALUE IS " +receivedGrades.get(j).getGrade());
 					for (int i = 0; i < assignments.size(); i++)
 					{
 						Assignment assignment = assignments.elementAt(i);

@@ -146,10 +146,7 @@ public class UserTable extends Table<User> implements UserInfo
 					return new Professor(user.getInt("ID"),
 							user.getString("FIRSTNAME"), user.getString("LASTNAME"),
 							user.getString("EMAIL"), user.getString("PASSWORD"));
-					
 				}
-				
-			
 			}
 
 		} catch (SQLException e)

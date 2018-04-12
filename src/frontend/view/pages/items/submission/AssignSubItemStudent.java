@@ -13,6 +13,7 @@ public class AssignSubItemStudent extends AssignSubItem
 	{
 		super(assignment);
 		this.studentSubItem = new StudentSubItem(student);
+		this.add(studentSubItem);
 	}
 
 	@Override

@@ -55,7 +55,7 @@ public class ComposeEmailPageProfessor extends ComposeEmailPage
 				.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
 		studentList = new JList<Student>();
 		studentList.setFont(TEXT_FONT);
-		studentList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+//		studentList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		JScrollPane scrollPane = new JScrollPane(studentList);
 		scrollPane.setVerticalScrollBarPolicy(
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);

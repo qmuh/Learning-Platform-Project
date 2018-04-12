@@ -7,6 +7,9 @@ import java.util.Vector;
 import frontend.controller.listeners.AssignmentLabelMouseListener;
 import frontend.controller.professor.listeners.CourseActiveButtonListener;
 import frontend.controller.professor.listeners.NewCourseButtonListener;
+import frontend.controller.listeners.SubmitSubmissionButtonListener;
+import frontend.controller.listeners.UploadAssignmentButtonListener;
+import frontend.controller.listeners.UploadSubmissionButtonListener;
 import frontend.controller.student.listeners.StudentSendButtonListener;
 import frontend.view.pages.Refresh;
 import frontend.view.pages.assignment.AssignmentPageStudent;
@@ -23,6 +26,7 @@ import frontend.view.pages.items.course.CourseItemProfessor;
 import frontend.view.pages.items.course.CourseItemStudent;
 import frontend.view.pages.items.grade.GradeItem;
 import frontend.view.pages.items.submission.SubmitItem;
+import frontend.view.pages.items.submission.SubmitItemStudent;
 import frontend.view.pages.submission.SubmissionPageStudent;
 import shared.interfaces.StudentCommands;
 import shared.objects.Assignment;
@@ -74,12 +78,12 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 	{
 		GradePage gradePage = new GradePage(course, student);
 
-		Refresh function = () -> 
+		Refresh function = () ->
 		{
 			SendMessage<Course> gradesRequest = new SendMessage<Course>(course,
 					CMD_RECEIVE + RECEIVE_GRADES);
-			SendMessage<Course> assignmentsRequest = new SendMessage<Course>(course,
-					CMD_RECEIVE + RECEIVE_ASSIGNMENTS);
+			SendMessage<Course> assignmentsRequest = new SendMessage<Course>(
+					course, CMD_RECEIVE + RECEIVE_ASSIGNMENTS);
 
 			try
 			{
@@ -95,8 +99,8 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 					{
 						Assignment assignment = assignments.elementAt(i);
 
-						if (receivedGrades.elementAt(j).getAssignID() == assignment
-								.getId())
+						if (receivedGrades.elementAt(j)
+								.getAssignID() == assignment.getId())
 						{
 							gradePage.addToBoxList(
 									new GradeItem(assignment.getTitle(),
@@ -111,9 +115,9 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 				e.printStackTrace();
 			}
 		};
-		
+
 		gradePage.setRefreshBehaviour(function);
-		
+
 		completeCoursePage(gradePage, course);
 	}
 
@@ -146,13 +150,14 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 	protected void createCoursePage(Course course)
 	{
 		CoursePage coursePage = new CoursePage<>(course, student);
-		
-		Refresh function = () -> {
-			
+
+		Refresh function = () ->
+		{
+
 		};
-		
+
 		coursePage.setRefreshBehaviour(function);
-		
+
 		completeCoursePage(coursePage, course);
 	}
 
@@ -160,13 +165,13 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 	@Override
 	protected void createAssignmentPage(Course course)
 	{
-		AssignmentPageStudent assignmentPage = new AssignmentPageStudent(
-				course, student);
+		AssignmentPageStudent assignmentPage = new AssignmentPageStudent(course,
+				student);
 
 		Refresh function = () ->
 		{
-			SendMessage<Course> receiveAssignments = new SendMessage<Course>(course,
-					CMD_RECEIVE + RECEIVE_ASSIGNMENTS);
+			SendMessage<Course> receiveAssignments = new SendMessage<Course>(
+					course, CMD_RECEIVE + RECEIVE_ASSIGNMENTS);
 
 			try
 			{
@@ -183,9 +188,20 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 					assignItemStudent.getAssignmentLabel().addMouseListener(
 							new AssignmentLabelMouseListener(assignments.get(i),
 									client));
-					// assignItemStudent.getUpload()
-					// .addActionListener(new UploadAssignmentButtonListener(client,
-					// course, assignmentPage));
+
+					assignItemStudent.getUpload().addActionListener(
+							new UploadSubmissionButtonListener(client, course,
+									assignmentPage));
+
+					Submission toGive = new Submission(
+							assignments.elementAt(i).getId(), student.getId(),
+							null, 0, null, null, null);
+
+					assignItemStudent.getSubmit().addActionListener(
+							new SubmitSubmissionButtonListener(client, course,
+									assignmentPage, toGive));
+
+					assignmentPage.addToBoxList(assignItemStudent);
 
 					assignmentPage.addToBoxList(assignItemStudent);
 				}
@@ -195,7 +211,7 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 				e.printStackTrace();
 			}
 		};
-		
+
 		assignmentPage.setRefreshBehaviour(function);
 
 		completeCoursePage(assignmentPage, course);
@@ -230,12 +246,11 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 
 				for (int i = 0; i < submissions.size(); i++)
 				{
-					SubmitItem submitItem = new SubmitItem(
+					SubmitItemStudent submitItem = new SubmitItemStudent(
 							submissions.elementAt(i));
 
 					submissionPageStudent.addSubmission(submitItem);
 				}
-
 			} catch (IOException e)
 			{
 				// TODO: handle exception
@@ -251,14 +266,14 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 	{
 		ComposeEmailPageStudent composeEmailPage = new ComposeEmailPageStudent(
 				course, student);
-//		composeEmailPage.getSendButton()
-//				.addActionListener(new StudentSendButtonListener(course,
-//						composeEmailPage, client));
+		// composeEmailPage.getSendButton()
+		// .addActionListener(new StudentSendButtonListener(course,
+		// composeEmailPage, client));
 
 		Refresh function = () ->
 		{
-			SendMessage<Course> requestProfessor = new SendMessage<Course>(course,
-					CMD_RECEIVE + RECEIVE_PROFESSOR);
+			SendMessage<Course> requestProfessor = new SendMessage<Course>(
+					course, CMD_RECEIVE + RECEIVE_PROFESSOR);
 			Professor professor = null;
 			try
 			{
@@ -269,9 +284,9 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 			}
 			composeEmailPage.getToField().setText(professor.getEmail());
 		};
-		
+
 		composeEmailPage.setRefreshBehaviour(function);
-		
+
 		completeCoursePage(composeEmailPage, course);
 	}
 
@@ -279,15 +294,14 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 	protected void createDiscussionPage(Course course)
 	{
 		DiscussionPage discussionPage = new DiscussionPage(course, student);
-		
+
 		Refresh function = () ->
 		{
 			// TODO: Complete functionality.
 		};
-		
+
 		discussionPage.setRefreshBehaviour(function);
-		
-		
+
 		completeCoursePage(discussionPage, course);
 	}
 
@@ -340,7 +354,7 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 			}
 		};
 		homePage.setRefreshBehaviour(function);
-		
+
 		homePage.refresh();
 	}
 }

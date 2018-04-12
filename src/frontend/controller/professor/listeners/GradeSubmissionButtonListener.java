@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 
 import frontend.controller.Client;
 import frontend.view.pages.items.submission.SubmitItem;
+import frontend.view.pages.items.submission.SubmitItemProfessor;
 import shared.interfaces.ProfessorCommands;
 import shared.objects.Course;
 import shared.objects.Grade;
@@ -56,12 +57,12 @@ public class GradeSubmissionButtonListener
 	 *            The submitItem which holds the assignment info
 	 */
 	public GradeSubmissionButtonListener(Client client, Course course,
-			SubmitItem submitItem)
+			SubmitItemProfessor submitItem)
 	{
 		this.client = client;
 		this.course = course;
 		this.submission = submitItem.getSubmission();
-		this.gradeField = submitItem.getGradeTextField();
+		this.gradeField = submitItem.getGradeField();
 	}
 
 	@Override

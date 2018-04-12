@@ -16,7 +16,7 @@ import shared.objects.Submission;
 import shared.objects.User;
 
 /**
- * 
+ *
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
@@ -33,7 +33,7 @@ public class StudentSession extends ClientSession implements StudentCommands
 
 	/**
 	 * Initializes this session with a socket and calls super
-	 * 
+	 *
 	 * @param socket
 	 *            The socket given to the super
 	 */
@@ -104,7 +104,7 @@ public class StudentSession extends ClientSession implements StudentCommands
 
 	/**
 	 * Handles client commands having to do with them modifying data
-	 * 
+	 *
 	 * @param interpreter
 	 *            The specific command from an interface
 	 * @param getmessageObject
@@ -117,7 +117,7 @@ public class StudentSession extends ClientSession implements StudentCommands
 
 	/**
 	 * Handles client commands having to do with them receiving data
-	 * 
+	 *
 	 * @param interpreter
 	 *            The specific command from an interface
 	 * @param getmessageObject
@@ -167,12 +167,12 @@ public class StudentSession extends ClientSession implements StudentCommands
 					.getUserByID(((Course) getmessageObject).getProf_id());
 			sendObject(myProf);
 
-		} else if (interpreter.equals(RECEIVE_SUBMISSIONS))
-		{
-			Vector<Submission> mySubmissions = database.getSubmissionTable()
-					.searchByCourseAndStudentID(
-							((Course) getmessageObject).getId(),
-							student.getId());
+		}
+		else if (interpreter.equals(RECEIVE_SUBMISSIONS)) {
+			Vector<Submission> mySubmissions = database.getSubmissionTable().
+					searchByCourseAndStudentID(student.getId());
+
+			System.out.println("My submissions have a size of: " + mySubmissions.size());
 			sendObject(mySubmissions);
 		} else if (interpreter.equals(RECEIVE_ASSIGNMENT))
 		{
@@ -184,7 +184,7 @@ public class StudentSession extends ClientSession implements StudentCommands
 
 	/**
 	 * Handles client commands having to do with keeping database updated
-	 * 
+	 *
 	 * @param interpreter
 	 *            The specific command from an interface
 	 * @param getmessageObject
@@ -196,15 +196,17 @@ public class StudentSession extends ClientSession implements StudentCommands
 		{
 			Submission mySubmission = (Submission) getmessageObject;
 			String toSplit[] = mySubmission.getPath().split("/");
-			mySubmission.setPath("/Users/qasimmuhammad/Desktop/Database" + "/"
-					+ (toSplit[toSplit.length - 1]));
+			Assignment toGet = database.getAssignmentTable().searchByAssignID(mySubmission.getAssign_id());
 
+			mySubmission.setPath(toGet.getDir() + "/" + mySubmission.getTitle());
+			System.out.println("Inserting submission at " + mySubmission.getPath());
+			System.out.println("My submission title is" + mySubmission.getTitle());
 			database.getSubmissionTable().add(mySubmission);
 			byte[] file;
 			try
 			{
 				file = (byte[]) objectIn.readObject();
-				fileHelper.storeFile(file, ((Submission) getmessageObject));
+				fileHelper.storeFile(file, mySubmission);
 			} catch (ClassNotFoundException | IOException e)
 			{
 				e.printStackTrace();

@@ -150,6 +150,8 @@ abstract public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 		emailArea = new JTextArea();
 		emailArea.setBorder(new JTextField().getBorder());
 		emailArea.setFont(TEXT_FONT);
+		emailArea.setLineWrap(true);
+		emailArea.setWrapStyleWord(true);
 		emailTextPanel.add(emailArea, BorderLayout.CENTER);
 		emailTextPanel.add(createButtonPanel(), BorderLayout.SOUTH);
 		return emailTextPanel;

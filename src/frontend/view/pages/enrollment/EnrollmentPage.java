@@ -11,6 +11,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
@@ -135,7 +136,10 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 		studentSearchResults.setFont(TEXT_FONT);
 		studentSearchResults
 				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		searchResults.add(studentSearchResults, BorderLayout.CENTER);
+		JScrollPane scrollPane = new JScrollPane(studentSearchResults);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
+		searchResults.add(scrollPane, BorderLayout.CENTER);
 		return searchResults;
 	}
 
@@ -210,15 +214,16 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 		return enrollList;
 	}
 
-	private JPanel createEnrolledStudentList()
+	private JScrollPane createEnrolledStudentList()
 	{
-		JPanel enrolledPanel = new JPanel(new GridLayout(1, 1));
-		enrolledPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
 		enrolledStudentList = new JList<Student>();
 		enrolledStudentList.setEnabled(false);
 		enrolledStudentList.setFont(TEXT_FONT);
-		enrolledPanel.add(enrolledStudentList);
-		return enrolledPanel;
+		JScrollPane scrollPane = new JScrollPane(enrolledStudentList);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
+		scrollPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
+		return scrollPane;
 	}
 
 	@Override

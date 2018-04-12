@@ -61,7 +61,7 @@ public class AssignmentTable extends Table<Assignment> implements Activatable
 	{
 		String sql = "CREATE TABLE " + tableName + "(" + "ID INT(8) NOT NULL, "
 				+ "COURSEID INT(8) NOT NULL, " + "TITLE VARCHAR(50) NOT NULL, "
-				+ "PATH VARCHAR(100) NOT NULL, " + "ACTIVE BIT(1) NOT NULL, "
+				+ "PATH VARCHAR(255) NOT NULL, " + "ACTIVE BIT(1) NOT NULL, "
 				+ "DUEDATE VARCHAR(16) NOT NULL," + "PRIMARY KEY ( id ) )";
 
 		try
@@ -198,5 +198,37 @@ public class AssignmentTable extends Table<Assignment> implements Activatable
 			e.printStackTrace();
 		}
 		return userList;
+	}
+
+	
+	/** Searches by Assign ID
+	 * @param assign_id
+	 * @return
+	 */
+	public Assignment searchByAssignID(int assign_id)
+	{
+		String sql = "SELECT * FROM " + tableName + " WHERE ID= ?";
+		ResultSet assign;
+
+		try
+		{
+
+			preparedStatement = dbConnection.prepareStatement(sql);
+			preparedStatement.setInt(1, assign_id);
+			assign = preparedStatement.executeQuery();
+			while (assign.next())
+			{
+				 return (new Assignment(assign.getInt("ID"),
+						assign.getInt("COURSEID"), assign.getString("TITLE"),
+						assign.getString("PATH"), assign.getBoolean("ACTIVE"),
+						assign.getString("DUEDATE")));
+
+			}
+
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

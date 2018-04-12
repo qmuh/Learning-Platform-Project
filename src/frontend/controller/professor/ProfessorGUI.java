@@ -36,6 +36,7 @@ import frontend.view.pages.home.HomePage;
 import frontend.view.pages.items.assignment.AssignItemProfessor;
 import frontend.view.pages.items.course.CourseItemProfessor;
 import frontend.view.pages.items.submission.SubmitItem;
+import frontend.view.pages.items.submission.SubmitItemProfessor;
 import frontend.view.pages.submission.SubmissionPageProfessor;
 import shared.interfaces.ProfessorCommands;
 import shared.objects.Assignment;
@@ -411,7 +412,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 				for (int i = 0; i < submissions.size(); i++)
 				{
 					Submission submission = submissions.elementAt(i);
-					SubmitItem submitItem = new SubmitItem(submission);
+					SubmitItemProfessor submitItem = new SubmitItemProfessor(submission);
 					submitItem.getGradeButton().addActionListener(
 							new GradeSubmissionButtonListener(client, course,
 									submitItem));

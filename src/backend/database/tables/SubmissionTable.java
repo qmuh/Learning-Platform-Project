@@ -8,7 +8,7 @@ import java.util.Vector;
 import shared.objects.Submission;
 
 /**
- * 
+ *
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
@@ -19,7 +19,7 @@ public class SubmissionTable extends Table<Submission>
 
 	/**
 	 * Constructor for the submission table
-	 * 
+	 *
 	 * @param connectionToDB
 	 *            Connection with SQL server
 	 * @param tableName
@@ -61,7 +61,7 @@ public class SubmissionTable extends Table<Submission>
 	{
 		String sql = "CREATE TABLE " + tableName + "(" + "ID INT(8) NOT NULL, "
 				+ "ASSIGNID INT(8) NOT NULL, " + "STUDENTID INT(8) NOT NULL, "
-				+ "PATH VARCHAR(100) NOT NULL, "
+				+ "PATH VARCHAR(255) NOT NULL, "
 				+ "TITLE VARCHAR(50) NOT NULL, "
 				+ "SUBMISSION_GRADE INT(3) NOT NULL,"
 				+ "COMMENT VARCHAR(140) NOT NULL, "
@@ -81,7 +81,7 @@ public class SubmissionTable extends Table<Submission>
 
 	/**
 	 * Used by professor to look at submission by a specific student
-	 * 
+	 *
 	 * @param studentID
 	 * @return
 	 */
@@ -119,7 +119,7 @@ public class SubmissionTable extends Table<Submission>
 
 	/**
 	 * Used by professor to see all submissions for a specific assignment
-	 * 
+	 *
 	 * @param assignID
 	 * @return
 	 */
@@ -157,7 +157,7 @@ public class SubmissionTable extends Table<Submission>
 
 	/**
 	 * Searches the table by course ID''s
-	 * 
+	 *
 	 * @param courseID
 	 *            The course ID to search for
 	 * @return The vector containing all the submissions for a course ID
@@ -193,18 +193,15 @@ public class SubmissionTable extends Table<Submission>
 		return assignSubmissons;
 	}
 
-	public Vector<Submission> searchByCourseAndStudentID(int courseID,
-			int studentID)
+	public Vector<Submission> searchByCourseAndStudentID(int studentID)
 	{
 		Vector<Submission> assignSubmissons = new Vector<Submission>();
-		String sql = "SELECT * FROM " + tableName
-				+ " WHERE COURSEID= ? AND STUDENTID= ? ";
+		String sql = "SELECT * FROM " + tableName + " WHERE STUDENTID= ? ";
 		ResultSet submission;
 		try
 		{
 			preparedStatement = dbConnection.prepareStatement(sql);
-			preparedStatement.setInt(1, courseID);
-			preparedStatement.setInt(2, studentID);
+			preparedStatement.setInt(1, studentID);
 			submission = preparedStatement.executeQuery();
 			while (submission.next())
 			{

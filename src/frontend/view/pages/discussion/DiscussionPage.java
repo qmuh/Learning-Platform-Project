@@ -42,8 +42,10 @@ public class DiscussionPage extends CoursePage<CourseItem, Course>
 	private JPanel createSendField()
 	{
 		JPanel sendFieldPanel = new JPanel(new BorderLayout());
-		sendArea = new JTextArea(3, 200);
+		sendArea = new JTextArea(3, Integer.MAX_VALUE);
 		sendArea.setFont(TEXT_FONT);
+		sendArea.setLineWrap(true);
+		sendArea.setWrapStyleWord(true);
 		sendArea.setBorder(new JTextField().getBorder());
 		try
 		{

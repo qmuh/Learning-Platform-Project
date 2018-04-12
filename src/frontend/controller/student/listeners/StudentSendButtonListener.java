@@ -28,7 +28,7 @@ import shared.objects.Course;
 public class StudentSendButtonListener implements ActionListener, StudentCommands
 {
 
-<<<<<<< HEAD
+
 	private ComposeEmailPageStudent emailPage;
 	
 	private Client client;
@@ -42,20 +42,12 @@ public class StudentSendButtonListener implements ActionListener, StudentCommand
 		emailPage = myPage;
 	}
 	
-	
-=======
-	public StudentSendButtonListener(Course course,
-			ComposeEmailPageStudent composeEmailPage, Client client)
-	{
-		// TODO Auto-generated constructor stub
-	}
 
->>>>>>> origin/StudentGUI
+
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		// TODO Auto-generated method stub
-<<<<<<< HEAD
+
 		EmailInfo mailInfo = emailPage.getEmailInfo();
 		JTextField gEmail = new JTextField(50);
 		JTextField password = new JTextField(50);
@@ -90,9 +82,7 @@ public class StudentSendButtonListener implements ActionListener, StudentCommand
 			}
 		}
 		
-=======
 
->>>>>>> origin/StudentGUI
 	}
 }
 }

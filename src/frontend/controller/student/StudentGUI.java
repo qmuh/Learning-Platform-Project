@@ -5,12 +5,11 @@ import java.net.Socket;
 import java.util.Vector;
 
 import frontend.controller.listeners.AssignmentLabelMouseListener;
-<<<<<<< HEAD
+
 import frontend.controller.listeners.SubmitSubmissionButtonListener;
 import frontend.controller.listeners.UploadAssignmentButtonListener;
 import frontend.controller.listeners.UploadSubmissionButtonListener;
-=======
->>>>>>> origin/StudentGUI
+
 import frontend.controller.student.listeners.StudentSendButtonListener;
 import frontend.view.pages.assignment.AssignmentPageStudent;
 import frontend.view.pages.components.CourseNavigationBarStudent;
@@ -220,7 +219,6 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 			{
 				SubmitItemStudent submitItem = new SubmitItemStudent(
 						submissions.elementAt(i));
-
 				submissionPageStudent.addSubmission(submitItem);
 			}
 

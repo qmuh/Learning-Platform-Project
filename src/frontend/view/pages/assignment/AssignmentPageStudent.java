@@ -14,15 +14,12 @@ final public class AssignmentPageStudent extends AssignmentPage
 {
 	private static final long serialVersionUID = 1L;
 
-<<<<<<< HEAD
+
 	private File selectedFile;
 	
-	
-	
-	public AssignmentPageStudent(Course course)
-=======
+
 	public AssignmentPageStudent(Course course, Student student)
->>>>>>> origin/StudentGUI
+
 	{
 		super(course, student);
 	}

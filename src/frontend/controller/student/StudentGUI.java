@@ -39,7 +39,7 @@ import shared.objects.Submission;
 
 /**
  * Holds all information for the STUDENT GUI and how it is set up.
- * 
+ *
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
@@ -126,7 +126,7 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 	 *
 	 * @param genericCoursePage
 	 *            the course page to complete
-	 * 
+	 *
 	 * @param course
 	 *            the course that the page is associated with
 	 */
@@ -223,8 +223,8 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 	{
 		SubmissionPageStudent submissionPageStudent = new SubmissionPageStudent(
 				course, student);
-		
-		Refresh function = () -> 
+
+		Refresh function = () ->
 		{
 			SendMessage<Course> requestSubmissions = new SendMessage<Course>(course,
 					CMD_RECEIVE + RECEIVE_SUBMISSIONS);
@@ -253,7 +253,9 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 				}
 			} catch (IOException e)
 			{
-				// TODO: handle exception
+				SubmitItemStudent submitItem = new SubmitItemStudent(
+						submissions.elementAt(i));
+				submissionPageStudent.addSubmission(submitItem);
 			}
 		};
 		submissionPageStudent.setRefreshBehaviour(function);

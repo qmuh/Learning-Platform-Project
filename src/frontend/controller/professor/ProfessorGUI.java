@@ -121,128 +121,6 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		createEnrollmentPage(course);
 	}
 
-	@Override
-	protected HomePage createHomePage()
-	{
-		HomePage homePage = super.createHomePage();
-		homePage.setNewCourseListener(
-				new NewCourseButtonListener(this, client, homePage));
-		homePage.enableActiveLabel();
-		return homePage;
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	protected void createSubmissionPage(Course course)
-	{
-		SubmissionPageProfessor submissionPage = new SubmissionPageProfessor(
-				course);
-
-		SendMessage<Course> requestAssignments = new SendMessage<Course>(course,
-				CMD_RECEIVE + RECEIVE_ALL_ASSIGNMENTS);
-		SendMessage<Course> requestStudents = new SendMessage<Course>(course,
-				CMD_RECEIVE + RECEIVE_ALL_ENROLLED_STUDENTS);
-		SendMessage<Course> requestSubmissions = new SendMessage<Course>(course,
-				CMD_RECEIVE + RECEIVE_ALL_SUBMISSIONS);
-
-		try
-		{
-			Vector<Assignment> assignments = (Vector<Assignment>) this.client
-					.sendMessage(requestAssignments);
-			Vector<Student> students = (Vector<Student>) this.client
-					.sendMessage(requestStudents);
-			Vector<Submission> submissions = (Vector<Submission>) this.client
-					.sendMessage(requestSubmissions);
-
-			if (assignments != null)
-			{
-				for (int i = 0; i < assignments.size(); i++)
-				{
-					Assignment assignment = assignments.elementAt(i);
-					submissionPage.addAssignment(assignment, students);
-				}
-			}
-
-			for (int i = 0; i < submissions.size(); i++)
-			{
-				Submission submission = submissions.elementAt(i);
-				SubmitItem submitItem = new SubmitItem(submission);
-				submitItem.getGradeButton().addActionListener(
-						new GradeSubmissionButtonListener(client, course,
-								submitItem));
-				submitItem.getAssignmentLink().addMouseListener(
-						new SubmissionLabelMouseListener(submission, client));
-
-				submissionPage.addSubmission(submitItem);
-			}
-		} catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-		completeCoursePage(submissionPage, course);
-	}
-
-	/**
-	 * @param course
-	 * @param homePage
-	 */
-	@Override
-	protected void createCourseItem(Course course, HomePage homePage)
-	{
-		CourseItemProfessor courseItem = new CourseItemProfessor(course);
-		courseItem.getActiveButton().addActionListener(
-				new CourseActiveButtonListener(client, course));
-		courseItem.getViewButton()
-				.addActionListener(new ViewCoursePageListener(course));
-		homePage.addToBoxList(courseItem);
-	}
-
-	@Override
-	protected void createAssignmentPage(Course course)
-	{
-		AssignmentPageProfessor assignmentPage = new AssignmentPageProfessor(
-				course);
-
-		assignmentPage.setUploadButtonListener(
-				new UploadAssignmentButtonListener(client, course,
-						assignmentPage));
-		assignmentPage.setBrowseButtonListener(
-				new BrowseButtonListener(assignmentPage));
-
-		showAllAssignments(course, assignmentPage);
-		completeCoursePage(assignmentPage, course);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	protected void createComposeEmailPage(Course course)
-	{
-		ComposeEmailPageProfessor composeEmailPage = new ComposeEmailPageProfessor(
-				course);
-		// composeEmailPage
-		// .setMyEmailButtonListener(new MyEmailsButtonListener(course));
-
-		composeEmailPage.getSendToAllButton().addActionListener(
-				new SendToAllButtonListener(client, course, composeEmailPage));
-		composeEmailPage.setSendButtonListener(new ProfessorSendButtonListener(
-				client, course, composeEmailPage));
-		composeEmailPage.getAddToEmailButton().addActionListener(
-				new AddToEmailButtonListener(client, course, composeEmailPage));
-
-		// Sets the enrolled J-List to help email choosing
-		try
-		{
-			Vector<Student> enrollList = (Vector<Student>) client
-					.sendMessage(new SendMessage<Course>(course,
-							CMD_RECEIVE + RECEIVE_ALL_ENROLLED_STUDENTS));
-			composeEmailPage.setStudentList(enrollList);
-		} catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-		completeCoursePage(composeEmailPage, course);
-	}
-
 	/**
 	 * Shows all assignments for a course
 	 * 
@@ -407,10 +285,10 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	}
 
 	/**
-	 * Sets a course page and its content
+	 * Completes a course page by adding a navigation bar and its listeners
 	 * 
 	 * @param genericCoursePage
-	 *            The generic course 
+	 *            The course page to complete
 	 * @param course
 	 *            The associated course
 	 */
@@ -421,6 +299,128 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 				.setCourseNavigationBar(new CourseNavigationBarProfessor());
 		genericCoursePage.createSidebarListeners(course, this);
 		this.addPage(genericCoursePage);
+	}
+
+	@Override
+	protected HomePage createHomePage()
+	{
+		HomePage homePage = super.createHomePage();
+		homePage.setNewCourseListener(
+				new NewCourseButtonListener(this, client, homePage));
+		homePage.enableActiveLabel();
+		return homePage;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	protected void createSubmissionPage(Course course)
+	{
+		SubmissionPageProfessor submissionPage = new SubmissionPageProfessor(
+				course);
+	
+		SendMessage<Course> requestAssignments = new SendMessage<Course>(course,
+				CMD_RECEIVE + RECEIVE_ALL_ASSIGNMENTS);
+		SendMessage<Course> requestStudents = new SendMessage<Course>(course,
+				CMD_RECEIVE + RECEIVE_ALL_ENROLLED_STUDENTS);
+		SendMessage<Course> requestSubmissions = new SendMessage<Course>(course,
+				CMD_RECEIVE + RECEIVE_ALL_SUBMISSIONS);
+	
+		try
+		{
+			Vector<Assignment> assignments = (Vector<Assignment>) this.client
+					.sendMessage(requestAssignments);
+			Vector<Student> students = (Vector<Student>) this.client
+					.sendMessage(requestStudents);
+			Vector<Submission> submissions = (Vector<Submission>) this.client
+					.sendMessage(requestSubmissions);
+	
+			if (assignments != null)
+			{
+				for (int i = 0; i < assignments.size(); i++)
+				{
+					Assignment assignment = assignments.elementAt(i);
+					submissionPage.addAssignment(assignment, students);
+				}
+			}
+	
+			for (int i = 0; i < submissions.size(); i++)
+			{
+				Submission submission = submissions.elementAt(i);
+				SubmitItem submitItem = new SubmitItem(submission);
+				submitItem.getGradeButton().addActionListener(
+						new GradeSubmissionButtonListener(client, course,
+								submitItem));
+				submitItem.getAssignmentLink().addMouseListener(
+						new SubmissionLabelMouseListener(submission, client));
+	
+				submissionPage.addSubmission(submitItem);
+			}
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		completeCoursePage(submissionPage, course);
+	}
+
+	/**
+	 * @param course
+	 * @param homePage
+	 */
+	@Override
+	protected void createCourseItem(Course course, HomePage homePage)
+	{
+		CourseItemProfessor courseItem = new CourseItemProfessor(course);
+		courseItem.getActiveButton().addActionListener(
+				new CourseActiveButtonListener(client, course));
+		courseItem.getViewButton()
+				.addActionListener(new ViewCoursePageListener(course));
+		homePage.addToBoxList(courseItem);
+	}
+
+	@Override
+	protected void createAssignmentPage(Course course)
+	{
+		AssignmentPageProfessor assignmentPage = new AssignmentPageProfessor(
+				course);
+	
+		assignmentPage.setUploadButtonListener(
+				new UploadAssignmentButtonListener(client, course,
+						assignmentPage));
+		assignmentPage.setBrowseButtonListener(
+				new BrowseButtonListener(assignmentPage));
+	
+		showAllAssignments(course, assignmentPage);
+		completeCoursePage(assignmentPage, course);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	protected void createComposeEmailPage(Course course)
+	{
+		ComposeEmailPageProfessor composeEmailPage = new ComposeEmailPageProfessor(
+				course);
+		// composeEmailPage
+		// .setMyEmailButtonListener(new MyEmailsButtonListener(course));
+	
+		composeEmailPage.getSendToAllButton().addActionListener(
+				new SendToAllButtonListener(client, course, composeEmailPage));
+		composeEmailPage.setSendButtonListener(new ProfessorSendButtonListener(
+				client, course, composeEmailPage));
+		composeEmailPage.getAddToEmailButton().addActionListener(
+				new AddToEmailButtonListener(client, course, composeEmailPage));
+	
+		// Sets the enrolled J-List to help email choosing
+		try
+		{
+			Vector<Student> enrollList = (Vector<Student>) client
+					.sendMessage(new SendMessage<Course>(course,
+							CMD_RECEIVE + RECEIVE_ALL_ENROLLED_STUDENTS));
+			composeEmailPage.setStudentList(enrollList);
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		completeCoursePage(composeEmailPage, course);
 	}
 
 	@Override

@@ -9,7 +9,7 @@ import javax.swing.JTextField;
 
 import frontend.controller.Client;
 import frontend.controller.professor.ProfessorGUI;
-import frontend.view.pages.HomePage;
+import frontend.view.pages.home.HomePage;
 import shared.interfaces.ProfessorCommands;
 import shared.objects.Course;
 import shared.objects.Professor;

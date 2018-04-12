@@ -6,7 +6,7 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
-import frontend.view.pages.AssignmentPageProfessor;
+import frontend.view.pages.assignment.AssignmentPageProfessor;
 
 /**
  *

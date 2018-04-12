@@ -8,8 +8,8 @@ import javax.swing.JPanel;
 
 import frontend.controller.listeners.CoursePageNavigationButtonListener;
 import frontend.interfaces.WondrisInfo;
-import frontend.view.pages.PageNames;
 import frontend.view.pages.components.customSwing.WButton;
+import frontend.view.pages.interfaces.PageNames;
 import shared.objects.Course;
 
 public abstract class CourseNavigationBar extends JPanel

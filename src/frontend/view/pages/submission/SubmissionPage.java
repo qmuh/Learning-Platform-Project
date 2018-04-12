@@ -1,4 +1,4 @@
-package frontend.view.pages;
+package frontend.view.pages.submission;
 
 import java.awt.BorderLayout;
 import java.util.HashMap;
@@ -11,6 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
 import frontend.view.pages.components.BoxList;
+import frontend.view.pages.course.CoursePage;
 import frontend.view.pages.items.GeneralItem;
 import frontend.view.pages.items.course.CourseItem;
 import frontend.view.pages.items.submission.AssignSubItem;

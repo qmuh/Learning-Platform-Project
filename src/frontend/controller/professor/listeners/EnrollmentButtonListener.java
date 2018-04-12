@@ -6,8 +6,8 @@ import java.io.IOException;
 
 import frontend.controller.Client;
 import frontend.controller.professor.ProfessorGUI;
-import frontend.view.pages.EnrollmentPage;
 import frontend.view.pages.components.customSwing.WButton;
+import frontend.view.pages.enrollment.EnrollmentPage;
 import shared.interfaces.ProfessorCommands;
 import shared.objects.Course;
 import shared.objects.SendMessage;

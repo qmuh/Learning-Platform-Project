@@ -1,5 +1,6 @@
 package shared.objects;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.Random;
 
@@ -120,15 +121,6 @@ public class Assignment implements Serializable
 	{
 		path = string;
 		
-	}
-
-	public String getDir()
-	{
-		String path ="";
-		for (int i = 0; i < path.length(); i++)
-		{
-			
-		}
 	}
 
 }

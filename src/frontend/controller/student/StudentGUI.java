@@ -36,12 +36,12 @@ import shared.objects.Student;
 import shared.objects.Submission;
 
 /**
- *
+ * Holds all information for the STUDENT GUI and how it is set up.
+ * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
- * @since April 6, 2018 Holds all information for the STUDENT GUI and how it is
- *        set up
+ * @since April 6, 2018
  */
 public class StudentGUI extends PageNavigator implements StudentCommands
 {
@@ -63,6 +63,73 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 		super(socket);
 		this.student = user;
 		createHomePage();
+	}
+
+	/**
+	 * Used to create the grades page
+	 *
+	 * @param course
+	 *            The course which is associated with this page
+	 */
+	@SuppressWarnings("unchecked")
+	private void createGradesPage(Course course)
+	{
+		GradePage gradePage = new GradePage(course);
+	
+		SendMessage<Course> gradesRequest = new SendMessage<Course>(course,
+				CMD_RECEIVE + RECEIVE_GRADES);
+		SendMessage<Course> assignmentsRequest = new SendMessage<Course>(course,
+				CMD_RECEIVE + RECEIVE_ASSIGNMENTS);
+	
+		try
+		{
+			Vector<Grade> receivedGrades = (Vector<Grade>) client
+					.sendMessage(gradesRequest);
+	
+			Vector<Assignment> assignments = (Vector<Assignment>) client
+					.sendMessage(assignmentsRequest);
+	
+			for (int j = 0; j < receivedGrades.size(); j++)
+			{
+				for (int i = 0; i < assignments.size(); i++)
+				{
+					Assignment assignment = assignments.elementAt(i);
+	
+					if (receivedGrades.elementAt(j).getAssignID() == assignment
+							.getId())
+					{
+						gradePage.addToBoxList(
+								new GradeItem(assignment.getTitle(),
+										receivedGrades.elementAt(j)));
+					}
+	
+				}
+			}
+	
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	
+		completeCoursePage(gradePage, course);
+	}
+
+	/**
+	 * Used to complete the course page by adding a navigation bar and listeners
+	 *
+	 * @param genericCoursePage
+	 *            the course page to complete
+	 * 
+	 * @param course
+	 *            the course that the page is associated with
+	 */
+	private void completeCoursePage(CoursePage<?, ?> genericCoursePage,
+			Course course)
+	{
+		genericCoursePage
+				.setCourseNavigationBar(new CourseNavigationBarStudent());
+		genericCoursePage.createSidebarListeners(course, this);
+		this.addPage(genericCoursePage);
 	}
 
 	@Override
@@ -104,9 +171,9 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 				assignItemStudent.getAssignmentLabel().addMouseListener(
 						new AssignmentLabelMouseListener(assignments.get(i),
 								client));
-//				assignItemStudent.getUpload()
-//						.addActionListener(new UploadAssignmentButtonListener(client,
-//								course, assignmentPage));
+				// assignItemStudent.getUpload()
+				// .addActionListener(new UploadAssignmentButtonListener(client,
+				// course, assignmentPage));
 
 				assignmentPage.addToBoxList(assignItemStudent);
 			}
@@ -183,72 +250,6 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 		completeCoursePage(composeEmailPage, course);
 	}
 
-	/**
-	 * Used to create the grades page
-	 *
-	 * @param course
-	 *            The course which is associated with this page
-	 */
-	@SuppressWarnings("unchecked")
-	private void createGradesPage(Course course)
-	{
-		GradePage gradePage = new GradePage(course);
-
-		SendMessage<Course> gradesRequest = new SendMessage<Course>(course,
-				CMD_RECEIVE + RECEIVE_GRADES);
-		SendMessage<Course> assignmentsRequest = new SendMessage<Course>(course,
-				CMD_RECEIVE + RECEIVE_ASSIGNMENTS);
-
-		try
-		{
-			Vector<Grade> receivedGrades = (Vector<Grade>) client
-					.sendMessage(gradesRequest);
-
-			Vector<Assignment> assignments = (Vector<Assignment>) client
-					.sendMessage(assignmentsRequest);
-
-			for (int j = 0; j < receivedGrades.size(); j++)
-			{
-				for (int i = 0; i < assignments.size(); i++)
-				{
-					Assignment assignment = assignments.elementAt(i);
-
-					if (receivedGrades.elementAt(j).getAssignID() == assignment
-							.getId())
-					{
-						gradePage.addToBoxList(
-								new GradeItem(assignment.getTitle(),
-										receivedGrades.elementAt(j)));
-					}
-
-				}
-			}
-
-		} catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-
-		completeCoursePage(gradePage, course);
-	}
-
-	/**
-	 * Used to complete the course page
-	 *
-	 * @param genericCoursePage
-	 *            Hashmap...?
-	 * @param course
-	 *            The course which this is associated with
-	 */
-	private void completeCoursePage(CoursePage<?, ?> genericCoursePage,
-			Course course)
-	{
-		genericCoursePage
-				.setCourseNavigationBar(new CourseNavigationBarStudent());
-		genericCoursePage.createSidebarListeners(course, this);
-		this.addPage(genericCoursePage);
-	}
-
 	@Override
 	protected void createDiscussionPage(Course course)
 	{
@@ -264,5 +265,4 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 				.addActionListener(new ViewCoursePageListener(course));
 		homePage.addToBoxList(courseItem);
 	}
-
 }

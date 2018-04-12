@@ -2,14 +2,12 @@ package frontend.view.pages.assignment;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.io.File;
 
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.course.CoursePage;
 import frontend.view.pages.items.assignment.AssignItem;
 import shared.objects.Assignment;
 import shared.objects.Course;
-
 
 /**
  *
@@ -23,7 +21,6 @@ abstract public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 {
 	private static final long serialVersionUID = 1L;
 
-
 	public AssignmentPage(Course course)
 	{
 		super(course);
@@ -32,6 +29,11 @@ abstract public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 		this.bodyCenter.add(createAssignmentPanel(), BorderLayout.CENTER);
 	}
 
+	/**
+	 * Creates the appearance of the assignment panel.
+	 * 
+	 * @return the component to place in the assignment page body
+	 */
 	abstract protected Component createAssignmentPanel();
 
 	@Override
@@ -40,17 +42,4 @@ abstract public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 		itemDisplay.revalidate();
 		itemDisplay.repaint();
 	}
-	
-	
-
-//	public void setAssignmentVector(Vector<Assignment> myList)
-//	{
-//		itemDisplay.removeAll();
-//		for (Assignment assignment : myList)
-//		{
-//			this.addToBoxList(new AssignItem(assignment));
-//		}
-//		System.out.println("# OF ASSIGNMENTS RECEIVED: " + itemDisplay.getComponentCount());
-//		displayPage();
-//	}
 }

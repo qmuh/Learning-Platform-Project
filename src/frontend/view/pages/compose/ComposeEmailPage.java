@@ -28,12 +28,38 @@ import shared.objects.Course;
 import shared.objects.EmailInfo;
 import shared.objects.Student;
 
+/**
+ * Provides a class that represents a page to compose an email.
+ * @author jimmy
+ *
+ */
 abstract public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 {
 	private static final long serialVersionUID = 1L;
-	private JTextField toField, subjectField;
+	
+	/**
+	 * Stores the to field that all e-mails composed are sent to.
+	 */
+	private JTextField toField;
+	
+	/**
+	 * Stores the subject field of the e-mail being composed.
+	 */
+	private JTextField subjectField;
+	
+	/**
+	 * Stores the content of the e-mail being composed.
+	 */
 	private JTextArea emailArea;
+	
+	/**
+	 * The send e-mail button.
+	 */
 	protected WButton sendButton;
+	
+	/**
+	 * The send e-mail button panel.
+	 */
 	protected JPanel sendButtonPanel;
 
 	public ComposeEmailPage(Course course)

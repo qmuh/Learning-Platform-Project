@@ -8,6 +8,7 @@ import java.util.Vector;
 import shared.objects.StudentEnrollment;
 
 /**
+ * Provides a class 
  *
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
@@ -16,9 +17,13 @@ import shared.objects.StudentEnrollment;
  */
 public class StudentEnrollmentTable extends Table<StudentEnrollment>
 {
-	/** Constructor for the student enrollment table
-	 * @param connectionToDB Connection to SQL
-	 * @param tableName Name of the table
+	/**
+	 * Constructor for the student enrollment table
+	 * 
+	 * @param connectionToDB
+	 *            Connection to SQL
+	 * @param tableName
+	 *            Name of the table
 	 */
 	public StudentEnrollmentTable(Connection connectionToDB, String tableName)
 	{
@@ -46,7 +51,6 @@ public class StudentEnrollmentTable extends Table<StudentEnrollment>
 		{
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override
@@ -65,7 +69,6 @@ public class StudentEnrollmentTable extends Table<StudentEnrollment>
 		{
 			e.printStackTrace();
 		}
-
 	}
 
 	/**
@@ -131,14 +134,16 @@ public class StudentEnrollmentTable extends Table<StudentEnrollment>
 		return listOfStudentIDs;
 	}
 
-	/** Removes the student from a class they are enrolled in
-	 * @param getmessageObject Used course and student information
+	/**
+	 * Removes the student from a class they are enrolled in
+	 * 
+	 * @param getmessageObject
+	 *            Used course and student information
 	 */
 	public void remove(StudentEnrollment getmessageObject)
 	{
 		String sql = "DELETE FROM " + tableName
 				+ " WHERE COURSEID= ? AND STUDENTID= ?";
-		ResultSet client;
 		try
 		{
 			preparedStatement = dbConnection.prepareStatement(sql);
@@ -160,7 +165,7 @@ public class StudentEnrollmentTable extends Table<StudentEnrollment>
 	 * @param courseID
 	 * @return
 	 */
-	public Vector<Integer> getAllEnrolledStudent(int courseID)
+	public Vector<Integer> getAllEnrolledStudents(int courseID)
 	{
 		Vector<Integer> listOfStudentIDs = new Vector<Integer>();
 		String sql = "SELECT * FROM " + tableName + " WHERE COURSEID= ?";
@@ -183,9 +188,13 @@ public class StudentEnrollmentTable extends Table<StudentEnrollment>
 		return listOfStudentIDs;
 	}
 
-	/** Checks whether a student is enrolled in a specific class
-	 * @param studentID The ID of the student
-	 * @param courseID The OD of the course
+	/**
+	 * Checks whether a student is enrolled in a specific class
+	 * 
+	 * @param studentID
+	 *            The ID of the student
+	 * @param courseID
+	 *            The OD of the course
 	 * @return True is student is enrolled, false otherwise
 	 */
 	public boolean isStudentEnrolled(int studentID, int courseID)
@@ -215,7 +224,4 @@ public class StudentEnrollmentTable extends Table<StudentEnrollment>
 		}
 		return false;
 	}
-
-
-
 }

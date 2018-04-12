@@ -45,6 +45,7 @@ public class Database implements DatabaseProperties, UserInfo
 	/**
 	 * Used for many different aspects for the table
 	 */
+	@SuppressWarnings("unused")
 	private PreparedStatement preparedStatement;
 
 	private AssignmentTable assignmentTable;
@@ -134,6 +135,7 @@ public class Database implements DatabaseProperties, UserInfo
 	/**
 	 * Used to create the database itself
 	 */
+	@SuppressWarnings("unused")
 	private void createDB()
 	{
 		try

@@ -1,5 +1,6 @@
 package frontend.controller.listeners;
 
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.BufferedOutputStream;
@@ -7,17 +8,20 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import javax.swing.JLabel;
+
 import frontend.controller.Client;
-import shared.interfaces.ProfessorCommands;
+import frontend.interfaces.ColourPalette;
 import shared.interfaces.UserCommands;
 import shared.objects.Assignment;
 import shared.objects.SendMessage;
 
-public class AssignmentLabelMouseListener implements MouseListener, UserCommands
+public class AssignmentLabelMouseListener
+		implements MouseListener, UserCommands, ColourPalette
 {
 
 	/**
-	 * The submission asscociated with the listener
+	 * The submission associated with the listener
 	 */
 	private Assignment assignment;
 
@@ -26,16 +30,19 @@ public class AssignmentLabelMouseListener implements MouseListener, UserCommands
 	 */
 	private Client client;
 
-	/** The listener for submissions, used by the professor
-		 * 
-		 * @param submission The submission
-		 * @param client2 The client
-		 */
-		public AssignmentLabelMouseListener(Assignment assignment, Client client2)
-		{
-			this.assignment = assignment;
-			client = client2;	
-		}
+	/**
+	 * The listener for submissions, used by the professor
+	 * 
+	 * @param submission
+	 *            The submission
+	 * @param client2
+	 *            The client
+	 */
+	public AssignmentLabelMouseListener(Assignment assignment, Client client2)
+	{
+		this.assignment = assignment;
+		client = client2;
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent e)
@@ -68,13 +75,15 @@ public class AssignmentLabelMouseListener implements MouseListener, UserCommands
 	@Override
 	public void mouseEntered(MouseEvent e)
 	{
-
+		JLabel label = (JLabel) e.getSource();
+		label.setForeground(ACCENT_COLOR);
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e)
 	{
-
+		JLabel label = (JLabel) e.getSource();
+		label.setForeground(Color.BLACK);
 	}
 
 	@Override

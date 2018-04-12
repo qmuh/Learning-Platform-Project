@@ -10,16 +10,16 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import backend.database.Database;
+import backend.userSession.ClientSession;
 import backend.userSession.ProfessorSession;
 import backend.userSession.StudentSession;
 import shared.interfaces.ServerInfo;
 import shared.interfaces.UserInfo;
 import shared.objects.LoginInfo;
-import shared.objects.Professor;
-import shared.objects.Student;
 import shared.objects.User;
 
 /**
+ * Provides a class to host a
  *
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
@@ -109,25 +109,18 @@ public class Server implements ServerInfo, UserInfo
 	}
 
 	/**
-	 * Provides a class that authenticates a user.
+	 * Provides a class that authenticates a user and serves ONE login request.
 	 */
 	private class LoginHandler implements Runnable
 	{
-		private ObjectInputStream objectIn;
-		private ObjectOutputStream objectOut;
+		/**
+		 * The socket of the user to handle.
+		 */
 		private Socket socket;
 
 		public LoginHandler(Socket guestUser)
 		{
-			try
-			{
-				socket = guestUser;
-				objectIn = new ObjectInputStream(guestUser.getInputStream());
-				objectOut = new ObjectOutputStream(guestUser.getOutputStream());
-			} catch (IOException e)
-			{
-				e.printStackTrace();
-			}
+			socket = guestUser;
 		}
 
 		@Override
@@ -135,32 +128,46 @@ public class Server implements ServerInfo, UserInfo
 		{
 			try
 			{
+				ObjectInputStream objectIn = new ObjectInputStream(
+						socket.getInputStream());
+				ObjectOutputStream objectOut = new ObjectOutputStream(
+						socket.getOutputStream());
+
 				LoginInfo loginInfo = (LoginInfo) objectIn.readObject();
+				
 				User myUser = database.getUserTable().validateUser(
 						loginInfo.getUsername(), loginInfo.getPassword());
+
 				System.out.println("USER: " + myUser);
+
 				objectOut.writeObject(myUser);
 				objectOut.flush();
 
+				ClientSession clientSession = null;
+
 				if (myUser.getUserType().equals(USER_PROFESSOR))
 				{
-					ProfessorSession handleProfessor = new ProfessorSession(
-							socket);
-					handleProfessor.setDatabase(database);
-					handleProfessor.setProfessor((Professor) myUser);
-					handleProfessor.run();
+					clientSession = new ProfessorSession(socket);
+
+				} else if (myUser.getUserType().equals(USER_STUDENT))
+				{
+					clientSession = new StudentSession(socket);
+
+				} else
+				{
+					// User is not logged in.
+					return;
+
 				}
 
-				else if (myUser.getUserType().equals(USER_STUDENT))
-				{
-					StudentSession handleStudent = new StudentSession(socket);
-					handleStudent.setDatabase(database);
-					handleStudent.setStudent((Student) myUser);
-					handleStudent.run();
-				}
+				clientSession.setDatabase(database);
+				clientSession.setUser(myUser);
+				clientSession.run();
+
 			} catch (ClassNotFoundException e)
 			{
 				e.printStackTrace();
+
 			} catch (IOException e)
 			{
 				e.printStackTrace();

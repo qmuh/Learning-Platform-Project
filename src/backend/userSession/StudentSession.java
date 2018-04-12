@@ -13,6 +13,7 @@ import shared.objects.Professor;
 import shared.objects.SendMessage;
 import shared.objects.Student;
 import shared.objects.Submission;
+import shared.objects.User;
 
 /**
  * 
@@ -28,7 +29,7 @@ public class StudentSession extends ClientSession implements StudentCommands
 	/**
 	 * The student associated with this session
 	 */
-	private Student user;
+	private Student student;
 
 	/** Initializes this session with a socket and calls super
 	 * @param socket The socket given to the super
@@ -36,14 +37,6 @@ public class StudentSession extends ClientSession implements StudentCommands
 	public StudentSession(Socket socket)
 	{
 		super(socket);
-	}
-
-	/** Sets the student for this class
-	 * @param toSet
-	 */
-	public void setStudent(Student toSet)
-	{
-		user = toSet;
 	}
 
 	@Override
@@ -54,7 +47,7 @@ public class StudentSession extends ClientSession implements StudentCommands
 	}
 
 	@Override
-	boolean interpretMessage(SendMessage<?> command)
+	protected boolean interpretMessage(SendMessage<?> command)
 	{
 		String interpreter[] = command.getCommand().split(";");
 		String commandType = interpreter[0] + ";";
@@ -123,7 +116,7 @@ public class StudentSession extends ClientSession implements StudentCommands
 		//Returns the students courses
 		if(interpreter.equals(RECEIVE_COURSES))
 		{
-			Vector<Integer> studentCoursesIds = database.getStudentEnrollmentTable().getCourseIDs(user.getId());
+			Vector<Integer> studentCoursesIds = database.getStudentEnrollmentTable().getCourseIDs(student.getId());
 			Vector<Course> studentCourses = new Vector<Course>();
 			
 			for (int i = 0; i < studentCoursesIds.size(); i++)
@@ -148,7 +141,7 @@ public class StudentSession extends ClientSession implements StudentCommands
 		else if(interpreter.equals(RECEIVE_GRADES))
 		{
 			Vector<Grade> myGrades = database.getGradeTable().
-					studentGradesForCourse(((Course)getmessageObject).getId(),user.getId());
+					studentGradesForCourse(((Course)getmessageObject).getId(),student.getId());
 			
 			sendObject(myGrades);
 		}
@@ -160,7 +153,7 @@ public class StudentSession extends ClientSession implements StudentCommands
 		}
 		else if (interpreter.equals(RECEIVE_SUBMISSIONS)) {
 			Vector<Submission> mySubmissions = database.getSubmissionTable().
-					searchByCourseAndStudentID(((Course)getmessageObject).getId(),user.getId());
+					searchByCourseAndStudentID(((Course)getmessageObject).getId(),student.getId());
 			sendObject(mySubmissions);
 		} else if(interpreter.equals(RECEIVE_ASSIGNMENT))
 		{
@@ -195,5 +188,11 @@ public class StudentSession extends ClientSession implements StudentCommands
 			}
 		}
 
+	}
+
+	@Override
+	public void setUser(User user)
+	{
+		this.student = (Student) user;
 	}
 }

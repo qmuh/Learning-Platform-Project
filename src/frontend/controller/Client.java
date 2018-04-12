@@ -5,7 +5,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import frontend.interfaces.WondrisInfo;
 import shared.objects.SendMessage;
 
 /**
@@ -22,19 +21,22 @@ public class Client
 	 * Used to connect to the server
 	 */
 	private Socket mySocket;
-	
+
 	/**
 	 * Used to input objects
 	 */
 	private ObjectInputStream objectIn;
-	
+
 	/**
 	 * Used to output objects
 	 */
 	private ObjectOutputStream objectOut;
 
-	/** Connects the server with client
-	 * @param toConnect The connecting socket
+	/**
+	 * Connects the server with client
+	 * 
+	 * @param toConnect
+	 *            The connecting socket
 	 */
 	public void connectToServer(Socket toConnect)
 	{
@@ -49,8 +51,11 @@ public class Client
 		}
 	}
 
-	/** Sends a message to the server and returns an object 
-	 * @param toSend The SendMessage object that is sent to the server
+	/**
+	 * Sends a message to the server and returns an object
+	 * 
+	 * @param toSend
+	 *            The SendMessage object that is sent to the server
 	 * @return And object is returned, the type depends on command sent
 	 * @throws IOException
 	 */
@@ -63,7 +68,7 @@ public class Client
 		try
 		{
 			return objectIn.readObject();
-			
+
 		} catch (ClassNotFoundException e)
 		{
 			e.printStackTrace();
@@ -72,8 +77,11 @@ public class Client
 		return null;
 	}
 
-	/** Sends only a message, returns nothing as this command expects no return
-	 * @param toSend The SendMessage being sent to the server
+	/**
+	 * Sends only a message, returns nothing as this command expects no return
+	 * 
+	 * @param toSend
+	 *            The SendMessage being sent to the server
 	 * @throws IOException
 	 */
 	public void onlySendMessage(SendMessage<?> toSend) throws IOException
@@ -82,7 +90,9 @@ public class Client
 		objectOut.flush();
 	}
 
-	/** Gets the socket
+	/**
+	 * Gets the socket
+	 * 
 	 * @return The Socket
 	 */
 	public Socket getMySocket()
@@ -90,7 +100,9 @@ public class Client
 		return mySocket;
 	}
 
-	/** Gets the object input stream
+	/**
+	 * Gets the object input stream
+	 * 
 	 * @return The object input stream
 	 */
 	public ObjectInputStream getObjectIn()
@@ -98,7 +110,9 @@ public class Client
 		return objectIn;
 	}
 
-	/** Gets the object the output stream
+	/**
+	 * Gets the object the output stream
+	 * 
 	 * @return The object output stream
 	 */
 	public ObjectOutputStream getObjectOut()

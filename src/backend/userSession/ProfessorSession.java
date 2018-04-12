@@ -1,6 +1,5 @@
 package backend.userSession;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Vector;
@@ -10,12 +9,12 @@ import shared.objects.Assignment;
 import shared.objects.Course;
 import shared.objects.EmailInfo;
 import shared.objects.Grade;
-import shared.objects.LoginInfo;
 import shared.objects.Professor;
 import shared.objects.SendMessage;
 import shared.objects.Student;
 import shared.objects.StudentEnrollment;
 import shared.objects.Submission;
+import shared.objects.User;
 
 /**
  *
@@ -39,14 +38,6 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 		super(socket);
 	}
 
-	/** Sets the professor 
-	 * @param professor The professor set to this
-	 */
-	public void setProfessor(Professor professor)
-	{
-		this.professor = professor;
-	}
-
 	@Override
 	public void write()
 	{
@@ -55,7 +46,7 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 	}
 
 	@Override
-	boolean interpretMessage(SendMessage<?> command)
+	protected boolean interpretMessage(SendMessage<?> command)
 	{
 		String interpreter[] = command.getCommand().split(";");
 		String commandType = interpreter[0] + ";";
@@ -174,7 +165,7 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 		} else if (type.equals(RECEIVE_ALL_ENROLLED_STUDENTS))
 		{
 			Vector<Integer> enrolled = database.getStudentEnrollmentTable()
-					.getAllEnrolledStudent(((Course) getMessage).getId());
+					.getAllEnrolledStudents(((Course) getMessage).getId());
 			Vector<Student> enrolledStudent = new Vector<Student>();
 			for (int i = 0; i < enrolled.size(); i++)
 			{
@@ -283,5 +274,11 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 			System.err.println("!---------------------------------------!");
 
 		}
+	}
+
+	@Override
+	public void setUser(User user)
+	{
+		this.professor = (Professor) user;
 	}
 }

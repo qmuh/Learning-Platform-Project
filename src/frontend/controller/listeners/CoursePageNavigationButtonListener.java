@@ -3,8 +3,8 @@ package frontend.controller.listeners;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-import frontend.view.pages.PageNames;
 import frontend.view.pages.components.PageNavigator;
+import frontend.view.pages.interfaces.PageNames;
 import shared.objects.Course;
 
 /**

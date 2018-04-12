@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import frontend.controller.Client;
-import frontend.view.pages.ComposeEmailPage;
-import frontend.view.pages.ComposeEmailPageProfessor;
+import frontend.view.pages.compose.ComposeEmailPage;
+import frontend.view.pages.compose.ComposeEmailPageProfessor;
 import shared.objects.Course;
 
 /**

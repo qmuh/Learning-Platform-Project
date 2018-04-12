@@ -1,4 +1,4 @@
-package frontend.view.pages;
+package frontend.view.pages.home;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -18,6 +18,8 @@ import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.components.BoxList;
 import frontend.view.pages.components.customSwing.WButton;
+import frontend.view.pages.components.customSwing.WLabel;
+import frontend.view.pages.interfaces.GUIConstants;
 import frontend.view.pages.items.course.CourseItem;
 
 public class HomePageCoursesTable extends JPanel
@@ -32,6 +34,10 @@ public class HomePageCoursesTable extends JPanel
 	private JPanel titlePanel;
 	
 	private JPanel newCourseButtonPanel;
+	
+	private JPanel tableHeader;
+	
+	private JPanel activeLabelPanel;
 
 	private WButton newCourseButton;
 	
@@ -48,14 +54,15 @@ public class HomePageCoursesTable extends JPanel
 		tablePanel = new JPanel();
 		tablePanel.setLayout(new BorderLayout());
 		tablePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
-		JPanel tableHeader = new JPanel();
+		activeLabelPanel = new JPanel(new BorderLayout());
+		tableHeader = new JPanel();
 		tableHeader.setLayout(new GridLayout(1, 3));
 		tableHeader.setBorder(
 				BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLACK));
 		tableHeader.setPreferredSize(new Dimension(WINDOW_WIDTH, 50));
 		tableHeader.add(
 				createLabel("Course Name", SUB_TITLE_FONT, SwingConstants.CENTER), 0);
-		tableHeader.add(createLabel("Active", SUB_TITLE_FONT, SwingConstants.RIGHT), 1);
+		tableHeader.add(activeLabelPanel);
 		tableHeader.add(
 				createLabel("Course Home", SUB_TITLE_FONT, SwingConstants.CENTER), 2);
 		tablePanel.add(tableHeader, BorderLayout.NORTH);
@@ -109,7 +116,12 @@ public class HomePageCoursesTable extends JPanel
 	{
 		newCourseButton = new WButton("New Course");
 		newCourseButton.addActionListener(listener);
-		newCourseButtonPanel.add(newCourseButton);
+		newCourseButtonPanel.add(newCourseButton);;
 	}
 
+	public void enableActiveLabel()
+	{
+		WLabel active = new WLabel("Active", SUB_TITLE_FONT, JLabel.RIGHT);
+		activeLabelPanel.add(active);		
+	}
 }

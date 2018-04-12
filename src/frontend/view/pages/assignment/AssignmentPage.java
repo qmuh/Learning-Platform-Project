@@ -1,9 +1,10 @@
-package frontend.view.pages;
+package frontend.view.pages.assignment;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
 
 import frontend.interfaces.WondrisInfo;
+import frontend.view.pages.course.CoursePage;
 import frontend.view.pages.items.assignment.AssignItem;
 import shared.objects.Assignment;
 import shared.objects.Course;

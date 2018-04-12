@@ -1,4 +1,4 @@
-package frontend.view.pages;
+package frontend.view.pages.interfaces;
 
 import java.awt.Dimension;
 

@@ -17,6 +17,7 @@ import frontend.view.pages.components.BoxList;
 import frontend.view.pages.components.Footer;
 import frontend.view.pages.components.Header;
 import frontend.view.pages.components.customSwing.WButton;
+import frontend.view.pages.interfaces.PageNames;
 
 /**
  *

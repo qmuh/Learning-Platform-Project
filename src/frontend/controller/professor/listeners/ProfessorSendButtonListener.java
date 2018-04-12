@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import frontend.controller.Client;
-import frontend.view.pages.ComposeEmailPage;
+import frontend.view.pages.compose.ComposeEmailPage;
 import shared.interfaces.ProfessorCommands;
 import shared.interfaces.StudentCommands;
 import shared.objects.Course;

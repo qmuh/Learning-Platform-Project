@@ -11,6 +11,8 @@ package shared.interfaces;
 public interface StudentCommands extends UserCommands
 {
 	public static final String RECEIVE_COURSES = "COURSES";
+	
+	public static final String RECEIVE_PROFESSOR = "PROFESSOR";
 
 	public static final String RECEIVE_ASSIGNMENTS = "ASSIGNMENTS";
 	

@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import frontend.controller.Client;
 import frontend.view.pages.ComposeEmailPage;
+import frontend.view.pages.ComposeEmailPageProfessor;
 import shared.objects.Course;
 
 /**
@@ -29,7 +30,7 @@ public class AddToEmailButtonListener implements ActionListener
 	/**
 	 * The page where the button is located
 	 */
-	private ComposeEmailPage myEmailPage;
+	private ComposeEmailPageProfessor myEmailPage;
 	
 
 	/** Constructor for this inner class
@@ -37,7 +38,7 @@ public class AddToEmailButtonListener implements ActionListener
 	 * @param course The course
 	 * @param myPage The page
 	 */
-	public AddToEmailButtonListener(Client client, Course course, ComposeEmailPage myPage)
+	public AddToEmailButtonListener(Client client, Course course, ComposeEmailPageProfessor myPage)
 	{
 		this.client = client;
 		this.course = course;

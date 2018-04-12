@@ -53,12 +53,10 @@ public class DiscussionPage extends CoursePage<CourseItem, Course>
 		sendArea = new JTextArea(3, 200);
 		sendArea.setFont(TEXT_FONT);
 		sendArea.setBorder(new JTextField().getBorder());
-		sendButton = new WButton();
-		try {
-			BufferedImage image = ImageIO.read(new File("send.png"));
-			ImageIcon icon = new ImageIcon(image);
-			sendButton.setIcon(icon);
-		} catch(IOException e)
+		try
+		{
+			sendButton = new WButton(ImageIO.read(new File(DIR_GRAPHICS + "send.png")));
+		} catch (IOException e)
 		{
 			e.printStackTrace();
 		}

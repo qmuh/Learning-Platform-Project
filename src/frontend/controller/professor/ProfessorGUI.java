@@ -15,6 +15,7 @@ import frontend.controller.professor.listeners.*;
 import frontend.view.pages.AssignmentPage;
 import frontend.view.pages.AssignmentPageProfessor;
 import frontend.view.pages.ComposeEmailPage;
+import frontend.view.pages.ComposeEmailPageProfessor;
 import frontend.view.pages.CoursePage;
 import frontend.view.pages.DiscussionPage;
 import frontend.view.pages.EnrollmentPage;
@@ -209,15 +210,15 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	@Override
 	protected void createComposeEmailPage(Course course)
 	{
-		ComposeEmailPage composeEmailPage = new ComposeEmailPage(course);
+		ComposeEmailPageProfessor composeEmailPage = new ComposeEmailPageProfessor(course);
 		// composeEmailPage
 		// .setMyEmailButtonListener(new MyEmailsButtonListener(course));
 
-		composeEmailPage.setSendToAllButtonListener(
+		composeEmailPage.getSendToAllButton().addActionListener(
 				new SendToAllButtonListener(client, course, composeEmailPage));
 		composeEmailPage.setSendButtonListener(
 				new SendButtonListener(client, course, composeEmailPage));
-		composeEmailPage.setAddToEmailButtonListener(
+		composeEmailPage.getAddToEmailButton().addActionListener(
 				new AddToEmailButtonListener(client, course, composeEmailPage));
 
 		// Sets the enrolled J-List to help email choosing

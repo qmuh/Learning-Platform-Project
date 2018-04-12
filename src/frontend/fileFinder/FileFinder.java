@@ -1,4 +1,5 @@
-package cpsc319_assignment_5.fileFinder;
+package frontend.fileFinder;
+
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -25,11 +26,6 @@ abstract public class FileFinder
 	 */
 	static public File findFile(String fileName) throws FileNotFoundException
 	{
-		if (!fileName.toLowerCase().endsWith(".txt"))
-		{
-			fileName += ".txt";
-		}
-
 		File foundFile = fileSearch(new File(System.getProperty("user.dir")),
 				fileName);
 		if (foundFile == null)

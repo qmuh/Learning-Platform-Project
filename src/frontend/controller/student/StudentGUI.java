@@ -34,7 +34,7 @@ import shared.objects.Student;
 public class StudentGUI extends PageNavigator implements StudentCommands
 {
 	private Student student;
-	// Page??
+
 
 	public StudentGUI(Socket socket, Student user)
 	{
@@ -84,7 +84,7 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 	{
 		GradePage gradePage = new GradePage(course);
 
-		SendMessage<Course> gradesReqeuest = new SendMessage<Course>(course,
+		SendMessage<Course> gradesRequest = new SendMessage<Course>(course,
 				CMD_RECEIVE + RECEIVE_GRADES);
 		SendMessage<Course> assignmentsRequest = new SendMessage<Course>(course,
 				CMD_RECEIVE + RECEIVE_ASSIGNMENTS);
@@ -92,22 +92,25 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 		try
 		{
 
-			Vector<Grade> grades = (Vector<Grade>) this.client
-					.sendMessage(gradesReqeuest);
+			Vector<Grade> receivedGrades = (Vector<Grade>) client
+					.sendMessage(gradesRequest);
 			
-			Vector<Assignment> assignments = (Vector<Assignment>) this.client
+			
+			Vector<Assignment> assignments = (Vector<Assignment>) client
 					.sendMessage(assignmentsRequest);
-
-			for (int j = 0; j < grades.size() ; j++)
+			
+			for (int j = 0; j < receivedGrades.size() ; j++)
 			{
 				for (int i = 0; i < assignments.size(); i++)
 				{
 					Assignment assignment = assignments.elementAt(i);
-					if (grades.elementAt(j).getAssignID() == assignment.getId())
+					
+					if (receivedGrades.elementAt(j).getAssignID() == assignment.getId())
 					{
 						gradePage.addToBoxList(
-								new GradeItem(assignment.getTitle(), grades.elementAt(j)));
+								new GradeItem(assignment.getTitle(), receivedGrades.elementAt(j)));
 					}
+					
 				}
 			}
 

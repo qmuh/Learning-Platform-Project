@@ -199,11 +199,18 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 					.isStudentEnrolled(studentID, courseID);
 			sendObject(isEnrolled);
 		
-		} else if(type.equals(RECEIVE_STUDENT_ASSIGNMENT))
+		} else if(type.equals(RECEIVE_STUDENT_SUBMISSION))
 		{
 			super.sendBackFile(((Submission)getMessage).getPath());
 		
-		} else if(type.equals(RECEIVE_ALL_SUBMISSIONS))
+		} else if(type.equals(RECEIVE_ASSIGNMENT))
+		{
+			super.sendBackFile(((Assignment)getMessage).getPath());
+		
+		} 
+		
+		
+		else if(type.equals(RECEIVE_ALL_SUBMISSIONS))
 		{
 			Vector<Submission> allSubmission = database.getSubmissionTable().
 					searchByCourse(((Course)getMessage).getId());

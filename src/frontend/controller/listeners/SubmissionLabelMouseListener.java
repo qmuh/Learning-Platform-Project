@@ -49,7 +49,7 @@ public class SubmissionLabelMouseListener implements MouseListener, ProfessorCom
 		 try
 		{
 			byte [] file = (byte [])client.sendMessage
-					(new SendMessage<Submission>(submission,CMD_RECEIVE + RECEIVE_STUDENT_ASSIGNMENT));
+					(new SendMessage<Submission>(submission,CMD_RECEIVE + RECEIVE_STUDENT_SUBMISSION));
 			String home = System.getProperty("user.home");
 			
 			String[] fileName = submission.getPath().split("/");

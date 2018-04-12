@@ -86,11 +86,6 @@ abstract public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 		return sendButton;
 	}
 
-	public void setSendButtonListener(ActionListener listener)
-	{
-		sendButton.addActionListener(listener);
-	}
-
 	private JPanel createComposeEmailCenter()
 	{
 		JPanel composeEmailPanel = new JPanel(new BorderLayout());

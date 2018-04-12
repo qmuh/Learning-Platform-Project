@@ -47,6 +47,7 @@ import shared.objects.Submission;
  */
 public class StudentGUI extends PageNavigator implements StudentCommands
 {
+	private static final long serialVersionUID = 1L;
 	/**
 	 * The user associated with this client-side GUI
 	 */
@@ -226,11 +227,11 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 
 		Refresh function = () ->
 		{
-			SendMessage<Course> requestSubmissions = new SendMessage<Course>(course,
-					CMD_RECEIVE + RECEIVE_SUBMISSIONS);
+			SendMessage<Course> requestSubmissions = new SendMessage<Course>(
+					course, CMD_RECEIVE + RECEIVE_SUBMISSIONS);
 
-			SendMessage<Course> requestAssignments = new SendMessage<Course>(course,
-					CMD_RECEIVE + RECEIVE_ASSIGNMENTS);
+			SendMessage<Course> requestAssignments = new SendMessage<Course>(
+					course, CMD_RECEIVE + RECEIVE_ASSIGNMENTS);
 
 			try
 			{
@@ -241,7 +242,8 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 
 				for (int i = 0; i < assignments.size(); i++)
 				{
-					submissionPageStudent.addAssignment(assignments.elementAt(i));
+					submissionPageStudent
+							.addAssignment(assignments.elementAt(i));
 				}
 
 				for (int i = 0; i < submissions.size(); i++)
@@ -286,6 +288,10 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 		};
 
 		composeEmailPage.setRefreshBehaviour(function);
+
+		composeEmailPage.getSendButton()
+				.addActionListener(new StudentSendButtonListener(course,
+						composeEmailPage, client));
 
 		completeCoursePage(composeEmailPage, course);
 	}

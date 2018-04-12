@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import frontend.view.pages.components.customSwing.WLabel;
 import frontend.view.pages.items.GeneralItem;
 import shared.objects.Submission;
 
@@ -49,9 +50,8 @@ abstract public class SubmitItem extends GeneralItem
 	{
 		submissionPanel = new JPanel(new GridLayout(1, 2));
 		submissionPanel.setBorder(new EmptyBorder(0, 40, 0, 40));
-		JLabel submissionTitleLeft = new JLabel(submission.getTitle());
-		submissionTitleLeft.setFont(TEXT_FONT);
-		submissionPanel.add(submissionTitleLeft, 0);
+		assignmentLink = new WLabel(submission.getTitle());
+		submissionPanel.add(assignmentLink, 0);
 		submissionPanel.add(new JPanel(), 1);
 		return submissionPanel;
 	}

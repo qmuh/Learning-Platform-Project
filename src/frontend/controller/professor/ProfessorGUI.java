@@ -383,16 +383,13 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		{
 			SendMessage<Course> requestAssignments = new SendMessage<Course>(
 					course, CMD_RECEIVE + RECEIVE_ALL_ASSIGNMENTS);
-			
-			
+
 			SendMessage<Course> requestStudents = new SendMessage<Course>(
 					course, CMD_RECEIVE + RECEIVE_ALL_ENROLLED_STUDENTS);
-			
-			
+
 			SendMessage<Course> requestSubmissions = new SendMessage<Course>(
 					course, CMD_RECEIVE + RECEIVE_ALL_SUBMISSIONS);
 
-			
 			try
 			{
 				Vector<Assignment> assignments = (Vector<Assignment>) this.client
@@ -414,7 +411,8 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 				for (int i = 0; i < submissions.size(); i++)
 				{
 					Submission submission = submissions.elementAt(i);
-					SubmitItemProfessor submitItem = new SubmitItemProfessor(submission);
+					SubmitItemProfessor submitItem = new SubmitItemProfessor(
+							submission);
 					submitItem.getGradeButton().addActionListener(
 							new GradeSubmissionButtonListener(client, course,
 									submitItem));
@@ -493,7 +491,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		// .setMyEmailButtonListener(new MyEmailsButtonListener(course));
 
 		// Sets the enrolled J-List to help email choosing
-		Refresh function = () -> 
+		Refresh function = () ->
 		{
 			try
 			{
@@ -507,12 +505,12 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 			}
 		};
 		composeEmailPage.setRefreshBehaviour(function);
-		
 
 		composeEmailPage.getSendToAllButton().addActionListener(
 				new SendToAllButtonListener(client, course, composeEmailPage));
-		composeEmailPage.setSendButtonListener(new ProfessorSendButtonListener(
-				client, course, composeEmailPage));
+		composeEmailPage.getSendButton()
+				.addActionListener(new ProfessorSendButtonListener(client,
+						course, composeEmailPage));
 		composeEmailPage.getAddToEmailButton().addActionListener(
 				new AddToEmailButtonListener(client, course, composeEmailPage));
 
@@ -541,13 +539,14 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	protected void createDiscussionPage(Course course)
 	{
 		DiscussionPage discussionPage = new DiscussionPage(course, professor);
-		
-		Refresh function = () -> {
+
+		Refresh function = () ->
+		{
 			// TODO:
 		};
-		
+
 		discussionPage.setRefreshBehaviour(function);
-		
+
 		completeCoursePage(discussionPage, course);
 	}
 }

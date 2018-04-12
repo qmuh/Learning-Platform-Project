@@ -231,4 +231,30 @@ public class AssignmentTable extends Table<Assignment> implements Activatable
 		}
 		return null;
 	}
+
+	public Vector<Integer> searchByCourse(int courseID)
+	{
+		String sql = "SELECT * FROM " + tableName
+				+ " WHERE COURSEID= ?";
+		Vector<Integer> assignList = new Vector<Integer>();
+		ResultSet assign;
+
+		try
+		{
+
+			preparedStatement = dbConnection.prepareStatement(sql);
+			preparedStatement.setInt(1, courseID);
+			assign = preparedStatement.executeQuery();
+			while (assign.next())
+			{
+				assignList.add(assign.getInt("ID"));
+
+			}
+
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return assignList;
+	}
 }

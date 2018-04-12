@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import javax.swing.JPanel;
 
 import frontend.view.pages.components.customSwing.WButtonActivatable;
+import frontend.view.pages.components.customSwing.WLabel;
 import shared.objects.Course;
 
 final public class CourseItemProfessor extends CourseItem
@@ -19,7 +20,7 @@ final public class CourseItemProfessor extends CourseItem
 	{
 		super(course);
 		JPanel thePanel = new JPanel(new GridLayout(1, 3));
-		thePanel.add(createLabel(course.getName()));
+		thePanel.add(new WLabel(course.getName()));
 		thePanel.add(createActiveButton());
 		thePanel.add(createViewButton("View"));
 		this.add(thePanel);

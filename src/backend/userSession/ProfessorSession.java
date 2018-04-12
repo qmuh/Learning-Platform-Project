@@ -213,8 +213,16 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 
 		else if (type.equals(RECEIVE_ALL_SUBMISSIONS))
 		{
-			Vector<Submission> allSubmission = database.getSubmissionTable()
-					.searchByCourse(((Course) getMessage).getId());
+			Vector<Integer> allAssignIDs = database.getAssignmentTable()
+						.searchByCourse(((Course) getMessage).getId());
+			
+			Vector<Submission> allSubmission = new Vector<Submission>();
+			
+			for(int i = 0; i < allAssignIDs.size(); i++) 
+			{
+			allSubmission.addAll(database.getSubmissionTable().searchByAssign(allAssignIDs.get(i)));
+			}
+			
 			sendObject(allSubmission);
 
 		}

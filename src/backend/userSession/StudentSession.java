@@ -160,7 +160,25 @@ public class StudentSession extends ClientSession implements StudentCommands
 					.studentGradesForCourse(((Course) getmessageObject).getId(),
 							student.getId());
 
+			System.out.println("THESE MANY GRADES " +myGrades.size());
+
+			for (int i = 0; i < myGrades.size() -1; i++)
+			{
+				for (int j = i + 1 ; j < myGrades.size(); j++)
+				{
+					if(myGrades.get(i).getAssignID() == myGrades.get(j).getAssignID())
+					{
+						System.out.println("SAME ASSIGN DETECTED ");
+						myGrades.remove(j);
+						j--;
+
+					}
+				}
+			}
+
+
 			sendObject(myGrades);
+
 		} else if (interpreter.equals(RECEIVE_PROFESSOR))
 		{
 			Professor myProf = (Professor) database.getUserTable()
@@ -195,11 +213,13 @@ public class StudentSession extends ClientSession implements StudentCommands
 		if (interpreter.equals(INSERT_SUBMISSION))
 		{
 			Submission mySubmission = (Submission) getmessageObject;
+			String path = mySubmission.getPath().replaceAll("\\\\", "/");
+
 			String toSplit[] = mySubmission.getPath().split("/");
 			Assignment toGet = database.getAssignmentTable().searchByAssignID(mySubmission.getAssign_id());
 
-			mySubmission.setPath(toGet.getPath());
-			System.out.println("Inserting submission at " + toGet.getPath());
+			mySubmission.setPath(toGet.getDir() + "/" + mySubmission.getTitle());
+			System.out.println("Inserting submission at " + mySubmission.getPath());
 			System.out.println("My submission title is" + mySubmission.getTitle());
 			database.getSubmissionTable().add(mySubmission);
 			byte[] file;

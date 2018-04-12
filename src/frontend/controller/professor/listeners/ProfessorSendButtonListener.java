@@ -9,6 +9,7 @@ import javax.swing.JTextField;
 
 import frontend.controller.Client;
 import frontend.view.pages.compose.ComposeEmailPage;
+import frontend.view.pages.compose.ComposeEmailPageProfessor;
 import shared.interfaces.ProfessorCommands;
 import shared.objects.Course;
 import shared.objects.EmailInfo;
@@ -37,7 +38,7 @@ public class ProfessorSendButtonListener
 	/**
 	 * The composed email page which holds this button
 	 */
-	private ComposeEmailPage emailPage;
+	private ComposeEmailPageProfessor emailPage;
 
 	/**
 	 * The constructor for this
@@ -47,19 +48,21 @@ public class ProfessorSendButtonListener
 	 * @param course
 	 *            The course this is used for
 	 * @param email
-	 *            The emailpage which holds the email information
+	 *            The email page which holds the email information
 	 */
 	public ProfessorSendButtonListener(Client client, Course course,
-			ComposeEmailPage email)
+			ComposeEmailPageProfessor email)
 	{
+		System.out.println("SEND BUTTON EMAIL PROF CONSTRUCTED");
 		this.client = client;
 		this.course = course;
-		emailPage = email;
+		this.emailPage = email;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
+		System.out.println("SEND BUTTON EMAIL PROF CALLED");
 		EmailInfo mailInfo = emailPage.getEmailInfo();
 		JTextField gEmail = new JTextField(50);
 		JTextField password = new JTextField(50);
@@ -74,17 +77,16 @@ public class ProfessorSendButtonListener
 					|| password.getText().length() == 0)
 			{
 				JOptionPane.showMessageDialog(null,
-						"Either Password or Email was incoorect");
-			}
+						"Either Password or Email was incorrect");
 
-			else
+			} else
 			{
 				mailInfo.setFromEmail(gEmail.getText());
 				mailInfo.setFromEmailPassword(password.getText());
 				try
 				{
 					Boolean h = (Boolean) client.sendMessage(
-							new <EmailInfo>SendMessage(mailInfo, CMD_EMAIL));
+							new SendMessage<EmailInfo>(mailInfo, CMD_EMAIL));
 					if (h == true)
 					{
 						JOptionPane.showMessageDialog(null, "Email Sent");
@@ -97,9 +99,7 @@ public class ProfessorSendButtonListener
 				{
 					e1.printStackTrace();
 				}
-
 			}
 		}
-
 	}
 }

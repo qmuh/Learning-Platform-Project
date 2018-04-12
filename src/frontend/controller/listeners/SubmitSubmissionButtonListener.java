@@ -47,15 +47,14 @@ public class SubmitSubmissionButtonListener implements ActionListener, StudentCo
 	public void actionPerformed(ActionEvent e)
 	{
 		
-		String fileName = assignmentPage.getFile().getAbsolutePath();
-		fileName.replaceAll("\\\\", "/");
+		String fileNam[] = assignmentPage.getFile().getAbsolutePath().split("/");
 		
-		System.out.println(fileName);
+		System.out.println(fileNam[fileNam.length -1]);
 		String append[] = assignmentPage.getFile().getPath().split("/");
 		System.out.println("TITLE.JPG: " + append[append.length - 1]);
 		
 		submission.setPath(assignmentPage.getFile().getPath());
-		submission.setTitle(fileName);
+		submission.setTitle(fileNam[fileNam.length -1]);
 		submission.setDate(assignmentPage.getDate());
 		submission.setComment("");
 		

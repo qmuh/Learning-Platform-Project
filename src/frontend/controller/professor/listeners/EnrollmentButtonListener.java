@@ -98,7 +98,6 @@ public class EnrollmentButtonListener
 				e1.printStackTrace();
 			}
 		}
-
-		professorGUI.showAllStudents(myCourse, enrollmentPage);
+		enrollmentPage.refresh();
 	}
 }

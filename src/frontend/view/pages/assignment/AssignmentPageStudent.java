@@ -13,7 +13,7 @@ import shared.objects.Student;
 final public class AssignmentPageStudent extends AssignmentPage
 {
 	private static final long serialVersionUID = 1L;
-	
+
 	private File selectedFile;
 
 	public AssignmentPageStudent(Course course, Student student)

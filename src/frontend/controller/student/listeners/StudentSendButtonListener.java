@@ -45,7 +45,7 @@ public class StudentSendButtonListener implements ActionListener, StudentCommand
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		// TODO Auto-generated method stub
+
 		EmailInfo mailInfo = emailPage.getEmailInfo();
 		JTextField gEmail = new JTextField(50);
 		JTextField password = new JTextField(50);

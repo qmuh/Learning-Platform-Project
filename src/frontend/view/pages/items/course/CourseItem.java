@@ -4,12 +4,12 @@ import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.components.customSwing.WButton;
+import frontend.view.pages.components.customSwing.WLabel;
 import frontend.view.pages.interfaces.GUIConstants;
 import frontend.view.pages.items.GeneralItem;
 import shared.objects.Course;
@@ -24,10 +24,6 @@ import shared.objects.Course;
 abstract public class CourseItem extends GeneralItem
 		implements WondrisInfo, ColourPalette, GUIConstants
 {
-
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = 1L;
 	protected Course course;
 	protected WButton viewButton;
@@ -47,8 +43,7 @@ abstract public class CourseItem extends GeneralItem
 	protected JPanel createLabel(String name)
 	{
 		JPanel theLabel = new JPanel();
-		JLabel label = new JLabel(name);
-		label.setFont(TEXT_FONT);
+		WLabel label = new WLabel(name);
 		theLabel.add(label);
 		return theLabel;
 	}

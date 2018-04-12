@@ -12,10 +12,13 @@ import java.util.Vector;
 import javax.swing.JPanel;
 
 import frontend.controller.Client;
+import frontend.controller.professor.listeners.CourseActiveButtonListener;
 import frontend.interfaces.ColourPalette;
 import frontend.view.pages.Page;
 import frontend.view.pages.home.HomePage;
 import frontend.view.pages.interfaces.PageNames;
+import frontend.view.pages.items.course.CourseItem;
+import frontend.view.pages.items.course.CourseItemProfessor;
 import shared.interfaces.UserCommands;
 import shared.objects.Course;
 import shared.objects.SendMessage;
@@ -40,10 +43,10 @@ public abstract class PageNavigator extends JPanel
 	public PageNavigator(Socket socket, User user)
 	{
 		this.cardLayout = new CardLayout();
-		
+
 		this.client = new Client();
 		this.client.connectToServer(socket);
-		
+
 		this.pageStack = new Stack<Page<?, ?>>();
 
 		this.currentPage = new HomePage(user);
@@ -62,9 +65,10 @@ public abstract class PageNavigator extends JPanel
 		if (!currentPage.getName().equals(pageName))
 		{
 			// Go to the page to show
+			Page<?,?> nextPage = searchPage(pageName);
+			nextPage.refresh();
 			currentPage.setBackButtonEnabled(true);
 			pageStack.push(currentPage);
-			pageStack.peek();
 			cardLayout.show(this, pageName);
 			currentPage = searchPage(pageName);
 		}
@@ -108,7 +112,6 @@ public abstract class PageNavigator extends JPanel
 
 	protected void createNewCourse(Course course, HomePage homePage)
 	{
-		createCourseItem(course, homePage);
 		createCoursePage(course);
 		createAssignmentPage(course);
 		createSubmissionPage(course);
@@ -126,40 +129,7 @@ public abstract class PageNavigator extends JPanel
 
 	abstract protected void createDiscussionPage(Course course);
 
-	@SuppressWarnings("unchecked")
-	protected HomePage createHomePage()
-	{
-		HomePage homePage = (HomePage) this.searchPage(HOME_PAGE);
-
-		SendMessage<Course> message = new SendMessage<Course>(
-				CMD_RECEIVE + RECEIVE_COURSES);
-		try
-		{
-			Vector<Course> coursesList = (Vector<Course>) this.client
-					.sendMessage(message);
-
-			if (coursesList != null)
-			{
-				for (int i = 0; i < coursesList.size(); i++)
-				{
-					Course course = coursesList.elementAt(i);
-
-					createNewCourse(course, homePage);
-
-					System.out.println(
-							"Course name is: " + coursesList.get(i).getName());
-				}
-			}
-
-		} catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-		homePage.displayPage();
-		return homePage;
-	}
-
-	abstract protected void createCourseItem(Course course, HomePage homePage);
+	abstract protected void createHomePage();
 
 	private class BackButtonListener implements ActionListener
 	{

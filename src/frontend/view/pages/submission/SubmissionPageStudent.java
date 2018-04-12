@@ -26,7 +26,7 @@ final public class SubmissionPageStudent extends SubmissionPage
 
 	public SubmissionPageStudent(Course course, Student student)
 	{
-		super(course);
+		super(course, student);
 		this.student = student;
 	}
 

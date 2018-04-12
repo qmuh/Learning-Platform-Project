@@ -13,7 +13,7 @@ public class CourseNavigationBarStudent extends CourseNavigationBar
 	public CourseNavigationBarStudent()
 	{
 		super();
-		gradeButton = new WButton("Grades");
+		gradeButton = createNavBarButton("Grades");
 
 		this.add(assignmentButton);
 		this.add(submissionButton);

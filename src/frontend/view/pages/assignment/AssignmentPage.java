@@ -8,6 +8,7 @@ import frontend.view.pages.course.CoursePage;
 import frontend.view.pages.items.assignment.AssignItem;
 import shared.objects.Assignment;
 import shared.objects.Course;
+import shared.objects.User;
 
 /**
  *
@@ -21,9 +22,9 @@ abstract public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 {
 	private static final long serialVersionUID = 1L;
 
-	public AssignmentPage(Course course)
+	public AssignmentPage(Course course, User user)
 	{
-		super(course);
+		super(course, user);
 		this.setName(ASSIGNMENT_PAGE + course.getId());
 		this.setPageTitle("Assignments");
 		this.bodyCenter.add(createAssignmentPanel(), BorderLayout.CENTER);

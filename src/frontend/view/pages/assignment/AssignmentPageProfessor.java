@@ -16,6 +16,7 @@ import javax.swing.border.EmptyBorder;
 
 import frontend.view.pages.components.customSwing.WButton;
 import shared.objects.Course;
+import shared.objects.Professor;
 
 /**
  * 
@@ -34,9 +35,9 @@ public class AssignmentPageProfessor extends AssignmentPage
 
 	private File selectedFile;
 
-	public AssignmentPageProfessor(Course course)
+	public AssignmentPageProfessor(Course course, Professor professor)
 	{
-		super(course);
+		super(course, professor);
 	}
 
 	public File getFile()

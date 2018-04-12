@@ -19,6 +19,7 @@ import frontend.view.pages.interfaces.PageNames;
 import shared.interfaces.UserCommands;
 import shared.objects.Course;
 import shared.objects.SendMessage;
+import shared.objects.User;
 
 /**
  *
@@ -36,7 +37,7 @@ public abstract class PageNavigator extends JPanel
 	private Stack<Page<?, ?>> pageStack;
 	protected Client client;
 
-	public PageNavigator(Socket socket)
+	public PageNavigator(Socket socket, User user)
 	{
 		this.cardLayout = new CardLayout();
 		
@@ -45,7 +46,7 @@ public abstract class PageNavigator extends JPanel
 		
 		this.pageStack = new Stack<Page<?, ?>>();
 
-		this.currentPage = new HomePage();
+		this.currentPage = new HomePage(user);
 		this.currentPage.setBackButtonEnabled(false);
 
 		this.setLayout(cardLayout);

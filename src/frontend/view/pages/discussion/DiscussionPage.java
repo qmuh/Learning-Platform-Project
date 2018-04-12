@@ -14,6 +14,7 @@ import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.course.CoursePage;
 import frontend.view.pages.items.course.CourseItem;
 import shared.objects.Course;
+import shared.objects.User;
 
 public class DiscussionPage extends CoursePage<CourseItem, Course>
 {
@@ -22,9 +23,9 @@ public class DiscussionPage extends CoursePage<CourseItem, Course>
 	private WButton sendButton;
 	private JTextArea sendArea;
 
-	public DiscussionPage(Course course)
+	public DiscussionPage(Course course, User user)
 	{
-		super(course);
+		super(course, user);
 		this.setName(DISCUSSION_PAGE + course.getId());
 		setPageTitle("Discussion");
 		bodyCenter.add(createDiscussionPage(), BorderLayout.CENTER);

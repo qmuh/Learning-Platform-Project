@@ -13,6 +13,7 @@ import frontend.view.pages.Page;
 import frontend.view.pages.components.CourseNavigationBar;
 import frontend.view.pages.components.PageNavigator;
 import shared.objects.Course;
+import shared.objects.User;
 
 public class CoursePage<T extends Box, U> extends Page<T, U>
 {
@@ -23,9 +24,9 @@ public class CoursePage<T extends Box, U> extends Page<T, U>
 	protected JPanel bodyCenter;
 	private CourseNavigationBar courseNavigationBar;
 
-	public CoursePage(Course course)
+	public CoursePage(Course course, User user)
 	{
-		super();
+		super(user);
 		this.course = course;
 		this.setName(COURSE_PAGE + course.getId());
 		this.header.setTitle(course.getName());

@@ -12,7 +12,9 @@ import javax.swing.ScrollPaneConstants;
 import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.components.customSwing.WLabel;
 import shared.objects.Course;
+import shared.objects.Professor;
 import shared.objects.Student;
+import shared.objects.User;
 
 public class ComposeEmailPageProfessor extends ComposeEmailPage
 {
@@ -21,9 +23,9 @@ public class ComposeEmailPageProfessor extends ComposeEmailPage
 	private WButton sendToAllButton, addToEmailButton;
 	private JList<Student> studentList;
 
-	public ComposeEmailPageProfessor(Course course)
+	public ComposeEmailPageProfessor(Course course, Professor professor)
 	{
-		super(course);
+		super(course, professor);
 		sendToAllButton = new WButton("Add All Enrolled Students");
 
 		createButtonPanel();

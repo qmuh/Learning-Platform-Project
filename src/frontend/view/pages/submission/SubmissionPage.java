@@ -14,6 +14,7 @@ import shared.objects.Assignment;
 import shared.objects.Course;
 import shared.objects.Student;
 import shared.objects.Submission;
+import shared.objects.User;
 
 /**
  *
@@ -29,9 +30,9 @@ abstract public class SubmissionPage
 
 	protected HashMap<Integer, AssignSubItem> assignmentMap;
 
-	public SubmissionPage(Course course)
+	public SubmissionPage(Course course, User user)
 	{
-		super(course);
+		super(course, user);
 		this.setName(SUBMISSION_PAGE + course.getId());
 		this.setPageTitle("Submissions");
 		this.assignmentMap = new HashMap<Integer, AssignSubItem>();

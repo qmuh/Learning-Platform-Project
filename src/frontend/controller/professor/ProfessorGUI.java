@@ -72,7 +72,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	 */
 	public ProfessorGUI(Socket socket, Professor user)
 	{
-		super(socket);
+		super(socket, user);
 		this.professor = user;
 		createHomePage();
 	}
@@ -167,7 +167,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	 */
 	private void createEnrollmentPage(Course course)
 	{
-		EnrollmentPage enrollmentPage = new EnrollmentPage(course);
+		EnrollmentPage enrollmentPage = new EnrollmentPage(course, professor);
 
 		enrollmentPage.setSearchButtonListener(
 				new EnrollmentPageSearchButtonListener(enrollmentPage));
@@ -316,7 +316,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	protected void createSubmissionPage(Course course)
 	{
 		SubmissionPageProfessor submissionPage = new SubmissionPageProfessor(
-				course);
+				course, professor);
 	
 		SendMessage<Course> requestAssignments = new SendMessage<Course>(course,
 				CMD_RECEIVE + RECEIVE_ALL_ASSIGNMENTS);
@@ -381,7 +381,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	protected void createAssignmentPage(Course course)
 	{
 		AssignmentPageProfessor assignmentPage = new AssignmentPageProfessor(
-				course);
+				course, professor);
 	
 		assignmentPage.setUploadButtonListener(
 				new UploadAssignmentButtonListener(client, course,
@@ -398,7 +398,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	protected void createComposeEmailPage(Course course)
 	{
 		ComposeEmailPageProfessor composeEmailPage = new ComposeEmailPageProfessor(
-				course);
+				course, professor);
 		// composeEmailPage
 		// .setMyEmailButtonListener(new MyEmailsButtonListener(course));
 	
@@ -427,14 +427,14 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	protected void createCoursePage(Course course)
 	{
 		@SuppressWarnings("rawtypes")
-		CoursePage coursePage = new CoursePage(course);
+		CoursePage coursePage = new CoursePage(course, professor);
 		completeCoursePage(coursePage, course);
 	}
 
 	@Override
 	protected void createDiscussionPage(Course course)
 	{
-		DiscussionPage discussionPage = new DiscussionPage(course);
+		DiscussionPage discussionPage = new DiscussionPage(course, professor);
 		completeCoursePage(discussionPage, course);
 	}
 }

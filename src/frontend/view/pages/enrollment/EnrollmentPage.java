@@ -24,6 +24,7 @@ import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.course.CoursePage;
 import shared.objects.Course;
 import shared.objects.Student;
+import shared.objects.User;
 
 public class EnrollmentPage extends CoursePage implements WondrisInfo
 {
@@ -41,9 +42,9 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 	private WButton enrollment;
 	private JTextField searchField;
 
-	public EnrollmentPage(Course course)
+	public EnrollmentPage(Course course, User user)
 	{
-		super(course);
+		super(course, user);
 		this.setName(ENROLLMENT_PAGE + course.getId());
 		setPageTitle("Enrollments");
 		bodyCenter.add(createEnrollmentPanel(), BorderLayout.CENTER);

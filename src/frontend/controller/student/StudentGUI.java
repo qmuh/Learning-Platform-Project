@@ -53,7 +53,7 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 	 */
 	public StudentGUI(Socket socket, Student user)
 	{
-		super(socket);
+		super(socket, user);
 		this.student = user;
 		createHomePage();
 	}
@@ -67,7 +67,7 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 	@SuppressWarnings("unchecked")
 	private void createGradesPage(Course course)
 	{
-		GradePage gradePage = new GradePage(course);
+		GradePage gradePage = new GradePage(course, student);
 
 		SendMessage<Course> gradesRequest = new SendMessage<Course>(course,
 				CMD_RECEIVE + RECEIVE_GRADES);
@@ -135,7 +135,7 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 	@Override
 	protected void createCoursePage(Course course)
 	{
-		CoursePage coursePage = new CoursePage<>(course);
+		CoursePage coursePage = new CoursePage<>(course, student);
 		completeCoursePage(coursePage, course);
 	}
 
@@ -144,7 +144,7 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 	protected void createAssignmentPage(Course course)
 	{
 		AssignmentPageStudent assignmentPage = new AssignmentPageStudent(
-				course);
+				course, student);
 
 		SendMessage<Course> receiveAssignments = new SendMessage<Course>(course,
 				CMD_RECEIVE + RECEIVE_ASSIGNMENTS);
@@ -224,10 +224,10 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 	protected void createComposeEmailPage(Course course)
 	{
 		ComposeEmailPageStudent composeEmailPage = new ComposeEmailPageStudent(
-				course);
-		composeEmailPage.getSendButton()
-				.addActionListener(new StudentSendButtonListener(course,
-						composeEmailPage, client));
+				course, student);
+//		composeEmailPage.getSendButton()
+//				.addActionListener(new StudentSendButtonListener(course,
+//						composeEmailPage, client));
 
 		SendMessage<Course> requestProfessor = new SendMessage<Course>(course,
 				CMD_RECEIVE + RECEIVE_PROFESSOR);
@@ -246,7 +246,7 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 	@Override
 	protected void createDiscussionPage(Course course)
 	{
-		DiscussionPage discussionPage = new DiscussionPage(course);
+		DiscussionPage discussionPage = new DiscussionPage(course, student);
 		completeCoursePage(discussionPage, course);
 	}
 

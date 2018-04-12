@@ -13,6 +13,7 @@ import frontend.view.pages.course.CoursePage;
 import frontend.view.pages.items.grade.GradeItem;
 import shared.objects.Course;
 import shared.objects.Grade;
+import shared.objects.User;
 
 /**
  *
@@ -25,9 +26,9 @@ public class GradePage extends CoursePage<GradeItem, Grade>
 {
 	private static final long serialVersionUID = 1L;
 
-	public GradePage(Course course)
+	public GradePage(Course course, User user)
 	{
-		super(course);
+		super(course, user);
 		this.setName(GRADES_PAGE + course.getId());
 		this.setPageTitle("Grades");
 		bodyCenter.add(createGradesPage(), BorderLayout.CENTER);
@@ -62,23 +63,6 @@ public class GradePage extends CoursePage<GradeItem, Grade>
 	{
 		// TODO Auto-generated method stub
 
-	}
-
-	public static void main(String[] args)
-	{
-		JFrame frame = new JFrame("Testing 123");
-		GradePage gradePage = new GradePage(
-				new Course(10101, "ENGG 501", true));
-		gradePage.addToBoxList(
-				new GradeItem("Short Quiz", new Grade(1, 87, 221, 1123)));
-		gradePage.addToBoxList(new GradeItem("Long Descriptive Assignment 2",
-				new Grade(1, 73, 221, 1123)));
-		gradePage.addToBoxList(new GradeItem("Reasonable Assigmment",
-				new Grade(1, 100, 221, 1123)));
-		frame.add(gradePage);
-		frame.setSize(1600, 1000);
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 }

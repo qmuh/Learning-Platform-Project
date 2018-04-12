@@ -19,6 +19,7 @@ import frontend.view.pages.items.student.StudentItem;
 import shared.objects.Course;
 import shared.objects.EmailInfo;
 import shared.objects.Student;
+import shared.objects.User;
 
 /**
  * Provides a class that represents a page to compose an email.
@@ -55,9 +56,9 @@ abstract public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 	 */
 	protected JPanel sendButtonPanel;
 
-	public ComposeEmailPage(Course course)
+	public ComposeEmailPage(Course course, User user)
 	{
-		super(course);
+		super(course, user);
 		this.setName(COMPOSE_EMAIL_PAGE + course.getId());
 		this.setPageTitle("Compose Email");
 		bodyCenter.add(createComposeEmailCenter(), BorderLayout.CENTER);

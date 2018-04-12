@@ -5,6 +5,7 @@ import java.util.Vector;
 import frontend.view.pages.items.submission.AssignSubItemProfessor;
 import shared.objects.Assignment;
 import shared.objects.Course;
+import shared.objects.Professor;
 import shared.objects.Student;
 
 final public class SubmissionPageProfessor extends SubmissionPage
@@ -12,9 +13,9 @@ final public class SubmissionPageProfessor extends SubmissionPage
 
 	private static final long serialVersionUID = 1L;
 
-	public SubmissionPageProfessor(Course course)
+	public SubmissionPageProfessor(Course course, Professor professor)
 	{
-		super(course);
+		super(course, professor);
 	}
 
 	public void addAssignment(Assignment assignment, Vector<Student> classList)

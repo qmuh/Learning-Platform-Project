@@ -9,7 +9,6 @@ import java.io.IOException;
 
 import frontend.controller.Client;
 import shared.interfaces.ProfessorCommands;
-import shared.interfaces.UserCommands;
 import shared.objects.SendMessage;
 import shared.objects.Submission;
 
@@ -20,49 +19,56 @@ import shared.objects.Submission;
  * @version 1.0
  * @since April 6, 2018
  */
-public class SubmissionLabelMouseListener implements MouseListener, ProfessorCommands
+public class SubmissionLabelMouseListener
+		implements MouseListener, ProfessorCommands
 {
 	/**
 	 * The submission asscociated with the listener
 	 */
 	private Submission submission;
-	
+
 	/**
 	 * The client used to communicate with the server
 	 */
 	private Client client;
-	
-	/** The listener for submissions, used by the professor
+
+	/**
+	 * The listener for submissions, used by the professor
 	 * 
-	 * @param submission The submission
-	 * @param client2 The client
+	 * @param submission
+	 *            The submission
+	 * @param client2
+	 *            The client
 	 */
 	public SubmissionLabelMouseListener(Submission submission, Client client2)
 	{
 		this.submission = submission;
-		client = client2;	
+		client = client2;
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
-		 try
+		try
 		{
-			byte [] file = (byte [])client.sendMessage
-					(new SendMessage<Submission>(submission,CMD_RECEIVE + RECEIVE_STUDENT_SUBMISSION));
+			byte[] file = (byte[]) client
+					.sendMessage(new SendMessage<Submission>(submission,
+							CMD_RECEIVE + RECEIVE_STUDENT_SUBMISSION));
 			String home = System.getProperty("user.home");
-			
+
 			String[] fileName = submission.getPath().split("/");
-			File newFile = new File(home+"/Downloads/" +  fileName[fileName.length -1]); 
-			
-			if(! newFile.exists())
+			File newFile = new File(
+					home + "/Downloads/" + fileName[fileName.length - 1]);
+
+			if (!newFile.exists())
 				newFile.createNewFile();
-				FileOutputStream writer = new FileOutputStream(newFile);
-				BufferedOutputStream bos = new BufferedOutputStream(writer);
-				bos.write(file);
-				bos.close();
-			
-		}catch (IOException e1) {
+			FileOutputStream writer = new FileOutputStream(newFile);
+			BufferedOutputStream bos = new BufferedOutputStream(writer);
+			bos.write(file);
+			bos.close();
+
+		} catch (IOException e1)
+		{
 			e1.getStackTrace();
 		}
 	}
@@ -70,13 +76,13 @@ public class SubmissionLabelMouseListener implements MouseListener, ProfessorCom
 	@Override
 	public void mouseEntered(MouseEvent e)
 	{
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e)
 	{
-		
+
 	}
 
 	@Override

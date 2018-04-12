@@ -16,11 +16,14 @@ import shared.objects.Grade;
  */
 public class GradeTable extends Table<Grade>
 {
-	
 
-	/** The constructor for the grade table
-	 * @param connectionToDB Connection to the SQL database
-	 * @param tableName name of the database
+	/**
+	 * The constructor for the grade table
+	 * 
+	 * @param connectionToDB
+	 *            Connection to the SQL database
+	 * @param tableName
+	 *            name of the database
 	 */
 	public GradeTable(Connection connectionToDB, String tableName)
 	{
@@ -104,16 +107,21 @@ public class GradeTable extends Table<Grade>
 
 	}
 
-	/** Searches the tables by using a course ID and student ID
-	 * @param courseID Course to be searched
-	 * @param studentID Student to be searched
+	/**
+	 * Searches the tables by using a course ID and student ID
+	 * 
+	 * @param courseID
+	 *            Course to be searched
+	 * @param studentID
+	 *            Student to be searched
 	 * @return vector of grade objects
 	 */
 	public Vector<Grade> studentGradesForCourse(int courseID, int studentID)
 	{
 		Vector<Grade> gradeList = new Vector<Grade>();
 
-		String sql = "SELECT * FROM " + tableName + " WHERE COURSEID= ? AND STUDENTID= ?";
+		String sql = "SELECT * FROM " + tableName
+				+ " WHERE COURSEID= ? AND STUDENTID= ?";
 		ResultSet grade;
 		try
 		{

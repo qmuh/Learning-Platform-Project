@@ -16,7 +16,7 @@ public class WButtonActivatable extends WButton
 	public static final String DEACTIVATE = "Deactivate";
 
 	private boolean isActive;
-	
+
 	private String active;
 	private String inactive;
 
@@ -24,7 +24,7 @@ public class WButtonActivatable extends WButton
 	{
 		this(true);
 	}
-	
+
 	public WButtonActivatable(boolean b)
 	{
 		this(ACTIVATE, DEACTIVATE, b);
@@ -57,7 +57,7 @@ public class WButtonActivatable extends WButton
 			this.setBackground(BACKGROUND_COLOUR);
 		}
 	}
-	
+
 	public void toggleActive()
 	{
 		setActive(!isActive);

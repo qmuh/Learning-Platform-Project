@@ -13,7 +13,7 @@ public class CourseNavigationBarProfessor extends CourseNavigationBar
 	public CourseNavigationBarProfessor()
 	{
 		super();
-		enrollmentButton = new WButton("Enrollments");
+		enrollmentButton = createNavBarButton("Enrollments");
 		this.add(assignmentButton);
 		this.add(submissionButton);
 		this.add(enrollmentButton);
@@ -26,7 +26,7 @@ public class CourseNavigationBarProfessor extends CourseNavigationBar
 	{
 		super.createListeners(course, pageNavigator);
 		enrollmentButton.addActionListener(
-				new CoursePageNavigationButtonListener(course,
-						ENROLLMENT_PAGE, pageNavigator));
+				new CoursePageNavigationButtonListener(course, ENROLLMENT_PAGE,
+						pageNavigator));
 	}
 }

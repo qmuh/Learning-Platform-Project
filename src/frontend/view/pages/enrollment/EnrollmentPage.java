@@ -11,6 +11,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
@@ -24,6 +25,7 @@ import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.course.CoursePage;
 import shared.objects.Course;
 import shared.objects.Student;
+import shared.objects.User;
 
 public class EnrollmentPage extends CoursePage implements WondrisInfo
 {
@@ -41,9 +43,9 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 	private WButton enrollment;
 	private JTextField searchField;
 
-	public EnrollmentPage(Course course)
+	public EnrollmentPage(Course course, User user)
 	{
-		super(course);
+		super(course, user);
 		this.setName(ENROLLMENT_PAGE + course.getId());
 		setPageTitle("Enrollments");
 		bodyCenter.add(createEnrollmentPanel(), BorderLayout.CENTER);
@@ -132,8 +134,12 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 				BorderLayout.NORTH);
 		studentSearchResults = new JList<Student>();
 		studentSearchResults.setFont(TEXT_FONT);
-		studentSearchResults.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		searchResults.add(studentSearchResults, BorderLayout.CENTER);
+		studentSearchResults
+				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		JScrollPane scrollPane = new JScrollPane(studentSearchResults);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
+		searchResults.add(scrollPane, BorderLayout.CENTER);
 		return searchResults;
 	}
 
@@ -208,15 +214,16 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 		return enrollList;
 	}
 
-	private JPanel createEnrolledStudentList()
+	private JScrollPane createEnrolledStudentList()
 	{
-		JPanel enrolledPanel = new JPanel(new GridLayout(1, 1));
-		enrolledPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
 		enrolledStudentList = new JList<Student>();
 		enrolledStudentList.setEnabled(false);
 		enrolledStudentList.setFont(TEXT_FONT);
-		enrolledPanel.add(enrolledStudentList);
-		return enrolledPanel;
+		JScrollPane scrollPane = new JScrollPane(enrolledStudentList);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
+		scrollPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
+		return scrollPane;
 	}
 
 	@Override

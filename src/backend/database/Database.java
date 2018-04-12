@@ -292,7 +292,7 @@ public class Database implements DatabaseProperties, UserInfo
 
 				this.getCourseTable().add(
 						new Course(courseID, profID, courseName, isActive));
-				
+
 				line = fileReader.readLine();
 			}
 			fileReader.close();

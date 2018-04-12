@@ -10,27 +10,31 @@ import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import frontend.controller.listeners.*;
-import frontend.controller.professor.listeners.*;
-import frontend.view.pages.assignment.AssignmentPage;
+import frontend.controller.listeners.AssignmentLabelMouseListener;
+import frontend.controller.listeners.BrowseButtonListener;
+import frontend.controller.listeners.SubmissionLabelMouseListener;
+import frontend.controller.listeners.UploadAssignmentButtonListener;
+import frontend.controller.professor.listeners.AddToEmailButtonListener;
+import frontend.controller.professor.listeners.AssignmentActiveButtonListener;
+import frontend.controller.professor.listeners.CourseActiveButtonListener;
+import frontend.controller.professor.listeners.EnrollmentButtonListener;
+import frontend.controller.professor.listeners.GradeSubmissionButtonListener;
+import frontend.controller.professor.listeners.NewCourseButtonListener;
+import frontend.controller.professor.listeners.ProfessorSendButtonListener;
+import frontend.controller.professor.listeners.SendToAllButtonListener;
 import frontend.view.pages.assignment.AssignmentPageProfessor;
 import frontend.view.pages.components.CourseNavigationBarProfessor;
-import frontend.view.pages.components.CourseNavigationBarStudent;
 import frontend.view.pages.components.PageNavigator;
-import frontend.view.pages.components.PageNavigator.ViewCoursePageListener;
 import frontend.view.pages.components.customSwing.WButton;
-import frontend.view.pages.compose.ComposeEmailPage;
 import frontend.view.pages.compose.ComposeEmailPageProfessor;
 import frontend.view.pages.course.CoursePage;
 import frontend.view.pages.discussion.DiscussionPage;
 import frontend.view.pages.enrollment.EnrollmentPage;
 import frontend.view.pages.home.HomePage;
-import frontend.view.pages.items.assignment.AssignItem;
 import frontend.view.pages.items.assignment.AssignItemProfessor;
-import frontend.view.pages.items.course.CourseItem;
 import frontend.view.pages.items.course.CourseItemProfessor;
 import frontend.view.pages.items.submission.SubmitItem;
-import frontend.view.pages.submission.SubmissionPage;
+import frontend.view.pages.items.submission.SubmitItemProfessor;
 import frontend.view.pages.submission.SubmissionPageProfessor;
 import shared.interfaces.ProfessorCommands;
 import shared.objects.Assignment;
@@ -69,7 +73,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	 */
 	public ProfessorGUI(Socket socket, Professor user)
 	{
-		super(socket);
+		super(socket, user);
 		this.professor = user;
 		createHomePage();
 	}
@@ -118,126 +122,6 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		createEnrollmentPage(course);
 	}
 
-	@Override
-	protected HomePage createHomePage()
-	{
-		HomePage homePage = super.createHomePage();
-		homePage.setNewCourseListener(
-				new NewCourseButtonListener(this, client, homePage));
-		homePage.enableActiveLabel();
-		return homePage;
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	protected void createSubmissionPage(Course course)
-	{
-		SubmissionPageProfessor submissionPage = new SubmissionPageProfessor(course);
-
-		SendMessage<Course> requestAssignments = new SendMessage<Course>(course,
-				CMD_RECEIVE + RECEIVE_ALL_ASSIGNMENTS);
-		SendMessage<Course> requestStudents = new SendMessage<Course>(course,
-				CMD_RECEIVE + RECEIVE_ALL_ENROLLED_STUDENTS);
-		SendMessage<Course> requestSubmissions = new SendMessage<Course>(course,
-				CMD_RECEIVE + RECEIVE_ALL_SUBMISSIONS);
-
-		try
-		{
-			Vector<Assignment> assignments = (Vector<Assignment>) this.client
-					.sendMessage(requestAssignments);
-			Vector<Student> students = (Vector<Student>) this.client
-					.sendMessage(requestStudents);
-			Vector<Submission> submissions = (Vector<Submission>) this.client
-					.sendMessage(requestSubmissions);
-
-			if (assignments != null)
-			{
-				for (int i = 0; i < assignments.size(); i++)
-				{
-					Assignment assignment = assignments.elementAt(i);
-					submissionPage.addAssignment(assignment, students);
-				}
-			}
-
-			for (int i = 0; i < submissions.size(); i++)
-			{
-				Submission submission = submissions.elementAt(i);
-				SubmitItem submitItem = new SubmitItem(submission);
-				submitItem.getGradeButton().addActionListener(
-						new GradeSubmissionButtonListener(client, course,
-								submitItem));
-				submitItem.getAssignmentLink().addMouseListener(
-						new SubmissionLabelMouseListener(submission, client));
-
-				submissionPage.addSubmission(submitItem);
-			}
-		} catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-		completeCoursePage(submissionPage, course);
-	}
-
-	/**
-	 * @param course
-	 * @param homePage
-	 */
-	@Override
-	protected void createCourseItem(Course course, HomePage homePage)
-	{
-		CourseItemProfessor courseItem = new CourseItemProfessor(course);
-		courseItem.getActiveButton().addActionListener(
-				new CourseActiveButtonListener(client, course));
-		courseItem.getViewButton()
-				.addActionListener(new ViewCoursePageListener(course));
-		homePage.addToBoxList(courseItem);
-	}
-
-	@Override
-	protected void createAssignmentPage(Course course)
-	{
-		AssignmentPageProfessor assignmentPage = new AssignmentPageProfessor(
-				course);
-
-		assignmentPage.setUploadButtonListener(
-				new UploadAssignmentButtonListener(client, course, assignmentPage));
-		assignmentPage.setBrowseButtonListener(
-				new BrowseButtonListener(assignmentPage));
-		
-		showAllAssignments(course, assignmentPage);
-		completeCoursePage(assignmentPage, course);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	protected void createComposeEmailPage(Course course)
-	{
-		ComposeEmailPageProfessor composeEmailPage = new ComposeEmailPageProfessor(course);
-		// composeEmailPage
-		// .setMyEmailButtonListener(new MyEmailsButtonListener(course));
-
-		composeEmailPage.getSendToAllButton().addActionListener(
-				new SendToAllButtonListener(client, course, composeEmailPage));
-		composeEmailPage.setSendButtonListener(
-				new ProfessorSendButtonListener(client, course, composeEmailPage));
-		composeEmailPage.getAddToEmailButton().addActionListener(
-				new AddToEmailButtonListener(client, course, composeEmailPage));
-
-		// Sets the enrolled J-List to help email choosing
-		try
-		{
-			Vector<Student> enrollList = (Vector<Student>) client
-					.sendMessage(new SendMessage<Course>(course,
-							CMD_RECEIVE + RECEIVE_ALL_ENROLLED_STUDENTS));
-			composeEmailPage.setStudentList(enrollList);
-		} catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		completeCoursePage(composeEmailPage, course);
-	}
-
 	/**
 	 * Shows all assignments for a course
 	 * 
@@ -256,7 +140,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 					course, CMD_RECEIVE + RECEIVE_ALL_ASSIGNMENTS);
 			Vector<Assignment> myList = (Vector<Assignment>) client
 					.sendMessage(requestAssignments);
-			
+
 			for (Assignment assignment : myList)
 			{
 				AssignItemProfessor assignItem = new AssignItemProfessor(
@@ -264,8 +148,9 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 
 				assignItem.getActiveButton().addActionListener(
 						new AssignmentActiveButtonListener(client, assignment));
-				
-				assignItem.getAssignmentLabel().addMouseListener(new AssignmentLabelMouseListener(assignment, client));
+
+				assignItem.getAssignmentLabel().addMouseListener(
+						new AssignmentLabelMouseListener(assignment, client));
 				assignmentPage.addToBoxList(assignItem);
 			}
 
@@ -283,7 +168,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	 */
 	private void createEnrollmentPage(Course course)
 	{
-		EnrollmentPage enrollmentPage = new EnrollmentPage(course);
+		EnrollmentPage enrollmentPage = new EnrollmentPage(course, professor);
 
 		enrollmentPage.setSearchButtonListener(
 				new EnrollmentPageSearchButtonListener(enrollmentPage));
@@ -392,7 +277,6 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 					}
 				} catch (IOException e1)
 				{
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 
@@ -402,10 +286,10 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	}
 
 	/**
-	 * Sets a course page and its content
+	 * Completes a course page by adding a navigation bar and its listeners
 	 * 
 	 * @param genericCoursePage
-	 *            The hashmap used
+	 *            The course page to complete
 	 * @param course
 	 *            The associated course
 	 */
@@ -419,16 +303,139 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	}
 
 	@Override
+	protected HomePage createHomePage()
+	{
+		HomePage homePage = super.createHomePage();
+		homePage.setNewCourseListener(
+				new NewCourseButtonListener(this, client, homePage));
+		homePage.enableActiveLabel();
+		return homePage;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	protected void createSubmissionPage(Course course)
+	{
+		SubmissionPageProfessor submissionPage = new SubmissionPageProfessor(
+				course, professor);
+	
+		SendMessage<Course> requestAssignments = new SendMessage<Course>(course,
+				CMD_RECEIVE + RECEIVE_ALL_ASSIGNMENTS);
+		SendMessage<Course> requestStudents = new SendMessage<Course>(course,
+				CMD_RECEIVE + RECEIVE_ALL_ENROLLED_STUDENTS);
+		SendMessage<Course> requestSubmissions = new SendMessage<Course>(course,
+				CMD_RECEIVE + RECEIVE_ALL_SUBMISSIONS);
+	
+		try
+		{
+			Vector<Assignment> assignments = (Vector<Assignment>) this.client
+					.sendMessage(requestAssignments);
+			Vector<Student> students = (Vector<Student>) this.client
+					.sendMessage(requestStudents);
+			Vector<Submission> submissions = (Vector<Submission>) this.client
+					.sendMessage(requestSubmissions);
+	
+			if (assignments != null)
+			{
+				for (int i = 0; i < assignments.size(); i++)
+				{
+					Assignment assignment = assignments.elementAt(i);
+					submissionPage.addAssignment(assignment, students);
+				}
+			}
+	
+			for (int i = 0; i < submissions.size(); i++)
+			{
+				Submission submission = submissions.elementAt(i);
+				SubmitItemProfessor submitItem = new SubmitItemProfessor(submission);
+				submitItem.getGradeButton().addActionListener(
+						new GradeSubmissionButtonListener(client, course,
+								submitItem));
+				submitItem.getAssignmentLink().addMouseListener(
+						new SubmissionLabelMouseListener(submission, client));
+	
+				submissionPage.addSubmission(submitItem);
+			}
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		completeCoursePage(submissionPage, course);
+	}
+
+	/**
+	 * @param course
+	 * @param homePage
+	 */
+	@Override
+	protected void createCourseItem(Course course, HomePage homePage)
+	{
+		CourseItemProfessor courseItem = new CourseItemProfessor(course);
+		courseItem.getActiveButton().addActionListener(
+				new CourseActiveButtonListener(client, course));
+		courseItem.getViewButton()
+				.addActionListener(new ViewCoursePageListener(course));
+		homePage.addToBoxList(courseItem);
+	}
+
+	@Override
+	protected void createAssignmentPage(Course course)
+	{
+		AssignmentPageProfessor assignmentPage = new AssignmentPageProfessor(
+				course, professor);
+	
+		assignmentPage.setUploadButtonListener(
+				new UploadAssignmentButtonListener(client, course,
+						assignmentPage));
+		assignmentPage.setBrowseButtonListener(
+				new BrowseButtonListener(assignmentPage));
+	
+		showAllAssignments(course, assignmentPage);
+		completeCoursePage(assignmentPage, course);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	protected void createComposeEmailPage(Course course)
+	{
+		ComposeEmailPageProfessor composeEmailPage = new ComposeEmailPageProfessor(
+				course, professor);
+		// composeEmailPage
+		// .setMyEmailButtonListener(new MyEmailsButtonListener(course));
+	
+		composeEmailPage.getSendToAllButton().addActionListener(
+				new SendToAllButtonListener(client, course, composeEmailPage));
+		composeEmailPage.setSendButtonListener(new ProfessorSendButtonListener(
+				client, course, composeEmailPage));
+		composeEmailPage.getAddToEmailButton().addActionListener(
+				new AddToEmailButtonListener(client, course, composeEmailPage));
+	
+		// Sets the enrolled J-List to help email choosing
+		try
+		{
+			Vector<Student> enrollList = (Vector<Student>) client
+					.sendMessage(new SendMessage<Course>(course,
+							CMD_RECEIVE + RECEIVE_ALL_ENROLLED_STUDENTS));
+			composeEmailPage.setStudentList(enrollList);
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		completeCoursePage(composeEmailPage, course);
+	}
+
+	@Override
 	protected void createCoursePage(Course course)
 	{
-		CoursePage coursePage = new CoursePage<>(course);
+		@SuppressWarnings("rawtypes")
+		CoursePage coursePage = new CoursePage(course, professor);
 		completeCoursePage(coursePage, course);
 	}
 
 	@Override
 	protected void createDiscussionPage(Course course)
 	{
-		DiscussionPage discussionPage = new DiscussionPage(course);
+		DiscussionPage discussionPage = new DiscussionPage(course, professor);
 		completeCoursePage(discussionPage, course);
 	}
 }

@@ -8,7 +8,7 @@ import java.util.Vector;
 import shared.objects.Submission;
 
 /**
- * 
+ *
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
@@ -17,8 +17,11 @@ import shared.objects.Submission;
 public class SubmissionTable extends Table<Submission>
 {
 
-	/** Constructor for the submission table
-	 * @param connectionToDB Connection with SQL server
+	/**
+	 * Constructor for the submission table
+	 *
+	 * @param connectionToDB
+	 *            Connection with SQL server
 	 * @param tableName
 	 */
 	public SubmissionTable(Connection connectionToDB, String tableName)
@@ -78,7 +81,7 @@ public class SubmissionTable extends Table<Submission>
 
 	/**
 	 * Used by professor to look at submission by a specific student
-	 * 
+	 *
 	 * @param studentID
 	 * @return
 	 */
@@ -116,7 +119,7 @@ public class SubmissionTable extends Table<Submission>
 
 	/**
 	 * Used by professor to see all submissions for a specific assignment
-	 * 
+	 *
 	 * @param assignID
 	 * @return
 	 */
@@ -152,8 +155,11 @@ public class SubmissionTable extends Table<Submission>
 
 	}
 
-	/** Searches the table by course ID''s
-	 * @param courseID The course ID to search for
+	/**
+	 * Searches the table by course ID''s
+	 *
+	 * @param courseID
+	 *            The course ID to search for
 	 * @return The vector containing all the submissions for a course ID
 	 */
 	public Vector<Submission> searchByCourse(int courseID)

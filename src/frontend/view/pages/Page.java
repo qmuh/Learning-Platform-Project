@@ -2,7 +2,6 @@ package frontend.view.pages;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -18,6 +17,7 @@ import frontend.view.pages.components.Footer;
 import frontend.view.pages.components.Header;
 import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.interfaces.PageNames;
+import shared.objects.User;
 
 /**
  *
@@ -39,7 +39,7 @@ public abstract class Page<T extends Box, U> extends JPanel
 	// protected StudentGUI studentGUI;
 	// protected ProfessorGUI professorGUI;
 
-	public Page()
+	public Page(User user)
 	{
 		this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		this.setLayout(new BorderLayout());
@@ -47,6 +47,7 @@ public abstract class Page<T extends Box, U> extends JPanel
 		body = new JPanel();
 		header = new Header();
 		footer = new Footer();
+		header.setNamePanel(user);
 		this.add(header, BorderLayout.NORTH);
 		this.add(footer, BorderLayout.SOUTH);
 		this.add(body, BorderLayout.CENTER);
@@ -72,17 +73,17 @@ public abstract class Page<T extends Box, U> extends JPanel
 	{
 		return header.getHomeButton();
 	}
-	
+
 	public WButton getBackButton()
 	{
 		return header.getBackButton();
 	}
-	
+
 	public WButton getGearButton()
 	{
 		return header.getGearButton();
 	}
-	
+
 	public void setBackButtonEnabled(boolean b)
 	{
 		header.getBackButton().setEnabled(b);

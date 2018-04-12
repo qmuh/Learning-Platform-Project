@@ -134,7 +134,7 @@ public class Server implements ServerInfo, UserInfo
 						socket.getOutputStream());
 
 				LoginInfo loginInfo = (LoginInfo) objectIn.readObject();
-				
+
 				User myUser = database.getUserTable().validateUser(
 						loginInfo.getUsername(), loginInfo.getPassword());
 

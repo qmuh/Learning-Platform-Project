@@ -7,8 +7,7 @@ import java.awt.Color;
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
- * @since April 6, 2018
- * Sets up the color choice for the application
+ * @since April 6, 2018 Sets up the color choice for the application
  */
 public interface ColourPalette
 {

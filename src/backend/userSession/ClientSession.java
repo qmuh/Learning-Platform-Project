@@ -79,7 +79,7 @@ public abstract class ClientSession implements Runnable
 				SendMessage<?> newMessage = (SendMessage<?>) objectIn
 						.readObject();
 				isRunning = interpretMessage(newMessage);
-				
+
 			} catch (IOException | ClassNotFoundException e)
 			{
 				e.printStackTrace();
@@ -95,40 +95,51 @@ public abstract class ClientSession implements Runnable
 		this.database = database;
 	}
 
-	/** Handles the email sending
-	 * @param emailLogin The complete email information
+	/**
+	 * Handles the email sending
+	 * 
+	 * @param emailLogin
+	 *            The complete email information
 	 */
 	protected void handleEmail(EmailInfo emailLogin)
 	{
 
-			Boolean authenticate = emailHelper.sendEmail(emailLogin);
-			try
-			{
-				objectOut.writeObject(authenticate);
-				objectOut.flush();
-			} catch (IOException e)
-			{
-				e.printStackTrace();
-			}
+		Boolean authenticate = emailHelper.sendEmail(emailLogin);
+		try
+		{
+			objectOut.writeObject(authenticate);
+			objectOut.flush();
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
-	/** Used to send a file to the client
-	 * @param path The client being sent to the client
+	/**
+	 * Used to send a file to the client
+	 * 
+	 * @param path
+	 *            The client being sent to the client
 	 */
 	protected void sendBackFile(String path)
 	{
 		byte[] file = fileHelper.receiveFile(path);
-		try{
+		try
+		{
 			objectOut.writeObject(file);
 			objectOut.flush();
-			} catch(IOException e){
+		} catch (IOException e)
+		{
 			e.printStackTrace();
-			}
+		}
 
 	}
 
-	/** Used to send an Object to the client
-	 * @param message The object being sent
+	/**
+	 * Used to send an Object to the client
+	 * 
+	 * @param message
+	 *            The object being sent
 	 */
 	protected void sendObject(Object message)
 	{
@@ -141,9 +152,9 @@ public abstract class ClientSession implements Runnable
 			e.printStackTrace();
 		}
 	}
-	
+
 	public abstract void setUser(User user);
-	
+
 	/**
 	 * Interprets the message sent by the client. Returns a boolean to denote
 	 * whether the session is still active.

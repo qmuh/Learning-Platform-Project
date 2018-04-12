@@ -1,10 +1,9 @@
 package frontend.controller.listeners;
 
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import frontend.view.pages.components.PageNavigator;
-import frontend.view.pages.interfaces.PageNames;
 import shared.objects.Course;
 
 /**
@@ -20,21 +19,26 @@ public class CoursePageNavigationButtonListener implements ActionListener
 	 * The class used too navigate the functionalities of a course page
 	 */
 	protected PageNavigator pageNavigator;
-	
+
 	/**
 	 * The course name
 	 */
 	protected Course course;
-	
+
 	/**
 	 * The page name
 	 */
 	protected String pageName;
 
-	/** Listener for the button that had to do with a course
-	 * @param course The course associated with the listener
-	 * @param pageName The name of the page name
-	 * @param pageNavigator The page navigator 
+	/**
+	 * Listener for the button that had to do with a course
+	 * 
+	 * @param course
+	 *            The course associated with the listener
+	 * @param pageName
+	 *            The name of the page name
+	 * @param pageNavigator
+	 *            The page navigator
 	 */
 	public CoursePageNavigationButtonListener(Course course, String pageName,
 			PageNavigator pageNavigator)

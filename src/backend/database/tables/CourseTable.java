@@ -17,9 +17,13 @@ import shared.objects.Course;
 public class CourseTable extends Table<Course> implements Activatable
 {
 
-	/** Constructor for the table
-	 * @param connectionToDB Connection between table and database 
-	 * @param tableName Name of the table
+	/**
+	 * Constructor for the table
+	 * 
+	 * @param connectionToDB
+	 *            Connection between table and database
+	 * @param tableName
+	 *            Name of the table
 	 */
 	public CourseTable(Connection connectionToDB, String tableName)
 	{
@@ -150,6 +154,7 @@ public class CourseTable extends Table<Course> implements Activatable
 			e.printStackTrace();
 		}
 	}
+
 	/**
 	 * Searches for a course by the courseID
 	 * 
@@ -176,7 +181,7 @@ public class CourseTable extends Table<Course> implements Activatable
 		{
 			e.printStackTrace();
 		}
-		
+
 		return null;
 
 	}

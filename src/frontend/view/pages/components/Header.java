@@ -3,7 +3,6 @@ package frontend.view.pages.components;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -12,6 +11,7 @@ import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.interfaces.GUIConstants;
+import shared.objects.User;
 
 /**
  * 
@@ -29,18 +29,26 @@ public class Header extends JPanel
 	private static final long serialVersionUID = 1L;
 
 	private NavigationBar navigationBar;
+	private JPanel headerTitle;
 
 	public Header()
 	{
-		this.setLayout(new GridLayout(1, 3));
+		this.setLayout(new GridLayout(1, 2));
 		this.setPreferredSize(new Dimension(WINDOW_WIDTH, 100));
-		this.setBackground(ACCENT_COLOR);
 		navigationBar = new NavigationBar();
-		this.add(createTitle(NAME), 0);
-		this.add(createTitle(""), 1);
-		this.add(navigationBar, 2);
+		this.add(createHeaderTitle(), 0);
+		this.add(navigationBar, 1);
 	}
 
+	private JPanel createHeaderTitle()
+	{
+		headerTitle = new JPanel(new GridLayout(1, 2));
+		headerTitle.setBackground(ACCENT_COLOR);
+		headerTitle.add(createTitle(NAME), 0);
+		headerTitle.add(createTitle(""), 1);
+		return headerTitle;
+	}
+	
 	public JLabel createTitle(String title)
 	{
 		JLabel theTitle = new JLabel(title);
@@ -51,20 +59,25 @@ public class Header extends JPanel
 
 	public void setTitle(String title)
 	{
-		this.remove(1);
-		this.add(createTitle(title), 1);
+		headerTitle.remove(1);
+		headerTitle.add(createTitle(title), 1);
+	}
+	
+	public void setNamePanel(User user)
+	{
+		navigationBar.setNamePanel(user);
 	}
 
 	public WButton getHomeButton()
 	{
 		return navigationBar.getHomeButton();
 	}
-	
+
 	public WButton getBackButton()
 	{
 		return navigationBar.getBackButton();
 	}
-	
+
 	public WButton getGearButton()
 	{
 		return navigationBar.getGearButton();

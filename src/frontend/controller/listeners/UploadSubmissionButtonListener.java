@@ -11,7 +11,8 @@ import frontend.view.pages.assignment.AssignmentPageStudent;
 import shared.interfaces.StudentCommands;
 import shared.objects.Course;
 
-public class UploadSubmissionButtonListener implements ActionListener, StudentCommands
+public class UploadSubmissionButtonListener
+		implements ActionListener, StudentCommands
 {
 
 	/**
@@ -23,16 +24,16 @@ public class UploadSubmissionButtonListener implements ActionListener, StudentCo
 	 * The specific course associated with this listener
 	 */
 	private Course course;
-	
+
 	private  AssignmentPageStudent assignPage;
-	
+
 	public UploadSubmissionButtonListener(Client client, Course course, AssignmentPageStudent studentPage)
 	{
 		this.client = client;
 		this.course = course;
 		assignPage = studentPage;
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
@@ -47,7 +48,7 @@ public class UploadSubmissionButtonListener implements ActionListener, StudentCo
 		{
 			assignPage.setFile(null);
 		}
-		
+
 	}
 
 }

@@ -14,17 +14,21 @@ import shared.objects.Course;
 import shared.objects.EmailInfo;
 import shared.objects.SendMessage;
 
+import frontend.controller.Client;
+import frontend.view.pages.compose.ComposeEmailPageStudent;
+import shared.objects.Course;
+
 /**
  * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
- * @since April 6, 2018
- * Sends an email
+ * @since April 6, 2018 Sends an email
  */
 public class StudentSendButtonListener implements ActionListener, StudentCommands
 {
 
+<<<<<<< HEAD
 	private ComposeEmailPageStudent emailPage;
 	
 	private Client client;
@@ -39,10 +43,19 @@ public class StudentSendButtonListener implements ActionListener, StudentCommand
 	}
 	
 	
+=======
+	public StudentSendButtonListener(Course course,
+			ComposeEmailPageStudent composeEmailPage, Client client)
+	{
+		// TODO Auto-generated constructor stub
+	}
+
+>>>>>>> origin/StudentGUI
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
 		// TODO Auto-generated method stub
+<<<<<<< HEAD
 		EmailInfo mailInfo = emailPage.getEmailInfo();
 		JTextField gEmail = new JTextField(50);
 		JTextField password = new JTextField(50);
@@ -77,6 +90,9 @@ public class StudentSendButtonListener implements ActionListener, StudentCommand
 			}
 		}
 		
+=======
+
+>>>>>>> origin/StudentGUI
 	}
 }
 }

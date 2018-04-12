@@ -29,9 +29,13 @@ public abstract class Table<E>
 	 */
 	public PreparedStatement preparedStatement;
 
-	/** Constructor for a database
-	 * @param connectionToDB The connection to allow connection with SQL
-	 * @param table The name of the table
+	/**
+	 * Constructor for a database
+	 * 
+	 * @param connectionToDB
+	 *            The connection to allow connection with SQL
+	 * @param table
+	 *            The name of the table
 	 */
 	public Table(Connection connectionToDB, String table)
 	{

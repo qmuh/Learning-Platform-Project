@@ -6,7 +6,6 @@ import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
-import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.components.customSwing.WButtonActivatable;
 import shared.objects.Course;
 
@@ -25,7 +24,7 @@ final public class CourseItemProfessor extends CourseItem
 		thePanel.add(createViewButton("View"));
 		this.add(thePanel);
 	}
-	
+
 	private JPanel createActiveButton()
 	{
 		JPanel activePanel = new JPanel(new BorderLayout());
@@ -34,7 +33,7 @@ final public class CourseItemProfessor extends CourseItem
 		activePanel.add(activeButton, BorderLayout.EAST);
 		return activePanel;
 	}
-	
+
 	public WButtonActivatable getActiveButton()
 	{
 		return activeButton;

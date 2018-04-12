@@ -1,6 +1,7 @@
 package backend.userSession.helpers;
 
 import java.util.Properties;
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -22,8 +23,11 @@ import shared.objects.EmailInfo;
 public class EmailHelper
 {
 
-	/** Sends an email using a GMAIL server
-	 * @param emailLogin The complete email information
+	/**
+	 * Sends an email using a GMAIL server
+	 * 
+	 * @param emailLogin
+	 *            The complete email information
 	 * @return True if email sent, false otherwise due to incorrect login info
 	 */
 	public Boolean sendEmail(EmailInfo emailLogin)
@@ -62,7 +66,8 @@ public class EmailHelper
 			Transport.send(message); // Send the Email Message
 
 		} catch (MessagingException e)
-		{	System.out.println("Error sending email");
+		{
+			System.out.println("Error sending email");
 			e.printStackTrace();
 			return false;
 		}

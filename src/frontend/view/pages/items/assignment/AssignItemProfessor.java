@@ -2,7 +2,6 @@ package frontend.view.pages.items.assignment;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
@@ -26,9 +25,9 @@ public final class AssignItemProfessor extends AssignItem
 	{
 		JPanel buttonPanel = new JPanel();
 		activeButton = new WButtonActivatable(assignment.getActive());
-		
+
 		activeButton.setPreferredSize(new Dimension(200, 40));
-		
+
 		buttonPanel.add(activeButton);
 		return buttonPanel;
 	}

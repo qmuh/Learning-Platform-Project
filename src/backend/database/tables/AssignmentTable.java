@@ -16,10 +16,14 @@ import shared.objects.Assignment;
  */
 public class AssignmentTable extends Table<Assignment> implements Activatable
 {
-	
-	/** Initializes the table using the super
-	 * @param connectionToDB The connection to connect with
-	 * @param tableName The name of the table
+
+	/**
+	 * Initializes the table using the super
+	 * 
+	 * @param connectionToDB
+	 *            The connection to connect with
+	 * @param tableName
+	 *            The name of the table
 	 */
 	public AssignmentTable(Connection connectionToDB, String tableName)
 	{
@@ -72,8 +76,11 @@ public class AssignmentTable extends Table<Assignment> implements Activatable
 
 	}
 
-	/** Searches for the course using the course ID
-	 * @param courseID The ID for the course to search for
+	/**
+	 * Searches for the course using the course ID
+	 * 
+	 * @param courseID
+	 *            The ID for the course to search for
 	 * @return A vector assignments which contains the result of a search
 	 */
 	public Vector<Assignment> searchByCourseID(int courseID)
@@ -105,8 +112,11 @@ public class AssignmentTable extends Table<Assignment> implements Activatable
 
 	}
 
-	/** Searches for all the assignments give a course ID
-	 * @param id The course ID which is used for the query
+	/**
+	 * Searches for all the assignments give a course ID
+	 * 
+	 * @param id
+	 *            The course ID which is used for the query
 	 * @return A vector assignments which contains the result of a search
 	 */
 	public Vector<Assignment> getAllAssignments(int id)
@@ -154,13 +164,17 @@ public class AssignmentTable extends Table<Assignment> implements Activatable
 		}
 	}
 
-	/** Searches for all the active assignments for a student give a course ID
-	 * @param id The course ID which is used for the query
+	/**
+	 * Searches for all the active assignments for a student give a course ID
+	 * 
+	 * @param id
+	 *            The course ID which is used for the query
 	 * @return A vector assignments which contains the result of a search
 	 */
 	public Vector<Assignment> getAllStudentAssignments(int id)
 	{
-		String sql = "SELECT * FROM " + tableName + " WHERE COURSEID= ? AND ACTIVE= TRUE";
+		String sql = "SELECT * FROM " + tableName
+				+ " WHERE COURSEID= ? AND ACTIVE= TRUE";
 		Vector<Assignment> userList = new Vector<Assignment>();
 		ResultSet assign;
 

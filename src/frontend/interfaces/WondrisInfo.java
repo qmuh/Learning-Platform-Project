@@ -7,8 +7,8 @@ import java.awt.Font;
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
- * @since April 6, 2018
- * Used for info that is used to set up how everything looked
+ * @since April 6, 2018 Used for info that is used to set up how everything
+ *        looked
  */
 public interface WondrisInfo
 {

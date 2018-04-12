@@ -1,24 +1,14 @@
 package frontend.view.pages.compose;
 
-import java.awt.BorderLayout;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
-
-import frontend.view.pages.components.customSwing.WButton;
 import shared.objects.Course;
+import shared.objects.Student;
 
 public class ComposeEmailPageStudent extends ComposeEmailPage
 {
 
-	public ComposeEmailPageStudent(Course course)
+	public ComposeEmailPageStudent(Course course, Student student)
 	{
-		super(course);
+		super(course, student);
 		// TODO Auto-generated constructor stub
 	}
 }

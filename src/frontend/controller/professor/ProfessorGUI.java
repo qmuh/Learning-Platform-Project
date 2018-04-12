@@ -218,7 +218,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		composeEmailPage.getSendToAllButton().addActionListener(
 				new SendToAllButtonListener(client, course, composeEmailPage));
 		composeEmailPage.setSendButtonListener(
-				new SendButtonListener(client, course, composeEmailPage));
+				new ProfessorSendButtonListener(client, course, composeEmailPage));
 		composeEmailPage.getAddToEmailButton().addActionListener(
 				new AddToEmailButtonListener(client, course, composeEmailPage));
 

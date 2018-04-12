@@ -23,7 +23,7 @@ import shared.objects.SendMessage;
  * @since April 6, 2018
  * Sends an email
  */
-public class SendButtonListener implements ActionListener, ProfessorCommands
+public class ProfessorSendButtonListener implements ActionListener, ProfessorCommands
 {
 	/**
 	 * The course this is associated
@@ -45,7 +45,7 @@ public class SendButtonListener implements ActionListener, ProfessorCommands
 	 * @param course The course this is used for
 	 * @param email The emailpage which holds the email information
 	 */
-	public SendButtonListener(Client client, Course course,
+	public ProfessorSendButtonListener(Client client, Course course,
 			ComposeEmailPage email)
 	{
 		this.client = client;

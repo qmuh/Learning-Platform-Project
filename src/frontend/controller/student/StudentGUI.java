@@ -7,6 +7,7 @@ import java.util.Vector;
 import javax.swing.JPanel;
 
 import frontend.controller.listeners.AssignmentLabelMouseListener;
+import frontend.controller.student.listeners.StudentSendButtonListener;
 import frontend.view.pages.AssignmentPage;
 import frontend.view.pages.AssignmentPageStudent;
 import frontend.view.pages.ComposeEmailPage;
@@ -127,6 +128,8 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 	protected void createComposeEmailPage(Course course)
 	{
 		ComposeEmailPageStudent composeEmailPage = new ComposeEmailPageStudent(course);
+		composeEmailPage.getSendButton().addActionListener(new StudentSendButtonListener());
+		
 		SendMessage<Course> requestProfessor = new SendMessage<Course>(course, CMD_RECEIVE + RECEIVE_PROFESSOR);
 		Professor professor = null;
 		try

@@ -7,8 +7,7 @@ import java.io.File;
 import javax.swing.JFileChooser;
 
 import frontend.controller.Client;
-import frontend.view.pages.AssignmentPageProfessor;
-import frontend.view.pages.AssignmentPageStudent;
+import frontend.view.pages.assignment.AssignmentPageStudent;
 import shared.interfaces.StudentCommands;
 import shared.objects.Course;
 

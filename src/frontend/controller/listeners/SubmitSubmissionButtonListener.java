@@ -10,7 +10,7 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 import frontend.controller.Client;
 import frontend.controller.professor.listeners.AssignmentActiveButtonListener;
-import frontend.view.pages.AssignmentPageStudent;
+import frontend.view.pages.assignment.AssignmentPageStudent;
 import frontend.view.pages.items.assignment.AssignItemProfessor;
 import shared.interfaces.StudentCommands;
 import shared.objects.Assignment;

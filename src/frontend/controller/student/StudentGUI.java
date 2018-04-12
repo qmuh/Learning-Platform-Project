@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Vector;
 
+import javax.swing.JPanel;
+
 import frontend.view.pages.AssignmentPage;
 import frontend.view.pages.AssignmentPageStudent;
 import frontend.view.pages.ComposeEmailPage;
@@ -14,6 +16,8 @@ import frontend.view.pages.HomePage;
 import frontend.view.pages.SubmissionPage;
 import frontend.view.pages.components.CourseNavigationBarStudent;
 import frontend.view.pages.components.PageNavigator;
+import frontend.view.pages.items.AssignItem;
+import frontend.view.pages.items.AssignItemStudent;
 import frontend.view.pages.items.CourseItem;
 import frontend.view.pages.items.CourseItemStudent;
 import frontend.view.pages.items.GradeItem;
@@ -34,7 +38,6 @@ import shared.objects.Student;
 public class StudentGUI extends PageNavigator implements StudentCommands
 {
 	private Student student;
-
 
 	public StudentGUI(Socket socket, Student user)
 	{
@@ -57,11 +60,37 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 		completeCoursePage(coursePage, course);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void createAssignmentPage(Course course)
 	{
 		AssignmentPageStudent assignmentPage = new AssignmentPageStudent(
 				course);
+
+		SendMessage<Course> receiveAssignments = new SendMessage<Course>(course,
+				CMD_RECEIVE + RECEIVE_ASSIGNMENTS);
+
+		try
+		{
+
+			Vector<Assignment> assignments = (Vector<Assignment>) client
+					.sendMessage(receiveAssignments);
+
+			for (Assignment assignment : assignments)
+			{
+				AssignItemStudent assignItemStudent = new AssignItemStudent(
+						assignment);
+				assignmentPage.addToBoxList(assignItemStudent);
+				
+//				assignItemStudent.getAssignmentLabel().addMouseListener(new Su);
+
+			}
+
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+
 		completeCoursePage(assignmentPage, course);
 	}
 
@@ -94,23 +123,24 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 
 			Vector<Grade> receivedGrades = (Vector<Grade>) client
 					.sendMessage(gradesRequest);
-			
-			
+
 			Vector<Assignment> assignments = (Vector<Assignment>) client
 					.sendMessage(assignmentsRequest);
-			
-			for (int j = 0; j < receivedGrades.size() ; j++)
+
+			for (int j = 0; j < receivedGrades.size(); j++)
 			{
 				for (int i = 0; i < assignments.size(); i++)
 				{
 					Assignment assignment = assignments.elementAt(i);
-					
-					if (receivedGrades.elementAt(j).getAssignID() == assignment.getId())
+
+					if (receivedGrades.elementAt(j).getAssignID() == assignment
+							.getId())
 					{
 						gradePage.addToBoxList(
-								new GradeItem(assignment.getTitle(), receivedGrades.elementAt(j)));
+								new GradeItem(assignment.getTitle(),
+										receivedGrades.elementAt(j)));
 					}
-					
+
 				}
 			}
 
@@ -137,14 +167,15 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 		DiscussionPage discussionPage = new DiscussionPage(course);
 		completeCoursePage(discussionPage, course);
 	}
-	
+
 	@Override
 	protected void createCourseItem(Course course, HomePage homePage)
 	{
 		CourseItemStudent courseItem = new CourseItemStudent(course);
-		courseItem.getViewButton().addActionListener(new ViewCoursePageListener(course));
+		courseItem.getViewButton()
+				.addActionListener(new ViewCoursePageListener(course));
 		homePage.addToBoxList(courseItem);
-		
+
 	}
 
 }

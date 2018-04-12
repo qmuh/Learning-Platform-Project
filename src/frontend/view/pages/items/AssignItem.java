@@ -46,6 +46,11 @@ abstract public class AssignItem extends GeneralItem implements WondrisInfo
 		this.setBorder(BorderFactory.createEtchedBorder());
 		this.add(createTheAssignment());
 	}
+	
+	public WLabel getAssignmentLabel()
+	{
+		return assignmentName;
+	}
 
 	abstract protected JPanel createTheAssignment();
 	

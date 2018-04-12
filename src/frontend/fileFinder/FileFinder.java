@@ -1,4 +1,4 @@
-package cpsc319_assignment_5.fileFinder;
+package frontend.fileFinder;
 
 import java.io.File;
 import java.io.FileNotFoundException;

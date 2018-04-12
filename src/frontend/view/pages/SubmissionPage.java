@@ -45,7 +45,6 @@ public class SubmissionPage extends CoursePage<AssignSubItem, Submission>
 		this.setPageTitle("Submissions");
 
 		this.assignmentMap = new HashMap<Integer, AssignSubItem>();
-
 		bodyCenter.add(createSubmissionPage(), BorderLayout.CENTER);
 	}
 

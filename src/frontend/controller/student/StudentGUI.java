@@ -18,6 +18,7 @@ import frontend.view.pages.items.assignment.AssignItemStudent;
 import frontend.view.pages.items.course.CourseItemStudent;
 import frontend.view.pages.items.grade.GradeItem;
 import frontend.view.pages.items.submission.SubmitItem;
+import frontend.view.pages.items.submission.SubmitItemStudent;
 import frontend.view.pages.submission.SubmissionPageStudent;
 import shared.interfaces.StudentCommands;
 import shared.objects.Assignment;
@@ -206,7 +207,7 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 
 			for (int i = 0; i < submissions.size(); i++)
 			{
-				SubmitItem submitItem = new SubmitItem(
+				SubmitItemStudent submitItem = new SubmitItemStudent(
 						submissions.elementAt(i));
 
 				submissionPageStudent.addSubmission(submitItem);

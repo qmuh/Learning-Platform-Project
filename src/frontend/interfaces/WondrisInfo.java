@@ -38,21 +38,23 @@ public interface WondrisInfo
 	public static final int TEXT_FONT_SIZE = 28;
 
 	/**
+	 * Used to make sure password is not seen
+	 */
+	public static final Character PASSWORD_ECHO_CHAR = '\u2022';
+
+	/**
 	 * The title font setup
 	 */
-	public static final Font TITLE_FONT = new Font("Century Gothic", Font.PLAIN,
-			TITLE_FONT_SIZE);
+	public static final Font TITLE_FONT = new Font("Century Gothic", Font.PLAIN, TITLE_FONT_SIZE);
 
 	/**
 	 * The subtitle font setup
 	 */
-	public static final Font SUB_TITLE_FONT = new Font("Century Gothic",
-			Font.BOLD, SUB_TITLE_FONT_SIZE);
+	public static final Font SUB_TITLE_FONT = new Font("Century Gothic", Font.BOLD, SUB_TITLE_FONT_SIZE);
 
 	/**
 	 * The text font setup
 	 */
-	public static final Font TEXT_FONT = new Font("Century Gothic", Font.PLAIN,
-			TEXT_FONT_SIZE);
+	public static final Font TEXT_FONT = new Font("Century Gothic", Font.PLAIN, TEXT_FONT_SIZE);
 
 }

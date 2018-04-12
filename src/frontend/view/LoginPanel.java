@@ -60,11 +60,6 @@ public class LoginPanel extends JPanel
 	private static final String BUTTON_SIGN_IN_TEXT = "Sign In";
 
 	/**
-	 * Used to make sure password is not seen
-	 */
-	private static final Character PASSWORD_ECHO_CHAR = '\u2022';
-
-	/**
 	 * Sets the default field size
 	 */
 	private static final int FIELD_SIZE = 8;

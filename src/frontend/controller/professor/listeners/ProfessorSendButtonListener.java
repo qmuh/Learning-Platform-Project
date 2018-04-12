@@ -5,9 +5,11 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import frontend.controller.Client;
+import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.compose.ComposeEmailPage;
 import frontend.view.pages.compose.ComposeEmailPageProfessor;
 import shared.interfaces.ProfessorCommands;
@@ -23,7 +25,7 @@ import shared.objects.SendMessage;
  * @since April 6, 2018 Sends an email
  */
 public class ProfessorSendButtonListener
-		implements ActionListener, ProfessorCommands
+		implements ActionListener, ProfessorCommands, WondrisInfo
 {
 	/**
 	 * The course this is associated
@@ -65,7 +67,8 @@ public class ProfessorSendButtonListener
 		System.out.println("SEND BUTTON EMAIL PROF CALLED");
 		EmailInfo mailInfo = emailPage.getEmailInfo();
 		JTextField gEmail = new JTextField(50);
-		JTextField password = new JTextField(50);
+		JPasswordField password = new JPasswordField(50);
+		password.setEchoChar(PASSWORD_ECHO_CHAR);
 		Object toDisplay[] =
 			{ "GMail Email: ", gEmail, "GMail Password: ", password };
 		int response = JOptionPane.showConfirmDialog(null, toDisplay,
@@ -74,7 +77,7 @@ public class ProfessorSendButtonListener
 		if (response == JOptionPane.OK_OPTION)
 		{
 			if (gEmail.getText().length() == 0
-					|| password.getText().length() == 0)
+					|| password.getPassword().length == 0)
 			{
 				JOptionPane.showMessageDialog(null,
 						"Either Password or Email was incorrect");
@@ -82,7 +85,7 @@ public class ProfessorSendButtonListener
 			} else
 			{
 				mailInfo.setFromEmail(gEmail.getText());
-				mailInfo.setFromEmailPassword(password.getText());
+				mailInfo.setFromEmailPassword(new String(password.getPassword()));
 				try
 				{
 					Boolean h = (Boolean) client.sendMessage(

@@ -65,10 +65,5 @@ public class CoursePage<T extends Box, U> extends Page<T, U>
 		courseNavigationBar.createListeners(course, pageNavigator);
 	}
 
-	@Override
-	public void displayPage()
-	{
-		// TODO Auto-generated method stub
-
-	}
+	
 }

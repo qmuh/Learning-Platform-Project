@@ -37,10 +37,5 @@ abstract public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 	 */
 	abstract protected Component createAssignmentPanel();
 
-	@Override
-	public void displayPage()
-	{
-		itemDisplay.revalidate();
-		itemDisplay.repaint();
-	}
+	
 }

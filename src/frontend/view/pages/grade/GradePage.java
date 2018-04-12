@@ -58,11 +58,6 @@ public class GradePage extends CoursePage<GradeItem, Grade>
 		itemDisplay.add(item);
 	}
 
-	@Override
-	public void displayPage()
-	{
-		// TODO Auto-generated method stub
-
-	}
+	
 
 }

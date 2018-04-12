@@ -226,10 +226,5 @@ public class EnrollmentPage extends CoursePage implements WondrisInfo
 		return scrollPane;
 	}
 
-	@Override
-	public void displayPage()
-	{
-		// TODO Auto-generated method stub
-
-	}
+	
 }

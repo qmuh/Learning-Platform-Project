@@ -44,12 +44,7 @@ abstract public class SubmissionPage
 		return submissionScrollPane;
 	}
 
-	@Override
-	public void displayPage()
-	{
-		// TODO Auto-generated method stub
-
-	}
+	
 
 	public void addSubmission(SubmitItem submitItem)
 	{

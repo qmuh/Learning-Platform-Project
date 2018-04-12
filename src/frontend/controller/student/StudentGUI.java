@@ -253,9 +253,7 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 				}
 			} catch (IOException e)
 			{
-				SubmitItemStudent submitItem = new SubmitItemStudent(
-						submissions.elementAt(i));
-				submissionPageStudent.addSubmission(submitItem);
+				e.printStackTrace();
 			}
 		};
 		submissionPageStudent.setRefreshBehaviour(function);

@@ -34,6 +34,7 @@ public class HomePageCoursesTable extends JPanel
 	private JPanel newCourseButtonPanel;
 
 	private WButton newCourseButton;
+	
 
 	public HomePageCoursesTable()
 	{

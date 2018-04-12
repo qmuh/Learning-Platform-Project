@@ -8,7 +8,7 @@ package backend.database.tables;
  * @version 1.0
  * @since April 7, 2018
  */
-public interface Activable
+public interface Activatable
 {
 	public void setActive(int id, boolean isActive);
 }

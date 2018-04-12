@@ -28,6 +28,7 @@ import shared.interfaces.StudentCommands;
 import shared.objects.Assignment;
 import shared.objects.Course;
 import shared.objects.Grade;
+import shared.objects.Professor;
 import shared.objects.SendMessage;
 import shared.objects.Student;
 
@@ -126,7 +127,16 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 	protected void createComposeEmailPage(Course course)
 	{
 		ComposeEmailPageStudent composeEmailPage = new ComposeEmailPageStudent(course);
-		SendMessage<Course> requestProfessor = new SendMessage<>(CMD_RECEIVE + RECEIVE_PROFESSOR);
+		SendMessage<Course> requestProfessor = new SendMessage<Course>(course, CMD_RECEIVE + RECEIVE_PROFESSOR);
+		Professor professor = null;
+		try
+		{
+			professor = (Professor) client.sendMessage(requestProfessor);
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		composeEmailPage.getToField().setText(professor.getEmail());
 		completeCoursePage(composeEmailPage, course);
 	}
 

@@ -37,7 +37,7 @@ public class Assignment implements Serializable
 	private String due_date;
 
 	/**
-	 * Constructor for assignmnets, used by the professor, they dont set ID
+	 * Constructor for assignments, used by the professor, they dont set ID
 	 * 
 	 * @param courseID
 	 * @param assignTitle
@@ -54,7 +54,6 @@ public class Assignment implements Serializable
 		path = pathway;
 		active = isActive;
 		due_date = due;
-
 	}
 
 	public Assignment(int courseID, String assignTitle, String pathway,
@@ -77,7 +76,6 @@ public class Assignment implements Serializable
 		path = pathway;
 		active = isActive;
 		due_date = due;
-
 	}
 
 	public void setActive()

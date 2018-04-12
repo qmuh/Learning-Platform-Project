@@ -22,6 +22,8 @@ import shared.objects.Submission;
  */
 public class SubmitItem extends GeneralItem
 {
+	private static final long serialVersionUID = 1L;
+	
 	private WButton gradeButton;
 	private JTextField gradeField;
 	private Submission submission;
@@ -67,8 +69,6 @@ public class SubmitItem extends GeneralItem
 		submissionTitleLeft.setFont(TEXT_FONT);
 		JLabel gradePercent = new JLabel("%");
 		gradePercent.setFont(TEXT_FONT);
-		
-		
 		
 		gradePercent.setHorizontalAlignment(JLabel.LEFT);
 		

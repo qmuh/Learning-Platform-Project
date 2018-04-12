@@ -24,12 +24,15 @@ import frontend.view.pages.items.AssignItemStudent;
 import frontend.view.pages.items.CourseItem;
 import frontend.view.pages.items.CourseItemStudent;
 import frontend.view.pages.items.GradeItem;
+import frontend.view.pages.items.StudentSubItem;
+import frontend.view.pages.items.SubmitItem;
 import shared.interfaces.StudentCommands;
 import shared.objects.Assignment;
 import shared.objects.Course;
 import shared.objects.Grade;
 import shared.objects.SendMessage;
 import shared.objects.Student;
+import shared.objects.Submission;
 
 /**
  *
@@ -97,9 +100,10 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 						assignments.elementAt(i));
 				assignmentPage.addToBoxList(assignItemStudent);
 
-
-			assignItemStudent.getAssignmentLabel().addMouseListener(new AssignmentLabelMouseListener(assignments.get(i), client));
-			assignmentPage.addToBoxList(assignItemStudent);
+				assignItemStudent.getAssignmentLabel().addMouseListener(
+						new AssignmentLabelMouseListener(assignments.get(i),
+								client));
+				assignmentPage.addToBoxList(assignItemStudent);
 			}
 
 		} catch (IOException e)
@@ -110,14 +114,43 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 		completeCoursePage(assignmentPage, course);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void createSubmissionPage(Course course)
 	{
 		SubmissionPageStudent submissionPageStudent = new SubmissionPageStudent(
 				course, student);
 
-		// SendMessage<Course> requestSubmissions = new
-		// SendMessage<Course>(course, commands);
+		SendMessage<Course> requestSubmissions = new SendMessage<Course>(course,
+				CMD_RECEIVE + RECEIVE_SUBMISSIONS);
+
+		SendMessage<Course> requestAssignments = new SendMessage<Course>(course,
+				CMD_RECEIVE + RECEIVE_ASSIGNMENTS);
+
+		try
+		{
+			Vector<Submission> submissions = (Vector<Submission>) client
+					.sendMessage(requestSubmissions);
+			Vector<Assignment> assignments = (Vector<Assignment>) client
+					.sendMessage(requestAssignments);
+			
+			for (int i = 0; i < assignments.size(); i++)
+			{
+				submissionPageStudent.addAssignment(assignments.elementAt(i));
+			}
+			
+			for (int i = 0; i < submissions.size(); i++)
+			{
+				SubmitItem submitItem = new SubmitItem(
+						submissions.elementAt(i));
+
+				submissionPageStudent.addSubmission(submitItem);
+			}
+
+		} catch (IOException e)
+		{
+			// TODO: handle exception
+		}
 
 		completeCoursePage(submissionPageStudent, course);
 	}
@@ -125,8 +158,10 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 	@Override
 	protected void createComposeEmailPage(Course course)
 	{
-		ComposeEmailPageStudent composeEmailPage = new ComposeEmailPageStudent(course);
-		SendMessage<Course> requestProfessor = new SendMessage<>(CMD_RECEIVE + RECEIVE_PROFESSOR);
+		ComposeEmailPageStudent composeEmailPage = new ComposeEmailPageStudent(
+				course);
+		SendMessage<Course> requestProfessor = new SendMessage<>(
+				CMD_RECEIVE + RECEIVE_PROFESSOR);
 		completeCoursePage(composeEmailPage, course);
 	}
 
@@ -210,7 +245,6 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 		courseItem.getViewButton()
 				.addActionListener(new ViewCoursePageListener(course));
 		homePage.addToBoxList(courseItem);
-
 	}
 
 }

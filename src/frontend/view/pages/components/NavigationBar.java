@@ -12,9 +12,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import com.mysql.jdbc.Buffer;
 
-import frontend.fileFinder.FileFinder;
 import frontend.interfaces.ColourPalette;
 import frontend.interfaces.WondrisDirectories;
 import frontend.interfaces.WondrisInfo;

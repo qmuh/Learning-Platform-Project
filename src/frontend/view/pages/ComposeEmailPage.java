@@ -20,7 +20,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
-import frontend.fileFinder.FileFinder;
 import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.components.customSwing.WLabel;
 import frontend.view.pages.items.StudentItem;

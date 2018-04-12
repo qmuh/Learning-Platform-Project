@@ -21,6 +21,7 @@ import frontend.view.pages.DiscussionPage;
 import frontend.view.pages.EnrollmentPage;
 import frontend.view.pages.HomePage;
 import frontend.view.pages.SubmissionPage;
+import frontend.view.pages.SubmissionPageProfessor;
 import frontend.view.pages.components.CourseNavigationBarProfessor;
 import frontend.view.pages.components.CourseNavigationBarStudent;
 import frontend.view.pages.components.PageNavigator;
@@ -130,7 +131,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	@Override
 	protected void createSubmissionPage(Course course)
 	{
-		SubmissionPage submissionPage = new SubmissionPage(course);
+		SubmissionPageProfessor submissionPage = new SubmissionPageProfessor(course);
 
 		SendMessage<Course> requestAssignments = new SendMessage<Course>(course,
 				CMD_RECEIVE + RECEIVE_ALL_ASSIGNMENTS);

@@ -15,7 +15,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-import frontend.fileFinder.FileFinder;
 import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.components.customSwing.WLabel;
 import shared.objects.Course;

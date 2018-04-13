@@ -22,10 +22,12 @@ import shared.objects.Student;
 import shared.objects.User;
 
 /**
- * Provides a class that represents a page to compose an email.
- * 
- * @author jimmy
+ * Provides a class that represents a page to compose an email. 
  *
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 13, 2018
  */
 abstract public class ComposeEmailPage extends CoursePage<StudentItem, Student>
 {

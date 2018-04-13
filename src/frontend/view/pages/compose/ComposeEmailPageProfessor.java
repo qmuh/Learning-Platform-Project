@@ -15,7 +15,14 @@ import shared.objects.Course;
 import shared.objects.Professor;
 import shared.objects.Student;
 
-
+/**
+ * Provides a class that represents a page to compose an email for the professor. 
+ *
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 13, 2018
+ */
 public class ComposeEmailPageProfessor extends ComposeEmailPage
 {
 

@@ -1,5 +1,6 @@
 package frontend.view.pages.items.submission;
 
+import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -23,7 +24,7 @@ final public class SubmitItemProfessor extends SubmitItem
 	{
 		super(submission);
 		submissionPanel.remove(1);
-		submissionPanel.add(createGrade(), 1);
+		submissionPanel.add(createGrade(), BorderLayout.EAST);
 	}
 	
 	private JPanel createGrade()

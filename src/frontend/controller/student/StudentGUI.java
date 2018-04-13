@@ -192,7 +192,7 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 
 					assignItemStudent.getUpload().addActionListener(
 							new UploadSubmissionButtonListener(client, course,
-									assignmentPage));
+									assignmentPage, assignItemStudent.getUploadField()));
 
 					Submission toGive = new Submission(
 							assignments.elementAt(i).getId(), student.getId(),

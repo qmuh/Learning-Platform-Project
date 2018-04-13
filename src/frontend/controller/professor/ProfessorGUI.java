@@ -337,24 +337,28 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 					for (int i = 0; i < assignments.size(); i++)
 					{
 						Assignment assignment = assignments.elementAt(i);
-						submissionPage.addAssignment(assignment, students );
+						submissionPage.addAssignment(assignment, students);
 					}
 				}
-
-				for (int i = 0; i < submissions.size(); i++)
+				
+				if (students != null && submissions != null)
 				{
-					Submission submission = submissions.elementAt(i);
-					SubmitItemProfessor submitItem = new SubmitItemProfessor(
-							submission);
-					submitItem.getGradeButton().addActionListener(
-							new GradeSubmissionButtonListener(client, course,
-									submitItem));
-					submitItem.getAssignmentLink().addMouseListener(
-							new SubmissionLabelMouseListener(submission,
-									client));
+					for (int i = 0; i < submissions.size(); i++)
+					{
+						Submission submission = submissions.elementAt(i);
+						SubmitItemProfessor submitItem = new SubmitItemProfessor(
+								submission);
+						submitItem.getGradeButton().addActionListener(
+								new GradeSubmissionButtonListener(client,
+										course, submitItem));
+						submitItem.getAssignmentLink().addMouseListener(
+								new SubmissionLabelMouseListener(submission,
+										client));
 
-					submissionPage.addSubmission(submitItem);
+						submissionPage.addSubmission(submitItem);
+					}
 				}
+				
 			} catch (IOException e)
 			{
 				e.printStackTrace();

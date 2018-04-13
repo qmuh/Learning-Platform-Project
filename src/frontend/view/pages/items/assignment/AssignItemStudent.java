@@ -35,6 +35,11 @@ public class AssignItemStudent extends AssignItem
 		return submit;
 	}
 
+	public JTextField getUploadField()
+	{
+		return uploadField;
+	}
+	
 	@Override
 	protected JPanel createTheAssignment()
 	{

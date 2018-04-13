@@ -1,11 +1,12 @@
 package frontend.view.pages.items.submission;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.util.HashMap;
 import java.util.Vector;
 
 import javax.swing.JPanel;
-
-import com.mysql.jdbc.Wrapper;
+import javax.swing.border.LineBorder;
 
 import frontend.view.pages.components.BoxList;
 import shared.objects.Assignment;
@@ -31,11 +32,13 @@ final public class AssignSubItemProfessor extends AssignSubItem
 		for (Student student : classList)
 		{
 			StudentSubItem item = new StudentSubItem(student);
+			item.setNameTitle();
 			studentItemMap.put(student.getId(), item);
 			studentList.add(item);
 		}
-		JPanel flowWrapper = new JPanel();
-		flowWrapper.add(studentList);
+		JPanel flowWrapper = new JPanel(new BorderLayout());
+		studentList.setBorder(new LineBorder(Color.RED));
+		flowWrapper.add(studentList, BorderLayout.NORTH);
 		this.add(flowWrapper);
 	}
 

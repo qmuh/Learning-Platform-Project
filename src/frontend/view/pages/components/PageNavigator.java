@@ -2,13 +2,17 @@ package frontend.view.pages.components;
 
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Stack;
 import java.util.Vector;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import frontend.controller.Client;
@@ -88,6 +92,7 @@ public abstract class PageNavigator extends JPanel
 
 	protected void addPage(Page<?, ?> page)
 	{
+		page.getLogo().addMouseListener(new LogoMouseListener());
 		page.getHomeButton().addActionListener(new HomeButtonListener());
 		page.getBackButton().addActionListener(new BackButtonListener());
 		this.add(page, page.getName());
@@ -130,6 +135,33 @@ public abstract class PageNavigator extends JPanel
 	abstract protected void createDiscussionPage(Course course);
 
 	abstract protected void createHomePage();
+	
+	private class LogoMouseListener implements MouseListener
+	{
+
+		@Override
+		public void mouseClicked(MouseEvent e)
+		{
+			showPage(HOME_PAGE);
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e)
+		{
+			JLabel label = (JLabel) e.getSource();
+			label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {}
+
+		@Override
+		public void mousePressed(MouseEvent e) {}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {}
+		
+	}
 
 	private class BackButtonListener implements ActionListener
 	{

@@ -16,6 +16,7 @@ import frontend.view.pages.components.BoxList;
 import frontend.view.pages.components.Footer;
 import frontend.view.pages.components.Header;
 import frontend.view.pages.components.customSwing.WButton;
+import frontend.view.pages.components.customSwing.WLabel;
 import frontend.view.pages.interfaces.PageNames;
 import shared.objects.User;
 
@@ -69,6 +70,11 @@ public abstract class Page<T extends Box, U> extends JPanel
 	public void setBoxList(BoxList<T> boxList)
 	{
 		this.itemDisplay = boxList;
+	}
+	
+	public WLabel getLogo()
+	{
+		return header.getLogo();
 	}
 
 	public WButton getHomeButton()

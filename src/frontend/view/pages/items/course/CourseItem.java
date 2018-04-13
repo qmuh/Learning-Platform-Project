@@ -15,17 +15,29 @@ import frontend.view.pages.items.GeneralItem;
 import shared.objects.Course;
 
 /**
- *
+ * Provides a class that stores course items on a page.
+ * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
- * @version 1.0
+ * @version 2.0
  * @since April 6, 2018
  */
 abstract public class CourseItem extends GeneralItem
 		implements WondrisInfo, ColourPalette, GUIConstants
 {
-	private static final long serialVersionUID = 1L;
+	/**
+	 * The version of the class.
+	 */
+	private static final long serialVersionUID = 2L;
+	
+	/**
+	 * The course stored inside of the course display item.
+	 */
 	protected Course course;
+	
+	/**
+	 * The button used to view a course.
+	 */
 	protected WButton viewButton;
 
 	public CourseItem(Course course)

@@ -1,7 +1,7 @@
 package frontend.view.pages.items.submission;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
 import javax.swing.BoxLayout;
@@ -15,6 +15,7 @@ import frontend.view.pages.items.GeneralItem;
 import shared.objects.Submission;
 
 /**
+ * Provides a class represents a student's submission item.
  * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
@@ -23,9 +24,13 @@ import shared.objects.Submission;
  */
 abstract public class SubmitItem extends GeneralItem
 {
+	/**
+	 * The version number of the class.
+	 */
 	private static final long serialVersionUID = 1L;
 
 	protected Submission submission;
+	
 	protected JLabel assignmentLink;
 	protected JPanel submissionPanel;
 
@@ -51,16 +56,14 @@ abstract public class SubmitItem extends GeneralItem
 
 	private JPanel makeSubmissionPanel()
 	{
-		submissionPanel = new JPanel(new BorderLayout());
+		submissionPanel = new JPanel(new GridLayout(1, 2));
 		submissionPanel.setBorder(new EmptyBorder(0, 40, 0, 40));
-		String title = submission.getTitle();
-//		if (title.length() > 20)
-//		{
-//			title = title.substring(0, 16) + "...";
-//		}
-		assignmentLink = new WLabel(title);
-		submissionPanel.add(assignmentLink, BorderLayout.WEST);
-		submissionPanel.add(new JPanel(), BorderLayout.EAST);
+		JPanel submissionPanelLeft = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		JPanel submissionPanelRight = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		assignmentLink = new WLabel(submission.getTitle());
+		submissionPanelLeft.add(assignmentLink);
+		submissionPanel.add(submissionPanelLeft);
+		submissionPanel.add(submissionPanelRight);
 		return submissionPanel;
 	}
 

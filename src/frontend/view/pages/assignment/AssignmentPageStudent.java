@@ -43,7 +43,7 @@ final public class AssignmentPageStudent extends AssignmentPage
 		assignmentPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
 		assignmentPanel.add(createAssignmentHeader(), BorderLayout.NORTH);
 		JScrollPane scrollPane = new JScrollPane(itemDisplay);
-		assignmentPanel.add(scrollPane);
+		assignmentPanel.add(scrollPane, BorderLayout.CENTER);
 		return assignmentPanel;
 	}
 

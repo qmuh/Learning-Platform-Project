@@ -14,7 +14,7 @@ import frontend.view.pages.components.customSwing.WLabel;
 import shared.objects.Course;
 import shared.objects.Professor;
 import shared.objects.Student;
-import shared.objects.User;
+
 
 public class ComposeEmailPageProfessor extends ComposeEmailPage
 {
@@ -101,5 +101,4 @@ public class ComposeEmailPageProfessor extends ComposeEmailPage
 		studentList.clearSelection();
 		studentList.setListData(enrollList);
 	}
-	
 }

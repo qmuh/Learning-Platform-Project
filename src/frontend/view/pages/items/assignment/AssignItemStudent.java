@@ -1,6 +1,5 @@
 package frontend.view.pages.items.assignment;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -9,15 +8,38 @@ import java.awt.GridLayout;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-
 import frontend.view.pages.components.customSwing.WButton;
 import shared.objects.Assignment;
 
+/**
+ * Provides a class that stores assignment items on a page from a student's
+ * perspective.
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 13, 2018
+ */
 public class AssignItemStudent extends AssignItem
 {
+	/**
+	 * The version of the class.
+	 */
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * The submission origin path.
+	 */
 	private JTextField uploadField;
+	
+	/**
+	 * The submission upload button.
+	 */
 	private WButton upload;
+	
+	/**
+	 * The submission submit button. 
+	 */
 	private WButton submit;
 
 	public AssignItemStudent(Assignment assignment)

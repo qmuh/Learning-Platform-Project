@@ -7,6 +7,15 @@ import javax.swing.JPanel;
 import frontend.view.pages.components.customSwing.WLabel;
 import shared.objects.Course;
 
+/**
+ * Provides a class that stores course items on a page from a student's
+ * perspective.
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 13, 2018
+ */
 public class CourseItemStudent extends CourseItem
 {
 	private static final long serialVersionUID = 1L;

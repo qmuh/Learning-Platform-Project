@@ -2,12 +2,9 @@ package frontend.view.pages.items.submission;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 
 import javax.swing.BoxLayout;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 
@@ -15,8 +12,19 @@ import frontend.view.pages.components.BoxList;
 import frontend.view.pages.items.GeneralItem;
 import shared.objects.Student;
 
+/**
+ * Provides a class that is a container to store a student's submissions.
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 13, 2018
+ */
 public class StudentSubItem extends GeneralItem
 {
+	/**
+	 * The version of the class.
+	 */
 	private static final long serialVersionUID = 1L;
 	private Student student;
 	private BoxList<SubmitItem> submissionItems;
@@ -39,6 +47,10 @@ public class StudentSubItem extends GeneralItem
 		return studentSubmissionPanel;
 	}
 
+	/**
+	 * Puts a titled border around the container of submissions with the
+	 * student's name if called.
+	 */
 	public void setNameTitle()
 	{
 		MatteBorder matte = new MatteBorder(2, 2, 2, 2, Color.BLACK);

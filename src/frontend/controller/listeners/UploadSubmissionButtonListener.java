@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.swing.JFileChooser;
+import javax.swing.JTextField;
 
 import frontend.controller.Client;
 import frontend.view.pages.assignment.AssignmentPageStudent;
@@ -26,12 +27,15 @@ public class UploadSubmissionButtonListener
 	private Course course;
 
 	private  AssignmentPageStudent assignPage;
+	
+	private JTextField uploadFile;
 
-	public UploadSubmissionButtonListener(Client client, Course course, AssignmentPageStudent studentPage)
+	public UploadSubmissionButtonListener(Client client, Course course, AssignmentPageStudent studentPage, JTextField upload)
 	{
 		this.client = client;
 		this.course = course;
 		assignPage = studentPage;
+		uploadFile = upload;
 	}
 
 	@Override
@@ -39,10 +43,12 @@ public class UploadSubmissionButtonListener
 	{
 		File selectedFile;
 		JFileChooser fileBrowser = new JFileChooser();
+		
 		if (fileBrowser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
 		{
 			selectedFile = fileBrowser.getSelectedFile();
 			assignPage.setFile(selectedFile);
+			uploadFile.setText(selectedFile.getAbsolutePath());
 
 		} else
 		{

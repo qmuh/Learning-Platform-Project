@@ -7,6 +7,14 @@ import shared.objects.Assignment;
 import shared.objects.Course;
 import shared.objects.Student;
 
+/**
+ * The submission page from a student's perspective.
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 13, 2018
+ */
 final public class SubmissionPageStudent extends SubmissionPage
 {
 
@@ -26,7 +34,6 @@ final public class SubmissionPageStudent extends SubmissionPage
 	 *
 	 * @param assignment
 	 */
-
 	public BoxList<AssignSubItem> getBoxList()
 	{
 		return itemDisplay;

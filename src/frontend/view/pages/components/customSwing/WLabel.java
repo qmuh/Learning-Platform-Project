@@ -9,11 +9,26 @@ import javax.swing.JLabel;
 
 import frontend.interfaces.WondrisInfo;
 
+/**
+ * Extends from label and is used instead of labels here
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 6, 2018
+ */
 public class WLabel extends JLabel implements WondrisInfo
 {
 
+	/**
+	 * The serial version UID
+	 */
 	private static final long serialVersionUID = 1L;
 
+	/** The WLabel constructor
+	 * @param text
+	 * @param alignment
+	 */
 	public WLabel(String text, int alignment)
 	{
 		this.setFont(TEXT_FONT);

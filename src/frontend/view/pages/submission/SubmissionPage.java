@@ -13,7 +13,8 @@ import shared.objects.Submission;
 import shared.objects.User;
 
 /**
- *
+ * The general submission page where student's submissions are displayed. 
+ * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
@@ -44,6 +45,7 @@ abstract public class SubmissionPage
 		return submissionScrollPane;
 	}
 
+	
 	public void addSubmission(SubmitItem submitItem)
 	{
 		Submission submission = submitItem.getSubmission();

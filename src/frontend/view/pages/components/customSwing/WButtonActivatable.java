@@ -47,7 +47,7 @@ public class WButtonActivatable extends WButton
 		this(true);
 	}
 
-	/** 
+	/** Sets the button as active or inactive
 	 * @param b
 	 */
 	public WButtonActivatable(boolean b)
@@ -55,11 +55,20 @@ public class WButtonActivatable extends WButton
 		this(ACTIVATE, DEACTIVATE, b);
 	}
 
+	/** Sets the constructor with both strings
+	 * @param active The active string
+	 * @param inactive The inactive string
+	 */
 	public WButtonActivatable(String active, String inactive)
 	{
 		this(active, inactive, true);
 	}
 
+	/** Sets the constructor with strings and a boolean
+	 * @param active The active string 
+	 * @param inactive The inactive string
+	 * @param initialState The state , active or inactive
+	 */
 	public WButtonActivatable(String active, String inactive,
 			boolean initialState)
 	{
@@ -69,6 +78,9 @@ public class WButtonActivatable extends WButton
 		this.setActive(initialState);
 	}
 
+	/** Sets the active parameter
+	 * @param b The boolean to set
+	 */
 	public void setActive(boolean b)
 	{
 		isActive = b;
@@ -83,6 +95,9 @@ public class WButtonActivatable extends WButton
 		}
 	}
 
+	/**
+	 * Makes the active or inactive the opposite
+	 */
 	public void toggleActive()
 	{
 		setActive(!isActive);

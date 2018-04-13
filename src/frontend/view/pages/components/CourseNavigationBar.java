@@ -12,13 +12,35 @@ import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.interfaces.PageNames;
 import shared.objects.Course;
 
+/**
+ * The course navigation bar used when inside a course
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 6, 2018
+ */
 public abstract class CourseNavigationBar extends JPanel
 		implements WondrisInfo, PageNames
 {
+	/**
+	 * The serial version UID
+	 */
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * The maximum size for a button
+	 */
 	private static final Dimension MAX_BUTTON_SIZE = new Dimension(Integer.MAX_VALUE, 100); 
+	
+	/**
+	 * The minimum size for a button
+	 */
 	private static final Dimension MIN_BUTTON_SIZE = new Dimension(0, 50); 
 
+	/**
+	 * The protected WButtons
+	 */
 	protected WButton assignmentButton, submissionButton, discussionButton,
 			composeEmailButton;
 

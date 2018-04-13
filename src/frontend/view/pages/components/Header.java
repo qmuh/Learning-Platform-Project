@@ -1,12 +1,15 @@
 package frontend.view.pages.components;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -16,6 +19,7 @@ import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.components.customSwing.WLabel;
 import frontend.view.pages.interfaces.GUIConstants;
+import javafx.scene.layout.Border;
 import shared.objects.User;
 
 /**
@@ -48,10 +52,10 @@ public class Header extends JPanel
 
 	private JPanel createHeaderTitle()
 	{
-		headerTitle = new JPanel(new GridLayout(1, 2));
+		headerTitle = new JPanel(new BorderLayout());
 		headerTitle.setBackground(ACCENT_COLOR);
-		headerTitle.add(createTheLogo(), 0);
-		headerTitle.add(createTitle(""), 1);
+		headerTitle.add(createTheLogo(), BorderLayout.WEST);
+		headerTitle.add(createTitle(""), BorderLayout.EAST);
 		return headerTitle;
 	}
 	
@@ -71,18 +75,22 @@ public class Header extends JPanel
 		return logo;
 	}
 	
-	public JLabel createTitle(String title)
+	public JPanel createTitle(String name)
 	{
-		JLabel theTitle = new JLabel(title);
-		theTitle.setFont(TITLE_FONT);
-		theTitle.setForeground(Color.WHITE);
+		JPanel theTitle = new JPanel();
+		theTitle.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 30));
+		theTitle.setBackground(ACCENT_COLOR);
+		JLabel title = new JLabel(name);
+		title.setFont(TITLE_FONT);
+		title.setForeground(Color.WHITE);
+		theTitle.add(title);
 		return theTitle;
 	}
 
 	public void setTitle(String title)
 	{
 		headerTitle.remove(1);
-		headerTitle.add(createTitle(title), 1);
+		headerTitle.add(createTitle(title), BorderLayout.EAST);
 	}
 	
 	public void setNamePanel(User user)

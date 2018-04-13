@@ -85,8 +85,8 @@ public class HomePageCoursesTable extends JPanel
 	{
 		newCourseButtonPanel = new JPanel();
 		newCourseButtonPanel.setBackground(BACKGROUND_COLOUR);
+		newCourseButtonPanel.setBorder(BorderFactory.createEmptyBorder(8, 0, 0, 0));
 		newCourseButton = new WButton(label);
-		// newCourseButtonPanel.add(newCourseButton);
 		return newCourseButtonPanel;
 	}
 

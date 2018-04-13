@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import frontend.interfaces.ColourPalette;
@@ -51,17 +52,24 @@ public class NavigationBar extends JPanel
 		{
 			e.printStackTrace();
 		}
-		namePanel = new JPanel();
-		namePanel.setBackground(ACCENT_COLOR);
 		this.setLayout(new BorderLayout());
 		this.add(createHomeBackPanel(), BorderLayout.WEST);
-		this.add(namePanel, BorderLayout.CENTER);
+		this.add(createNamePanel(), BorderLayout.CENTER);
 		this.add(createGearPanel(), BorderLayout.EAST);
 	}
 
+	private JPanel createNamePanel()
+	{
+		namePanel = new JPanel();
+		namePanel.setBackground(ACCENT_COLOR);
+		namePanel.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
+		return namePanel;
+	}
+	
 	private JPanel createHomeBackPanel()
 	{
 		JPanel thePanel = new JPanel();
+		thePanel.setBorder(BorderFactory.createEmptyBorder(8, 0, 0, 0));
 		thePanel.setBackground(ACCENT_COLOR);
 		thePanel.add(backButton);
 		thePanel.add(homeButton);
@@ -71,6 +79,7 @@ public class NavigationBar extends JPanel
 	private JPanel createGearPanel()
 	{
 		JPanel thePanel = new JPanel(new BorderLayout());
+		thePanel.setBorder(BorderFactory.createEmptyBorder(8, 0, 0, 10));
 		thePanel.setBackground(ACCENT_COLOR);
 		JPanel gearPanel = new JPanel();
 		gearPanel.setBackground(ACCENT_COLOR);

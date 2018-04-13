@@ -25,7 +25,7 @@ abstract public class AssignSubItem extends GeneralItem
 		MatteBorder matte = new MatteBorder(2, 2, 2, 2, Color.BLACK);
 		TitledBorder titledBorder = new TitledBorder(matte);
 		titledBorder.setTitle(assignment.getTitle());
-		titledBorder.setTitleFont(TITLE_FONT);
+		titledBorder.setTitleFont(SUB_TITLE_FONT);
 
 		this.setBorder(titledBorder);
 	}

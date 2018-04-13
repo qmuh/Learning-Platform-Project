@@ -22,6 +22,7 @@ import shared.objects.Assignment;
 import shared.objects.SendMessage;
 
 /**
+ *  This class is used to allow downloading of files by clicking on a label
  *
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)

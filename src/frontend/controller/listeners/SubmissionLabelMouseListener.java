@@ -17,6 +17,7 @@ import shared.objects.SendMessage;
 import shared.objects.Submission;
 
 /**
+ * Used for allowing the ability to download sumbmissions by professor and user
  * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)

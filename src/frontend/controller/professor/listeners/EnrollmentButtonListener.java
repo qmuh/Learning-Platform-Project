@@ -14,7 +14,8 @@ import shared.objects.SendMessage;
 import shared.objects.Student;
 import shared.objects.StudentEnrollment;
 
-/**
+/** Used to enroll or unenroll a student to a class and update the server
+ * about the status of the selected student
  * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)

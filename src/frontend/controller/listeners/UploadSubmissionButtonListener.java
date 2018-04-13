@@ -12,6 +12,13 @@ import frontend.view.pages.assignment.AssignmentPageStudent;
 import shared.interfaces.StudentCommands;
 import shared.objects.Course;
 
+/**
+ * Used for allowing the ability to browse for a submission to hand in
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 6, 2018
+ */
 public class UploadSubmissionButtonListener
 		implements ActionListener, StudentCommands
 {

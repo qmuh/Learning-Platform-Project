@@ -12,6 +12,7 @@ import shared.objects.Assignment;
 import shared.objects.SendMessage;
 
 /**
+ * Used to activate/deactivate a button and tell server to update the status
  * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)

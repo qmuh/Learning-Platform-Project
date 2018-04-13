@@ -9,6 +9,7 @@ import javax.swing.JFileChooser;
 import frontend.view.pages.assignment.AssignmentPageProfessor;
 
 /**
+ * Used to allow user to ablity to browse for a file for sumbmission
  *
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)

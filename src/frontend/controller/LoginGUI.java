@@ -233,6 +233,9 @@ public class LoginGUI extends JFrame implements WondrisInfo, ColourPalette,
 		}
 	}
 
+	/** Used to start the client process itself
+	 * @param args not used
+	 */
 	public static void main(String[] args)
 	{
 		new LoginGUI(TITLE);

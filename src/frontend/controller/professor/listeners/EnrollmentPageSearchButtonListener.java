@@ -11,7 +11,7 @@ import shared.interfaces.ProfessorCommands;
 import shared.objects.SendMessage;
 import shared.objects.Student;
 
-/**
+/** Searches for students based on given criteria
  * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)

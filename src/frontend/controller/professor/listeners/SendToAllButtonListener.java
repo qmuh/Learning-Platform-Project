@@ -13,7 +13,7 @@ import shared.objects.Course;
 import shared.objects.SendMessage;
 import shared.objects.Student;
 
-/**
+/** Sets the emails to send to all enrolled students in a class
  * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)

@@ -19,6 +19,14 @@ import shared.objects.Course;
 import shared.objects.SendMessage;
 import shared.objects.Submission;
 
+/**
+ * Used for allowing the ability to submit a subission by the user
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 6, 2018
+ */
 public class SubmitSubmissionButtonListener
 		implements ActionListener, StudentCommands
 {

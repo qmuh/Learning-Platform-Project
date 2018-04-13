@@ -17,7 +17,7 @@ import shared.objects.Course;
 import shared.objects.EmailInfo;
 import shared.objects.SendMessage;
 
-/**
+/** Used for sending emails by the professor
  * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)

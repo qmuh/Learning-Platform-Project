@@ -7,7 +7,7 @@ import java.net.Socket;
 
 import shared.objects.SendMessage;
 
-/**
+/** Holds the connection with the server and is used to send/recieve objects
  * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)

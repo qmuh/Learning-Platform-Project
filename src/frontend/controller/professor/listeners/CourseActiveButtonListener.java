@@ -11,7 +11,8 @@ import shared.interfaces.ProfessorCommands;
 import shared.objects.Course;
 import shared.objects.SendMessage;
 
-/**
+/** Used to activate and deactivate a course and tell server to update the
+ * status of the course
  * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)

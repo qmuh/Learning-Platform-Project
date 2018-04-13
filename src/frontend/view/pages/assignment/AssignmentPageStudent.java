@@ -1,12 +1,17 @@
 package frontend.view.pages.assignment;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import frontend.view.pages.components.customSwing.WLabel;
 import shared.objects.Course;
 import shared.objects.Student;
 
@@ -21,11 +26,25 @@ final public class AssignmentPageStudent extends AssignmentPage
 		super(course, student);
 	}
 
-	@Override
-	protected JScrollPane createAssignmentPanel()
+	private JPanel createAssignmentHeader()
 	{
+		JPanel assignmentHeader = new JPanel(new GridLayout(1, 3));
+		assignmentHeader.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));;
+		assignmentHeader.add(new WLabel("Assignment", SUB_TITLE_FONT), 0);
+		assignmentHeader.add(new WLabel("Due Date", SUB_TITLE_FONT), 1);
+		assignmentHeader.add(new WLabel("Submit", SUB_TITLE_FONT), 2);
+		return assignmentHeader;
+	}
+
+	@Override
+	protected JPanel createAssignmentPanel()
+	{
+		JPanel assignmentPanel = new JPanel(new BorderLayout());
+		assignmentPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+		assignmentPanel.add(createAssignmentHeader(), BorderLayout.NORTH);
 		JScrollPane scrollPane = new JScrollPane(itemDisplay);
-		return scrollPane;
+		assignmentPanel.add(scrollPane);
+		return assignmentPanel;
 	}
 
 	public void setFile(File selectedFile)

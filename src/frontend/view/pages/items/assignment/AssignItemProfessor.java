@@ -1,9 +1,13 @@
 package frontend.view.pages.items.assignment;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+
 
 import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.components.customSwing.WButtonActivatable;
@@ -23,12 +27,12 @@ public final class AssignItemProfessor extends AssignItem
 
 	private JPanel createActivateButton()
 	{
-		JPanel buttonPanel = new JPanel();
+		JPanel buttonPanel = new JPanel(new GridBagLayout());
 		activeButton = new WButtonActivatable(assignment.getActive());
 
 		activeButton.setPreferredSize(new Dimension(200, 40));
 
-		buttonPanel.add(activeButton);
+		buttonPanel.add(activeButton, new GridBagConstraints());
 		return buttonPanel;
 	}
 
@@ -40,11 +44,13 @@ public final class AssignItemProfessor extends AssignItem
 	@Override
 	protected JPanel createTheAssignment()
 	{
-		JPanel theAssignment = new JPanel(new BorderLayout());
+		JPanel theAssignment = new JPanel(new GridLayout(1, 3));
+		theAssignment.setBorder(BorderFactory.createEtchedBorder());
 		theAssignment.setPreferredSize(new Dimension(500, 50));
-		theAssignment.add(assignmentName, BorderLayout.WEST);
-		theAssignment.add(createActivateButton(), BorderLayout.CENTER);
-		theAssignment.add(dueDate, BorderLayout.EAST);
+		theAssignment.add(assignmentName, 0);
+		theAssignment.add(createActivateButton(), 1);
+		theAssignment.add(dueDate, 2);
 		return theAssignment;
 	}
+	
 }

@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 import frontend.interfaces.WondrisInfo;
 import frontend.view.pages.components.customSwing.WLabel;
+import frontend.view.pages.interfaces.GUIConstants;
 import frontend.view.pages.items.GeneralItem;
 import shared.objects.Assignment;
 
@@ -18,7 +19,7 @@ import shared.objects.Assignment;
  * @version 1.0
  * @since April 6, 2018
  */
-abstract public class AssignItem extends GeneralItem implements WondrisInfo
+abstract public class AssignItem extends GeneralItem implements WondrisInfo, GUIConstants
 {
 
 	private static final long serialVersionUID = 1L;
@@ -33,7 +34,6 @@ abstract public class AssignItem extends GeneralItem implements WondrisInfo
 	{
 		super(BoxLayout.X_AXIS, Integer.toString(assignment.getId()));
 		this.setMaximumSize(new Dimension(Integer.MAX_VALUE, 150));
-
 		this.assignment = assignment;
 		this.assignmentName = new WLabel(assignment.getTitle());
 		this.dueDate = new WLabel(assignment.getDueDate());

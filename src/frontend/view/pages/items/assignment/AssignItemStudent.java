@@ -47,13 +47,9 @@ public class AssignItemStudent extends AssignItem
 		theAssignment.setPreferredSize(new Dimension(500, 50));
 		theAssignment.setLayout(new GridLayout(1, 3));
 
-		upload = new WButton("Browse");
-		submit = new WButton("Submit");
-
-		JPanel uploadPanel = new JPanel(new BorderLayout());
-		uploadPanel.add(createUploadFieldPanel(), BorderLayout.WEST);
-		uploadPanel.add(createButtonPanel(upload), BorderLayout.CENTER);
-		uploadPanel.add(createButtonPanel(submit), BorderLayout.EAST);
+		JPanel uploadPanel = new JPanel(new GridLayout(2, 1));
+		uploadPanel.add(createUploadFieldPanel(), 0);
+		uploadPanel.add(createButtonPanel(), 1);
 		
 		theAssignment.add(assignmentName, 0);
 		theAssignment.add(dueDate, 1);
@@ -61,17 +57,24 @@ public class AssignItemStudent extends AssignItem
 		return theAssignment;
 	}
 	
-	private JPanel createButtonPanel(WButton button)
+	private JPanel createButtonPanel()
 	{
-		JPanel buttonPanel = new JPanel(new GridBagLayout());
-		buttonPanel.add(button, new GridBagConstraints());
+		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
+		JPanel uploadPanel = new JPanel();
+		JPanel submitPanel = new JPanel();
+		upload = new WButton("Browse");
+		submit = new WButton("Submit");
+		uploadPanel.add(upload);
+		submitPanel.add(submit);
+		buttonPanel.add(uploadPanel, 0);
+		buttonPanel.add(submitPanel, 1);
 		return buttonPanel;
 	}
 	
 	private JPanel createUploadFieldPanel()
 	{
 		JPanel uploadFieldPanel = new JPanel(new GridBagLayout());
-		uploadField = new JTextField(6);
+		uploadField = new JTextField(10);
 		uploadField.setFont(TEXT_FONT);
 		uploadField.setEditable(false);
 		uploadFieldPanel.add(uploadField, new GridBagConstraints());

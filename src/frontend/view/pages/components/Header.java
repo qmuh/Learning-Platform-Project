@@ -35,6 +35,7 @@ public class Header extends JPanel
 
 	private NavigationBar navigationBar;
 	private JPanel headerTitle;
+	private WLabel logo;
 
 	public Header()
 	{
@@ -57,11 +58,17 @@ public class Header extends JPanel
 	private WLabel createTheLogo()
 	{
 		try {
-			return new WLabel(ImageIO.read(new File(DIR_GRAPHICS + "wondrisLogoWhiteSmall.png")));
+			logo = new WLabel(ImageIO.read(new File(DIR_GRAPHICS + "wondrisLogoWhiteSmall.png")));
+			return logo;
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public WLabel getLogo()
+	{
+		return logo;
 	}
 	
 	public JLabel createTitle(String title)

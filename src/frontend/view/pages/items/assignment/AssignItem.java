@@ -1,6 +1,9 @@
 package frontend.view.pages.items.assignment;
 
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.font.TextAttribute;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -36,10 +39,19 @@ abstract public class AssignItem extends GeneralItem implements WondrisInfo, GUI
 		this.setMaximumSize(new Dimension(Integer.MAX_VALUE, 150));
 		this.assignment = assignment;
 		this.assignmentName = new WLabel(assignment.getTitle());
+		setUnderline();
 		this.dueDate = new WLabel(assignment.getDueDate());
 
 		this.setBorder(BorderFactory.createEtchedBorder());
 		this.add(createTheAssignment());
+	}
+	
+	private void setUnderline()
+	{
+		Font font = assignmentName.getFont();
+		Map attributes = (Map) font.getAttributes();
+		attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+		assignmentName.setFont(font.deriveFont(attributes));
 	}
 
 	public WLabel getAssignmentLabel()

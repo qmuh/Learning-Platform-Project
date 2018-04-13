@@ -2,6 +2,7 @@ package frontend.controller.listeners;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.BufferedOutputStream;
@@ -12,6 +13,7 @@ import java.util.regex.Pattern;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+
 
 import frontend.controller.Client;
 import frontend.interfaces.ColourPalette;
@@ -85,7 +87,8 @@ public class AssignmentLabelMouseListener
 	public void mouseEntered(MouseEvent e)
 	{
 		JLabel label = (JLabel) e.getSource();
-		label.setForeground(ACCENT_COLOR);
+		label.setForeground(BACKGROUND_COLOUR);
+		label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 package shared.interfaces;
 
 /**
- * An interface that stores all available professor commands.
+ * Provides an interface that stores all available professor commands.
  *
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
@@ -10,7 +10,6 @@ package shared.interfaces;
  */
 public interface ProfessorCommands extends UserCommands
 {
-
 	public static final String RECEIVE_STUDENT_BY_ID = "STUDENTBYID";
 
 	public static final String RECEIVE_STUDENT_BY_LASTNAME = "STUDENTBYLAST";

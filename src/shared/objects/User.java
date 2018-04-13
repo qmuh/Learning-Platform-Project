@@ -4,6 +4,14 @@ import java.io.Serializable;
 
 import shared.interfaces.UserInfo;
 
+/**
+ * Provides a class to represent a user.
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 13, 2018
+ */
 public abstract class User implements Serializable, UserInfo
 {
 	private static final long serialVersionUID = 1L;

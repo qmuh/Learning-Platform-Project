@@ -1,6 +1,7 @@
 package shared.interfaces;
 
 /**
+ * Provides an interface to store the server connection information.
  * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
@@ -9,7 +10,6 @@ package shared.interfaces;
  */
 public interface ServerInfo
 {
-
 	public static final String HOST_NAME = "localhost";
 
 	public static final int PORT_NUMBER = 8992;

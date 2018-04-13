@@ -83,7 +83,8 @@ public class NewCourseButtonListener
 					client.onlySendMessage(new SendMessage<Course>(course,
 							CMD_INSERT + INSERT_COURSE));
 
-					professorGUI.createNewCourse(course, homePage);
+//					professorGUI.createNewCourse(course, homePage);
+					homePage.refresh();
 
 				} catch (IOException e1)
 				{

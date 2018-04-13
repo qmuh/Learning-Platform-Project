@@ -1,5 +1,6 @@
 package frontend.view.pages.items.submission;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
@@ -7,6 +8,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import frontend.view.pages.components.customSwing.WLabel;
 import frontend.view.pages.items.GeneralItem;
@@ -31,6 +33,7 @@ abstract public class SubmitItem extends GeneralItem
 	{
 		super(BoxLayout.X_AXIS, Integer.toString(submission.getId()));
 		this.submission = submission;
+		this.setBorder(new LineBorder(CONTRAST_COLOR));
 		this.setMaximumSize(new Dimension(Integer.MAX_VALUE, 70));
 		this.setBackground(SECONDARY_COLOR);
 		this.add(makeSubmissionPanel());
@@ -48,16 +51,16 @@ abstract public class SubmitItem extends GeneralItem
 
 	private JPanel makeSubmissionPanel()
 	{
-		submissionPanel = new JPanel(new GridLayout(1, 2));
+		submissionPanel = new JPanel(new BorderLayout());
 		submissionPanel.setBorder(new EmptyBorder(0, 40, 0, 40));
 		String title = submission.getTitle();
-		if (title.length() > 20)
-		{
-			title = title.substring(0, 16) + "...";
-		}
+//		if (title.length() > 20)
+//		{
+//			title = title.substring(0, 16) + "...";
+//		}
 		assignmentLink = new WLabel(title);
-		submissionPanel.add(assignmentLink, 0);
-		submissionPanel.add(new JPanel(), 1);
+		submissionPanel.add(assignmentLink, BorderLayout.WEST);
+		submissionPanel.add(new JPanel(), BorderLayout.EAST);
 		return submissionPanel;
 	}
 

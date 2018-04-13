@@ -1,6 +1,7 @@
 package frontend.view.pages.items.submission;
 
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
 import javax.swing.border.MatteBorder;
@@ -21,7 +22,6 @@ abstract public class AssignSubItem extends GeneralItem
 
 		this.assignment = assignment;
 		// extract assignment title
-
 		MatteBorder matte = new MatteBorder(2, 2, 2, 2, Color.BLACK);
 		TitledBorder titledBorder = new TitledBorder(matte);
 		titledBorder.setTitle(assignment.getTitle());

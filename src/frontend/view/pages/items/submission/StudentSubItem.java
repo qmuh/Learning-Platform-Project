@@ -1,10 +1,15 @@
 package frontend.view.pages.items.submission;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
+import javax.swing.border.TitledBorder;
 
 import frontend.view.pages.components.BoxList;
 import frontend.view.pages.items.GeneralItem;
@@ -20,7 +25,6 @@ public class StudentSubItem extends GeneralItem
 	{
 		super(BoxLayout.Y_AXIS, Integer.toString(student.getId()));
 		this.submissionItems = new BoxList<SubmitItem>();
-
 		this.student = student;
 		this.add(studentSubmissionsPanel());
 	}
@@ -29,24 +33,20 @@ public class StudentSubItem extends GeneralItem
 	{
 		JPanel studentSubmissionPanel = new JPanel();
 		studentSubmissionPanel.setOpaque(false);
-		studentSubmissionPanel.setLayout(
-				new BoxLayout(studentSubmissionPanel, BoxLayout.Y_AXIS));
+		studentSubmissionPanel.setLayout(new BorderLayout());
 
-		studentSubmissionPanel.add(studentNamePanel());
-		studentSubmissionPanel.add(submissionItems);
+		studentSubmissionPanel.add(submissionItems, BorderLayout.NORTH);
 		return studentSubmissionPanel;
 	}
 
-	private JPanel studentNamePanel()
+	public void setNameTitle()
 	{
-		JPanel studentNamePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JLabel studentName = new JLabel(
-				student.getFirstName() + " " + student.getLastName());
-
-		studentName.setFont(TEXT_FONT);
-
-		studentNamePanel.add(studentName);
-		return studentNamePanel;
+		MatteBorder matte = new MatteBorder(2, 2, 2, 2, Color.BLACK);
+		TitledBorder titledBorder = new TitledBorder(matte);
+		titledBorder
+				.setTitle(student.getFirstName() + " " + student.getLastName());
+		titledBorder.setTitleFont(TEXT_FONT);
+		this.setBorder(titledBorder);
 	}
 
 	@Override
@@ -59,5 +59,4 @@ public class StudentSubItem extends GeneralItem
 	{
 		this.submissionItems.add(submitItem);
 	}
-
 }

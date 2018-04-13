@@ -10,7 +10,7 @@ import shared.objects.Assignment;
 import shared.objects.Course;
 import shared.objects.User;
 
-/**
+/** The abstract assignment page 
  *
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
@@ -20,8 +20,15 @@ import shared.objects.User;
 abstract public class AssignmentPage extends CoursePage<AssignItem, Assignment>
 		implements WondrisInfo
 {
+	/**
+	 * The serial version UID
+	 */
 	private static final long serialVersionUID = 1L;
 
+	/** The assignment page
+	 * @param course The chosen course
+	 * @param user The associated user
+	 */
 	public AssignmentPage(Course course, User user)
 	{
 		super(course, user);

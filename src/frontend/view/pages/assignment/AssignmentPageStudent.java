@@ -15,17 +15,38 @@ import frontend.view.pages.components.customSwing.WLabel;
 import shared.objects.Course;
 import shared.objects.Student;
 
+/**
+ * The assignment page for the student
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 6, 2018
+ */
 final public class AssignmentPageStudent extends AssignmentPage
 {
+	/**
+	 * The serialversionUID
+	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * The selected file which is to be sent to the server
+	 */
 	private File selectedFile;
 
+	/** Constructor for the AssignmentPageStudent
+	 * @param course The specific course 
+	 * @param student The student with the page
+	 */
 	public AssignmentPageStudent(Course course, Student student)
 	{
 		super(course, student);
 	}
 
+	/** Creates the assignment header
+	 * @return The created assignment header
+	 */
 	private JPanel createAssignmentHeader()
 	{
 		JPanel assignmentHeader = new JPanel(new GridLayout(1, 3));

@@ -18,23 +18,43 @@ import frontend.view.pages.components.customSwing.WButton;
 import shared.objects.Course;
 import shared.objects.Professor;
 
-/**
+/** The assignment page for the professor
  * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
  * @since April 11, 2018
  */
+/**
+ * @author qasimmuhammad
+ *
+ */
 public class AssignmentPageProfessor extends AssignmentPage
 {
+	/**
+	 * The serial version UID
+	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * The upload and browse buttons
+	 */
 	private WButton uploadButton, browseButton;
 
+	/**
+	 * The text field for the upload, and month/day/year
+	 */
 	private JTextField uploadField, month, day, year;
 
+	/**
+	 * The selected file that is most likely going to be submitted
+	 */
 	private File selectedFile;
 
+	/** Constructs the page
+	 * @param course The specific course the page is or
+	 * @param professor The associated professor for the course
+	 */
 	public AssignmentPageProfessor(Course course, Professor professor)
 	{
 		super(course, professor);
@@ -61,16 +81,25 @@ public class AssignmentPageProfessor extends AssignmentPage
 		return uploadField;
 	}
 
+	/** Sets up the upload button
+	 * @param listener The listener for the upload button
+	 */
 	public void setUploadButtonListener(ActionListener listener)
 	{
 		uploadButton.addActionListener(listener);
 	}
 
+	/** Sets the listener for the browse button
+	 * @param listener The listener for the browse button
+	 */
 	public void setBrowseButtonListener(ActionListener listener)
 	{
 		browseButton.addActionListener(listener);
 	}
 
+	/** Creates the upload portion of the panel
+	 * @return The created J Panel
+	 */
 	private JPanel createUpload()
 	{
 		JPanel upload = new JPanel();
@@ -91,6 +120,9 @@ public class AssignmentPageProfessor extends AssignmentPage
 		return upload;
 	}
 
+	/** Creates the date panel
+	 * @return The created date panel
+	 */
 	private JPanel createDatePanel()
 	{
 		JPanel datePanel = new JPanel(new GridLayout(3, 1));
@@ -109,6 +141,9 @@ public class AssignmentPageProfessor extends AssignmentPage
 		return datePanel;
 	}
 
+	/** Creates the date panel
+	 * @return The date panel
+	 */
 	private JPanel createTheDate()
 	{
 		JPanel date = new JPanel();
@@ -129,6 +164,9 @@ public class AssignmentPageProfessor extends AssignmentPage
 		return assignmentPanel;
 	}
 
+	/** Creates the panel containing the assignment list
+	 * @return The assignment list
+	 */
 	private JPanel createAssignmentList()
 	{
 		JPanel theList = new JPanel(new BorderLayout());
@@ -141,6 +179,9 @@ public class AssignmentPageProfessor extends AssignmentPage
 		return theList;
 	}
 
+	/** Creates the list header
+	 * @return The created panel with the list header 
+	 */
 	private JPanel createListHeader()
 	{
 		JPanel theHeader = new JPanel(new GridLayout(1, 3));
@@ -151,6 +192,9 @@ public class AssignmentPageProfessor extends AssignmentPage
 		return theHeader;
 	}
 
+	/** creates upload panel
+	 * @return The created upload panel
+	 */
 	private JPanel createUploadPanel()
 	{
 		JPanel uploadPanel = new JPanel(new GridLayout(1, 2));

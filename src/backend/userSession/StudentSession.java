@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Vector;
-import java.util.regex.Pattern;
 
-import backend.database.DatabaseProperties;
 import frontend.interfaces.WondrisDirectories;
 import shared.interfaces.StudentCommands;
 import shared.objects.Assignment;
@@ -20,7 +18,8 @@ import shared.objects.Submission;
 import shared.objects.User;
 
 /**
- *
+ * A class that serves student users and implements student commands.
+ * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
@@ -48,16 +47,12 @@ public class StudentSession extends ClientSession
 	}
 
 	@Override
-	public void write()
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	protected boolean interpretMessage(SendMessage<?> command)
 	{
 		String interpreter[] = command.getCommand().split(";");
+		
+		// Appends the removed semi-colon to ensure that the spliced commands
+		// match those specified in the student commands interface.
 		String commandType = interpreter[0] + ";";
 
 		if (commandType.equals(CMD_INSERT))

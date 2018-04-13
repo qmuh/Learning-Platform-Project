@@ -19,7 +19,8 @@ import shared.objects.Submission;
 import shared.objects.User;
 
 /**
- *
+ * A class that serves professor users and implements professor commands.
+ * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.01
@@ -41,13 +42,6 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 	public ProfessorSession(Socket socket)
 	{
 		super(socket);
-	}
-
-	@Override
-	public void write()
-	{
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

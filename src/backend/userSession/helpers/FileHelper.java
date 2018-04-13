@@ -12,13 +12,13 @@ import shared.objects.Assignment;
 import shared.objects.Submission;
 
 /**
+ * Provides a class that acts as a helper for file management.
  * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
  * @since April 6, 2018
  */
-
 public class FileHelper
 {
 
@@ -93,6 +93,7 @@ public class FileHelper
 			FileInputStream fis = new FileInputStream(selectedFile);
 			BufferedInputStream bos = new BufferedInputStream(fis);
 			bos.read(content, 0, (int) length);
+			bos.close();
 		} catch (FileNotFoundException e)
 		{
 			e.printStackTrace();

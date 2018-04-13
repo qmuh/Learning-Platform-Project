@@ -23,6 +23,8 @@ import shared.objects.Professor;
 import shared.objects.Student;
 
 /**
+ * Provides a class that communicates with the database and stores its various
+ * tables.
  * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
@@ -52,12 +54,12 @@ public class Database implements DatabaseProperties, UserInfo
 	 * The assignment table.
 	 */
 	private AssignmentTable assignmentTable;
-	
+
 	/**
 	 * The course table.
 	 */
 	private CourseTable courseTable;
-	
+
 	/**
 	 * The grade table.
 	 */

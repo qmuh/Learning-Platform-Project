@@ -1,11 +1,23 @@
 package shared.objects;
 
-import java.io.File;
 import java.io.Serializable;
 import java.util.Random;
 
+/**
+ * Provides a class to represent an assignment object.
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 13, 2018
+ */
 public class Assignment implements Serializable
 {
+
+	/**
+	 * The version of this class.
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * The id for the assignment
@@ -38,13 +50,18 @@ public class Assignment implements Serializable
 	private String due_date;
 
 	/**
-	 * Constructor for assignments, used by the professor, they dont set ID
+	 * Used to reconstruct an assignment object from the database.
 	 * 
 	 * @param courseID
+	 *            the identification number of the course
 	 * @param assignTitle
+	 *            the assignment title
 	 * @param pathway
+	 *            the file path for the assignment stored on the server
 	 * @param isActive
+	 *            whether the assignment is active
 	 * @param due
+	 *            the due date of the assignment
 	 */
 	public Assignment(int assignID, int courseID, String assignTitle,
 			String pathway, Boolean isActive, String due)
@@ -57,6 +74,22 @@ public class Assignment implements Serializable
 		due_date = due;
 	}
 
+	/**
+	 * Used by a professor to construct an assignment object with a randomized
+	 * assignment id. Assignments constructed by this constructor should be sent
+	 * to the database to be stored.
+	 * 
+	 * @param courseID
+	 *            the identification number of the course
+	 * @param assignTitle
+	 *            the title of the assignment
+	 * @param pathway
+	 *            the path to store the assignment
+	 * @param isActive
+	 *            whether the assignment is active
+	 * @param due
+	 *            the due date of the assignment
+	 */
 	public Assignment(int courseID, String assignTitle, String pathway,
 			Boolean isActive, String due)
 	{
@@ -126,16 +159,15 @@ public class Assignment implements Serializable
 	public String getDir()
 	{
 		String tosend = "";
-		for (int i = path
-				.length() - 1; i >= 0; i--)
+		for (int i = path.length() - 1; i >= 0; i--)
 		{
-			if(path.charAt(i) == '/')
+			if (path.charAt(i) == '/')
 			{
 				tosend = path.substring(0, i);
 				break;
 			}
 		}
-	
+
 		return tosend;
 	}
 

@@ -13,13 +13,13 @@ import shared.objects.SendMessage;
 import shared.objects.User;
 
 /**
+ * Provides a class that defines general client behavior.
  *
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
  * @since April 6, 2018
  */
-
 public abstract class ClientSession implements Runnable
 {
 	/**
@@ -168,8 +168,4 @@ public abstract class ClientSession implements Runnable
 	 */
 	protected abstract boolean interpretMessage(SendMessage<?> command);
 
-	/**
-	 * Used for writing data
-	 */
-	abstract public void write();
 }

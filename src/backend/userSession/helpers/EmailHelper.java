@@ -13,13 +13,13 @@ import javax.mail.internet.MimeMessage;
 import shared.objects.EmailInfo;
 
 /**
+ * Provides a class that acts as a helper to send e-mails.
  * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
  * @since April 6, 2018
  */
-
 public class EmailHelper
 {
 
@@ -51,7 +51,6 @@ public class EmailHelper
 				});
 		try
 		{
-
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(emailLogin.getEmail()));
 
@@ -71,9 +70,6 @@ public class EmailHelper
 			e.printStackTrace();
 			return false;
 		}
-
 		return true;
-
 	}
-
 }

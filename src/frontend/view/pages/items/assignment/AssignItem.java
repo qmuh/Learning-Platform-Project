@@ -16,21 +16,34 @@ import frontend.view.pages.items.GeneralItem;
 import shared.objects.Assignment;
 
 /**
+ * Provides a class that stores assignment items on a page.
  * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
- * @since April 6, 2018
+ * @since April 13, 2018
  */
-abstract public class AssignItem extends GeneralItem implements WondrisInfo, GUIConstants
+abstract public class AssignItem extends GeneralItem
+		implements WondrisInfo, GUIConstants
 {
-
+	/**
+	 * The version of the class.
+	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * The assignment stored in the assignment display item.
+	 */
 	protected Assignment assignment;
 
+	/**
+	 * The assignment name. Stored to add listeners.
+	 */
 	protected WLabel assignmentName;
 
+	/**
+	 * The assignment due date.
+	 */
 	protected WLabel dueDate;
 
 	public AssignItem(Assignment assignment)
@@ -45,11 +58,16 @@ abstract public class AssignItem extends GeneralItem implements WondrisInfo, GUI
 		this.setBorder(BorderFactory.createEtchedBorder());
 		this.add(createTheAssignment());
 	}
-	
+
+	/**
+	 * Underlines the assignment name.
+	 */
+	@SuppressWarnings("unchecked")
 	private void setUnderline()
 	{
 		Font font = assignmentName.getFont();
-		Map attributes = (Map) font.getAttributes();
+		Map<TextAttribute, Integer> attributes = (Map<TextAttribute, Integer>) font
+				.getAttributes();
 		attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
 		assignmentName.setFont(font.deriveFont(attributes));
 	}

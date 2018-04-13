@@ -8,16 +8,30 @@ import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-
 import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.components.customSwing.WButtonActivatable;
 import shared.objects.Assignment;
 
+/**
+ * Provides a class that stores assignment items on a page from a professor's
+ * perspective.
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 13, 2018
+ */
 public final class AssignItemProfessor extends AssignItem
 {
 
+	/**
+	 * The version of the class.
+	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * The button that specifies whether an assignment is activated.
+	 */
 	private WButtonActivatable activeButton;
 
 	public AssignItemProfessor(Assignment assignment)
@@ -52,5 +66,5 @@ public final class AssignItemProfessor extends AssignItem
 		theAssignment.add(dueDate, 2);
 		return theAssignment;
 	}
-	
+
 }

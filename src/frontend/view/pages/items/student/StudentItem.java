@@ -6,6 +6,7 @@ import frontend.view.pages.items.GeneralItem;
 import shared.objects.Student;
 
 /**
+ * Provides a class that displays student objects.
  * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
@@ -14,7 +15,14 @@ import shared.objects.Student;
  */
 public class StudentItem extends GeneralItem
 {
+	/**
+	 * The version of the class.
+	 */
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * The student.
+	 */
 	private Student student;
 
 	public StudentItem(Student student)

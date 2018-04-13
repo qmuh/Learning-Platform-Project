@@ -14,17 +14,23 @@ import frontend.view.pages.items.GeneralItem;
 import shared.objects.Grade;
 
 /**
+ * Provides a class that stores grade items on a page.
  * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
- * @since April 6, 2018
+ * @since April 13, 2018
  */
 public class GradeItem extends GeneralItem
 {
-
+	/**
+	 * The version of the class.
+	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * The grade object stored inside of the grade display item.
+	 */
 	private Grade grade;
 
 	public GradeItem(String assignmentName, Grade grade)

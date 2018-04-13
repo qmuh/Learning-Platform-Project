@@ -10,10 +10,26 @@ import frontend.view.pages.components.customSwing.WButtonActivatable;
 import frontend.view.pages.components.customSwing.WLabel;
 import shared.objects.Course;
 
+/**
+ * Provides a class that stores course items on a page from a professor's
+ * perspective.
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 2.0
+ * @since April 13, 2018
+ */
 final public class CourseItemProfessor extends CourseItem
 {
+	/**
+	 * The version of the class.
+	 */
+	private static final long serialVersionUID = 2L;
 
-	private static final long serialVersionUID = 1L;
+	/**
+	 * The button to activate or deactivate a course and set visibility to
+	 * students.
+	 */
 	private WButtonActivatable activeButton;
 
 	public CourseItemProfessor(Course course)

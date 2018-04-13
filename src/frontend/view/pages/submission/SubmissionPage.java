@@ -54,4 +54,12 @@ abstract public class SubmissionPage
 		assignSubItem.addSubmission(submitItem);
 	}
 
+	@Override
+	public void refresh()
+	{
+		assignmentMap.clear();
+		super.refresh();
+	}
+
+	
 }

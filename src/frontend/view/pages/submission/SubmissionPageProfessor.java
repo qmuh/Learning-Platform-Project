@@ -25,7 +25,8 @@ final public class SubmissionPageProfessor extends SubmissionPage
 		this.assignmentMap.put(assignment.getId(), assignmentSubItemProfessor);
 		this.itemDisplay.add(assignmentSubItemProfessor);
 	}
-
+	
+	
 	// @Override
 	// public void addSubmission(SubmitItem submitItem)
 	// {

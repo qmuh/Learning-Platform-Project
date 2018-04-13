@@ -31,7 +31,7 @@ abstract public class SubmitItem extends GeneralItem
 	{
 		super(BoxLayout.X_AXIS, Integer.toString(submission.getId()));
 		this.submission = submission;
-		this.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+		this.setMaximumSize(new Dimension(Integer.MAX_VALUE, 70));
 		this.setBackground(SECONDARY_COLOR);
 		this.add(makeSubmissionPanel());
 	}
@@ -50,7 +50,12 @@ abstract public class SubmitItem extends GeneralItem
 	{
 		submissionPanel = new JPanel(new GridLayout(1, 2));
 		submissionPanel.setBorder(new EmptyBorder(0, 40, 0, 40));
-		assignmentLink = new WLabel(submission.getTitle());
+		String title = submission.getTitle();
+		if (title.length() > 20)
+		{
+			title = title.substring(0, 16) + "...";
+		}
+		assignmentLink = new WLabel(title);
 		submissionPanel.add(assignmentLink, 0);
 		submissionPanel.add(new JPanel(), 1);
 		return submissionPanel;

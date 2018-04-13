@@ -26,7 +26,6 @@ import frontend.view.pages.Refresh;
 import frontend.view.pages.assignment.AssignmentPageProfessor;
 import frontend.view.pages.components.CourseNavigationBarProfessor;
 import frontend.view.pages.components.PageNavigator;
-import frontend.view.pages.components.PageNavigator.ViewCoursePageListener;
 import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.compose.ComposeEmailPageProfessor;
 import frontend.view.pages.course.CoursePage;
@@ -35,7 +34,6 @@ import frontend.view.pages.enrollment.EnrollmentPage;
 import frontend.view.pages.home.HomePage;
 import frontend.view.pages.items.assignment.AssignItemProfessor;
 import frontend.view.pages.items.course.CourseItemProfessor;
-import frontend.view.pages.items.submission.SubmitItem;
 import frontend.view.pages.items.submission.SubmitItemProfessor;
 import frontend.view.pages.submission.SubmissionPageProfessor;
 import shared.interfaces.ProfessorCommands;
@@ -80,33 +78,6 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		createHomePage();
 	}
 
-	// /**
-	// * Shows all students overall, and all enrolled student
-	// *
-	// * @param course
-	// * The course where this is shown
-	// * @param enrollmentPage
-	// * The page for this
-	// */
-	// @SuppressWarnings("unchecked")
-	// public void showAllStudents(Course course, EnrollmentPage enrollmentPage)
-	// {
-	// try
-	// {
-	// Vector<Student> myList = (Vector<Student>) client.sendMessage(
-	// new SendMessage<>(CMD_RECEIVE + RECEIVE_ALL_STUDENTS));
-	// enrollmentPage.setStudentList(myList);
-	//
-	// Vector<Student> enrollList = (Vector<Student>) client
-	// .sendMessage(new SendMessage<Course>(course,
-	// CMD_RECEIVE + RECEIVE_ALL_ENROLLED_STUDENTS));
-	// enrollmentPage.setEnrolledList(enrollList);
-	// } catch (IOException e)
-	// {
-	// e.printStackTrace();
-	// }
-	// }
-
 	/**
 	 * Getter method for the professor
 	 * 
@@ -123,44 +94,6 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		super.createNewCourse(course, homePage);
 		createEnrollmentPage(course);
 	}
-
-	// /**
-	// * Shows all assignments for a course
-	// *
-	// * @param course
-	// * The course
-	// * @param assignmentPage
-	// * The page where the assignmnets would be shown
-	// */
-	// @SuppressWarnings("unchecked")
-	// private void showAllAssignments(Course course,
-	// AssignmentPageProfessor assignmentPage)
-	// {
-	// try
-	// {
-	// SendMessage<Course> requestAssignments = new SendMessage<Course>(
-	// course, CMD_RECEIVE + RECEIVE_ALL_ASSIGNMENTS);
-	// Vector<Assignment> myList = (Vector<Assignment>) client
-	// .sendMessage(requestAssignments);
-	//
-	// for (Assignment assignment : myList)
-	// {
-	// AssignItemProfessor assignItem = new AssignItemProfessor(
-	// assignment);
-	//
-	// assignItem.getActiveButton().addActionListener(
-	// new AssignmentActiveButtonListener(client, assignment));
-	//
-	// assignItem.getAssignmentLabel().addMouseListener(
-	// new AssignmentLabelMouseListener(assignment, client));
-	// assignmentPage.addToBoxList(assignItem);
-	// }
-	//
-	// } catch (IOException e)
-	// {
-	// e.printStackTrace();
-	// }
-	// }
 
 	/**
 	 * Creates the enrollment page and sets up it's listeners by calling them
@@ -404,7 +337,7 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 					for (int i = 0; i < assignments.size(); i++)
 					{
 						Assignment assignment = assignments.elementAt(i);
-						submissionPage.addAssignment(assignment, students);
+						submissionPage.addAssignment(assignment, students );
 					}
 				}
 
@@ -508,11 +441,11 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 
 		composeEmailPage.getSendToAllButton().addActionListener(
 				new SendToAllButtonListener(client, course, composeEmailPage));
-		
+
 		composeEmailPage.getSendButton()
 				.addActionListener(new ProfessorSendButtonListener(client,
 						course, composeEmailPage));
-		
+
 		composeEmailPage.getAddToEmailButton().addActionListener(
 				new AddToEmailButtonListener(client, course, composeEmailPage));
 

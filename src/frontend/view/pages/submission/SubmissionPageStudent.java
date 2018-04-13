@@ -1,10 +1,6 @@
 package frontend.view.pages.submission;
 
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-
 import frontend.view.pages.components.BoxList;
-import frontend.view.pages.components.customSwing.WButton;
 import frontend.view.pages.items.submission.AssignSubItem;
 import frontend.view.pages.items.submission.AssignSubItemStudent;
 import shared.objects.Assignment;
@@ -16,13 +12,7 @@ final public class SubmissionPageStudent extends SubmissionPage
 
 	private static final long serialVersionUID = 1L;
 
-	private JTextField uploadField;
-
 	private Student student;
-
-	private WButton browseButton;
-
-	private JTextArea commentsArea;
 
 	public SubmissionPageStudent(Course course, Student student)
 	{
@@ -49,5 +39,6 @@ final public class SubmissionPageStudent extends SubmissionPage
 		this.assignmentMap.put(assignment.getId(), assignmentItemStudent);
 		this.itemDisplay.add(assignmentItemStudent);
 	}
+	
 
 }

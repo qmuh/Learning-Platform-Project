@@ -3,6 +3,10 @@ package frontend.view.pages.items.submission;
 import java.util.HashMap;
 import java.util.Vector;
 
+import javax.swing.JPanel;
+
+import com.mysql.jdbc.Wrapper;
+
 import frontend.view.pages.components.BoxList;
 import shared.objects.Assignment;
 import shared.objects.Student;
@@ -30,8 +34,9 @@ final public class AssignSubItemProfessor extends AssignSubItem
 			studentItemMap.put(student.getId(), item);
 			studentList.add(item);
 		}
-
-		this.add(studentList);
+		JPanel flowWrapper = new JPanel();
+		flowWrapper.add(studentList);
+		this.add(flowWrapper);
 	}
 
 	@Override

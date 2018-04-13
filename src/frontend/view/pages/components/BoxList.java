@@ -7,7 +7,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-/**
+/** Object used to set items into place
  * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
@@ -18,7 +18,7 @@ public class BoxList<T extends Box> extends JPanel
 {
 
 	/**
-	 * 
+	 * The serial version UID
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -39,11 +39,6 @@ public class BoxList<T extends Box> extends JPanel
 		}
 		return null;
 	}
-
-	// public T elementAt(int i)
-	// {
-	// return this.elementAt(i);
-	// }
 
 	public void addItem(T boxItem)
 	{

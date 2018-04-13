@@ -117,43 +117,6 @@ public class SubmissionTable extends Table<Submission>
 
 	}
 
-	/**
-	 * Used by professor to see all submissions for a specific assignment
-	 *
-	 * @param assignID
-	 * @return
-	 */
-	public Vector<Submission> searchByAssignID(int assignID)
-	{
-		Vector<Submission> assignSubmissons = new Vector<Submission>();
-		String sql = "SELECT * FROM " + tableName + " WHERE ASSIGNID= ? ";
-		ResultSet submission;
-		try
-		{
-			preparedStatement = dbConnection.prepareStatement(sql);
-			preparedStatement.setInt(1, assignID);
-			submission = preparedStatement.executeQuery();
-			if (submission.next())
-			{
-
-				assignSubmissons.add(new Submission(submission.getInt("ID"),
-						submission.getInt("ASSIGNID"),
-						submission.getInt("STUDENTID"),
-						submission.getString("PATH"),
-						submission.getInt("SUBMISSION_GRADE"),
-						submission.getString("COMMENT"),
-						submission.getString("TITLE"),
-						submission.getString("TIMESTAMP")));
-			}
-
-		} catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-
-		return assignSubmissons;
-
-	}
 
 	/**
 	 * Searches the table by course ID''s
@@ -193,20 +156,21 @@ public class SubmissionTable extends Table<Submission>
 		return assignSubmissons;
 	}
 
-	public Vector<Submission> searchByCourseAndStudentID(int studentID)
+	public Submission searchByCourseAndStudentIDAndAssignID(int studentID,  int assignID)
 	{
-		Vector<Submission> assignSubmissons = new Vector<Submission>();
-		String sql = "SELECT * FROM " + tableName + " WHERE STUDENTID= ? ";
+		String sql = "SELECT * FROM " + tableName + " WHERE STUDENTID= ? AND ASSIGNID= ?";
 		ResultSet submission;
 		try
 		{
 			preparedStatement = dbConnection.prepareStatement(sql);
 			preparedStatement.setInt(1, studentID);
+			preparedStatement.setInt(2, assignID);
+			
 			submission = preparedStatement.executeQuery();
 			while (submission.next())
 			{
 
-				assignSubmissons.add(new Submission(submission.getInt("ID"),
+				return (new Submission(submission.getInt("ID"),
 						submission.getInt("ASSIGNID"),
 						submission.getInt("STUDENTID"),
 						submission.getString("PATH"),
@@ -221,7 +185,24 @@ public class SubmissionTable extends Table<Submission>
 			e.printStackTrace();
 		}
 
-		return assignSubmissons;
+		return null;
+	}
+
+	public void updateGrade(int grade, int id)
+	{
+		String sql = "UPDATE " + tableName + " SET SUBMISSION_GRADE="
+				+ grade + " WHERE ID=?";
+		try
+		{
+			preparedStatement = dbConnection.prepareStatement(sql);
+			preparedStatement.setInt(1, id);
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		
 	}
 
 }

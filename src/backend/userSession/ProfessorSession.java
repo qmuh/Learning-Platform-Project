@@ -297,7 +297,15 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 
 		} else if (type.equals(INSERT_GRADE))
 		{
-			database.getGradeTable().add((Grade) getmessageObject);
+			Grade myGrade = (Grade) getmessageObject;
+			Submission toChange = database.getSubmissionTable().
+					searchByCourseAndStudentIDAndAssignID(myGrade.getStudent_id(), myGrade.getAssignID());
+			if(myGrade.getGrade() > toChange.getGrade())
+			{
+				database.getSubmissionTable().updateGrade(myGrade.getGrade(), toChange.getId());
+			}
+			
+			database.getGradeTable().add(myGrade);
 		} else
 		{
 			System.err.println("!---------------------------------------!");

@@ -175,7 +175,14 @@ public class StudentSession extends ClientSession
 							.getAssignID())
 					{
 						System.out.println("SAME ASSIGN DETECTED ");
-						myGrades.remove(j);
+						if(myGrades.get(i).getGrade() > myGrades.get(j).getGrade())
+						{
+							myGrades.remove(j);
+						}
+						else 
+						{
+							myGrades.remove(i);
+						}
 						j--;
 
 					}
@@ -193,7 +200,7 @@ public class StudentSession extends ClientSession
 		} else if (interpreter.equals(RECEIVE_SUBMISSIONS))
 		{
 			Vector<Submission> mySubmissions = database.getSubmissionTable()
-					.searchByCourseAndStudentID(student.getId());
+					.searchByStudentID(student.getId());
 
 			System.out.println(
 					"My submissions have a size of: " + mySubmissions.size());

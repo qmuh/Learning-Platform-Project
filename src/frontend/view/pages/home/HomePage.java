@@ -8,6 +8,7 @@ import shared.objects.Course;
 import shared.objects.User;
 
 /**
+ * The home page of the user that displays their courses.
  * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)

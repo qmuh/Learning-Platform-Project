@@ -21,7 +21,8 @@ import frontend.view.pages.interfaces.PageNames;
 import shared.objects.User;
 
 /**
- *
+ * The general page item. Has a header, body, and an unused footer.
+ * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.0
@@ -30,16 +31,39 @@ import shared.objects.User;
 public abstract class Page<T extends Box, U> extends JPanel
 		implements PageNames, WondrisInfo, ColourPalette, WondrisDirectories
 {
-
+	/**
+	 * The version of the class.
+	 */
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * The header of a page. Contains navigation buttons.
+	 */
 	protected Header header;
+	
+	/**
+	 * An unused footer.
+	 */
 	private Footer footer;
+	
+	/**
+	 * The body of the page.
+	 */
 	protected JPanel body;
+	
+	/**
+	 * Stores the items in the page.
+	 */
 	protected ArrayList<U> itemList;
+	
+	/**
+	 * Store the graphical elements.
+	 */
 	protected BoxList<T> itemDisplay;
-	// protected StudentGUI studentGUI;
-	// protected ProfessorGUI professorGUI;
 
+	/**
+	 * The refresh behavior of the page.
+	 */
 	protected Refresh function;
 	
 	public Page(User user)
@@ -102,19 +126,20 @@ public abstract class Page<T extends Box, U> extends JPanel
 		this.function = function;
 	}
 	
+	/**
+	 * Refreshes the items in a page.
+	 */
 	public void refresh()
 	{
 		this.itemDisplay.removeAll();
 		this.itemDisplay.repaint();
 		this.itemDisplay.revalidate();
-		System.out.println("Refreshing: " + this.getName());
 		this.function.refresh();
-		System.out.println(itemDisplay.getComponentCount());
 	}
 	
 	public void addToBoxList(T item)
 	{
-		itemDisplay.add(item);
+		this.itemDisplay.add(item);
 		this.itemDisplay.repaint();
 		this.itemDisplay.repaint();
 		this.itemDisplay.revalidate();

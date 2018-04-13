@@ -29,7 +29,8 @@ import frontend.view.pages.interfaces.GUIConstants;
 import shared.objects.LoginInfo;
 
 /**
- *
+ * The visual appearanace of the login panel.
+ * 
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)
  * @version 1.1

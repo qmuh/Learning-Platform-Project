@@ -8,6 +8,14 @@ import shared.objects.Course;
 import shared.objects.Professor;
 import shared.objects.Student;
 
+/**
+ * The submission page from a professor's perspective.
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 13, 2018
+ */
 final public class SubmissionPageProfessor extends SubmissionPage
 {
 
@@ -26,14 +34,4 @@ final public class SubmissionPageProfessor extends SubmissionPage
 		this.itemDisplay.add(assignmentSubItemProfessor);
 	}
 	
-	
-	// @Override
-	// public void addSubmission(SubmitItem submitItem)
-	// {
-	// Submission submission = submitItem.getSubmission();
-	// AssignSubItemProfessor assignSubItemProfessor = this.assignmentMap
-	// .get(submission.getAssign_id());
-	//
-	// assignSubItemProfessor.addSubmission(submitItem);
-	// }
 }

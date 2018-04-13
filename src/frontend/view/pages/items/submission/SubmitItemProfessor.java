@@ -47,6 +47,8 @@ final public class SubmitItemProfessor extends SubmitItem
 		}
 		gradeField.setHorizontalAlignment(JTextField.RIGHT);
 		gradeField.setFont(TEXT_FONT);
+		System.out.println("GRADE : " + submission.getGrade());
+		gradeField.setText(Integer.toString(submission.getGrade()));
 		gradeFieldPanel.add(gradeField, new GridBagConstraints());
 		return gradeFieldPanel;
 	}
@@ -54,7 +56,7 @@ final public class SubmitItemProfessor extends SubmitItem
 	private JPanel createPercentLabel()
 	{
 		JPanel percentPanel = new JPanel();
-		WLabel percent = new WLabel("%", JLabel.LEFT);
+		WLabel percent = new WLabel("%");
 		percentPanel.add(percent);
 		return percentPanel;
 	}

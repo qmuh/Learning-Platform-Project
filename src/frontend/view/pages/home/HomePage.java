@@ -36,4 +36,10 @@ public class HomePage extends Page<CourseItem, Course>
 	{
 		((HomePageCoursesTable) this.body).enableActiveLabel();
 	}
+	
+	@Override
+	public void refresh()
+	{
+		// Home page is not supposed to refresh. Does nothing.
+	}
 }

@@ -109,6 +109,7 @@ public abstract class ClientSession implements Runnable
 		{
 			objectOut.writeObject(authenticate);
 			objectOut.flush();
+			objectOut.reset();
 		} catch (IOException e)
 		{
 			e.printStackTrace();
@@ -128,6 +129,7 @@ public abstract class ClientSession implements Runnable
 		{
 			objectOut.writeObject(file);
 			objectOut.flush();
+			objectOut.reset();
 		} catch (IOException e)
 		{
 			e.printStackTrace();
@@ -147,6 +149,7 @@ public abstract class ClientSession implements Runnable
 		{
 			objectOut.writeObject(message);
 			objectOut.flush();
+			objectOut.reset();
 		} catch (IOException e)
 		{
 			e.printStackTrace();

@@ -44,8 +44,6 @@ abstract public class SubmissionPage
 		return submissionScrollPane;
 	}
 
-	
-
 	public void addSubmission(SubmitItem submitItem)
 	{
 		Submission submission = submitItem.getSubmission();
@@ -57,7 +55,7 @@ abstract public class SubmissionPage
 	@Override
 	public void refresh()
 	{
-		assignmentMap.clear();
+//		assignmentMap.clear();
 		super.refresh();
 	}
 

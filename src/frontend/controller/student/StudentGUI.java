@@ -258,6 +258,7 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 				e.printStackTrace();
 			}
 		};
+		
 		submissionPageStudent.setRefreshBehaviour(function);
 
 		completeCoursePage(submissionPageStudent, course);
@@ -318,38 +319,41 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 
 		Refresh function = () ->
 		{
-			SendMessage<Course> message = new SendMessage<Course>(
-					CMD_RECEIVE + RECEIVE_COURSES);
-			try
-			{
-				@SuppressWarnings("unchecked")
-				Vector<Course> coursesList = (Vector<Course>) this.client
-						.sendMessage(message);
-
-				if (coursesList != null)
-				{
-					for (int i = 0; i < coursesList.size(); i++)
-					{
-						Course course = coursesList.elementAt(i);
-						CourseItemStudent courseItemStudent = new CourseItemStudent(
-								course);
-
-						homePage.addToBoxList(courseItemStudent);
-
-						courseItemStudent.getViewButton().addActionListener(
-								new ViewCoursePageListener(course));
-
-						createNewCourse(course, homePage);
-
-						System.out.println("Course name is: "
-								+ coursesList.get(i).getName());
-					}
-				}
-			} catch (IOException e)
-			{
-				e.printStackTrace();
-			}
+			// do nothing.
 		};
+		
+		SendMessage<Course> message = new SendMessage<Course>(
+				CMD_RECEIVE + RECEIVE_COURSES);
+		try
+		{
+			@SuppressWarnings("unchecked")
+			Vector<Course> coursesList = (Vector<Course>) this.client
+					.sendMessage(message);
+
+			if (coursesList != null)
+			{
+				for (int i = 0; i < coursesList.size(); i++)
+				{
+					Course course = coursesList.elementAt(i);
+					CourseItemStudent courseItemStudent = new CourseItemStudent(
+							course);
+
+					homePage.addToBoxList(courseItemStudent);
+
+					courseItemStudent.getViewButton().addActionListener(
+							new ViewCoursePageListener(course));
+
+					createNewCourse(course, homePage);
+
+					System.out.println("Course name is: "
+							+ coursesList.get(i).getName());
+				}
+			}
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		
 		homePage.setRefreshBehaviour(function);
 
 		homePage.refresh();

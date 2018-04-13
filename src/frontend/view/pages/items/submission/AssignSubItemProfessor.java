@@ -24,7 +24,6 @@ final public class AssignSubItemProfessor extends AssignSubItem
 		this.studentList = new BoxList<StudentSubItem>();
 		this.studentItemMap = new HashMap<Integer, StudentSubItem>();
 
-		//
 		for (Student student : classList)
 		{
 			StudentSubItem item = new StudentSubItem(student);

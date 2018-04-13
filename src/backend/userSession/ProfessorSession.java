@@ -1,8 +1,10 @@
 package backend.userSession;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Vector;
+import java.util.regex.Pattern;
 
 import shared.interfaces.ProfessorCommands;
 import shared.objects.Assignment;
@@ -214,15 +216,16 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 		else if (type.equals(RECEIVE_ALL_SUBMISSIONS))
 		{
 			Vector<Integer> allAssignIDs = database.getAssignmentTable()
-						.searchByCourse(((Course) getMessage).getId());
-			
+					.searchByCourse(((Course) getMessage).getId());
+
 			Vector<Submission> allSubmission = new Vector<Submission>();
-			
-			for(int i = 0; i < allAssignIDs.size(); i++) 
+
+			for (int i = 0; i < allAssignIDs.size(); i++)
 			{
-			allSubmission.addAll(database.getSubmissionTable().searchByAssign(allAssignIDs.get(i)));
+				allSubmission.addAll(database.getSubmissionTable()
+						.searchByAssign(allAssignIDs.get(i)));
 			}
-			
+
 			sendObject(allSubmission);
 
 		}
@@ -267,17 +270,24 @@ public class ProfessorSession extends ClientSession implements ProfessorCommands
 			Assignment profAssign = (Assignment) getmessageObject;
 
 			String fileName = profAssign.getPath();
-			fileName.replaceAll("\\\\", "/");
+			System.out.println("Before: " + fileName);
 
-			String toSplit[] = profAssign.getPath().split("/");
-			profAssign.setPath(DATABASE_STORAGE + profAssign.getTitle() + "/"
-					+ (toSplit[toSplit.length - 1]));
+			String toSplit[] = profAssign.getPath()
+					.split(Pattern.quote(File.separator));
+			
+			
+			
+			profAssign.setPath(DATABASE_STORAGE + profAssign.getTitle()
+					+ File.separator + (toSplit[toSplit.length - 1]));
 
+			System.out.println(profAssign.getPath());
+			
 			database.getAssignmentTable().add(profAssign);
 			byte[] file;
 			try
 			{
 				file = (byte[]) objectIn.readObject();
+				System.out.println("FILE TITLE: " + profAssign.getTitle());
 				fileHelper.checkDir(DATABASE_STORAGE + profAssign.getTitle());
 				fileHelper.storeFile(file, profAssign);
 			} catch (ClassNotFoundException | IOException e)

@@ -1,9 +1,13 @@
 package backend.userSession;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Vector;
+import java.util.regex.Pattern;
 
+import backend.database.DatabaseProperties;
+import frontend.interfaces.WondrisDirectories;
 import shared.interfaces.StudentCommands;
 import shared.objects.Assignment;
 import shared.objects.Course;
@@ -23,7 +27,8 @@ import shared.objects.User;
  * @since April 6, 2018
  */
 
-public class StudentSession extends ClientSession implements StudentCommands
+public class StudentSession extends ClientSession
+		implements StudentCommands, WondrisDirectories
 {
 
 	/**
@@ -160,13 +165,14 @@ public class StudentSession extends ClientSession implements StudentCommands
 					.studentGradesForCourse(((Course) getmessageObject).getId(),
 							student.getId());
 
-			System.out.println("THESE MANY GRADES " +myGrades.size());
+			System.out.println("THESE MANY GRADES " + myGrades.size());
 
-			for (int i = 0; i < myGrades.size() -1; i++)
+			for (int i = 0; i < myGrades.size() - 1; i++)
 			{
-				for (int j = i + 1 ; j < myGrades.size(); j++)
+				for (int j = i + 1; j < myGrades.size(); j++)
 				{
-					if(myGrades.get(i).getAssignID() == myGrades.get(j).getAssignID())
+					if (myGrades.get(i).getAssignID() == myGrades.get(j)
+							.getAssignID())
 					{
 						System.out.println("SAME ASSIGN DETECTED ");
 						myGrades.remove(j);
@@ -176,7 +182,6 @@ public class StudentSession extends ClientSession implements StudentCommands
 				}
 			}
 
-
 			sendObject(myGrades);
 
 		} else if (interpreter.equals(RECEIVE_PROFESSOR))
@@ -185,12 +190,13 @@ public class StudentSession extends ClientSession implements StudentCommands
 					.getUserByID(((Course) getmessageObject).getProf_id());
 			sendObject(myProf);
 
-		}
-		else if (interpreter.equals(RECEIVE_SUBMISSIONS)) {
-			Vector<Submission> mySubmissions = database.getSubmissionTable().
-					searchByCourseAndStudentID(student.getId());
+		} else if (interpreter.equals(RECEIVE_SUBMISSIONS))
+		{
+			Vector<Submission> mySubmissions = database.getSubmissionTable()
+					.searchByCourseAndStudentID(student.getId());
 
-			System.out.println("My submissions have a size of: " + mySubmissions.size());
+			System.out.println(
+					"My submissions have a size of: " + mySubmissions.size());
 			sendObject(mySubmissions);
 		} else if (interpreter.equals(RECEIVE_ASSIGNMENT))
 		{
@@ -213,14 +219,17 @@ public class StudentSession extends ClientSession implements StudentCommands
 		if (interpreter.equals(INSERT_SUBMISSION))
 		{
 			Submission mySubmission = (Submission) getmessageObject;
-			String path = mySubmission.getPath().replaceAll("\\\\", "/");
 
-			String toSplit[] = mySubmission.getPath().split("/");
-			Assignment toGet = database.getAssignmentTable().searchByAssignID(mySubmission.getAssign_id());
+			Assignment toGet = database.getAssignmentTable()
+					.searchByAssignID(mySubmission.getAssign_id());
 
-			mySubmission.setPath(toGet.getDir() + "/" + mySubmission.getTitle());
-			System.out.println("Inserting submission at " + mySubmission.getPath());
-			System.out.println("My submission title is" + mySubmission.getTitle());
+			mySubmission.setPath(DATABASE_STORAGE + toGet.getTitle()
+					+ File.separator + mySubmission.getTitle());
+			
+			System.out.println(
+					"Inserting submission at " + mySubmission.getPath());
+			System.out.println(
+					"My submission title is" + mySubmission.getTitle());
 			database.getSubmissionTable().add(mySubmission);
 			byte[] file;
 			try

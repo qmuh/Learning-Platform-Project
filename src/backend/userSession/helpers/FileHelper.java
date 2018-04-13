@@ -108,6 +108,5 @@ public class FileHelper
 	public void checkDir(String directory)
 	{
 		new File(directory).mkdirs();
-
 	}
 }

@@ -1,13 +1,14 @@
-package frontend.controller.listeners;
+package frontend.controller.professor.listeners;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 import frontend.controller.Client;
-import frontend.controller.professor.listeners.AssignmentActiveButtonListener;
 import frontend.view.pages.assignment.AssignmentPageProfessor;
 import frontend.view.pages.items.assignment.AssignItemProfessor;
 import shared.interfaces.ProfessorCommands;
@@ -65,11 +66,13 @@ public class UploadAssignmentButtonListener
 		// by Avinash Raj
 
 		String fileName = assignmentPage.getFile().getAbsolutePath();
-		fileName.replaceAll("\\\\", "/");
 
 		System.out.println(fileName);
-		String append[] = assignmentPage.getFile().getPath().split("/");
+		String append[] = assignmentPage.getFile().getPath()
+				.split(Pattern.quote(File.separator));
+		
 		System.out.println("TITLE.JPG: " + append[append.length - 1]);
+		
 		if (assignmentPage.getFile() != null)
 		{
 			Assignment myUpload = new Assignment(course.getId(),

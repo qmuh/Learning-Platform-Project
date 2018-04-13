@@ -1,11 +1,15 @@
 package frontend.controller.listeners;
 
+import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.regex.Pattern;
+
+import javax.swing.JOptionPane;
 
 import frontend.controller.Client;
 import shared.interfaces.ProfessorCommands;
@@ -49,16 +53,20 @@ public class SubmissionLabelMouseListener
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
+		System.out.println("DOWNLOADING YOUR SUBMISSION");
 		try
 		{
 			byte[] file = (byte[]) client
 					.sendMessage(new SendMessage<Submission>(submission,
 							CMD_RECEIVE + RECEIVE_STUDENT_SUBMISSION));
+
 			String home = System.getProperty("user.home");
 
-			String[] fileName = submission.getPath().split("/");
-			File newFile = new File(
-					home + "/Downloads/" + fileName[fileName.length - 1]);
+			String[] fileName = submission.getPath()
+					.split(Pattern.quote(File.separator));
+
+			File newFile = new File(home + File.separator + "Downloads"
+					+ File.separator + fileName[fileName.length - 1]);
 
 			if (!newFile.exists())
 				newFile.createNewFile();
@@ -66,6 +74,12 @@ public class SubmissionLabelMouseListener
 			BufferedOutputStream bos = new BufferedOutputStream(writer);
 			bos.write(file);
 			bos.close();
+
+			JOptionPane
+					.showMessageDialog((Component) e.getSource(),
+							"The submission was downloaded to "
+									+ newFile.getAbsolutePath(),
+							"Submission Downloaded", JOptionPane.PLAIN_MESSAGE);
 
 		} catch (IOException e1)
 		{
@@ -76,7 +90,6 @@ public class SubmissionLabelMouseListener
 	@Override
 	public void mouseEntered(MouseEvent e)
 	{
-
 	}
 
 	@Override

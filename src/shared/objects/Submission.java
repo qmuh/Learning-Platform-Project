@@ -1,5 +1,6 @@
 package shared.objects;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.Random;
 
@@ -148,7 +149,7 @@ public class Submission implements Serializable
 		for (int i = 0; i < title.length(); i++)
 		
 		{
-			if(title.charAt(i) == '/')
+			if(title.charAt(i) == File.separatorChar)
 			{
 				title = title.substring(i, title.length());
 				break;

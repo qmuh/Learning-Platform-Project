@@ -1,14 +1,17 @@
 package frontend.controller.listeners;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import frontend.controller.Client;
 import frontend.interfaces.ColourPalette;
@@ -53,11 +56,13 @@ public class AssignmentLabelMouseListener
 			byte[] file = (byte[]) client
 					.sendMessage(new SendMessage<Assignment>(assignment,
 							CMD_RECEIVE + RECEIVE_ASSIGNMENT));
+
 			String home = System.getProperty("user.home");
 
-			String[] fileName = assignment.getPath().split("/");
-			File newFile = new File(
-					home + "/Downloads/" + fileName[fileName.length - 1]);
+			String[] fileName = assignment.getPath()
+					.split(Pattern.quote(File.separator));
+			File newFile = new File(home + File.separator + "Downloads"
+					+ File.separator + fileName[fileName.length - 1]);
 
 			if (!newFile.exists())
 				newFile.createNewFile();
@@ -66,6 +71,10 @@ public class AssignmentLabelMouseListener
 			bos.write(file);
 			bos.close();
 
+			JOptionPane.showMessageDialog((Component) e.getSource(),
+					"Assignment " + assignment.getTitle() + " saved to "
+							+ newFile.getPath(),
+					"File Downloaded", JOptionPane.PLAIN_MESSAGE);
 		} catch (IOException e1)
 		{
 			e1.getStackTrace();

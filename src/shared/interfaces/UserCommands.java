@@ -1,5 +1,7 @@
 package shared.interfaces;
 
+import java.io.File;
+
 /**
  * An interface that stores all general user commands.
  * 
@@ -22,9 +24,13 @@ public interface UserCommands
 
 	public static final String CMD_EMAIL = "EMAIL;";
 
-	public static final String DATABASE_STORAGE = "/Users/qasimmuhammad/Desktop/Database/";
+	/**
+	 * The directory that stores database files. Located in user.dir/dropbox/
+	 */
+	public static final String DATABASE_STORAGE = System.getProperty("user.dir")
+			+ File.separator + "dropbox" + File.separator;
 
 	public static final String RECEIVE_ASSIGNMENT = "RECEIVEASSIGNMENT";
-	
+
 	public static final String RECEIVE_COURSES = "COURSES";
 }

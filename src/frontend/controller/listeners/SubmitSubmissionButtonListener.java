@@ -6,6 +6,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 import javax.swing.JFileChooser;
 import frontend.controller.Client;
@@ -18,7 +19,8 @@ import shared.objects.Course;
 import shared.objects.SendMessage;
 import shared.objects.Submission;
 
-public class SubmitSubmissionButtonListener implements ActionListener, StudentCommands
+public class SubmitSubmissionButtonListener
+		implements ActionListener, StudentCommands
 {
 
 	/**
@@ -30,38 +32,43 @@ public class SubmitSubmissionButtonListener implements ActionListener, StudentCo
 	 * The specific course associated with this listener
 	 */
 	private Course course;
-	
-	private  AssignmentPageStudent assignmentPage;
-	
+
+	private AssignmentPageStudent assignmentPage;
+
 	private Submission submission;
-	
-	public SubmitSubmissionButtonListener(Client client, Course course, AssignmentPageStudent studentPage, Submission toSend)
+
+	public SubmitSubmissionButtonListener(Client client, Course course,
+			AssignmentPageStudent studentPage, Submission toSend)
 	{
 		this.client = client;
 		this.course = course;
 		assignmentPage = studentPage;
 		submission = toSend;
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		
-		String fileNam[] = assignmentPage.getFile().getAbsolutePath().split("/");
-		
-		System.out.println(fileNam[fileNam.length -1]);
-		String append[] = assignmentPage.getFile().getPath().split("/");
-		System.out.println("TITLE.JPG: " + append[append.length - 1]);
-		
+
+		String fileNam[] = assignmentPage.getFile().getAbsolutePath()
+				.split(Pattern.quote(File.separator));
+
+		System.out.println(fileNam[fileNam.length - 1]);
+		String append[] = assignmentPage.getFile().getPath()
+				.split(Pattern.quote(File.separator));
+
 		submission.setPath(assignmentPage.getFile().getPath());
-		submission.setTitle(fileNam[fileNam.length -1]);
+		submission.setTitle(fileNam[fileNam.length - 1]);
+
+		System.out.println("TITLE NAME:: " + submission.getTitle()
+				+ append[append.length - 1]);
+
 		submission.setDate(assignmentPage.getDate());
 		submission.setComment("");
-		
-		
+
 		if (assignmentPage.getFile() != null)
 		{
-			
+
 			try
 			{
 				client.onlySendMessage(new SendMessage<Submission>(submission,
@@ -79,16 +86,12 @@ public class SubmitSubmissionButtonListener implements ActionListener, StudentCo
 				client.getObjectOut().writeObject(content);
 				client.getObjectOut().flush();
 
-				
-
 			} catch (IOException e1)
 			{
 				e1.printStackTrace();
 			}
 		}
-		
+
 	}
 
-	
-	
 }

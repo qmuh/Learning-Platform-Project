@@ -262,40 +262,44 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 	{
 		HomePage homePage = (HomePage) this.searchPage(HOME_PAGE);
 
-		Refresh function = () ->
+		Refresh function = new Refresh()
 		{
-			SendMessage<Course> message = new SendMessage<Course>(
-					CMD_RECEIVE + RECEIVE_COURSES);
-			try
+			@Override
+			public void refresh()
 			{
-				@SuppressWarnings("unchecked")
-				Vector<Course> coursesList = (Vector<Course>) this.client
-						.sendMessage(message);
-
-				if (coursesList != null)
-				{
-					for (int i = 0; i < coursesList.size(); i++)
-					{
-						Course course = coursesList.elementAt(i);
-						CourseItemProfessor courseItemProfessor = new CourseItemProfessor(
-								course);
-
-						homePage.addToBoxList(courseItemProfessor);
-
-						courseItemProfessor.getActiveButton().addActionListener(
-								new CourseActiveButtonListener(client, course));
-						courseItemProfessor.getViewButton().addActionListener(
-								new ViewCoursePageListener(course));
-
-						createNewCourse(course, homePage);
-					}
-				}
-
-			} catch (IOException e)
-			{
-				e.printStackTrace();
 			}
 		};
+		SendMessage<Course> message = new SendMessage<Course>(
+				CMD_RECEIVE + RECEIVE_COURSES);
+		try
+		{
+			@SuppressWarnings("unchecked")
+			Vector<Course> coursesList = (Vector<Course>) client
+					.sendMessage(message);
+
+			if (coursesList != null)
+			{
+				for (int i = 0; i < coursesList.size(); i++)
+				{
+					Course course = coursesList.elementAt(i);
+					CourseItemProfessor courseItemProfessor = new CourseItemProfessor(
+							course);
+
+					homePage.addToBoxList(courseItemProfessor);
+
+					courseItemProfessor.getActiveButton().addActionListener(
+							new CourseActiveButtonListener(client, course));
+					courseItemProfessor.getViewButton().addActionListener(
+							new ViewCoursePageListener(course));
+
+					createNewCourse(course, homePage);
+				}
+			}
+
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 
 		homePage.setRefreshBehaviour(function);
 		homePage.refresh();
@@ -312,51 +316,55 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		SubmissionPageProfessor submissionPage = new SubmissionPageProfessor(
 				course, professor);
 
-		Refresh function = () ->
+		Refresh function = new Refresh()
 		{
-			SendMessage<Course> requestAssignments = new SendMessage<Course>(
-					course, CMD_RECEIVE + RECEIVE_ALL_ASSIGNMENTS);
-
-			SendMessage<Course> requestStudents = new SendMessage<Course>(
-					course, CMD_RECEIVE + RECEIVE_ALL_ENROLLED_STUDENTS);
-
-			SendMessage<Course> requestSubmissions = new SendMessage<Course>(
-					course, CMD_RECEIVE + RECEIVE_ALL_SUBMISSIONS);
-
-			try
-			{
-				Vector<Assignment> assignments = (Vector<Assignment>) this.client
-						.sendMessage(requestAssignments);
-				Vector<Student> students = (Vector<Student>) this.client
-						.sendMessage(requestStudents);
-				Vector<Submission> submissions = (Vector<Submission>) this.client
-						.sendMessage(requestSubmissions);
-
-				for (int i = 0; i < assignments.size(); i++)
-				{
-					Assignment assignment = assignments.elementAt(i);
-					submissionPage.addAssignment(assignment, students);
-				}
-
-				for (int i = 0; i < submissions.size(); i++)
-				{
-					Submission submission = submissions.elementAt(i);
-					SubmitItemProfessor submitItem = new SubmitItemProfessor(
-							submission);
-					submitItem.getGradeButton().addActionListener(
-							new GradeSubmissionButtonListener(client, course,
-									submitItem));
-					submitItem.getAssignmentLink().addMouseListener(
-							new SubmissionLabelMouseListener(submission,
-									client));
-
-					submissionPage.addSubmission(submitItem);
-				}
-			} catch (IOException e)
-			{
-				e.printStackTrace();
-			}
 			
+			@Override
+			public void refresh()
+			{
+				SendMessage<Course> requestAssignments = new SendMessage<Course>(
+						course, CMD_RECEIVE + RECEIVE_ALL_ASSIGNMENTS);
+
+				SendMessage<Course> requestStudents = new SendMessage<Course>(
+						course, CMD_RECEIVE + RECEIVE_ALL_ENROLLED_STUDENTS);
+
+				SendMessage<Course> requestSubmissions = new SendMessage<Course>(
+						course, CMD_RECEIVE + RECEIVE_ALL_SUBMISSIONS);
+
+				try
+				{
+					Vector<Assignment> assignments = (Vector<Assignment>) client
+							.sendMessage(requestAssignments);
+					Vector<Student> students = (Vector<Student>) client
+							.sendMessage(requestStudents);
+					Vector<Submission> submissions = (Vector<Submission>) client
+							.sendMessage(requestSubmissions);
+
+					for (int i = 0; i < assignments.size(); i++)
+					{
+						Assignment assignment = assignments.elementAt(i);
+						submissionPage.addAssignment(assignment, students);
+					}
+
+					for (int i = 0; i < submissions.size(); i++)
+					{
+						Submission submission = submissions.elementAt(i);
+						SubmitItemProfessor submitItem = new SubmitItemProfessor(
+								submission);
+						submitItem.getGradeButton().addActionListener(
+								new GradeSubmissionButtonListener(client, course,
+										submitItem));
+						submitItem.getAssignmentLink().addMouseListener(
+								new SubmissionLabelMouseListener(submission,
+										client));
+
+						submissionPage.addSubmission(submitItem);
+					}
+				} catch (IOException e)
+				{
+					e.printStackTrace();
+				}
+			}
 		};
 
 		submissionPage.setRefreshBehaviour(function);
@@ -371,35 +379,40 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		AssignmentPageProfessor assignmentPage = new AssignmentPageProfessor(
 				course, professor);
 
-		Refresh function = () ->
+		Refresh function = new Refresh()
 		{
-			try
+			
+			@Override
+			public void refresh()
 			{
-				SendMessage<Course> requestAssignments = new SendMessage<Course>(
-						course, CMD_RECEIVE + RECEIVE_ALL_ASSIGNMENTS);
-				
-				Vector<Assignment> myList = (Vector<Assignment>) client
-						.sendMessage(requestAssignments);
-
-				for (int i = 0; i < myList.size(); i++)
+				try
 				{
-					Assignment assignment = myList.elementAt(i);
-					AssignItemProfessor assignItem = new AssignItemProfessor(
-							assignment);
+					SendMessage<Course> requestAssignments = new SendMessage<Course>(
+							course, CMD_RECEIVE + RECEIVE_ALL_ASSIGNMENTS);
+					
+					Vector<Assignment> myList = (Vector<Assignment>) client
+							.sendMessage(requestAssignments);
 
-					assignItem.getActiveButton().addActionListener(
-							new AssignmentActiveButtonListener(client,
-									assignment));
+					for (int i = 0; i < myList.size(); i++)
+					{
+						Assignment assignment = myList.elementAt(i);
+						AssignItemProfessor assignItem = new AssignItemProfessor(
+								assignment);
 
-					assignItem.getAssignmentLabel().addMouseListener(
-							new AssignmentLabelMouseListener(assignment,
-									client));
-					assignmentPage.addToBoxList(assignItem);
+						assignItem.getActiveButton().addActionListener(
+								new AssignmentActiveButtonListener(client,
+										assignment));
+
+						assignItem.getAssignmentLabel().addMouseListener(
+								new AssignmentLabelMouseListener(assignment,
+										client));
+						assignmentPage.addToBoxList(assignItem);
+					}
+
+				} catch (IOException e)
+				{
+					e.printStackTrace();
 				}
-
-			} catch (IOException e)
-			{
-				e.printStackTrace();
 			}
 		};
 
@@ -424,19 +437,24 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		// .setMyEmailButtonListener(new MyEmailsButtonListener(course));
 
 		// Sets the enrolled J-List to help email choosing
-		Refresh function = () ->
+		Refresh function = new Refresh()
 		{
-			try
+			
+			@Override
+			public void refresh()
 			{
-				Vector<Student> enrollList = (Vector<Student>) client
-						.sendMessage(new SendMessage<Course>(course,
-								CMD_RECEIVE + RECEIVE_ALL_ENROLLED_STUDENTS));
-				composeEmailPage.setStudentList(enrollList);
-			} catch (IOException e)
-			{
-				e.printStackTrace();
-			}
+				try
+				{
+					Vector<Student> enrollList = (Vector<Student>) client
+							.sendMessage(new SendMessage<Course>(course,
+									CMD_RECEIVE + RECEIVE_ALL_ENROLLED_STUDENTS));
+					composeEmailPage.setStudentList(enrollList);
+				} catch (IOException e)
+				{
+					e.printStackTrace();
+				}			}
 		};
+		
 		composeEmailPage.setRefreshBehaviour(function);
 
 		composeEmailPage.getSendToAllButton().addActionListener(
@@ -458,9 +476,15 @@ public class ProfessorGUI extends PageNavigator implements ProfessorCommands
 		@SuppressWarnings("rawtypes")
 		CoursePage coursePage = new CoursePage(course, professor);
 
-		Refresh function = () -> 
+		Refresh function = new Refresh()
 		{
 			
+			@Override
+			public void refresh()
+			{
+				// TODO Auto-generated method stub
+				
+			}
 		};
 		
 		coursePage.setRefreshBehaviour(function);

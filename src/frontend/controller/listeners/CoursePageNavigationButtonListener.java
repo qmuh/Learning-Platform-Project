@@ -51,6 +51,7 @@ public class CoursePageNavigationButtonListener implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
+		pageNavigator.searchPage(pageName + course.getId()).refresh();
 		pageNavigator.showPage(pageName + course.getId());
 	}
 }

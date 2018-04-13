@@ -78,7 +78,7 @@ public abstract class PageNavigator extends JPanel
 		}
 	}
 
-	protected Page<?, ?> searchPage(String name)
+	public Page<?, ?> searchPage(String name)
 	{
 		for (Component component : this.getComponents())
 		{

@@ -107,8 +107,6 @@ public abstract class Page<T extends Box, U> extends JPanel
 		this.itemDisplay.removeAll();
 		this.itemDisplay.repaint();
 		this.itemDisplay.revalidate();
-		this.itemDisplay.repaint();
-		this.itemDisplay.revalidate();
 		System.out.println("Refreshing: " + this.getName());
 		this.function.refresh();
 		System.out.println(itemDisplay.getComponentCount());
@@ -118,7 +116,6 @@ public abstract class Page<T extends Box, U> extends JPanel
 	{
 		itemDisplay.add(item);
 		this.itemDisplay.repaint();
-		this.itemDisplay.revalidate();
 		this.itemDisplay.repaint();
 		this.itemDisplay.revalidate();
 	}

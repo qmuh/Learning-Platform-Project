@@ -4,8 +4,21 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.Random;
 
+/**
+ * Provides a class to represent a submission object.
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 13, 2018
+ */
 public class Submission implements Serializable
 {
+	/**
+	 * The version of the class.
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * The id for the submission
 	 */
@@ -32,17 +45,17 @@ public class Submission implements Serializable
 	private int grade;
 
 	/**
-	 * Comment made by the submitter/marker?
+	 * Comment made by the submitted. Not used.
 	 */
 	private String comment;
 
 	/**
-	 * Title of the file in the submission
+	 * Title of the file in the submission.
 	 */
 	private String title;
 
 	/**
-	 * The time stamo for the file submission
+	 * The time stamp for the file submission.
 	 */
 	private String timestamp;
 
@@ -56,17 +69,17 @@ public class Submission implements Serializable
 		path = filePath;
 		grade = subGrade;
 		comment = subComment;
-		if(subTitle != null)
+		if (subTitle != null)
 		{
-		for (int i = 0; i < subTitle.length(); i++)
-		
-		{
-			if(subTitle.charAt(i) == '.')
+			for (int i = 0; i < subTitle.length(); i++)
+
 			{
-				subTitle = subTitle.substring(i, subTitle.length());
-				break;
+				if (subTitle.charAt(i) == '.')
+				{
+					subTitle = subTitle.substring(i, subTitle.length());
+					break;
+				}
 			}
-		}
 		}
 		title = subTitle;
 		timestamp = time;
@@ -132,29 +145,29 @@ public class Submission implements Serializable
 
 	}
 
-	public void setComment(String comment) 
+	public void setComment(String comment)
 	{
 		this.comment = comment;
 	}
-	
+
 	public void setDate(String date)
 	{
 		timestamp = date;
 	}
-	
-	public void setTitle(String title) 
+
+	public void setTitle(String title)
 	{
-		if(title != null)
+		if (title != null)
 		{
-		for (int i = 0; i < title.length(); i++)
-		
-		{
-			if(title.charAt(i) == File.separatorChar)
+			for (int i = 0; i < title.length(); i++)
+
 			{
-				title = title.substring(i, title.length());
-				break;
+				if (title.charAt(i) == File.separatorChar)
+				{
+					title = title.substring(i, title.length());
+					break;
+				}
 			}
-		}
 		}
 		this.title = title;
 	}

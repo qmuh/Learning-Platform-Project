@@ -21,6 +21,13 @@ import shared.interfaces.UserCommands;
 import shared.objects.Assignment;
 import shared.objects.SendMessage;
 
+/**
+ *
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 13, 2018
+ */
 public class AssignmentLabelMouseListener
 		implements MouseListener, UserCommands, ColourPalette
 {

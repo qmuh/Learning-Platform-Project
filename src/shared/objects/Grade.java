@@ -3,8 +3,21 @@ package shared.objects;
 import java.io.Serializable;
 import java.util.Random;
 
+/**
+ * Provides a class to represent a grade object.
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 13, 2018
+ */
 public class Grade implements Serializable
 {
+
+	/**
+	 * The version of the class.
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * The name of the student who holds this grade

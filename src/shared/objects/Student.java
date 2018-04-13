@@ -1,5 +1,13 @@
 package shared.objects;
 
+/**
+ * Provides a class to represent a student.
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 13, 2018
+ */
 public class Student extends User
 {
 
@@ -10,11 +18,4 @@ public class Student extends User
 	{
 		super(userId, fName, lName, mail, USER_STUDENT, pass);
 	}
-
-	@Override
-	public String toString()
-	{
-		return super.toString();
-	}
-
 }

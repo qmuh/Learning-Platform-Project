@@ -19,7 +19,8 @@ import shared.objects.LoginInfo;
 import shared.objects.User;
 
 /**
- * Provides a class to host a
+ * Provides a class that acts as a server to handle login requests of the
+ * Wondris learning platform.
  *
  * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
  *         (30017293)

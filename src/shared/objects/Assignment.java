@@ -1,5 +1,6 @@
 package shared.objects;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.Random;
 
@@ -156,12 +157,12 @@ public class Assignment implements Serializable
 
 	}
 
-	public String getDir()
+	public String getFileName()
 	{
 		String tosend = "";
 		for (int i = path.length() - 1; i >= 0; i--)
 		{
-			if (path.charAt(i) == '/')
+			if (path.charAt(i) == File.separatorChar)
 			{
 				tosend = path.substring(0, i);
 				break;

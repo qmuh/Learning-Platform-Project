@@ -3,8 +3,21 @@ package shared.objects;
 import java.io.Serializable;
 import java.util.Random;
 
+/**
+ * Provides a class to represent a course object.
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 13, 2018
+ */
 public class Course implements Serializable
 {
+	/**
+	 * The version of the class.
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * The id for the course
 	 */
@@ -33,9 +46,13 @@ public class Course implements Serializable
 	 * Constructor used to initialize courses from a pre-made text file
 	 * 
 	 * @param courseID
+	 *            the identification number of the course
 	 * @param profID
+	 *            the professor's identification number
 	 * @param courseName
+	 *            the name of the course
 	 * @param isActive
+	 *            whether the course is active and visible to students
 	 */
 	public Course(int courseID, int profID, String courseName, Boolean isActive)
 	{
@@ -49,8 +66,11 @@ public class Course implements Serializable
 	 * Used to create a course that is used by the professor
 	 * 
 	 * @param profID
+	 *            the id of the professor that the course belongs to
 	 * @param courseName
+	 *            the name of the course
 	 * @param isActive
+	 *            whether the course is active
 	 */
 	public Course(int profID, String courseName, Boolean isActive)
 	{

@@ -243,7 +243,6 @@ public class StudentSession extends ClientSession
 				e.printStackTrace();
 			}
 		}
-
 	}
 
 	@Override

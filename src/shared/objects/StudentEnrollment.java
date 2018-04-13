@@ -3,8 +3,20 @@ package shared.objects;
 import java.io.Serializable;
 import java.util.Random;
 
+/**
+ * Provides a class to represent a student enrollment object.
+ * 
+ * @author Trevor Le (30028725), Qasim Muhammad (30016415), Jimmy Truong
+ *         (30017293)
+ * @version 1.0
+ * @since April 13, 2018
+ */
 public class StudentEnrollment implements Serializable
 {
+	/**
+	 * The version of the class.
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * The identification for enrolling a student to a class
@@ -20,11 +32,6 @@ public class StudentEnrollment implements Serializable
 	 * The id for the course which the student is being enrolled into
 	 */
 	private int course_id;
-
-	/**
-	 * No idea ?????
-	 */
-	private Boolean enrolling;
 
 	public StudentEnrollment(int stuID, int courseID)
 	{
@@ -47,10 +54,5 @@ public class StudentEnrollment implements Serializable
 	public int getCourse_id()
 	{
 		return course_id;
-	}
-
-	public Boolean getEnrolling()
-	{
-		return enrolling;
 	}
 }

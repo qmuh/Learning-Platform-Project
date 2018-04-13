@@ -1,5 +1,6 @@
 package frontend.view.pages.items.submission;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.BoxLayout;
@@ -30,9 +31,8 @@ abstract public class SubmitItem extends GeneralItem
 	{
 		super(BoxLayout.X_AXIS, Integer.toString(submission.getId()));
 		this.submission = submission;
-
+		this.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
 		this.setBackground(SECONDARY_COLOR);
-
 		this.add(makeSubmissionPanel());
 	}
 
@@ -61,5 +61,4 @@ abstract public class SubmitItem extends GeneralItem
 	{
 		return submission.getId();
 	}
-
 }

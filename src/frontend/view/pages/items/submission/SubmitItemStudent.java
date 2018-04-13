@@ -10,7 +10,5 @@ final public class SubmitItemStudent extends SubmitItem
 	public SubmitItemStudent(Submission submission)
 	{
 		super(submission);
-		// TODO Auto-generated constructor stub
 	}
-
 }

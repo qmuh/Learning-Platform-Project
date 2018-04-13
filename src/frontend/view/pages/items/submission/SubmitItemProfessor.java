@@ -1,6 +1,7 @@
 package frontend.view.pages.items.submission;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -48,7 +49,6 @@ final public class SubmitItemProfessor extends SubmitItem
 		}
 		gradeField.setHorizontalAlignment(JTextField.RIGHT);
 		gradeField.setFont(TEXT_FONT);
-		System.out.println("GRADE : " + submission.getGrade());
 		gradeField.setText(Integer.toString(submission.getGrade()));
 		gradeFieldPanel.add(gradeField, new GridBagConstraints());
 		return gradeFieldPanel;
@@ -56,7 +56,7 @@ final public class SubmitItemProfessor extends SubmitItem
 	
 	private JPanel createPercentLabel()
 	{
-		JPanel percentPanel = new JPanel();
+		JPanel percentPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		WLabel percent = new WLabel("%");
 		percentPanel.add(percent);
 		return percentPanel;

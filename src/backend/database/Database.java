@@ -48,8 +48,19 @@ public class Database implements DatabaseProperties, UserInfo
 	@SuppressWarnings("unused")
 	private PreparedStatement preparedStatement;
 
+	/**
+	 * The assignment table.
+	 */
 	private AssignmentTable assignmentTable;
+	
+	/**
+	 * The course table.
+	 */
 	private CourseTable courseTable;
+	
+	/**
+	 * The grade table.
+	 */
 	private GradeTable gradeTable;
 	private StudentEnrollmentTable studentEnrollmentTable;
 	private UserTable userTable;

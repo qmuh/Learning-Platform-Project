@@ -258,6 +258,7 @@ public class StudentGUI extends PageNavigator implements StudentCommands
 				e.printStackTrace();
 			}
 		};
+		
 		submissionPageStudent.setRefreshBehaviour(function);
 
 		completeCoursePage(submissionPageStudent, course);

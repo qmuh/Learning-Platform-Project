@@ -99,17 +99,21 @@ public abstract class Page<T extends Box, U> extends JPanel
 	public void refresh()
 	{
 		this.itemDisplay.removeAll();
+		this.itemDisplay.repaint();
 		this.itemDisplay.revalidate();
 		this.itemDisplay.repaint();
+		this.itemDisplay.revalidate();
 		System.out.println("Refreshing: " + this.getName());
 		this.function.refresh();
+		System.out.println(itemDisplay.getComponentCount());
 	}
 	
 	public void addToBoxList(T item)
 	{
 		itemDisplay.add(item);
-		// TODO: Consider removal.
-		itemDisplay.revalidate();
-		itemDisplay.repaint();
+		this.itemDisplay.repaint();
+		this.itemDisplay.revalidate();
+		this.itemDisplay.repaint();
+		this.itemDisplay.revalidate();
 	}
 }

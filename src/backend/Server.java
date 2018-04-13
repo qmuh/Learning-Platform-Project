@@ -157,7 +157,6 @@ public class Server implements ServerInfo, UserInfo
 				{
 					// User is not logged in.
 					return;
-
 				}
 
 				clientSession.setDatabase(database);
